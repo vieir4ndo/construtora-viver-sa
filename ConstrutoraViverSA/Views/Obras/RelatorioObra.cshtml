@@ -7,13 +7,19 @@
                 <b>Nome</b>
             </div>
             <div class="col-sm">
-                <b>Genero</b>
+                <b>Endereço</b>
             </div>
             <div class="col-lg">
-                <b>E-mail</b>
+                <b>Tipo de Obra</b>
             </div>
             <div class="col-sm">
-                <b>Data de Nascimento</b>
+                <b>Descrição</b>
+            </div>
+            <div class="col-sm">
+                <b>Valor</b>
+            </div>
+            <div class="col-sm">
+                <b>Prazo de Conclusão</b>
             </div>
         </div>
         @if (Model.Obras != null)
@@ -25,10 +31,16 @@
                         @obra.Nome
                     </div>
                     <div class="col-sm">
-                        @obra.Descricao
+                        @obra.Endereco
                     </div>
                     <div class="col-lg">
-                        @obra.Endereco
+                        @obra.TipoObra
+                    </div>
+                    <div class="col-sm">
+                        @obra.Descricao
+                    </div>
+                    <div class="col-sm">
+                        @obra.Valor
                     </div>
                     <div class="col-sm">
                         @obra.PrazoConclusao

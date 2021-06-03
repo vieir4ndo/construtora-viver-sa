@@ -371,3 +371,4 @@ C:\Workspace\construtoraviversa\ConstrutoraViverSA\obj\Debug\netcoreapp3.1\Razor
 C:\Workspace\construtoraviversa\ConstrutoraViverSA\obj\Debug\netcoreapp3.1\Razor\Views\Orcamentos\AdicionarOrcamento.cshtml.g.cs
 C:\Workspace\construtoraviversa\ConstrutoraViverSA\obj\Debug\netcoreapp3.1\Razor\Views\Orcamentos\EditarOrcamento.cshtml.g.cs
 C:\Workspace\construtoraviversa\ConstrutoraViverSA\obj\Debug\netcoreapp3.1\Razor\Views\Orcamentos\RelatorioOrcamento.cshtml.g.cs
+C:\Workspace\construtoraviversa\ConstrutoraViverSA\obj\Debug\netcoreapp3.1\ConstrutoraViverSA.MvcApplicationPartsAssemblyInfo.cs

@@ -7,13 +7,22 @@
                 <b>Nome</b>
             </div>
             <div class="col-sm">
-                <b>Genero</b>
+                <b>Descrição</b>
             </div>
             <div class="col-lg">
-                <b>E-mail</b>
+                <b>Endereço</b>
             </div>
             <div class="col-sm">
-                <b>Data de Nascimento</b>
+                <b>Tipo de Obra</b>
+            </div>
+            <div class="col-sm">
+                <b>Data de Emissão</b>
+            </div>
+            <div class="col-sm">
+                <b>Data de Validade</b>
+            </div>
+            <div class="col-sm">
+                <b>Valor</b>
             </div>
         </div>
         @if (Model.Orcamentos != null)
@@ -25,13 +34,19 @@
                         @orcamento.Descricao
                     </div>
                     <div class="col-sm">
-                        @orcamento.DataValidade
+                        @orcamento.Endereco
                     </div>
                     <div class="col-lg">
+                        @orcamento.TipoObra
+                    </div>
+                    <div class="col-sm">
                         @orcamento.DataEmissao
                     </div>
                     <div class="col-sm">
-                        @orcamento.Endereco
+                        @orcamento.DataValidade
+                    </div>
+                    <div class="col-sm">
+                        @orcamento.Valor
                     </div>
                 </div>
             }

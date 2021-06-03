@@ -7,13 +7,25 @@
                 <b>Nome</b>
             </div>
             <div class="col-sm">
+                <b>Data de Nascimento</b>
+            </div>
+            <div class="col-sm">
                 <b>Genero</b>
+            </div>
+            <div class="col-lg">
+                <b>CPF</b>
+            </div>
+            <div class="col-lg">
+                <b>Número CTPS</b>
             </div>
             <div class="col-lg">
                 <b>E-mail</b>
             </div>
-            <div class="col-sm">
-                <b>Data de Nascimento</b>
+            <div class="col-lg">
+                <b>Telefone</b>
+            </div>
+            <div class="col-lg">
+                <b>Cargo</b>
             </div>
         </div>
         @if (Model.Funcionarios != null)
@@ -25,13 +37,25 @@
                         @funcionario.Nome
                     </div>
                     <div class="col-sm">
-                        @funcionario.Genero
+                        @funcionario.DataNascimento
                     </div>
                     <div class="col-lg">
+                        @funcionario.Cpf
+                    </div>
+                    <div class="col-sm">
+                        @funcionario.NumCtps
+                    </div>
+                    <div class="col-sm">
+                        @funcionario.Endereco
+                    </div>
+                    <div class="col-sm">
                         @funcionario.Email
                     </div>
                     <div class="col-sm">
-                        @funcionario.DataNascimento
+                        @funcionario.Telefone
+                    </div>
+                    <div class="col-sm">
+                        @funcionario.Cargo
                     </div>
                 </div>
             }
