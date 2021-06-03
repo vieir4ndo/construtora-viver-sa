@@ -1,11 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ConstrutoraViverSA.Views.Orcamentos
-{
-    public class RelatorioOrcamento
-    {
-    }
-}
+﻿@model RelatorioModel
+<div>
+    <h2 class="text-center">Relatório de Orçamentos</h2><br />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <b>Nome</b>
+            </div>
+            <div class="col-sm">
+                <b>Genero</b>
+            </div>
+            <div class="col-lg">
+                <b>E-mail</b>
+            </div>
+            <div class="col-sm">
+                <b>Data de Nascimento</b>
+            </div>
+        </div>
+        @if (Model.Orcamentos != null)
+        {
+            @foreach (var orcamento in Model.Orcamentos)
+            {
+                <div class="row">
+                    <div class="col-sm">
+                        @orcamento.Descricao
+                    </div>
+                    <div class="col-sm">
+                        @orcamento.DataValidade
+                    </div>
+                    <div class="col-lg">
+                        @orcamento.DataEmissao
+                    </div>
+                    <div class="col-sm">
+                        @orcamento.Endereco
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <br />
+            <div class="text-center">
+                <p>Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
+            </div>
+        }
+        <br />
+        <a type="button" asp-area="" asp-controller="Orcamentos" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
+    </div>
+</div>

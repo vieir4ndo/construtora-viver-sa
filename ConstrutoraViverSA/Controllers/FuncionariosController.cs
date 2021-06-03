@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Controllers
 {
@@ -26,6 +27,7 @@ namespace ConstrutoraViverSA.Controllers
 
             var FuncionarioTeste = new Funcionario();
             FuncionarioTeste.Nome = "Madeira";
+            FuncionarioTeste.Genero = GeneroEnum.Feminino;
             FuncionarioTeste.NumCtps = "Teste";
 
             Funcionario.Add(FuncionarioTeste);

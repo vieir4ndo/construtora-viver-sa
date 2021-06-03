@@ -1,11 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ConstrutoraViverSA.Views.Obras
-{
-    public class RelatorioObra
-    {
-    }
-}
+﻿@model RelatorioModel
+<div>
+    <h2 class="text-center">Relatório de Obras</h2><br />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <b>Nome</b>
+            </div>
+            <div class="col-sm">
+                <b>Genero</b>
+            </div>
+            <div class="col-lg">
+                <b>E-mail</b>
+            </div>
+            <div class="col-sm">
+                <b>Data de Nascimento</b>
+            </div>
+        </div>
+        @if (Model.Obras != null)
+        {
+            @foreach (var obra in Model.Obras)
+            {
+                <div class="row">
+                    <div class="col-sm">
+                        @obra.Nome
+                    </div>
+                    <div class="col-sm">
+                        @obra.Descricao
+                    </div>
+                    <div class="col-lg">
+                        @obra.Endereco
+                    </div>
+                    <div class="col-sm">
+                        @obra.PrazoConclusao
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <br />
+            <div class="text-center">
+                <p>Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
+            </div>
+        }
+        <br />
+        <a type="button" asp-area="" asp-controller="Obras" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
+    </div>
+</div>
