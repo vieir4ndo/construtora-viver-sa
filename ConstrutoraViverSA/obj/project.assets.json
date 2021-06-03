@@ -427,6 +427,30 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "ConstrutoraViverSA.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/ConstrutoraViverSA.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ConstrutoraViverSA.Domain.dll": {}
+        }
+      },
+      "ConstrutoraViverSA.Infraestrutura/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "ConstrutoraViverSA.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "5.0.6"
+        },
+        "compile": {
+          "bin/placeholder/ConstrutoraViverSA.Infraestrutura.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ConstrutoraViverSA.Infraestrutura.dll": {}
+        }
       }
     }
   },
@@ -1203,10 +1227,22 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ConstrutoraViverSA.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ConstrutoraViverSA.Domain/ConstrutoraViverSA.Domain.csproj",
+      "msbuildProject": "../ConstrutoraViverSA.Domain/ConstrutoraViverSA.Domain.csproj"
+    },
+    "ConstrutoraViverSA.Infraestrutura/1.0.0": {
+      "type": "project",
+      "path": "../ConstrutoraViverSA.Infraestrutura/ConstrutoraViverSA.Infraestrutura.csproj",
+      "msbuildProject": "../ConstrutoraViverSA.Infraestrutura/ConstrutoraViverSA.Infraestrutura.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "ConstrutoraViverSA.Domain >= 1.0.0",
+      "ConstrutoraViverSA.Infraestrutura >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.15",
       "Microsoft.EntityFrameworkCore >= 5.0.6",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.10.9"
@@ -1238,7 +1274,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Workspace\\construtoraviversa\\ConstrutoraViverSA.Domain\\ConstrutoraViverSA.Domain.csproj": {
+              "projectPath": "C:\\Workspace\\construtoraviversa\\ConstrutoraViverSA.Domain\\ConstrutoraViverSA.Domain.csproj"
+            },
+            "C:\\Workspace\\construtoraviversa\\ConstrutoraViverSA.Infraestrutura\\ConstrutoraViverSA.Infraestrutura.csproj": {
+              "projectPath": "C:\\Workspace\\construtoraviversa\\ConstrutoraViverSA.Infraestrutura\\ConstrutoraViverSA.Infraestrutura.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

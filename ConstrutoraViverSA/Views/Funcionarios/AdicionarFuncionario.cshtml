@@ -1,0 +1,89 @@
+﻿<div>
+    <h2 class="text-center">Cadastro de Funcionarios</h2><br />
+    <form asp-controller="Funcionarios" asp-action="CadastrarFuncionario">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Nome</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label>Data de Nascimento</label>
+                <input type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Gênero</label>
+                <select class="form-control">
+                    <option value="0">Masculino</option>
+                    <option value="1">Feminino</option>
+                    <option value="2">Não binário</option>
+                    <option value="3">Outro</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label>CPF</label>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Número da CTPS</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label>Endereço</label>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>E-mail</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label>Telefone</label>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Cargo</label>
+                <select class="form-control">
+                    <option value="0">Sócio-proprietário</option>
+                    <option value="1">Recepcionista</option>
+                    <option value="2">Auxiliar de Suprimentos</option>
+                    <option value="3">Assistente de Suprimentos</option>
+                    <option value="4">Aualista de Suprimentos</option>
+                    <option value="5">Gerente de Suprimentos</option>
+                    <option value="6">Auxiliar de Recursos Humanos</option>
+                    <option value="7">Assistente de Recursos Humanos</option>
+                    <option value="8">Analista de Recursos Humanos</option>
+                    <option value="9">Gerente de Recursos Humanos</option>
+                    <option value="10">Técnico em Saúde e Segurança do Trabalho</option>
+                    <option value="11">Auxiliar Financeiro</option>
+                    <option value="12">Assistente Financeiro</option>
+                    <option value="13">Analista Financeiro</option>
+                    <option value="14">Gerente Financeiro</option>
+                    <option value="15">Almoxarife</option>
+                    <option value="16">Analista de Qualidade</option>
+                    <option value="17">Gerente de Qualidade</option>
+                    <option value="18">Menor Aprendiz</option>
+                    <option value="19">Estágiario</option>
+                    <option value="20">Engenheiro Cívil</option>
+                    <option value="21">Arquiteto</option>
+                    <option value="22">Técnico em Edificações</option>
+                    <option value="23">Diretor de Fábrica</option>
+                    <option value="24">Pedreiro</option>
+                    <option value="25">Pedreiro de Acabamento</option>
+                    <option value="26">Carpinteiro</option>
+                    <option value="27">Mestre de Obras</option>
+                    <option value="28">Servente</option>
+                    <option value="29">Armador</option>
+                </select>
+            </div>
+        </div><br />
+        <button type="submit" class="btn btn-outline-success btn-block">Cadastrar</button><br />
+        <a type="button" asp-area="" asp-controller="Funcionarios" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
+    </form>
+</div>

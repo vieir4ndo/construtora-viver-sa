@@ -1,0 +1,48 @@
+﻿@model RelatorioModel
+<div>
+    <h2 class="text-center">Relatório de Funcionários</h2><br />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <b>Nome</b>
+            </div>
+            <div class="col-sm">
+                <b>Genero</b>
+            </div>
+            <div class="col-lg">
+                <b>E-mail</b>
+            </div>
+            <div class="col-sm">
+                <b>Data de Nascimento</b>
+            </div>
+        </div>
+        @if (Model.Funcionarios != null)
+        {
+            @foreach (var funcionario in Model.Funcionarios)
+            {
+                <div class="row">
+                    <div class="col-sm">
+                        @funcionario.Nome
+                    </div>
+                    <div class="col-sm">
+                        @funcionario.Genero
+                    </div>
+                    <div class="col-lg">
+                        @funcionario.Email
+                    </div>
+                    <div class="col-sm">
+                        @funcionario.DataNascimento
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="row">
+                Não foi possível gerar seu relatório ou você não possui dados cadastrados!
+            </div>
+        }
+        <br />
+        <a type="button" asp-area="" asp-controller="Funcionarios" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
+    </div>
+</div>

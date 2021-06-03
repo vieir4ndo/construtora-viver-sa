@@ -1,0 +1,28 @@
+﻿<div class="text-center">
+    @{
+        ViewData["Title"] = "Estoque";
+    }
+    <h1>@ViewData["Title"]</h1><br />
+
+    <div class="card">
+        <img class="card-img-top" src="~/img/materiais.adicionar.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Cadastro de Materiais no Estoque</h5>
+            <a class="btn btn-success" asp-area="" asp-controller="Estoque" asp-action="AdicionarMaterial">Cadastrar</a>
+        </div>
+    </div>
+    <div class="card">
+        <img class="card-img-top" src="~/img/materiais.editar.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Edição de Materiais no Estoque</h5>
+            <a class="btn btn-success" asp-area="" asp-controller="Estoque" asp-action="EditarMaterial">Editar</a>
+        </div>
+    </div>
+    <div class="card">
+        <img class="card-img-top" src="~/img/materiais.relatorios.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Relatório de Materiais no Estoque</h5>
+            <a class="btn btn-success" asp-area="" asp-controller="Estoque" asp-action="RelatorioMaterial" >Relatórios</a>
+        </div>
+    </div>
+</div>
