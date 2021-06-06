@@ -1,10 +1,19 @@
-﻿using ConstrutoraViverSA.Models;
+﻿using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Models;
+using ConstrutoraViverSA.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ConstrutoraViverSA.Controllers
 {
     public class OrcamentosController : Controller
     {
+        private readonly OrcamentoService _orcamentoService;
+        public OrcamentosController()
+        {
+            _orcamentoService = new OrcamentoService();
+        }
         public IActionResult Index()
         {
             return View();
@@ -20,24 +29,67 @@ namespace ConstrutoraViverSA.Controllers
 
         public IActionResult RelatorioOrcamento()
         {
+            var orcamentos = _orcamentoService.BuscarOrcamentos();
+
             var relatorio = new RelatorioModel();
+            relatorio.Orcamentos = orcamentos;
 
             return View(relatorio);
         }
 
-        public IActionResult CadastrarOrcamento()
+        public IActionResult CadastrarOrcamento(string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
         {
-            var model = new OrcamentoModel();
-            model.Descricao = "Teste";
-            return View("AdicionarOrcamento", model);
+            Orcamento orcamento = new Orcamento(
+                Descricao,
+                Endereco,
+                (TipoObraEnum)TipoObra,
+                Convert.ToDateTime(DataEmissao),
+                Convert.ToDateTime(DataValidade),
+                Convert.ToDouble(Valor)
+             );
+
+            _orcamentoService.AdicionarOrcamento(orcamento);
+
+            return View("AdicionarOrcamento");
         }
 
-        public IActionResult BuscarOrcamento()
+        public IActionResult BuscarOrcamento(long BuscaId)
         {
-            var model = new OrcamentoModel();
-            model.Descricao = "Teste";
-            return View("EditarOrcamento", model);
+            var consulta = _orcamentoService.BuscarOrcamentoPorId(BuscaId);
+
+            OrcamentoModel OrcamentoModel = new OrcamentoModel(
+                consulta.Id,
+                consulta.Descricao,
+                consulta.Endereco,
+                (TipoObraEnum)consulta.TipoObra,
+                Convert.ToDateTime(consulta.DataEmissao),
+                Convert.ToDateTime(consulta.DataValidade),
+                Convert.ToDouble(consulta.Valor)
+                );
+
+            return View("EditarOrcamento", OrcamentoModel);
         }
 
+        public IActionResult AlterarOrcamento(long Id, string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
+        {
+            Orcamento OrcamentoEditado = new Orcamento(
+                Descricao,
+                Endereco,
+                (TipoObraEnum)TipoObra,
+                Convert.ToDateTime(DataEmissao),
+                Convert.ToDateTime(DataValidade),
+                Convert.ToDouble(Valor)
+             );
+
+            _orcamentoService.AlterarOrcamento(Id, OrcamentoEditado);
+
+            return View("EditarOrcamento");
+        }
+        public IActionResult ExcluirOrcamento(long IdExcluir)
+        {
+            _orcamentoService.ExcluirOrcamento(IdExcluir);
+
+            return View("EditarOrcamento");
+        }
     }
 }

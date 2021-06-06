@@ -4,7 +4,6 @@ using ConstrutoraViverSA.Models;
 using ConstrutoraViverSA.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 
 namespace ConstrutoraViverSA.Controllers
 {
@@ -38,7 +37,7 @@ namespace ConstrutoraViverSA.Controllers
             return View(relatorio);
         }
 
-        public IActionResult CadastrarObra(string nome,string endereco,TipoObraEnum tipoObra,string descricao, double valor, DateTime prazoConclusao)
+        public IActionResult CadastrarObra(string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
         {
             Obra obra = new Obra(
                  nome,

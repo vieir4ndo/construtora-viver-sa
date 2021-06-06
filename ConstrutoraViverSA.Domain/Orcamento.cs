@@ -13,5 +13,24 @@ namespace ConstrutoraViverSA.Domain
         public DateTime? DataValidade { get; set; }
         public double? Valor { get; set; }
 
+       public Orcamento() { }
+        
+       public Orcamento
+        (
+            string descricao,
+            string endereco,
+            TipoObraEnum tipoObra,
+            DateTime dataEmissao,
+            DateTime dataValidade,
+            double valor
+        )
+        {
+            Descricao = descricao;
+            Endereco = endereco;
+            TipoObra = tipoObra;
+            DataEmissao = dataEmissao;
+            DataValidade = dataValidade;
+            Valor = valor;
+        }
     }
 }
