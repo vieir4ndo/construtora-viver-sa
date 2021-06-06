@@ -27,8 +27,4 @@
     <ProjectReference Include="..\ConstrutoraViverSA.Infraestrutura\ConstrutoraViverSA.Infraestrutura.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mappers\" />
-  </ItemGroup>
-
 </Project>

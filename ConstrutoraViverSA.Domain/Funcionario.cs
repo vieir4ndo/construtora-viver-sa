@@ -15,5 +15,29 @@ namespace ConstrutoraViverSA.Domain
         public string Email { get; set; }
         public string Telefone { get; set; }
         public CargoEnum? Cargo { get; set; }
+        public Funcionario() { }
+        public Funcionario
+            (
+            string nome,
+            DateTime dataNascimento,
+            GeneroEnum genero,
+            string cpf,
+            string numCtps,
+            string endereco,
+            string email,
+            string telefone,
+            CargoEnum cargo
+            )
+        {
+            Nome = nome;
+            DataNascimento = dataNascimento;
+            Genero = genero;
+            Cpf = cpf;
+            NumCtps = numCtps;
+            Endereco = endereco;
+            Email = email;
+            Telefone = telefone;
+            Cargo = cargo;
+        }
     }
 }

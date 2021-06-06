@@ -3,58 +3,58 @@
     <h2 class="text-center">Relatório de Funcionários</h2><br />
     <div class="container">
         <div class="row">
-            <div class="col-sm">
+            <div class="col">
+                <b>Id</b>
+            </div>
+            <div class="col">
                 <b>Nome</b>
             </div>
-            <div class="col-sm">
+            <div class="col">
                 <b>Data de Nascimento</b>
             </div>
-            <div class="col-sm">
-                <b>Genero</b>
+            <div class="col">
+                <b>Gênero</b>
             </div>
-            <div class="col-lg">
+            <div class="col">
                 <b>CPF</b>
             </div>
-            <div class="col-lg">
-                <b>Número CTPS</b>
-            </div>
-            <div class="col-lg">
+            <div class="col">
                 <b>E-mail</b>
             </div>
-            <div class="col-lg">
+            <div class="col">
                 <b>Telefone</b>
             </div>
-            <div class="col-lg">
+            <div class="col">
                 <b>Cargo</b>
             </div>
         </div>
-        @if (Model.Funcionarios != null)
+        @if (Model.Funcionarios != null && Model.Funcionarios.Any())
         {
             @foreach (var funcionario in Model.Funcionarios)
             {
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col">
+                        @funcionario.Id
+                    </div>
+                    <div class="col">
                         @funcionario.Nome
                     </div>
-                    <div class="col-sm">
+                    <div class="col">
                         @funcionario.DataNascimento
                     </div>
-                    <div class="col-lg">
+                    <div class="col">
+                        @funcionario.Genero
+                    </div>
+                    <div class="col">
                         @funcionario.Cpf
                     </div>
-                    <div class="col-sm">
-                        @funcionario.NumCtps
-                    </div>
-                    <div class="col-sm">
-                        @funcionario.Endereco
-                    </div>
-                    <div class="col-sm">
+                    <div class="col">
                         @funcionario.Email
                     </div>
-                    <div class="col-sm">
+                    <div class="col">
                         @funcionario.Telefone
                     </div>
-                    <div class="col-sm">
+                    <div class="col">
                         @funcionario.Cargo
                     </div>
                 </div>
@@ -63,7 +63,7 @@
         else
         {
             <br />
-            <div class="text-center">
+            <div class="alert alert-secondary" role="alert">
                 <p>Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
             </div>
         }

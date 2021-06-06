@@ -4,6 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
+                <b>Id</b>
+            </div>
+            <div class="col-sm">
                 <b>Nome</b>
             </div>
             <div class="col-sm">
@@ -19,34 +22,37 @@
                 <b>Data de Validade</b>
             </div>
         </div>
-        @if (Model.Materiais != null)
+        @if (Model.Materiais != null && Model.Materiais.Any())
         {
             @foreach (var material in Model.Materiais)
             {
-    <div class="row">
-        <div class="col-sm">
-            @material.Nome
-        </div>
-        <div class="col-sm">
-            @material.Descricao
-        </div>
-        <div class="col-sm">
-            @material.Tipo
-        </div>
-        <div class="col-lg">
-            @material.Valor
-        </div>
-        <div class="col-sm">
-            @material.DataValidade
-        </div>
-    </div>
+                <div class="row">
+                    <div class="col-sm">
+                        @material.Id
+                    </div>
+                    <div class="col-sm">
+                        @material.Nome
+                    </div>
+                    <div class="col-sm">
+                        @material.Descricao
+                    </div>
+                    <div class="col-sm">
+                        @material.Tipo
+                    </div>
+                    <div class="col-lg">
+                        @material.Valor
+                    </div>
+                    <div class="col-sm">
+                        @material.DataValidade.GetValueOrDefault().Date
+                    </div>
+                </div>
             }
         }
         else
         {
             <br />
-            <div class="text-center">
-                <p >Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
+            <div class="alert alert-secondary" role="alert">
+                <p>Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
             </div>
         }
         <br />

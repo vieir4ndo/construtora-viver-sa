@@ -1,20 +1,20 @@
 ﻿<div>
     <h2 class="text-center">Cadastro de Funcionarios</h2><br />
-    <form asp-controller="Funcionarios" asp-action="CadastrarFuncionario">
+    <form asp-controller="Funcionarios" asp-action="CadastrarFuncionario" method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Nome</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" name="Nome" />
             </div>
             <div class="form-group col-md-6">
                 <label>Data de Nascimento</label>
-                <input type="date" class="form-control" />
+                <input type="date" class="form-control" name="DataNascimento"/>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Gênero</label>
-                <select class="form-control">
+                <select class="form-control" name="Genero">
                     <option value="0">Masculino</option>
                     <option value="1">Feminino</option>
                     <option value="2">Não binário</option>
@@ -23,33 +23,33 @@
             </div>
             <div class="form-group col-md-6">
                 <label>CPF</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" name="Cpf"/>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Número da CTPS</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" name="NumCtps"/>
             </div>
             <div class="form-group col-md-6">
                 <label>Endereço</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" name="Endereco"/>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>E-mail</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" name="Email" />
             </div>
             <div class="form-group col-md-6">
                 <label>Telefone</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" name="Telefone"/>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Cargo</label>
-                <select class="form-control">
+                <select class="form-control" name="Cargo">
                     <option value="0">Sócio-proprietário</option>
                     <option value="1">Recepcionista</option>
                     <option value="2">Auxiliar de Suprimentos</option>

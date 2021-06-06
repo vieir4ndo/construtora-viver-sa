@@ -5,21 +5,23 @@ namespace ConstrutoraViverSA.Models
 {
     public class MaterialModel
     {
+        public long Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public TipoMaterialEnum? Tipo { get; set; }
         public double? Valor { get; set; }
         public DateTime? DataValidade { get; set; }
-
         public MaterialModel
-        (
-            string nome,
-            string descricao,
-            TipoMaterialEnum tipo,
-            double valor,
-            DateTime dataValidade
-        ) 
+         (
+             long id,
+             string nome,
+             string descricao,
+             TipoMaterialEnum tipo,
+             double valor,
+             DateTime dataValidade
+         )
         {
+            Id = id;
             Nome = nome;
             Descricao = descricao;
             Tipo = tipo;
