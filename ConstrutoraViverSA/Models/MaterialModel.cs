@@ -1,6 +1,5 @@
 ﻿using ConstrutoraViverSA.Domain.Enums;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace ConstrutoraViverSA.Models
 {
@@ -12,6 +11,20 @@ namespace ConstrutoraViverSA.Models
         public double? Valor { get; set; }
         public DateTime? DataValidade { get; set; }
 
-        public MaterialModel() { }
+        public MaterialModel
+        (
+            string nome,
+            string descricao,
+            TipoMaterialEnum tipo,
+            double valor,
+            DateTime dataValidade
+        ) 
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Tipo = tipo;
+            Valor = valor;
+            DataValidade = dataValidade;
+        }
     }
 }

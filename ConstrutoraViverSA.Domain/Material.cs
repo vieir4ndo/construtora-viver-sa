@@ -11,5 +11,22 @@ namespace ConstrutoraViverSA.Domain
         public TipoMaterialEnum? Tipo { get; set; }
         public double? Valor { get; set; }
         public DateTime? DataValidade { get; set; }
+
+        public Material() { }
+        public Material
+       (
+           string nome,
+           string descricao,
+           TipoMaterialEnum tipo,
+           double valor,
+           DateTime dataValidade
+       )
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Tipo = tipo;
+            Valor = valor;
+            DataValidade = dataValidade;
+        }
     }
 }
