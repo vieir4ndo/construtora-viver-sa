@@ -49,11 +49,16 @@ namespace ConstrutoraViverSA.Controllers
 
             _obraService.AdicionarObra(obra);
 
-            return View("AdicionarObra");
+            return View("SucessoView");
         }
         public IActionResult BuscarObra(long BuscaId)
         {
             var consulta = _obraService.BuscarObraPorId(BuscaId);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
 
             ObraModel obraModel = new ObraModel(
                 consulta.Id,
@@ -69,6 +74,13 @@ namespace ConstrutoraViverSA.Controllers
         }
         public IActionResult AlterarObra(long Id, string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
         {
+            var consulta = _obraService.BuscarObraPorId(Id);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
+
             Obra ObraEditado = new Obra(
                  nome,
                  endereco,
@@ -79,13 +91,20 @@ namespace ConstrutoraViverSA.Controllers
 
             _obraService.AlterarObra(Id, ObraEditado);
 
-            return View("EditarObra");
+            return View("SucessoView");
         }
         public IActionResult ExcluirObra(long IdExcluir)
         {
+            var consulta = _obraService.BuscarObraPorId(IdExcluir);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
+
             _obraService.ExcluirObra(IdExcluir);
 
-            return View("EditarObra");
+            return View("SucessoView");
         }
 
     }

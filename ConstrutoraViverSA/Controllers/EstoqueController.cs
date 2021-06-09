@@ -10,7 +10,6 @@ namespace ConstrutoraViverSA.Controllers
 {
     public class EstoqueController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly EstoqueService _estoqueService;
 
         public EstoqueController()
@@ -53,12 +52,17 @@ namespace ConstrutoraViverSA.Controllers
 
             _estoqueService.AdicionarMaterial(material);
 
-            return View("AdicionarMaterial");
+            return View("SucessoView");
         }
 
         public IActionResult BuscarMaterial(long BuscaId)
         {
             var consulta = _estoqueService.BuscarMaterialPorId(BuscaId);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
 
             MaterialModel materialModel = new MaterialModel(
                 consulta.Id,
@@ -74,6 +78,13 @@ namespace ConstrutoraViverSA.Controllers
 
         public IActionResult AlterarMaterial(long Id, string Nome, string Descricao, int Tipo, double Valor, DateTime DataValidade)
         {
+            var consulta = _estoqueService.BuscarMaterialPorId(Id);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
+
             Material materialEditado = new Material(
              Nome,
              Descricao,
@@ -84,13 +95,20 @@ namespace ConstrutoraViverSA.Controllers
 
             _estoqueService.AlterarMaterial(Id, materialEditado);
 
-            return View("EditarMaterial");
+            return View("SucessoView");
         }
         public IActionResult ExcluirMaterial(long IdExcluir)
         {
+            var consulta = _estoqueService.BuscarMaterialPorId(IdExcluir);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
+
             _estoqueService.ExcluirMaterial(IdExcluir);
 
-            return View("EditarMaterial");
+            return View("SucessoView");
         }
     }
 }

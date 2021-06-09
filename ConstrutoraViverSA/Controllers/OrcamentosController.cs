@@ -50,12 +50,17 @@ namespace ConstrutoraViverSA.Controllers
 
             _orcamentoService.AdicionarOrcamento(orcamento);
 
-            return View("AdicionarOrcamento");
+            return View("SucessoView");
         }
 
         public IActionResult BuscarOrcamento(long BuscaId)
         {
             var consulta = _orcamentoService.BuscarOrcamentoPorId(BuscaId);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
 
             OrcamentoModel OrcamentoModel = new OrcamentoModel(
                 consulta.Id,
@@ -72,6 +77,13 @@ namespace ConstrutoraViverSA.Controllers
 
         public IActionResult AlterarOrcamento(long Id, string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
         {
+            var consulta = _orcamentoService.BuscarOrcamentoPorId(Id);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
+
             Orcamento OrcamentoEditado = new Orcamento(
                 Descricao,
                 Endereco,
@@ -83,13 +95,20 @@ namespace ConstrutoraViverSA.Controllers
 
             _orcamentoService.AlterarOrcamento(Id, OrcamentoEditado);
 
-            return View("EditarOrcamento");
+            return View("SucessoView");
         }
         public IActionResult ExcluirOrcamento(long IdExcluir)
         {
+            var consulta = _orcamentoService.BuscarOrcamentoPorId(IdExcluir);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
+
             _orcamentoService.ExcluirOrcamento(IdExcluir);
 
-            return View("EditarOrcamento");
+            return View("SucessoView");
         }
     }
 }

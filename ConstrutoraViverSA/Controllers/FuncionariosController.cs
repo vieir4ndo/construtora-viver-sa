@@ -53,12 +53,17 @@ namespace ConstrutoraViverSA.Controllers
 
             _funcionarioService.AdicionarFuncionario(funcionario);
 
-            return View("AdicionarFuncionario");
+            return View("SucessoView");
         }
 
         public IActionResult BuscarFuncionario(long BuscaId)
         {
             var consulta = _funcionarioService.BuscarFuncionarioPorId(BuscaId);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
 
             FuncionarioModel funcionarioModel = new FuncionarioModel(
                 consulta.Id,
@@ -78,6 +83,13 @@ namespace ConstrutoraViverSA.Controllers
 
         public IActionResult AlterarFuncionario(long Id, string nome, DateTime dataNascimento, GeneroEnum genero, string cpf, string numCtps, string endereco, string email, string telefone, CargoEnum cargo)
         {
+            var consulta = _funcionarioService.BuscarFuncionarioPorId(Id);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
+
             Funcionario funcionarioEditado = new Funcionario(
                  nome,
                  dataNascimento,
@@ -91,13 +103,19 @@ namespace ConstrutoraViverSA.Controllers
 
             _funcionarioService.AlterarFuncionario(Id, funcionarioEditado);
 
-            return View("EditarFuncionario");
+            return View("SucessoView");
         }
         public IActionResult ExcluirFuncionario(long IdExcluir)
         {
+            var consulta = _funcionarioService.BuscarFuncionarioPorId(IdExcluir);
+
+            if (consulta == null)
+            {
+                return View("ErroView");
+            }
             _funcionarioService.ExcluirFuncionario(IdExcluir);
 
-            return View("EditarFuncionario");
+            return View("SucessoView");
         }
     }
 }
