@@ -1,32 +1,35 @@
 ﻿@model RelatorioModel
 <div>
     <h2 class="text-center">Relatório de Obras</h2><br />
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <b>Nome</b>
+    @if (Model.Obras != null && Model.Obras.Any())
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <b>Id</b>
+                </div>
+                <div class="col-sm">
+                    <b>Nome</b>
+                </div>
+                <div class="col-sm">
+                    <b>Endereço</b>
+                </div>
+                <div class="col-lg">
+                    <b>Tipo de Obra</b>
+                </div>
+                <div class="col-sm">
+                    <b>Descrição</b>
+                </div>
+                <div class="col-sm">
+                    <b>Valor</b>
+                </div>
             </div>
-            <div class="col-sm">
-                <b>Endereço</b>
-            </div>
-            <div class="col-lg">
-                <b>Tipo de Obra</b>
-            </div>
-            <div class="col-sm">
-                <b>Descrição</b>
-            </div>
-            <div class="col-sm">
-                <b>Valor</b>
-            </div>
-            <div class="col-sm">
-                <b>Prazo de Conclusão</b>
-            </div>
-        </div>
-        @if (Model.Obras != null && Model.Obras.Any())
-        {
             @foreach (var obra in Model.Obras)
             {
                 <div class="row">
+                    <div class="col-sm">
+                        @obra.Id
+                    </div>
                     <div class="col-sm">
                         @obra.Nome
                     </div>
@@ -42,20 +45,19 @@
                     <div class="col-sm">
                         @obra.Valor
                     </div>
-                    <div class="col-sm">
-                        @obra.PrazoConclusao
-                    </div>
                 </div>
             }
-        }
-        else
-        {
+        </div>
+    }
+    else
+    {
+        <div class="container">
             <br />
             <div class="alert alert-secondary" role="alert">
                 <p>Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
             </div>
-        }
-        <br />
-        <a type="button" asp-area="" asp-controller="Obras" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
-    </div>
+        </div>
+    }
+    <br />
+    <a type="button" asp-area="" asp-controller="Obras" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
 </div>

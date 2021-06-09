@@ -37,10 +37,10 @@
                 <div class="form-group col-md-6">
                     <label>Gênero</label>
                     <select class="form-control" name="Genero">
-                        <option value="0" selected="@Model.Genero == 0">Masculino</option>
-                        <option value="1"selected="@Model.Genero == 1">Feminino</option>
-                        <option value="2"selected="@Model.Genero == 2">Não binário</option>
-                        <option value="3"selected="@Model.Genero == 3">Outro</option>
+                        <option value="0" selected="@Model.GetGenero(0)">Masculino</option>
+                        <option value="1"selected="@Model.GetGenero(1)">Feminino</option>
+                        <option value="2"selected="@Model.GetGenero(2)">Não binário</option>
+                        <option value="3"selected="@Model.GetGenero(3)">Outro</option>
                     </select>
                 </div>
             </div>
@@ -72,36 +72,36 @@
                 <div class="form-group col-md-6">
                     <label>Cargo</label>
                     <select class="form-control" name="Cargo">
-                        <option value="0" selected="@Model.Cargo == 0">Sócio-proprietário</option>
-                        <option value="1" selected="@Model.Cargo == 1">Recepcionista</option>
-                        <option value="2" selected="@Model.Cargo == 2">Auxiliar de Suprimentos</option>
-                        <option value="3" selected="@Model.Cargo == 3">Assistente de Suprimentos</option>
-                        <option value="4" selected="@Model.Cargo == 4">Aualista de Suprimentos</option>
-                        <option value="5" selected="@Model.Cargo == 5">Gerente de Suprimentos</option>
-                        <option value="6" selected="@Model.Cargo == 6">Auxiliar de Recursos Humanos</option>
-                        <option value="7" selected="@Model.Cargo == 7">Assistente de Recursos Humanos</option>
-                        <option value="8" selected="@Model.Cargo == 8">Analista de Recursos Humanos</option>
-                        <option value="9" selected="@Model.Cargo == 9">Gerente de Recursos Humanos</option>
-                        <option value="10" selected="@Model.Cargo == 10">Técnico em Saúde e Segurança do Trabalho</option>
-                        <option value="11" selected="@Model.Cargo == 11">Auxiliar Financeiro</option>
-                        <option value="12" selected="@Model.Cargo == 12">Assistente Financeiro</option>
-                        <option value="13" selected="@Model.Cargo == 13">Analista Financeiro</option>
-                        <option value="14" selected="@Model.Cargo == 14">Gerente Financeiro</option>
-                        <option value="15" selected="@Model.Cargo == 15">Almoxarife</option>
-                        <option value="16" selected="@Model.Cargo == 16">Analista de Qualidade</option>
-                        <option value="17" selected="@Model.Cargo == 17">Gerente de Qualidade</option>
-                        <option value="18" selected="@Model.Cargo == 18">Menor Aprendiz</option>
-                        <option value="19" selected="@Model.Cargo == 19">Estágiario</option>
-                        <option value="20" selected="@Model.Cargo == 20">Engenheiro Cívil</option>
-                        <option value="21" selected="@Model.Cargo == 21">Arquiteto</option>
-                        <option value="22" selected="@Model.Cargo == 22">Técnico em Edificações</option>
-                        <option value="23" selected="@Model.Cargo == 23">Diretor de Fábrica</option>
-                        <option value="24" selected="@Model.Cargo == 24">Pedreiro</option>
-                        <option value="25" selected="@Model.Cargo == 25">Pedreiro de Acabamento</option>
-                        <option value="26" selected="@Model.Cargo == 26">Carpinteiro</option>
-                        <option value="27" selected="@Model.Cargo == 27">Mestre de Obras</option>
-                        <option value="28" selected="@Model.Cargo == 28">Servente</option>
-                        <option value="29" selected="@Model.Cargo == 29">Armador</option>
+                        <option value="0" selected="@Model.GetCargo(0)">Sócio-proprietário</option>
+                        <option value="1" selected="@Model.GetCargo(1)">Recepcionista</option>
+                        <option value="2" selected="@Model.GetCargo(2)">Auxiliar de Suprimentos</option>
+                        <option value="3" selected="@Model.GetCargo(3)">Assistente de Suprimentos</option>
+                        <option value="4" selected="@Model.GetCargo(4)">Aualista de Suprimentos</option>
+                        <option value="5" selected="@Model.GetCargo(5)">Gerente de Suprimentos</option>
+                        <option value="6" selected="@Model.GetCargo(6)">Auxiliar de Recursos Humanos</option>
+                        <option value="7" selected="@Model.GetCargo(7)">Assistente de Recursos Humanos</option>
+                        <option value="8" selected="@Model.GetCargo(8)">Analista de Recursos Humanos</option>
+                        <option value="9" selected="@Model.GetCargo(9)">Gerente de Recursos Humanos</option>
+                        <option value="10" selected="@Model.GetCargo(10)">Técnico em Saúde e Segurança do Trabalho</option>
+                        <option value="11" selected="@Model.GetCargo(11)">Auxiliar Financeiro</option>
+                        <option value="12" selected="@Model.GetCargo(12)">Assistente Financeiro</option>
+                        <option value="13" selected="@Model.GetCargo(13)">Analista Financeiro</option>
+                        <option value="14" selected="@Model.GetCargo(14)">Gerente Financeiro</option>
+                        <option value="15" selected="@Model.GetCargo(15)">Almoxarife</option>
+                        <option value="16" selected="@Model.GetCargo(16)">Analista de Qualidade</option>
+                        <option value="17" selected="@Model.GetCargo(17)">Gerente de Qualidade</option>
+                        <option value="18" selected="@Model.GetCargo(18)">Menor Aprendiz</option>
+                        <option value="19" selected="@Model.GetCargo(19)">Estágiario</option>
+                        <option value="20" selected="@Model.GetCargo(20)">Engenheiro Cívil</option>
+                        <option value="21" selected="@Model.GetCargo(21)">Arquiteto</option>
+                        <option value="22" selected="@Model.GetCargo(22)">Técnico em Edificações</option>
+                        <option value="23" selected="@Model.GetCargo(23)">Diretor de Fábrica</option>
+                        <option value="24" selected="@Model.GetCargo(24)">Pedreiro</option>
+                        <option value="25" selected="@Model.GetCargo(25)">Pedreiro de Acabamento</option>
+                        <option value="26" selected="@Model.GetCargo(26)">Carpinteiro</option>
+                        <option value="27" selected="@Model.GetCargo(27)">Mestre de Obras</option>
+                        <option value="28" selected="@Model.GetCargo(28)">Servente</option>
+                        <option value="29" selected="@Model.GetCargo(29)">Armador</option>
                     </select>
                 </div>
             </div>

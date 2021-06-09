@@ -1,35 +1,33 @@
 ﻿@model RelatorioModel
 <div>
     <h2 class="text-center">Relatório de Orçamentos</h2><br />
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <b>Nome</b>
+
+    @if (Model.Orcamentos != null && Model.Orcamentos.Any())
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <b>Id</b>
+                </div>
+                <div class="col-sm">
+                    <b>Descrição</b>
+                </div>
+                <div class="col-lg">
+                    <b>Endereço</b>
+                </div>
+                <div class="col-sm">
+                    <b>Tipo de Obra</b>
+                </div>
+                <div class="col-sm">
+                    <b>Valor</b>
+                </div>
             </div>
-            <div class="col-sm">
-                <b>Descrição</b>
-            </div>
-            <div class="col-lg">
-                <b>Endereço</b>
-            </div>
-            <div class="col-sm">
-                <b>Tipo de Obra</b>
-            </div>
-            <div class="col-sm">
-                <b>Data de Emissão</b>
-            </div>
-            <div class="col-sm">
-                <b>Data de Validade</b>
-            </div>
-            <div class="col-sm">
-                <b>Valor</b>
-            </div>
-        </div>
-        @if (Model.Orcamentos != null && Model.Orcamentos.Any())
-        {
             @foreach (var orcamento in Model.Orcamentos)
             {
                 <div class="row">
+                    <div class="col-sm">
+                        @orcamento.Id
+                    </div>
                     <div class="col-sm">
                         @orcamento.Descricao
                     </div>
@@ -40,25 +38,21 @@
                         @orcamento.TipoObra
                     </div>
                     <div class="col-sm">
-                        @orcamento.DataEmissao
-                    </div>
-                    <div class="col-sm">
-                        @orcamento.DataValidade
-                    </div>
-                    <div class="col-sm">
                         @orcamento.Valor
                     </div>
                 </div>
             }
-        }
-        else
-        {
+        </div>
+    }
+    else
+    {
+        <div class="container">
             <br />
             <div class="alert alert-secondary" role="alert">
                 <p>Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
             </div>
-        }
-        <br />
-        <a type="button" asp-area="" asp-controller="Orcamentos" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
-    </div>
+        </div>
+    }
+    <br />
+    <a type="button" asp-area="" asp-controller="Orcamentos" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
 </div>

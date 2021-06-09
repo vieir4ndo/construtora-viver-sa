@@ -28,5 +28,15 @@ namespace ConstrutoraViverSA.Models
             Valor = valor;
             DataValidade = dataValidade;
         }
+
+        public bool GetTipo(int tipo)
+        {
+            if ((TipoMaterialEnum)tipo == Tipo)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -32,5 +32,15 @@ namespace ConstrutoraViverSA.Models
             Valor = valor;
             PrazoConclusao = prazoConclusao;
         }
+
+        public bool GetTipoObra(int tipo)
+        {
+            if ((TipoObraEnum)tipo == TipoObra)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

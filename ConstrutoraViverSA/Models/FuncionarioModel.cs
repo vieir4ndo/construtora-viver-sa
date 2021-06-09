@@ -41,5 +41,24 @@ namespace ConstrutoraViverSA.Models
             Telefone = telefone;
             Cargo = cargo;
         }
+
+        public bool GetCargo(int tipo)
+        {
+            if ((CargoEnum)tipo == Cargo)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool GetGenero(int tipo)
+        {
+            if ((GeneroEnum)tipo == Genero)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
