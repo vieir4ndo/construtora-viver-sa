@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Consulta de Material no Estoque</title>
+</head>
+<body>
+	<table width="100%" >
+	<form action="menuEstoque.html">
+		<tr align="center">
+			<td colspan="3"><img src="img/logoConstrutora.png" width="200px"></td>
+		<tr align="center">
+			<td colspan="3">
+				<h2>Consulta de Material no Estoque</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+			</td>
+		</tr>
+		<tr>
+			<td colspan ="2" align="right">Procurar por:</td>
+			<td align="left">
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Nome</option>
+				<option value="pj">Valor</option>
+				<option value="pj">Data de Validade</option>
+			</select>
+			<br></td>
+			
+		</tr>
+		<tr>
+		<td align = "right" colspan ="2" align = "right" >Nome:</td>
+		
+		 <td  align="left" ><input type="text" name="conENome"
+					value="Tijolo Maciço">	
+		</td>
+		
+		<tr>
+		<td align ="center" colspan ="3"  >
+				<a href=>
+					<input type="button" name="conEBuscar" value="Buscar">
+				</a>
+			</td>
+		</tr>
+			
+			
+		</tr>
+		<tr>
+		<td colspan="3">
+				<p>
+			<td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Nome:</td>
+			<td width="52%" align="left"><input type="text" name="conENome"
+				value="Tijolo Maciço"><br></td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Descrição:</td>
+			<td width="52%" align="left"  ><textarea rows="2" cols="50" >Tijolo maciço destinado para construção de parede exposta</textarea></td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Tipo:</td>
+			<td width="52%" align="left">
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Madeira</option>
+				<option value="pj">Telha</option>
+				<option value="pj">Tijolo</option>
+				
+				<option value="pj">Cimento</option>
+			</select>
+			<br></td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Valor:</td>
+			<td width="52%" align="left"><input type="text" name="conEValor"
+				value="2.500,00"><br></td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Data de Validade:</td>
+			<td width="52%" align="left"><input type="text" name="conEDataValidade"
+				value="30/02/2020"><br></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<p>
+			<td>
+		</tr>
+			<tr>
+			<td colspan="3" width="50%" align = "center">
+				<input type="button" name="conESalvar" value="Salvar"
+				onclick="return alert('Registro salvo com sucesso!')">
+			</td>
+</tr>			
+		<tr>
+		<td colspan="3" width="50%" align="center">
+				<input type="button" name="conEExcluir" value="Excluir"
+				onclick="return alert('Registro deletado com sucesso!')">
+			</td>
+			
+		</tr>
+		<tr>
+		<td colspan="3" width="50%" align="center">
+				<input type="submit" name="conEVoltar" value="Voltar">
+			</td>
+			</tr>
+		</form>
+	</table>
+</body>
+</html>

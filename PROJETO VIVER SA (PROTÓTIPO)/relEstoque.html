@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Relatório de Material no Estoque</title>
+
+</head>
+<body>
+	<!--  
+	comentario
+	-->
+	<table width="100%" border="0">
+		<form action="menuEstoque.html">
+			<tr align="center">
+			<td colspan="4"><img src="img/logoConstrutora.png" width="200px"></td>
+		</tr>	
+			<tr align="center">
+				<td colspan="4">
+					<h2>Relatório de Material no Estoque</h2>
+				</td>
+
+			</tr>
+
+			<tr>
+			<td  align="center">Tipo:
+			
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Madeira</option>
+				<option value="pj">Telha</option>
+				<option value="pj">Tijolo</option>
+				<option value="pj">Cimento</option>
+			</select>
+			</td>
+			
+		</tr>
+			
+			<tr align="center">
+				<td align="center" colspan ="4"><input type="button" name="relEConsultar"
+					value="Consultar"></td>
+			</tr>
+
+			<tr align="center">
+				<td align="right" colspan="4"><br></td>
+		
+			</tr>
+	</table>
+	<table width="100%" border="1">
+		<tr align="left" color="grey">
+			<th colspan ="3" >Nome</th>
+			<th>Descrição</th>
+			<th >Valor</th>
+			<th>Data de Validade</th>
+					</tr>
+		<tr>
+		<td colspan ="3">Tijolo Maciço</td>
+			<td>Tijolo maciço destinado para construção de parede exposta.</td>
+			<td>2.500,00</td>
+			<td>20/02/2032</td>
+			
+		</tr>
+		<tr>
+	<td colspan ="3">Tijolo de Barro</td>
+			<td>Tijolo de Barro destinado para construção de casas biossustentáveis.</td>
+			<td>3.000,00</td>
+			<td>Não consta</td>
+			
+		</tr>
+		<tr>
+<td colspan ="3">Tijolo Furado</td>
+			<td>Tijolo Furado destinado para Churrasqueiras.</td>
+			<td>3.000,00</td>
+			<td>26/04/2030</td>
+			
+		</tr>
+		<tr>
+<td colspan ="3">Tijolo</td>
+			<td>Tijolo destinado para construções no geral.</td>
+			<td>400,00</td>
+			<td>11/01/2019</td>
+			
+		</tr>
+	</table>
+	<table width="100%" border="0">
+		<form action="menuEstoque.html">
+			<tr align="center">
+				<td width="46%" align="right" colspan="3"><br></td>
+				<td width="54%" align="left" colspan="3"><br></td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="button" name="relEImprimir"
+					 value="Imprimir"
+					onclick="return alert('Arquivo enviado para impressora Epson 3720!')">
+				</td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="submit" name="relEVoltar"
+					 value="Voltar"></td>
+			</tr>
+		</form>
+	</table>
+</body>
+</html>

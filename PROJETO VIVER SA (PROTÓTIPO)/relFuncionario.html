@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Relatório de Funcionários</title>
+
+</head>
+<body>
+	<!--  
+	comentario
+	-->
+	<table width="100%" border="0">
+		<form action="menuFuncionario.html">
+			<tr align="center">
+			<td colspan="3"><img src="img/logoConstrutora.png" width="200px"></td>
+		</tr>	
+			<tr align="center">
+				<td colspan="2">
+					<h2>Relatório de Funcionários</h2>
+				</td>
+
+			</tr>
+<tr>
+			<td  colspan="3"align="center">Procurar por:
+			
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Nome</option>
+				<option value="pj">CPF</option>
+			</select>
+			</td>
+			
+		</tr>
+			<tr align="center">
+				<td align="center">Nome:
+				<align="left"><input type="text" name="relFNome" 
+					value="Luã Gabriel Martini dos Reis"></td>
+			</tr>
+
+			<tr align="center">
+				<td align="center" colspan ="3"><input type="button" name="relFConsultar"
+					value="Consultar"></td>
+			</tr>
+
+			<tr align="center">
+				<td align="right" colspan="3"><br></td>
+				<td align="left" colspan="3"><br></td>
+			</tr>
+	</table>
+	<table width="100%" border="1">
+		<tr align="left" color="grey">
+			<th>Cód.</th>
+			<th>CPF</th>
+			<th>Nome</th>
+			<th>Endereço</th>
+			<th>Telefone</th>
+			<th>E-mail</th>
+		</tr>
+		<tr>
+			<td width="5%">023</td>
+			<td width="10%">954.654.668-88</td>
+			<td width="25%">Guilherme Goche Vassoler</td>
+			<td width="30%">Rua da Bossa Nova, 345 G</td>
+			<td width="10%">(49)9999-9999</td>
+			<td width="20%">gatoler43@email.com.br</td>
+		</tr>
+		<tr>
+			<td>027</td>
+			<td>112.654.775-33</td>
+			<td>Luã Gabriel Martini dos Reis</td>
+			<td>Rua Principal, 456 F, apartamento 22</td>
+			<td>(49)9999-9999</td>
+			<td>reireirei26@email.com</td>
+		</tr>
+		<tr>
+			<td>040</td>
+			<td>222.456.668-22</td>
+			<td>Evelyze Turmena</td>
+			<td>Rua General Osorio, 555 E</td>
+			<td>(49)9999-9999</td>
+			<td>souaeveamorzinho@email.com.br</td>
+		</tr>
+		<tr>
+			<td>056</td>
+			<td>111.687.228-32</td>
+			<td>Kauane Tosetto</td>
+			<td>Rua Principal, 456 D</td>
+			<td>(49)9999-9999</td>
+			<td>kaukau25@gmail.com</td>
+		</tr>
+	</table>
+	<table width="100%" border="0">
+		<form action="menuFuncionario.html">
+			<tr align="center">
+				<td width="46%" align="right" colspan="3"><br></td>
+				<td width="54%" align="left" colspan="3"><br></td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="button" name="relFImprimir"
+					 value="Imprimir"
+					onclick="return alert('Arquivo enviado para impressora Epson 3720!')">
+				</td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="submit" name="relFVoltar"
+					 value="Voltar"></td>
+			</tr>
+		</form>
+	</table>
+</body>
+</html>

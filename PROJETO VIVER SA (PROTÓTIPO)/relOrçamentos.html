@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Relatório de Orçamentos</title>
+
+</head>
+<body>
+	<!--  
+	comentario
+	-->
+	<table width="100%" border="0">
+		<form action="menuOrçamentos.html">
+			<tr align="center">
+			<td colspan="4"><img src="img/logoConstrutora.png" width="200px"></td>
+		</tr>	
+			<tr align="center">
+				<td colspan="4">
+					<h2>Relatório de Orçamentos</h2>
+				</td>
+
+			</tr>
+
+			<tr>
+			<td  align="center">Tipo:
+			
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Residencial</option>
+				<option value="pj">Comercial</option>
+				<option value="pj">Residencial e Comercial</option>
+			</select>
+			</td>
+			
+		</tr>
+			
+			<tr align="center">
+				<td align="center" colspan ="4"><input type="button" name="relOrConsultar"
+					value="Consultar"></td>
+			</tr>
+
+			<tr align="center">
+				<td align="right" colspan="4"><br></td>
+		
+			</tr>
+	</table>
+	<table width="100%" border="1">
+		<tr align="left" color="grey">
+			<th colspan ="2" >Descrição</th>
+			<th>Data de Emissão</th>
+			<th colspan ="2" >Data de Validade</th>
+			<th>Valor</th>
+					</tr>
+		<tr>
+		<td colspan ="2">Orçamento referente ao Residencial Bem Viver</td>
+			<td>02/03/2044</td>
+			<td  colspan ="2">06/07/2089</td>
+			<td>300.000,00</td>
+			
+		</tr>
+		<tr>
+					<td colspan ="2">Orçamento referente ao Edifício Gran Palazzo</td>
+			<td>02/03/2045</td>
+			<td  colspan ="2">06/07/2050</td>
+			<td>900.000,00</td>
+			
+		</tr>
+		<tr>
+		<td colspan ="2">Orçamento referente ao Edifício Permacult</td>
+			<td>02/03/2040</td>
+			<td  colspan ="2">06/07/2090</td>
+			<td>.1.000.000,00</td>
+			
+		</tr>
+		<tr>
+			<td colspan ="2">Orçamento referente ao Prédio Fazzolo</td>
+			<td>02/03/2017</td>
+			<td  colspan ="2">06/07/2019</td>
+			<td>134.000,00</td>
+			
+		</tr>
+	</table>
+	<table width="100%" border="0">
+		<form action="menuObras.html">
+			<tr align="center">
+				<td width="46%" align="right" colspan="3"><br></td>
+				<td width="54%" align="left" colspan="3"><br></td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="button" name="relOrImprimir"
+					 value="Imprimir"
+					onclick="return alert('Arquivo enviado para impressora Epson 3720!')">
+				</td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="submit" name="relOrVoltar"
+					 value="Voltar"></td>
+			</tr>
+		</form>
+	</table>
+</body>
+</html>

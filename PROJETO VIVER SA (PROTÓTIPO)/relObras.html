@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Relatório de Obras</title>
+
+</head>
+<body>
+	<!--  
+	comentario
+	-->
+	<table width="100%" border="0">
+		<form action="menuObras.html">
+			<tr align="center">
+			<td colspan="4"><img src="img/logoConstrutora.png" width="200px"></td>
+		</tr>	
+			<tr align="center">
+				<td colspan="4">
+					<h2>Relatório de Obras</h2>
+				</td>
+
+			</tr>
+
+			<tr>
+			<td  align="center">Período:
+			
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Jan/2018</option>
+				<option value="pj">Fev/2018</option>
+				<option value="pj">Mar/2018</option>
+				<option value="pj">Abr/2018</option>
+			</select>
+			</td>
+			
+		</tr>
+			
+			<tr align="center">
+				<td align="center" colspan ="4"><input type="button" name="relOConsultar"
+					value="Consultar"></td>
+			</tr>
+
+			<tr align="center">
+				<td align="right" colspan="4"><br></td>
+		
+			</tr>
+	</table>
+	<table width="100%" border="1">
+		<tr align="left" color="grey">
+			<th colspan ="2" >Nome da Obra</th>
+			<th>Tipo</th>
+			<th colspan ="2" >Descrição</th>
+			<th>Prazo de Conclusão</th>
+					</tr>
+		<tr>
+		<td colspan ="2">Dom Cavalcante</td>
+			<td>Residencial e Comercial</td>
+			<td  colspan ="2">A obra Dom Cavalcante compõe-se de um prédio de 7 andares com 10 apartamentos e 4 áreas comerciais.</td>
+			<td>20/02/2028</td>
+			
+		</tr>
+		<tr>
+			<td colspan ="2">Gran Palazzo</td>
+			<td>Residencial</td>
+			<td  colspan ="2">A obra Gran Palazzo compõe-se de um prédio de 15 andares com 30 apartamentos.</td>
+			<td>20/02/2028</td>
+			
+		</tr>
+		<tr>
+			<td colspan ="2"> Fazolo </td>
+			<td>Comercial</td>
+			<td  colspan ="2">A obra Fazolo refere-se a restauração do prédio de 3 andares da antiga loja.</td>
+			<td>20/02/2028</td>
+			
+		</tr>
+		<tr>
+			<td colspan ="2">Residencial Bem Viver</td>
+			<td>Residencial</td>
+			<td  colspan ="2">A obra Residencial Bem Viver compõe-se de 10 prédio de 4 andares com 8 apartamentos.</td>
+			<td>20/02/2028</td>
+			
+		</tr>
+	</table>
+	<table width="100%" border="0">
+		<form action="menuObras.html">
+			<tr align="center">
+				<td width="46%" align="right" colspan="3"><br></td>
+				<td width="54%" align="left" colspan="3"><br></td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="button" name="relOImprimir"
+					 value="Imprimir"
+					onclick="return alert('Arquivo enviado para impressora Epson 3720!')">
+				</td>
+			</tr>
+			<tr align="center">
+				<td align="right" colspan="3"></td>
+				<td align="left" colspan="3"><input type="submit" name="relOVoltar"
+					 value="Voltar"></td>
+			</tr>
+		</form>
+	</table>
+</body>
+</html>

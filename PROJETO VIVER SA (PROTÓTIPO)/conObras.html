@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Consulta de Obras</title>
+</head>
+<body>
+	<table width="100%" >
+	<form action="menuObras.html">
+		<tr align="center">
+			<td colspan="3"><img src="img/logoConstrutora.png" width="200px"></td>
+		<tr align="center">
+			<td colspan="3">
+				<h2>Consulta de Obras</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+			</td>
+		</tr>
+		<tr>
+			<td colspan ="2" align="right">Procurar por:</td>
+			<td align="left">
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Nome da Obra</option>
+				<option value="pj">Endereço</option>
+				<option value="pj">Prazo de Conslusão</option>
+			</select>
+			<br></td>
+			
+		</tr>
+		<tr>
+		<td align = "right" colspan ="2" align = "right" >Nome da Obra:</td>
+		
+		 <td  align="left" ><input type="text" name="conONomeObra"
+					value="Dom Cavalcante">	
+		</td>
+		
+		<tr>
+		<td align ="center" colspan ="3"  >
+				<a href=>
+					<input type="button" name="conOBuscar" value="Buscar">
+				</a>
+			</td>
+		</tr>
+			
+			
+		</tr>
+		<tr>
+		<td colspan="3">
+				<p>
+			<td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Nome da Obra:</td>
+			<td width="52%" align="left"><input type="text" name="conONomeObra"
+				value="Dom Cavalcante"><br></td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Endereço:</td>
+			<td width="52%" align="left"><input type="text" name="conOEndereco" value="Avenida Getulio Vargas, 674 E"><br>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Tipo:</td>
+			<td width="52%" align="left">
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Residencial</option>
+				<option value="pj">Comercial</option>
+				<option value="pj">Residencial e Comercial</option>
+			</select>
+			<br></td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Descrição:</td>
+			<td width="52%" align="left"  ><textarea rows="4" cols="50" >A obra Dom Cavalcante compõe-se de um prédio de 7 andares com 10 apartamentos e 4 áreas comerciais.</textarea></td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Valor:</td>
+			<td width="52%" align="left"><input type="text" name="conOValor" value="1.000.0000.0000"><br>
+			</td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Prazo de Conclusão:</td>
+			<td width="52%" align="left"><input type="text" name="conOPrazoConclusao" value="23/11/2018"><br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<p>
+			<td>
+		</tr>
+			<tr>
+			<td colspan="3" width="50%" align = "center">
+				<input type="button" name="conOSalvar" value="Salvar"
+				onclick="return alert('Registro salvo com sucesso!')">
+			</td>
+</tr>			
+		<tr>
+		<td colspan="3" width="50%" align="center">
+				<input type="button" name="conOExcluir" value="Excluir"
+				onclick="return alert('Registro deletado com sucesso!')">
+			</td>
+			
+		</tr>
+		<tr>
+		<td colspan="3" width="50%" align="center">
+				<input type="submit" name="conOVoltar" value="Voltar">
+			</td>
+			</tr>
+		</form>
+	</table>
+</body>
+</html>

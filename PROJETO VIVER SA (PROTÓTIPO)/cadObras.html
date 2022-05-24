@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Obras</title>
+</head>
+<body>
+	<table width="100%">
+	<form action="menuObras.html"
+	<tr>
+			<td align="center" colspan="3"  ><img  src="img/logoConstrutora.png" width="200px"></td>
+	</tr>
+		<tr align="center">
+			<td colspan="3">
+				<h2>Cadastro de Obras</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<p>
+			<td>
+		</tr>
+		
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Nome da Obra:</td>
+			<td width="52%" align="left"><input type="text" name="cadONomeObra"
+				value="Dom Cavalcante"><br></td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Endereço:</td>
+			<td width="52%" align="left"><input type="text" name="cadOEndereco" value="Avenida Getulio Vargas, 674 E"><br>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Tipo:</td>
+			<td width="52%" align="left">
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Residencial</option>
+				<option value="pj">Comercial</option>
+				<option value="pj">Residencial e Comercial</option>
+			</select>
+			<br></td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Descrição:</td>
+			<td width="52%" align="left"  ><textarea rows="4" cols="50" >A obra Dom Cavalcante compõe-se de um prédio de 7 andares com 10 apartamentos e 4 áreas comerciais.</textarea></td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Valor:</td>
+			<td width="52%" align="left"><input type="text" name="cadOValor" value="1.000.0000.0000"><br>
+			</td>
+		</tr>
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Prazo de Conclusão:</td>
+			<td width="52%" align="left"><input type="text" name="cadOPrazoConclusao" value="23/11/2018"><br>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				<p>
+			<td>
+		</tr>
+		<tr>
+			<td colspan="2" width="50%" align="right">
+				<input type="button" name="cadOSalvar" value="Salvar"
+						onclick="return alert('Registro salvo com sucesso!')">
+			</td>
+			<td width="50%" align="left">
+				<input type="submit" name="cadOVoltar" value="Voltar">
+			</td>
+		</tr>
+		</form>
+	</table>
+</body>
+</html>

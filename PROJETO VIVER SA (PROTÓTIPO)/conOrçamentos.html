@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Consulta de Orçamentos</title>
+</head>
+<body>
+	<table width="100%">
+	<form action="menuOrçamentos.html">
+		<tr align="center">
+			<td colspan="3"><img src="img/logoConstrutora.png" width="200px"></td>
+		</tr>	
+		<tr align="center">
+			<td colspan="3">
+				<h2>Consulta de Orçamentos</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<p>
+			<td>
+		</tr>
+	<tr>
+			<td colspan ="2" align="right">Procurar por:</td>
+			<td align="left">
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Valor</option>
+				<option value="pj">Data de Emissão</option>
+				<option value="pj">Data de Validade</option>
+			</select>
+			<br></td>
+			
+		</tr>
+		<tr>
+		<td align = "right" colspan ="2" align = "right" >Data de Validade:</td>
+		
+		 <td  align="left" ><input type="text" name="conOrNome"
+					value="30/02/2020">	
+		</td>
+		
+		<tr>
+		<td align ="center" colspan ="3"  >
+				<a href=>
+					<input type="button" name="conOrBuscar" value="Buscar">
+				</a>
+			</td>
+			
+			
+		</tr>
+		<tr>
+			<td colspan="3">
+				<p>
+			<td>
+		</tr>		
+		<tr>
+		    <td width="10%"></td>
+			<td width="38%" align="right">Descrição:</td>
+			<td width="52%" align="left"  ><textarea rows="2" cols="50" >Orçamento referente ao Residencial Bem Viver</textarea></td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Endereço:</td>
+			<td width="52%" align="left"><input type="text" name="conOrEndereço"
+				value="Rua das Rosas, 1444 E"><br></td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Tipo:</td>
+			<td width="52%" align="left">
+			<select>
+			    <option value="selecione" selected>-- Selecione --</option>
+				<option value="pf">Residencial</option>
+				<option value="pj">Comercial</option>
+				<option value="pj">Residencial e Comercial</option>
+			</select>
+			<br></td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Data de Emissão:</td>
+			<td width="52%" align="left"><input type="text" name="conOrDataEmissao"
+				value="15/02/2020"><br></td>
+		</tr>
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Data de Validade:</td>
+			<td width="52%" align="left"><input type="text" name="conOrDataValidade"
+				value="30/02/2020"><br></td>
+		</tr>
+		
+		<tr>
+			<td width="10%"></td>
+			<td width="38%" align="right">Valor:</td>
+			<td width="52%" align="left"><input type="text" name="conOrValor"
+				value="1.000.000,00"><br></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<p>
+			<td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" width="50%" align = "center">
+				<input type="button" name="conOrSalvar" value="Salvar"
+				onclick="return alert('Registro salvo com sucesso!')">
+			</td>
+</tr>			
+		<tr>
+		<td colspan="3" width="50%" align="center">
+				<input type="button" name="conOrExcluir" value="Excluir"
+				onclick="return alert('Registro deletado com sucesso!')">
+			</td>
+			
+		</tr>
+		<tr>
+		<td colspan="3" width="50%" align="center">
+				<input type="submit" name="conOrVoltar" value="Voltar">
+			</td>
+			</tr>
+		</form>
+	</table>
+</body>
+</html>
