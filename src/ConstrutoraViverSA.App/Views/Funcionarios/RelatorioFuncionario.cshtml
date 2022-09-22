@@ -1,0 +1,52 @@
+﻿@model ConstrutoraViverSA.App.Models.RelatorioModel
+<div>
+    <h2 class="text-center">Relatório de Funcionários</h2><br />
+
+    @if (Model.Funcionarios != null && Model.Funcionarios.Any())
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <b>Id</b>
+                </div>
+                <div class="col">
+                    <b>Nome</b>
+                </div>
+                <div class="col">
+                    <b>CPF</b>
+                </div>
+                <div class="col">
+                    <b>E-mail</b>
+                </div>
+            </div>
+            @foreach (var funcionario in Model.Funcionarios)
+            {
+                <div class="row">
+                    <div class="col">
+                        @funcionario.Id
+                    </div>
+                    <div class="col">
+                        @funcionario.Nome
+                    </div>
+                    <div class="col">
+                        @funcionario.Cpf
+                    </div>
+                    <div class="col">
+                        @funcionario.Email
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <br />
+            <div class="alert alert-secondary" role="alert">
+                <p>Não foi possível gerar seu relatório ou você não possui dados cadastrados!</p>
+            </div>
+        </div>
+    }
+    <br />
+    <a type="button" asp-area="" asp-controller="Funcionarios" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
+</div>

@@ -1,0 +1,68 @@
+﻿@model ConstrutoraViverSA.App.Models.MaterialModel
+
+<div>
+    <h2 class="text-center">Edição de Materiais no Estoque</h2>
+    <form asp-controller="Estoque" asp-action="BuscarMaterial" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Id</label>
+                <div class="input-group">
+                    <input type="text" name="BuscaId" class="form-control" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @if (Model != null)
+    {
+        <form asp-controller="Estoque" asp-action="AlterarMaterial" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Id</label>
+                    <input type="text" class="form-control" name="Id" value="@Model.Id" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" name="Nome" value="@Model.Nome">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Descrição</label>
+                    <input type="text" class="form-control" name="Descricao" value="@Model.Descricao">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Tipo</label>
+                    <select class="form-control" name="Tipo" >
+                        <option value="0" selected="@Model.GetTipo(0)">Madeira</option>
+                        <option value="1" selected="@Model.GetTipo(1)">Telha</option>
+                        <option value="2" selected="@Model.GetTipo(2)">Tijolo</option>
+                        <option value="3" selected="@Model.GetTipo(3)">Cimento</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Valor</label>
+                    <input type="number" name="Valor" class="form-control" value="@Model.Valor">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Data de Validade</label>
+                    <input type="datetime" class="form-control" name="DataValidade" value="@Model.DataValidade.GetValueOrDefault().Date">
+                </div>
+            </div><br />
+            <button type="submit" class="btn btn-outline-success btn-block">Editar</button>
+        </form>
+        <br />
+        <form asp-controller="Estoque" asp-action="ExcluirMaterial" method="post">
+            <input type="hidden" name="IdExcluir" value="@Model.Id">
+            <button type="submit" class="btn btn-outline-danger btn-block">Excluir</button>
+        </form>
+    }
+    <br />
+    <a type="button" asp-area="" asp-controller="Estoque" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
+
+</div>

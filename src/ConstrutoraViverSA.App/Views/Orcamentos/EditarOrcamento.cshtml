@@ -1,0 +1,72 @@
+﻿@model ConstrutoraViverSA.App.Models.OrcamentoModel
+
+<div>
+    <h2 class="text-center">Edição de Orçamentos</h2>
+    <form asp-controller="Orcamentos" asp-action="BuscarOrcamento">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Id</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="BuscaId" required />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @if (Model != null)
+    {
+        <form asp-controller="Orcamentos" asp-action="AlterarOrcamento" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Id</label>
+                    <input type="text" class="form-control" name="Id" value="@Model.Id" readonly />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Descrição</label>
+                    <input type="text" class="form-control" name="Descricao" value="@Model.Descricao" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Endereço</label>
+                    <input type="text" class="form-control" name="Endereco" value="@Model.Endereco" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Tipo</label>
+                    <select class="form-control" name="Descricao">
+                        <option value="0" selected="@Model.TipoObra == 0">Residencial</option>
+                        <option value="1" selected="@Model.TipoObra == 1">Comercial</option>
+                        <option value="2" selected="@Model.TipoObra == 2">Ambos</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Data de Emissão</label>
+                    <input type="datetime" class="form-control" name="DataEmissao" value="@Model.DataEmissao" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Data de Validade</label>
+                    <input type="datetime" class="form-control" name="DataValidade" value="@Model.DataValidade" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Valor</label>
+                    <input type="number" class="form-control" name="Valor" value="@Model.Valor" />
+                </div>
+            </div><br />
+            <button type="submit" class="btn btn-outline-success btn-block">Editar</button>
+        </form>
+        <br />
+        <form asp-controller="Orcamentos" asp-action="ExcluirOrcamento" method="post">
+            <input type="hidden" name="IdExcluir" value="@Model.Id">
+            <button type="submit" class="btn btn-outline-danger btn-block">Excluir</button>
+        </form>
+    }
+    <br />
+    <a type="button" asp-area="" asp-controller="Orcamentos" asp-action="Index" class="btn btn-outline-secondary btn-block">Voltar</a>
+</div>
