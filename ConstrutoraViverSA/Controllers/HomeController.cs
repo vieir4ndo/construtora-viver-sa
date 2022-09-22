@@ -21,19 +21,19 @@ namespace ConstrutoraViverSA.Controllers
 
         public IActionResult Estoque()
         {
-            return View();
+            return Redirect("Estoque");
         }
         public IActionResult Funcionarios()
         {
-            return View();
+            return Redirect("Funcionarios");
         }
         public IActionResult Obras()
         {
-            return View();
+            return Redirect("Obras");
         }
         public IActionResult Orcamentos()
         {
-            return View();
+            return Redirect("Orcamentos");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
