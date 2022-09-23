@@ -4,7 +4,7 @@ using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Api.Controllers.Requests
 {
-    public class CadastroOrcamentoRequest
+    public class CriarOrcamentoRequest
     {
         public string Descricao { get; set; }
         public string Endereco { get; set; }

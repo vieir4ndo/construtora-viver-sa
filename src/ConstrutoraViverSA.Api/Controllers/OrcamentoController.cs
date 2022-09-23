@@ -7,7 +7,7 @@ using ConstrutoraViverSA.Service;
 namespace ConstrutoraViverSA.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("orcamento")]
     public class OrcamentoController : ControllerBase
     {
         private readonly OrcamentoService _orcamentoService;
@@ -18,7 +18,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastrarOrcamento(CadastroOrcamentoRequest request)
+        public IActionResult CadastrarOrcamento(CriarOrcamentoRequest request)
         {
             try
             {
@@ -34,79 +34,74 @@ namespace ConstrutoraViverSA.Api.Controllers
                 return BadRequest(ApiResponseFactory.Error(e.Message));
             }
         }
-
-/*
-        public void RelatorioOrcamento()
+        
+        [HttpGet("{id}")]
+        public IActionResult BuscarOrcamento(long id)
         {
-            var orcamentos = _orcamentoService.BuscarOrcamentos();
-
-            var relatorio = new RelatorioModel();
-            relatorio.Orcamentos = orcamentos;
-
-            //return View(relatorio);
-            throw new Exception("NotImplemented");
-        }
-
-        public void BuscarOrcamento(long BuscaId)
-        {
-            var consulta = _orcamentoService.BuscarOrcamentoPorId(BuscaId);
-
-            if (consulta == null)
+            try
             {
-                //return View("ErroView");
+                // TODO: Levar lógica para service
+                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+
+                if (consulta == null)
+                {
+                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
+                }
+                
+                // TODO: Mapear para objeto de response
+
+                return Ok(consulta);
             }
-
-            OrcamentoModel OrcamentoModel = new OrcamentoModel(
-                consulta.Id,
-                consulta.Descricao,
-                consulta.Endereco,
-                (TipoObraEnum)consulta.TipoObra,
-                Convert.ToDateTime(consulta.DataEmissao),
-                Convert.ToDateTime(consulta.DataValidade),
-                Convert.ToDouble(consulta.Valor)
-                );
-
-            //return View("EditarOrcamento", OrcamentoModel);
-            throw new Exception("NotImplemented");
-        }
-
-        public void AlterarOrcamento(long Id, string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
-        {
-            var consulta = _orcamentoService.BuscarOrcamentoPorId(Id);
-
-            if (consulta == null)
+            catch (Exception e)
             {
-                //return View("ErroView");
+                return BadRequest(ApiResponseFactory.Error(e.Message));
             }
-
-            Orcamento OrcamentoEditado = new Orcamento(
-                Descricao,
-                Endereco,
-                (TipoObraEnum)TipoObra,
-                Convert.ToDateTime(DataEmissao),
-                Convert.ToDateTime(DataValidade),
-                Convert.ToDouble(Valor)
-             );
-
-            _orcamentoService.AlterarOrcamento(Id, OrcamentoEditado);
-
-            //return View("SucessoView");
-            throw new Exception("NotImplemented");
         }
-        public void ExcluirOrcamento(long IdExcluir)
+        
+        [HttpPatch("{id}")]
+        public IActionResult EditarOrcamento(EditarOrcamentoRequest request, long id)
         {
-            var consulta = _orcamentoService.BuscarOrcamentoPorId(IdExcluir);
-
-            if (consulta == null)
+            try
             {
-                //return View("ErroView");
+                // TODO: Levar lógica para service
+                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+
+                if (consulta == null)
+                {
+                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
+                }
+
+                _orcamentoService.AlterarOrcamento(id, request.RequestParaDto());
+
+                return Ok();
             }
-
-            _orcamentoService.ExcluirOrcamento(IdExcluir);
-
-            //return View("SucessoView");
-            throw new Exception("NotImplemented");
+            catch (Exception e)
+            {
+                return BadRequest(ApiResponseFactory.Error(e.Message));
+            }
         }
-        */
+        
+        [HttpDelete("{id}")]
+        public IActionResult ExcluirOrcamento(long id)
+        {
+            try
+            {
+                // TODO: Levar lógica para service
+                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+
+                if (consulta == null)
+                {
+                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
+                }
+
+                _orcamentoService.ExcluirOrcamento(id);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(ApiResponseFactory.Error(e.Message));
+            }
+        }
     }
 }

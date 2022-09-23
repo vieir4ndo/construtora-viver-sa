@@ -44,16 +44,16 @@ namespace ConstrutoraViverSA.Service
             _database.SaveChanges();
         }
 
-        public void AlterarOrcamento(long Id, Orcamento OrcamentolAtualizado)
+        public void AlterarOrcamento(long Id, OrcamentoDto orcamentolAtualizado)
         {
             Orcamento Orcamento = _database.Orcamentos.Find(Id);
 
-            Orcamento.Descricao = OrcamentolAtualizado.Descricao;
-            Orcamento.Endereco = OrcamentolAtualizado.Endereco;
-            Orcamento.TipoObra = OrcamentolAtualizado.TipoObra;
-            Orcamento.DataEmissao = OrcamentolAtualizado.DataEmissao;
-            Orcamento.DataValidade = OrcamentolAtualizado.DataValidade;
-            Orcamento.Valor = OrcamentolAtualizado.Valor;
+            Orcamento.Descricao = orcamentolAtualizado.Descricao;
+            Orcamento.Endereco = orcamentolAtualizado.Endereco;
+            Orcamento.TipoObra = orcamentolAtualizado.TipoObra;
+            Orcamento.DataEmissao = orcamentolAtualizado.DataEmissao;
+            Orcamento.DataValidade = orcamentolAtualizado.DataValidade;
+            Orcamento.Valor = orcamentolAtualizado.Valor;
 
             _database.Orcamentos.Update(Orcamento);
             _database.SaveChanges();
