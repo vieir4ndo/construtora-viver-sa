@@ -36,5 +36,15 @@ namespace ConstrutoraViverSA.Api.Controllers.Responses
         {
             return new ApiResponse(true, data, null);
         }
+        
+        public static ApiResponse Success(object data = null)
+        {
+            return new ApiResponse(true, new List<object>() {data}, null);
+        }
+        
+        public static ApiResponse Success()
+        {
+            return new ApiResponse(true, null, null);
+        }
     }
 }

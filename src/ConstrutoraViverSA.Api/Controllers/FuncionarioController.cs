@@ -6,26 +6,27 @@ using ConstrutoraViverSA.Service;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
+    
     [ApiController]
-    [Route("orcamento")]
-    public class OrcamentoController : ControllerBase
+    [Route("funcionario")]
+    public class FuncionarioController : ControllerBase
     {
-        private readonly OrcamentoService _orcamentoService;
+        private readonly FuncionarioService _funcionarioService;
 
-        public OrcamentoController(OrcamentoService orcamentoService)
+        public FuncionarioController(FuncionarioService funcionarioService)
         {
-            _orcamentoService = orcamentoService;
+            _funcionarioService = funcionarioService;
         }
 
         [HttpPost]
-        public IActionResult CadastrarOrcamento(OrcamentoRequest request)
+        public IActionResult CadastrarFuncionario(FuncionarioRequest request)
         {
             try
             {
                 // TODO: Validar request
                 // TODO: Usar Automapper
                 
-                _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
+                _funcionarioService.AdicionarFuncionario(request.RequestParaDto());
                 
                 return Ok(ApiResponseFactory.Success());
             }
@@ -36,16 +37,16 @@ namespace ConstrutoraViverSA.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public IActionResult BuscarOrcamento(long id)
+        public IActionResult BuscarFuncionario(long id)
         {
             try
             {
                 // TODO: Levar lógica para service
-                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+                var consulta = _funcionarioService.BuscarFuncionarioPorId(id);
 
                 if (consulta == null)
                 {
-                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
+                    return NotFound(ApiResponseFactory.Error("Funcionário não encontrado"));
                 }
                 
                 // TODO: Mapear para objeto de response
@@ -57,21 +58,20 @@ namespace ConstrutoraViverSA.Api.Controllers
                 return BadRequest(ApiResponseFactory.Error(e.Message));
             }
         }
-        
+
         [HttpPatch("{id}")]
-        public IActionResult EditarOrcamento(OrcamentoRequest request, long id)
+        public IActionResult EditarFuncionario(FuncionarioRequest request, long id)
         {
             try
             {
-                // TODO: Levar lógica para service
-                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+                var consulta = _funcionarioService.BuscarFuncionarioPorId(id);
 
                 if (consulta == null)
                 {
-                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
+                    return NotFound(ApiResponseFactory.Error("Funcionário não encontrado"));
                 }
 
-                _orcamentoService.AlterarOrcamento(id, request.RequestParaDto());
+                _funcionarioService.AlterarFuncionario(id, request.RequestParaDto());
 
                 return Ok();
             }
@@ -82,19 +82,18 @@ namespace ConstrutoraViverSA.Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        public IActionResult ExcluirOrcamento(long id)
+        public IActionResult ExcluirFuncionario(long id)
         {
             try
             {
-                // TODO: Levar lógica para service
-                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+                var consulta = _funcionarioService.BuscarFuncionarioPorId(id);
 
                 if (consulta == null)
                 {
-                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
+                    return NotFound(ApiResponseFactory.Error("Funcionário não encontrado"));
                 }
 
-                _orcamentoService.ExcluirOrcamento(id);
+                _funcionarioService.ExcluirFuncionario(id);
 
                 return Ok();
             }

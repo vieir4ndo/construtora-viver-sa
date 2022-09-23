@@ -2,6 +2,7 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
 using System.Linq;
+using ConstrutoraViverSA.Domain.Dtos;
 
 namespace ConstrutoraViverSA.Service
 {
@@ -28,9 +29,9 @@ namespace ConstrutoraViverSA.Service
                 .FirstOrDefault(p => p.Id == BuscaId);
         }
 
-        public void AdicionarFuncionario(Funcionario funcionario)
+        public void AdicionarFuncionario(FuncionarioDto dto)
         {
-            _database.Funcionarios.Add(funcionario);
+            _database.Funcionarios.Add(dto.DtoParaDominio());
             _database.SaveChanges();
         }
         public void ExcluirFuncionario(long IdExcluir)
@@ -41,10 +42,11 @@ namespace ConstrutoraViverSA.Service
             _database.SaveChanges();
         }
 
-        public void AlterarFuncionario(long Id, Funcionario funcionariolAtualizado)
+        public void AlterarFuncionario(long id, FuncionarioDto funcionariolAtualizado)
         {
-            Funcionario funcionario = _database.Funcionarios.Find(Id);
+            Funcionario funcionario = _database.Funcionarios.Find(id);
 
+            // TODO: ajustar para pegar somente se mudar ou existir
             funcionario.Nome = funcionariolAtualizado.Nome;
             funcionario.DataNascimento = funcionariolAtualizado.DataNascimento;
             funcionario.Genero = funcionariolAtualizado.Genero;

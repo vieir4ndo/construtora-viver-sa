@@ -1,17 +1,16 @@
 ﻿using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Infraestrutura;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using ConstrutoraViverSA.Domain.Dtos;
 
 namespace ConstrutoraViverSA.Service
 {
-    public class EstoqueService
+    public class MaterialService
     {
         private readonly ApplicationContext _database;
 
-        public EstoqueService(ApplicationContext applicationContext)
+        public MaterialService(ApplicationContext applicationContext)
         {
             _database = applicationContext;
         }
@@ -30,9 +29,9 @@ namespace ConstrutoraViverSA.Service
                 .FirstOrDefault(p => p.Id == BuscaId);
         }
 
-        public void AdicionarMaterial(Material material)
+        public void AdicionarMaterial(MaterialDto material)
         {
-            _database.Materiais.Add(material);
+            _database.Materiais.Add(material.DtoParaDominio());
             _database.SaveChanges();
         }
         public void ExcluirMaterial(long IdExcluir)
@@ -43,7 +42,7 @@ namespace ConstrutoraViverSA.Service
             _database.SaveChanges();
         }
 
-        public void AlterarMaterial(long Id, Material materialAtualizado)
+        public void AlterarMaterial(long Id, MaterialDto materialAtualizado)
         {
             Material material = _database.Materiais.Find(Id);
 

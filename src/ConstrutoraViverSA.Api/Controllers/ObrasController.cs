@@ -1,8 +1,4 @@
-﻿using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Domain.Enums;
-using ConstrutoraViverSA.Api.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using ConstrutoraViverSA.Service;
 
 namespace ConstrutoraViverSA.Api.Controllers

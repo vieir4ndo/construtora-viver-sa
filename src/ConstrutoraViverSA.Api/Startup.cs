@@ -26,7 +26,7 @@ namespace ConstrutoraViverSA.Api
             services.AddControllers();
 
             services.AddScoped<ApplicationContext>();
-            services.AddScoped<EstoqueService>();
+            services.AddScoped<MaterialService>();
             services.AddScoped<FuncionarioService>();
             services.AddScoped<ObraService>();
             services.AddScoped<OrcamentoService>();
