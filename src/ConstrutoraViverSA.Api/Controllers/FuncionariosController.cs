@@ -18,23 +18,9 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             _funcionarioService = funcionarioService;
         }
-        public IActionResult Index()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-        public IActionResult AdicionarFuncionario()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-        public IActionResult EditarFuncionario()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
 
-        public IActionResult RelatorioFuncionario()
+        /*
+        public void RelatorioFuncionario()
         {
             var Funcionario = _funcionarioService.BuscarFuncionarios();
 
@@ -45,7 +31,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult CadastrarFuncionario(string nome, DateTime dataNascimento, int genero, string cpf, string numCtps, string endereco, string email, string telefone, int cargo)
+        public void CadastrarFuncionario(string nome, DateTime dataNascimento, int genero, string cpf, string numCtps, string endereco, string email, string telefone, int cargo)
         {
             Funcionario funcionario = new Funcionario(
                 nome,
@@ -64,7 +50,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult BuscarFuncionario(long BuscaId)
+        public void BuscarFuncionario(long BuscaId)
         {
             var consulta = _funcionarioService.BuscarFuncionarioPorId(BuscaId);
 
@@ -90,7 +76,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult AlterarFuncionario(long Id, string nome, DateTime dataNascimento, GeneroEnum genero, string cpf, string numCtps, string endereco, string email, string telefone, CargoEnum cargo)
+        public void AlterarFuncionario(long Id, string nome, DateTime dataNascimento, GeneroEnum genero, string cpf, string numCtps, string endereco, string email, string telefone, CargoEnum cargo)
         {
             var consulta = _funcionarioService.BuscarFuncionarioPorId(Id);
 
@@ -115,7 +101,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
-        public IActionResult ExcluirFuncionario(long IdExcluir)
+        public void ExcluirFuncionario(long IdExcluir)
         {
             var consulta = _funcionarioService.BuscarFuncionarioPorId(IdExcluir);
 
@@ -128,5 +114,6 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
+        */
     }
 }

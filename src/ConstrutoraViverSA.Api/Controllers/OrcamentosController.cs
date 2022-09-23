@@ -3,38 +3,42 @@ using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using ConstrutoraViverSA.Service;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
-    
     [ApiController]
     [Route("[controller]")]
     public class OrcamentosController : ControllerBase
     {
         private readonly OrcamentoService _orcamentoService;
-        
+
         public OrcamentosController(OrcamentoService orcamentoService)
         {
             _orcamentoService = orcamentoService;
         }
-        public IActionResult Index()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-        public IActionResult AdicionarOrcamento()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-        public IActionResult EditarOrcamento()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
 
-        public IActionResult RelatorioOrcamento()
+        private static readonly string[] Summaries = new[]
+        {
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
+
+        [HttpGet]
+        public IEnumerable<WeatherForecast> Get()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+                {
+                    Date = DateTime.Now.AddDays(index),
+                    TemperatureC = rng.Next(-20, 55),
+                    Summary = Summaries[rng.Next(Summaries.Length)]
+                })
+                .ToArray();
+        }
+/*
+        public void RelatorioOrcamento()
         {
             var orcamentos = _orcamentoService.BuscarOrcamentos();
 
@@ -45,7 +49,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult CadastrarOrcamento(string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
+        public void CadastrarOrcamento(string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
         {
             Orcamento orcamento = new Orcamento(
                 Descricao,
@@ -62,7 +66,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult BuscarOrcamento(long BuscaId)
+        public void BuscarOrcamento(long BuscaId)
         {
             var consulta = _orcamentoService.BuscarOrcamentoPorId(BuscaId);
 
@@ -85,7 +89,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult AlterarOrcamento(long Id, string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
+        public void AlterarOrcamento(long Id, string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
         {
             var consulta = _orcamentoService.BuscarOrcamentoPorId(Id);
 
@@ -108,7 +112,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
-        public IActionResult ExcluirOrcamento(long IdExcluir)
+        public void ExcluirOrcamento(long IdExcluir)
         {
             var consulta = _orcamentoService.BuscarOrcamentoPorId(IdExcluir);
 
@@ -122,5 +126,6 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
+        */
     }
 }

@@ -19,25 +19,8 @@ namespace ConstrutoraViverSA.Api.Controllers
             _estoqueService = estoqueService;
         }
 
-        public IActionResult Index()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-
-        public IActionResult AdicionarMaterial()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-
-        public IActionResult EditarMaterial()
-        {
-            //return View();,
-            throw new Exception("NotImplemented");
-        }
-
-        public IActionResult RelatorioMaterial()
+        /*
+        public void RelatorioMaterial()
         {
             var materiais = _estoqueService.BuscarMateriais();
 
@@ -48,7 +31,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult CadastrarMaterial(string Nome, string Descricao, int Tipo, double Valor,
+        public void CadastrarMaterial(string Nome, string Descricao, int Tipo, double Valor,
             DateTime DataValidade)
         {
             Material material = new Material(
@@ -65,7 +48,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult BuscarMaterial(long BuscaId)
+        public void BuscarMaterial(long BuscaId)
         {
             var consulta = _estoqueService.BuscarMaterialPorId(BuscaId);
 
@@ -87,7 +70,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult AlterarMaterial(long Id, string Nome, string Descricao, int Tipo, double Valor,
+        public void AlterarMaterial(long Id, string Nome, string Descricao, int Tipo, double Valor,
             DateTime DataValidade)
         {
             var consulta = _estoqueService.BuscarMaterialPorId(Id);
@@ -111,7 +94,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult ExcluirMaterial(long IdExcluir)
+        public void ExcluirMaterial(long IdExcluir)
         {
             var consulta = _estoqueService.BuscarMaterialPorId(IdExcluir);
 
@@ -124,6 +107,6 @@ namespace ConstrutoraViverSA.Api.Controllers
 
             //return View("SucessoView");
             throw new Exception("NotImplemented");
-        }
+        }*/
     }
 }

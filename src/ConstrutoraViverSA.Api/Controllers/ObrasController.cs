@@ -18,23 +18,9 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             _obraService = obraService;
         }
-        public IActionResult Index()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-        public IActionResult AdicionarObra()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-        public IActionResult EditarObra()
-        {
-            //return View();
-            throw new Exception("NotImplemented");
-        }
-
-        public IActionResult RelatorioObra()
+  
+        /*
+        public void RelatorioObra()
         {
             var Obras = _obraService.BuscarObras();
 
@@ -45,7 +31,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             throw new Exception("NotImplemented");
         }
 
-        public IActionResult CadastrarObra(string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
+        public void CadastrarObra(string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
         {
             Obra obra = new Obra(
                  nome,
@@ -60,7 +46,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
-        public IActionResult BuscarObra(long BuscaId)
+        public void BuscarObra(long BuscaId)
         {
             var consulta = _obraService.BuscarObraPorId(BuscaId);
 
@@ -82,7 +68,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("EditarObra", obraModel);
             throw new Exception("NotImplemented");
         }
-        public IActionResult AlterarObra(long Id, string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
+        public void AlterarObra(long Id, string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
         {
             var consulta = _obraService.BuscarObraPorId(Id);
 
@@ -104,7 +90,7 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
-        public IActionResult ExcluirObra(long IdExcluir)
+        public void ExcluirObra(long IdExcluir)
         {
             var consulta = _obraService.BuscarObraPorId(IdExcluir);
 
@@ -118,6 +104,6 @@ namespace ConstrutoraViverSA.Api.Controllers
             //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
-
+*/
     }
 }
