@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using ConstrutoraViverSA.Api.Requests;
 using ConstrutoraViverSA.Api.Responses;
-using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Service;
 
 namespace ConstrutoraViverSA.Api.Controllers
@@ -21,17 +18,20 @@ namespace ConstrutoraViverSA.Api.Controllers
         }
 
         [HttpPost]
-        public void CadastrarOrcamento(CadastroOrcamentoRequest request)
+        public IActionResult CadastrarOrcamento(CadastroOrcamentoRequest request)
         {
             try
             {
+                // TODO: Validar request
+                // TODO: Usar Automapper
+                
                 _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
                 
-                Ok(ApiResponseFactory.Success());
+                return Ok(ApiResponseFactory.Success());
             }
             catch (Exception e)
             {
-                BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(ApiResponseFactory.Error(e.Message));
             }
         }
 

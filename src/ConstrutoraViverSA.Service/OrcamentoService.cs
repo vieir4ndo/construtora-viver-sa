@@ -30,6 +30,9 @@ namespace ConstrutoraViverSA.Service
 
         public void AdicionarOrcamento(OrcamentoDto dto)
         {
+            // TODO: Levar lógica para repositório
+            // TODO: Usar Automapper
+
             _database.Orcamentos.Add(dto.DtoParaDominio());
             _database.SaveChanges();
         }
