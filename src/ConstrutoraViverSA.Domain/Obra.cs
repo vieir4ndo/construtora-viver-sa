@@ -1,5 +1,7 @@
-﻿using ConstrutoraViverSA.Domain.Enums;
+﻿#nullable enable
+using ConstrutoraViverSA.Domain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace ConstrutoraViverSA.Domain
 {
@@ -13,7 +15,16 @@ namespace ConstrutoraViverSA.Domain
         public double? Valor { get; set; }
         public DateTime? PrazoConclusao { get; set; }
 
-        public Obra() { }
+        protected virtual Orcamento Orcamento { get; set; }
+        public long OrcamentoId { get; set; }
+
+        public virtual ICollection<ObraFuncionarios> ObraFuncionarios { get; set; }
+
+        public virtual ICollection<ObraMateriais> ObraMateriais { get; set; }
+
+        public Obra()
+        {
+        }
 
         public Obra
         (
@@ -22,8 +33,9 @@ namespace ConstrutoraViverSA.Domain
             TipoObraEnum tipoObra,
             string descricao,
             double valor,
-            DateTime prazoConclusao
-         )
+            DateTime prazoConclusao,
+            long orcamentoId
+        )
         {
             Nome = nome;
             Endereco = endereco;
@@ -31,6 +43,7 @@ namespace ConstrutoraViverSA.Domain
             Descricao = descricao;
             Valor = valor;
             PrazoConclusao = prazoConclusao;
+            OrcamentoId = orcamentoId;
         }
     }
 }

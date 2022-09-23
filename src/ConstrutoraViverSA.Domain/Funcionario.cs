@@ -1,5 +1,6 @@
 ﻿using ConstrutoraViverSA.Domain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace ConstrutoraViverSA.Domain
 {
@@ -15,6 +16,8 @@ namespace ConstrutoraViverSA.Domain
         public string Email { get; set; }
         public string Telefone { get; set; }
         public CargoEnum? Cargo { get; set; }
+        
+        public virtual ICollection<ObraFuncionarios> ObraFuncionarios { get; set; }
         public Funcionario() { }
         public Funcionario
             (

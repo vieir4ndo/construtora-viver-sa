@@ -1,5 +1,6 @@
 ﻿using ConstrutoraViverSA.Domain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace ConstrutoraViverSA.Domain
 {
@@ -11,7 +12,8 @@ namespace ConstrutoraViverSA.Domain
         public TipoMaterialEnum? Tipo { get; set; }
         public double? Valor { get; set; }
         public DateTime? DataValidade { get; set; }
-
+        
+        public virtual ICollection<ObraMateriais> ObraMateriais { get; set; }
         public Material() { }
         public Material
        (
