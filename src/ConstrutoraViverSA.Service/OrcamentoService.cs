@@ -2,6 +2,7 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
 using System.Linq;
+using ConstrutoraViverSA.Domain.Dtos;
 
 namespace ConstrutoraViverSA.Service
 {
@@ -27,9 +28,9 @@ namespace ConstrutoraViverSA.Service
                 .FirstOrDefault(p => p.Id == BuscaId);
         }
 
-        public void AdicionarOrcamento(Orcamento Orcamento)
+        public void AdicionarOrcamento(OrcamentoDto dto)
         {
-            _database.Orcamentos.Add(Orcamento);
+            _database.Orcamentos.Add(dto.DtoParaDominio());
             _database.SaveChanges();
         }
         public void ExcluirOrcamento(long IdExcluir)

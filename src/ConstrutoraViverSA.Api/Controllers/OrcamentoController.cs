@@ -1,42 +1,40 @@
-﻿using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Domain.Enums;
-using ConstrutoraViverSA.Api.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using ConstrutoraViverSA.Api.Requests;
+using ConstrutoraViverSA.Api.Responses;
+using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Service;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class OrcamentosController : ControllerBase
+    public class OrcamentoController : ControllerBase
     {
         private readonly OrcamentoService _orcamentoService;
 
-        public OrcamentosController(OrcamentoService orcamentoService)
+        public OrcamentoController(OrcamentoService orcamentoService)
         {
             _orcamentoService = orcamentoService;
         }
 
-        private static readonly string[] Summaries = new[]
+        [HttpPost]
+        public void CadastrarOrcamento(CadastroOrcamentoRequest request)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                {
-                    Date = DateTime.Now.AddDays(index),
-                    TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)]
-                })
-                .ToArray();
+            try
+            {
+                _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
+                
+                Ok(ApiResponseFactory.Success());
+            }
+            catch (Exception e)
+            {
+                BadRequest(ApiResponseFactory.Error(e.Message));
+            }
         }
+
 /*
         public void RelatorioOrcamento()
         {
@@ -46,23 +44,6 @@ namespace ConstrutoraViverSA.Api.Controllers
             relatorio.Orcamentos = orcamentos;
 
             //return View(relatorio);
-            throw new Exception("NotImplemented");
-        }
-
-        public void CadastrarOrcamento(string Descricao, string Endereco, int TipoObra, DateTime DataEmissao, DateTime DataValidade, double Valor)
-        {
-            Orcamento orcamento = new Orcamento(
-                Descricao,
-                Endereco,
-                (TipoObraEnum)TipoObra,
-                Convert.ToDateTime(DataEmissao),
-                Convert.ToDateTime(DataValidade),
-                Convert.ToDouble(Valor)
-             );
-
-            _orcamentoService.AdicionarOrcamento(orcamento);
-
-            //return View("SucessoView");
             throw new Exception("NotImplemented");
         }
 
