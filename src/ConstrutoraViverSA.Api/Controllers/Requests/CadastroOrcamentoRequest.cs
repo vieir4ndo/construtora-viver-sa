@@ -2,7 +2,7 @@
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 
-namespace ConstrutoraViverSA.Api.Requests
+namespace ConstrutoraViverSA.Api.Controllers.Requests
 {
     public class CadastroOrcamentoRequest
     {

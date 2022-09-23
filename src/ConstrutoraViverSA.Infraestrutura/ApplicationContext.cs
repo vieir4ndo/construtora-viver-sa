@@ -22,7 +22,7 @@ namespace ConstrutoraViverSA.Infraestrutura
             optionsBuilder
                 .UseLoggerFactory(_logger)
                 .EnableSensitiveDataLogging()
-                .UseSqlServer("Data Source=localhost,1433;Initial Catalog=construtora-viver-sa;Integrated Security=False;User Id=sa;Password=Stone@2022!;Persist Security Info=True");
+                .UseNpgsql("Host=localhost;Port=5432;Pooling=true;Database=construtora-viver-sa;User Id=postgres;Password=secret;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
-namespace ConstrutoraViverSA.Api.Responses
+namespace ConstrutoraViverSA.Api.Controllers.Responses
 {
     public class ApiResponse
     {

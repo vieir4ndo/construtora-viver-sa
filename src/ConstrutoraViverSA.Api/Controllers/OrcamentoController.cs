@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using ConstrutoraViverSA.Api.Requests;
-using ConstrutoraViverSA.Api.Responses;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Service;
 
 namespace ConstrutoraViverSA.Api.Controllers

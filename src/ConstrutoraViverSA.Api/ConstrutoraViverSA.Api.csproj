@@ -14,7 +14,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Validators" />
+      <Compile Remove="Validators\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Validators\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Validators\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Validators\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\Validators" />
     </ItemGroup>
 
 
