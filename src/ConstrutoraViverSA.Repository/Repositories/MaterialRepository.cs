@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
-using ConstrutoraViverSA.Infraestrutura;
+using ConstrutoraViverSA.Infrastructure;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Repository.Repositories

@@ -1,7 +1,7 @@
 using System;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Application.Services;
-using ConstrutoraViverSA.Infraestrutura;
+using ConstrutoraViverSA.Infrastructure;
 using ConstrutoraViverSA.Repository.Interfaces;
 using ConstrutoraViverSA.Repository.Repositories;
 using Microsoft.AspNetCore.Builder;
