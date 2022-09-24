@@ -2,11 +2,12 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
 using System.Linq;
+using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain.Dtos;
 
-namespace ConstrutoraViverSA.Service
+namespace ConstrutoraViverSA.Application.Services
 {
-    public class OrcamentoService
+    public class OrcamentoService : IOrcamentoService
     {
         private readonly ApplicationContext _database;
         public OrcamentoService(ApplicationContext applicationContext)
@@ -22,10 +23,10 @@ namespace ConstrutoraViverSA.Service
                 .ToList();
         }
 
-        public Orcamento BuscarOrcamentoPorId(long BuscaId)
+        public Orcamento BuscarOrcamentoPorId(long buscaId)
         {
             return _database.Orcamentos
-                .FirstOrDefault(p => p.Id == BuscaId);
+                .FirstOrDefault(p => p.Id == buscaId);
         }
 
         public void AdicionarOrcamento(OrcamentoDto dto)
@@ -36,17 +37,17 @@ namespace ConstrutoraViverSA.Service
             _database.Orcamentos.Add(dto.DtoParaDominio());
             _database.SaveChanges();
         }
-        public void ExcluirOrcamento(long IdExcluir)
+        public void ExcluirOrcamento(long idExcluir)
         {
-            Orcamento Orcamento = _database.Orcamentos.Find(IdExcluir);
+            Orcamento Orcamento = _database.Orcamentos.Find(idExcluir);
 
             _database.Orcamentos.Remove(Orcamento);
             _database.SaveChanges();
         }
 
-        public void AlterarOrcamento(long Id, OrcamentoDto orcamentolAtualizado)
+        public void AlterarOrcamento(long id, OrcamentoDto orcamentolAtualizado)
         {
-            Orcamento Orcamento = _database.Orcamentos.Find(Id);
+            Orcamento Orcamento = _database.Orcamentos.Find(id);
 
             Orcamento.Descricao = orcamentolAtualizado.Descricao;
             Orcamento.Endereco = orcamentolAtualizado.Endereco;

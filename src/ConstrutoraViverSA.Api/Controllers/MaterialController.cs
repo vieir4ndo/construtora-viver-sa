@@ -2,7 +2,7 @@
 using System;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
-using ConstrutoraViverSA.Service;
+using ConstrutoraViverSA.Application.Interfaces;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
@@ -11,9 +11,9 @@ namespace ConstrutoraViverSA.Api.Controllers
     [Route("material")]
     public class MaterialController : ControllerBase
     {
-        private readonly MaterialService _materialService;
+        private readonly IMaterialService _materialService;
 
-        public MaterialController(MaterialService materialService)
+        public MaterialController(IMaterialService materialService)
         {
             _materialService = materialService;
         }

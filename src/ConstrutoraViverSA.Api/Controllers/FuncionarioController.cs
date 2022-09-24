@@ -2,7 +2,7 @@
 using System;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
-using ConstrutoraViverSA.Service;
+using ConstrutoraViverSA.Application.Interfaces;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
@@ -11,9 +11,9 @@ namespace ConstrutoraViverSA.Api.Controllers
     [Route("funcionario")]
     public class FuncionarioController : ControllerBase
     {
-        private readonly FuncionarioService _funcionarioService;
+        private readonly IFuncionarioService _funcionarioService;
 
-        public FuncionarioController(FuncionarioService funcionarioService)
+        public FuncionarioController(IFuncionarioService funcionarioService)
         {
             _funcionarioService = funcionarioService;
         }

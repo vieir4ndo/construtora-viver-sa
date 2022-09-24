@@ -2,11 +2,12 @@
 using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
 using System.Linq;
+using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain.Dtos;
 
-namespace ConstrutoraViverSA.Service
+namespace ConstrutoraViverSA.Application.Services
 {
-    public class MaterialService
+    public class MaterialService : IMaterialService
     {
         private readonly ApplicationContext _database;
 
@@ -23,10 +24,10 @@ namespace ConstrutoraViverSA.Service
                 .ToList();
         }
 
-        public Material BuscarMaterialPorId(long BuscaId)
+        public Material BuscarMaterialPorId(long buscaId)
         {
             return _database.Materiais
-                .FirstOrDefault(p => p.Id == BuscaId);
+                .FirstOrDefault(p => p.Id == buscaId);
         }
 
         public void AdicionarMaterial(MaterialDto material)
@@ -34,17 +35,17 @@ namespace ConstrutoraViverSA.Service
             _database.Materiais.Add(material.DtoParaDominio());
             _database.SaveChanges();
         }
-        public void ExcluirMaterial(long IdExcluir)
+        public void ExcluirMaterial(long idExcluir)
         {
-            Material material = _database.Materiais.Find(IdExcluir);
+            Material material = _database.Materiais.Find(idExcluir);
 
             _database.Materiais.Remove(material);
             _database.SaveChanges();
         }
 
-        public void AlterarMaterial(long Id, MaterialDto materialAtualizado)
+        public void AlterarMaterial(long id, MaterialDto materialAtualizado)
         {
-            Material material = _database.Materiais.Find(Id);
+            Material material = _database.Materiais.Find(id);
 
             material.Nome = materialAtualizado.Nome;
             material.Descricao = materialAtualizado.Descricao;

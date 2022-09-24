@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ConstrutoraViverSA.Domain\ConstrutoraViverSA.Domain.csproj" />
       <ProjectReference Include="..\ConstrutoraViverSA.Infraestrutura\ConstrutoraViverSA.Infraestrutura.csproj" />
     </ItemGroup>
 

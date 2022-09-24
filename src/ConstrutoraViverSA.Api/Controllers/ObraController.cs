@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ConstrutoraViverSA.Service;
+﻿using ConstrutoraViverSA.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
     
     [ApiController]
     [Route("[controller]")]
-    public class ObrasController : ControllerBase
+    public class ObraController : ControllerBase
     {
-        private readonly ObraService _obraService;
+        private readonly IObraService _obraService;
         
-        public ObrasController(ObraService obraService)
+        public ObraController(IObraService obraService)
         {
             _obraService = obraService;
         }

@@ -2,10 +2,11 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
 using System.Linq;
+using ConstrutoraViverSA.Application.Interfaces;
 
-namespace ConstrutoraViverSA.Service
+namespace ConstrutoraViverSA.Application.Services
 {
-    public class ObraService
+    public class ObraService : IObraService
     {
         private readonly ApplicationContext _database;
         public ObraService(ApplicationContext applicationContext)
@@ -21,10 +22,10 @@ namespace ConstrutoraViverSA.Service
                 .ToList();
         }
 
-        public Obra BuscarObraPorId(long BuscaId)
+        public Obra BuscarObraPorId(long buscaId)
         {
             return _database.Obras
-                .FirstOrDefault(p => p.Id == BuscaId);
+                .FirstOrDefault(p => p.Id == buscaId);
         }
 
         public void AdicionarObra(Obra Obra)
@@ -32,24 +33,24 @@ namespace ConstrutoraViverSA.Service
             _database.Obras.Add(Obra);
             _database.SaveChanges();
         }
-        public void ExcluirObra(long IdExcluir)
+        public void ExcluirObra(long idExcluir)
         {
-            Obra Obra = _database.Obras.Find(IdExcluir);
+            Obra Obra = _database.Obras.Find(idExcluir);
 
             _database.Obras.Remove(Obra);
             _database.SaveChanges();
         }
 
-        public void AlterarObra(long Id, Obra ObralAtualizado)
+        public void AlterarObra(long id, Obra obralAtualizado)
         {
-            Obra Obra = _database.Obras.Find(Id);
+            Obra Obra = _database.Obras.Find(id);
 
-            Obra.Nome = ObralAtualizado.Nome;
-            Obra.Descricao = ObralAtualizado.Descricao;
-            Obra.Endereco = ObralAtualizado.Endereco;
-            Obra.TipoObra = ObralAtualizado.TipoObra;
-            Obra.Valor = ObralAtualizado.Valor;
-            Obra.PrazoConclusao = ObralAtualizado.PrazoConclusao;
+            Obra.Nome = obralAtualizado.Nome;
+            Obra.Descricao = obralAtualizado.Descricao;
+            Obra.Endereco = obralAtualizado.Endereco;
+            Obra.TipoObra = obralAtualizado.TipoObra;
+            Obra.Valor = obralAtualizado.Valor;
+            Obra.PrazoConclusao = obralAtualizado.PrazoConclusao;
 
             _database.Obras.Update(Obra);
             _database.SaveChanges();

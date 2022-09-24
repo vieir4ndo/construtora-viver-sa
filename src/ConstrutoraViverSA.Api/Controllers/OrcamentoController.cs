@@ -2,7 +2,7 @@
 using System;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
-using ConstrutoraViverSA.Service;
+using ConstrutoraViverSA.Application.Interfaces;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
@@ -10,9 +10,9 @@ namespace ConstrutoraViverSA.Api.Controllers
     [Route("orcamento")]
     public class OrcamentoController : ControllerBase
     {
-        private readonly OrcamentoService _orcamentoService;
+        private readonly IOrcamentoService _orcamentoService;
 
-        public OrcamentoController(OrcamentoService orcamentoService)
+        public OrcamentoController(IOrcamentoService orcamentoService)
         {
             _orcamentoService = orcamentoService;
         }

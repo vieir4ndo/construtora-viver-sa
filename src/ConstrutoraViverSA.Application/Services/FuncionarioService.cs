@@ -2,11 +2,12 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
 using System.Linq;
+using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain.Dtos;
 
-namespace ConstrutoraViverSA.Service
+namespace ConstrutoraViverSA.Application.Services
 {
-    public class FuncionarioService
+    public class FuncionarioService : IFuncionarioService
     {
         private readonly ApplicationContext _database;
 
@@ -23,10 +24,10 @@ namespace ConstrutoraViverSA.Service
                 .ToList();
         }
 
-        public Funcionario BuscarFuncionarioPorId(long BuscaId)
+        public Funcionario BuscarFuncionarioPorId(long buscaId)
         {
             return _database.Funcionarios
-                .FirstOrDefault(p => p.Id == BuscaId);
+                .FirstOrDefault(p => p.Id == buscaId);
         }
 
         public void AdicionarFuncionario(FuncionarioDto dto)
@@ -34,9 +35,9 @@ namespace ConstrutoraViverSA.Service
             _database.Funcionarios.Add(dto.DtoParaDominio());
             _database.SaveChanges();
         }
-        public void ExcluirFuncionario(long IdExcluir)
+        public void ExcluirFuncionario(long idExcluir)
         {
-            Funcionario funcionario = _database.Funcionarios.Find(IdExcluir);
+            Funcionario funcionario = _database.Funcionarios.Find(idExcluir);
 
             _database.Funcionarios.Remove(funcionario);
             _database.SaveChanges();
