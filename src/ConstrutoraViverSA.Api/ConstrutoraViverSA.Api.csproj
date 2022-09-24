@@ -6,9 +6,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ConstrutoraViverSA.Application\ConstrutoraViverSA.Application.csproj" />
-      <ProjectReference Include="..\ConstrutoraViverSA.Infraestrutura\ConstrutoraViverSA.Infraestrutura.csproj" />
-      <ProjectReference Include="..\ConstrutoraViverSA.Repository\ConstrutoraViverSA.Repository.csproj" />
-      <ProjectReference Include="..\ConstrutoraViverSA.Service\ConstrutoraViverSA.Service.csproj" />
     </ItemGroup>
 
     <ItemGroup>
