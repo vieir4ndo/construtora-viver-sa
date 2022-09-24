@@ -7,7 +7,7 @@ namespace ConstrutoraViverSA.Application.Interfaces
     {
         List<Obra> BuscarObras();
         Obra BuscarObraPorId(long buscaId);
-        void AdicionarObra(Obra Obra);
+        void AdicionarObra(Obra obra);
         void ExcluirObra(long idExcluir);
         void AlterarObra(long id, Obra obralAtualizado);
     }

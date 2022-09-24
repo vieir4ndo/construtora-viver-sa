@@ -1,65 +1,65 @@
+using System;
 using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
-using System.Linq;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services
 {
     public class FuncionarioService : IFuncionarioService
     {
-        private readonly ApplicationContext _database;
+        private readonly IFuncionarioRepository _repository;
 
-        public FuncionarioService(ApplicationContext applicationContext)
+        public FuncionarioService(IFuncionarioRepository repository)
         {
-            _database = applicationContext;
+            _repository = repository;
         }
 
         public List<Funcionario> BuscarFuncionarios()
         {
-            return _database.Funcionarios
-                .Where(p => p.Id > 0)
-                .OrderBy(p => p.Id)
-                .ToList();
+            var funcionario= _repository.BuscarFuncionarios();
+            
+            if (funcionario is null)
+            {
+                throw new Exception("Funcionário não encontrado");
+            }
+
+            return funcionario;
         }
 
         public Funcionario BuscarFuncionarioPorId(long buscaId)
         {
-            return _database.Funcionarios
-                .FirstOrDefault(p => p.Id == buscaId);
+            return _repository.BuscarFuncionarioPorId(buscaId);
         }
 
         public void AdicionarFuncionario(FuncionarioDto dto)
         {
-            _database.Funcionarios.Add(dto.DtoParaDominio());
-            _database.SaveChanges();
+            // TODO: Usar automapper
+            _repository.AdicionarFuncionario(dto.DtoParaDominio());
         }
         public void ExcluirFuncionario(long idExcluir)
         {
-            Funcionario funcionario = _database.Funcionarios.Find(idExcluir);
-
-            _database.Funcionarios.Remove(funcionario);
-            _database.SaveChanges();
+            var funcionario = BuscarFuncionarioPorId(idExcluir);
+            
+            _repository.ExcluirFuncionario(funcionario);
         }
 
-        public void AlterarFuncionario(long id, FuncionarioDto funcionariolAtualizado)
+        public void AlterarFuncionario(long id, FuncionarioDto dto)
         {
-            Funcionario funcionario = _database.Funcionarios.Find(id);
+            var funcionario = BuscarFuncionarioPorId(id);
 
-            // TODO: ajustar para pegar somente se mudar ou existir
-            funcionario.Nome = funcionariolAtualizado.Nome;
-            funcionario.DataNascimento = funcionariolAtualizado.DataNascimento;
-            funcionario.Genero = funcionariolAtualizado.Genero;
-            funcionario.Cpf = funcionariolAtualizado.Cpf;
-            funcionario.NumCtps = funcionariolAtualizado.NumCtps;
-            funcionario.Endereco = funcionariolAtualizado.Endereco;
-            funcionario.Email = funcionariolAtualizado.Email;
-            funcionario.Telefone = funcionariolAtualizado.Telefone;
-            funcionario.Cargo = funcionariolAtualizado.Cargo;
+            funcionario.Nome = dto.Nome ?? funcionario.Nome;
+            funcionario.DataNascimento = dto.DataNascimento ?? funcionario.DataNascimento;
+            funcionario.Genero = dto.Genero ?? funcionario.Genero;
+            funcionario.Cpf = dto.Cpf ?? funcionario.Cpf;
+            funcionario.NumCtps = dto.NumCtps ?? funcionario.NumCtps;
+            funcionario.Endereco = dto.Endereco ?? funcionario.Endereco;
+            funcionario.Email = dto.Email ?? funcionario.Email;
+            funcionario.Telefone = dto.Telefone ?? funcionario.Telefone;
+            funcionario.Cargo = dto.Cargo ?? funcionario.Cargo;
 
-            _database.Funcionarios.Update(funcionario);
-            _database.SaveChanges();
+           _repository.AlterarFuncionario(funcionario);
         }
     }
 }

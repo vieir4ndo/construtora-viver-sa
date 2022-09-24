@@ -1,60 +1,59 @@
-﻿using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Infraestrutura;
+﻿using System;
+using ConstrutoraViverSA.Domain;
 using System.Collections.Generic;
-using System.Linq;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services
 {
     public class MaterialService : IMaterialService
     {
-        private readonly ApplicationContext _database;
-
-        public MaterialService(ApplicationContext applicationContext)
+        private readonly IMaterialRepository _repository;
+        public MaterialService(IMaterialRepository repository)
         {
-            _database = applicationContext;
+            _repository = repository;
         }
 
         public List<Material> BuscarMateriais()
         {
-            return _database.Materiais
-                .Where(p => p.Id > 0)
-                .OrderBy(p => p.Id)
-                .ToList();
+            return _repository.BuscarMateriais();
         }
 
         public Material BuscarMaterialPorId(long buscaId)
         {
-            return _database.Materiais
-                .FirstOrDefault(p => p.Id == buscaId);
+            var material = _repository.BuscarMaterialPorId(buscaId);
+            
+            if (material is null)
+            {
+                throw new Exception("Material não encontrado");
+            }
+
+            return material;
         }
 
         public void AdicionarMaterial(MaterialDto material)
         {
-            _database.Materiais.Add(material.DtoParaDominio());
-            _database.SaveChanges();
+            _repository.AdicionarMaterial(material);
         }
         public void ExcluirMaterial(long idExcluir)
         {
-            Material material = _database.Materiais.Find(idExcluir);
+            var material = BuscarMaterialPorId(idExcluir);
 
-            _database.Materiais.Remove(material);
-            _database.SaveChanges();
+            _repository.ExcluirMaterial(material);
         }
 
         public void AlterarMaterial(long id, MaterialDto materialAtualizado)
         {
-            Material material = _database.Materiais.Find(id);
+            var material = BuscarMaterialPorId(id);
+            
+            material.Nome = materialAtualizado.Nome ?? material.Nome;
+            material.Descricao = materialAtualizado.Descricao ?? material.Descricao;
+            material.Valor = materialAtualizado.Valor ?? material.Valor;
+            material.DataValidade = materialAtualizado.DataValidade ?? material.DataValidade;
+            material.Tipo = materialAtualizado.Tipo ?? material.Tipo;
 
-            material.Nome = materialAtualizado.Nome;
-            material.Descricao = materialAtualizado.Descricao;
-            material.Valor = materialAtualizado.Valor;
-            material.DataValidade = materialAtualizado.DataValidade;
-            material.Tipo = materialAtualizado.Tipo;
-
-            _database.Materiais.Update(material);
-            _database.SaveChanges();
+            _repository.AlterarMaterial(material);
         }
     }
 }

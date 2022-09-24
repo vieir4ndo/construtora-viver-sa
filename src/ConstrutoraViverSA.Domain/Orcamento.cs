@@ -19,7 +19,7 @@ namespace ConstrutoraViverSA.Domain
         (
             string descricao,
             string endereco,
-            TipoObraEnum tipoObra,
+            TipoObraEnum? tipoObra,
             DateTime dataEmissao,
             DateTime dataValidade,
             double valor

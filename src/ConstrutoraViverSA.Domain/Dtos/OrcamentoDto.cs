@@ -7,10 +7,10 @@ namespace ConstrutoraViverSA.Domain.Dtos
     {
         public string Descricao { get; set; }
         public string Endereco { get; set; }
-        public TipoObraEnum TipoObra { get; set; }
-        public DateTime DataEmissao { get; set; }
-        public DateTime DataValidade { get; set; }
-        public double Valor { get; set; }
+        public TipoObraEnum? TipoObra { get; set; }
+        public DateTime? DataEmissao { get; set; }
+        public DateTime? DataValidade { get; set; }
+        public double? Valor { get; set; }
 
         public Orcamento DtoParaDominio()
         {

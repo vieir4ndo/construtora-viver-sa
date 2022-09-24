@@ -2,6 +2,8 @@ using System;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Application.Services;
 using ConstrutoraViverSA.Infraestrutura;
+using ConstrutoraViverSA.Repository.Interfaces;
+using ConstrutoraViverSA.Repository.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,6 +36,9 @@ namespace ConstrutoraViverSA.Api
             services.AddScoped<IOrcamentoService, OrcamentoService>();
             
             //Repositories
+            services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
+            services.AddScoped<IObraRepository, ObraRepository>();
 
             // Register the Swagger Generator service. This service is responsible for genrating Swagger Documents.
             // Note: Add this service at the end after AddMvc() or AddMvcCore().

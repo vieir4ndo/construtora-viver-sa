@@ -1,59 +1,59 @@
+using System;
 using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Infraestrutura;
 using System.Collections.Generic;
-using System.Linq;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services
 {
     public class ObraService : IObraService
     {
-        private readonly ApplicationContext _database;
-        public ObraService(ApplicationContext applicationContext)
+        private readonly IObraRepository _repository;
+        public ObraService(IObraRepository repository)
         {
-            _database = applicationContext;
+            _repository = repository;
         }
 
         public List<Obra> BuscarObras()
         {
-            return _database.Obras
-                .Where(p => p.Id > 0)
-                .OrderBy(p => p.Id)
-                .ToList();
+            return _repository.BuscarObras();
         }
 
         public Obra BuscarObraPorId(long buscaId)
         {
-            return _database.Obras
-                .FirstOrDefault(p => p.Id == buscaId);
+            var obra = _repository.BuscarObraPorId(buscaId);
+            
+            if (obra is null)
+            {
+                throw new Exception("Obra não encontrada");
+            }
+
+            return obra;
         }
 
-        public void AdicionarObra(Obra Obra)
+        public void AdicionarObra(Obra obra)
         {
-            _database.Obras.Add(Obra);
-            _database.SaveChanges();
+            _repository.AdicionarObra(obra);
         }
         public void ExcluirObra(long idExcluir)
         {
-            Obra Obra = _database.Obras.Find(idExcluir);
+            var obra = BuscarObraPorId(idExcluir);
 
-            _database.Obras.Remove(Obra);
-            _database.SaveChanges();
+            _repository.ExcluirObra(obra);
         }
 
         public void AlterarObra(long id, Obra obralAtualizado)
         {
-            Obra Obra = _database.Obras.Find(id);
+            var obra = BuscarObraPorId(id);
 
-            Obra.Nome = obralAtualizado.Nome;
-            Obra.Descricao = obralAtualizado.Descricao;
-            Obra.Endereco = obralAtualizado.Endereco;
-            Obra.TipoObra = obralAtualizado.TipoObra;
-            Obra.Valor = obralAtualizado.Valor;
-            Obra.PrazoConclusao = obralAtualizado.PrazoConclusao;
+            obra.Nome = obralAtualizado.Nome ?? obra.Nome;
+            obra.Descricao = obralAtualizado.Descricao ?? obra.Descricao;
+            obra.Endereco = obralAtualizado.Endereco ?? obra.Endereco;
+            obra.TipoObra = obralAtualizado.TipoObra ?? obra.TipoObra;
+            obra.Valor = obralAtualizado.Valor ?? obra.Valor;
+            obra.PrazoConclusao = obralAtualizado.PrazoConclusao ?? obra.PrazoConclusao;
 
-            _database.Obras.Update(Obra);
-            _database.SaveChanges();
+            _repository.AlterarObra(obra);
         }
     }
 }

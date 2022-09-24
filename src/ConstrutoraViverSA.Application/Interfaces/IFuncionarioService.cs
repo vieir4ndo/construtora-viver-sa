@@ -10,6 +10,6 @@ namespace ConstrutoraViverSA.Application.Interfaces
         Funcionario BuscarFuncionarioPorId(long buscaId);
         void AdicionarFuncionario(FuncionarioDto dto);
         void ExcluirFuncionario(long idExcluir);
-        void AlterarFuncionario(long id, FuncionarioDto funcionariolAtualizado);
+        void AlterarFuncionario(long id, FuncionarioDto dto);
     }
 }
