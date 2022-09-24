@@ -16,35 +16,4 @@ namespace ConstrutoraViverSA.Api.Controllers.Responses
             Mensagens = mensagens;
         }
     }
-
-    public static class ApiResponseFactory
-    {
-        public static ApiResponse Error(string mensagem)
-        {
-            return new ApiResponse(false, null, new List<string>()
-            {
-                mensagem
-            });
-        }
-        
-        public static ApiResponse Error(List<string> mensagem)
-        {
-            return new ApiResponse(false, null, mensagem);
-        }
-        
-        public static ApiResponse Success(List<object> data = null)
-        {
-            return new ApiResponse(true, data, null);
-        }
-        
-        public static ApiResponse Success(object data = null)
-        {
-            return new ApiResponse(true, new List<object>() {data}, null);
-        }
-        
-        public static ApiResponse Success()
-        {
-            return new ApiResponse(true, null, null);
-        }
-    }
 }

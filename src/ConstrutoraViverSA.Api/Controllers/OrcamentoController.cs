@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
@@ -27,11 +28,11 @@ namespace ConstrutoraViverSA.Api.Controllers
                 
                 _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
                 
-                return Ok(ApiResponseFactory.Success());
+                return Ok(new ApiResponse(true, null, null));
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
         
@@ -40,21 +41,13 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             try
             {
-                // TODO: Levar lógica para service
                 var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
-
-                if (consulta == null)
-                {
-                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
-                }
-                
-                // TODO: Mapear para objeto de response
 
                 return Ok(consulta);
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
         
@@ -63,21 +56,13 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             try
             {
-                // TODO: Levar lógica para service
-                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
-
-                if (consulta == null)
-                {
-                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
-                }
-
                 _orcamentoService.AlterarOrcamento(id, request.RequestParaDto());
 
-                return Ok();
+                return Ok(new ApiResponse(true, null, null));
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
         
@@ -86,21 +71,13 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             try
             {
-                // TODO: Levar lógica para service
-                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
-
-                if (consulta == null)
-                {
-                    return NotFound(ApiResponseFactory.Error("Orcamento não encontrado"));
-                }
-
                 _orcamentoService.ExcluirOrcamento(id);
 
-                return Ok();
+                return Ok(new ApiResponse(true, null, null));
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
     }

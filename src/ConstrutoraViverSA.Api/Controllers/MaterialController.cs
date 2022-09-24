@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
@@ -25,11 +26,11 @@ namespace ConstrutoraViverSA.Api.Controllers
             {
                 _materialService.AdicionarMaterial(request.RequestParaDto());
 
-                return Ok();
+                return Ok(new ApiResponse(true, null, null));
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
         
@@ -40,16 +41,11 @@ namespace ConstrutoraViverSA.Api.Controllers
             {
                 var consulta = _materialService.BuscarMaterialPorId(id);
 
-                if (consulta == null)
-                {
-                    return NotFound(ApiResponseFactory.Error("Material não encontrado"));
-                }
-
-                return Ok(ApiResponseFactory.Success(consulta));
+                return Ok(new ApiResponse(true, new List<object>() { consulta}, null));
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
         
@@ -58,20 +54,13 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             try
             {
-                var consulta = _materialService.BuscarMaterialPorId(id);
-
-                if (consulta == null)
-                {
-                    return NotFound(ApiResponseFactory.Error("Material não encontrado"));
-                }
-
                 _materialService.AlterarMaterial(id, request.RequestParaDto());
 
-                return Ok();
+                return Ok(new ApiResponse(true, null, null));
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
 
@@ -80,20 +69,13 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             try
             {
-                var consulta = _materialService.BuscarMaterialPorId(id);
-
-                if (consulta == null)
-                {
-                    return NotFound(ApiResponseFactory.Error("Material não encontrado"));
-                }
-
                 _materialService.ExcluirMaterial(id);
 
-                return Ok();
+                return Ok(new ApiResponse(true, null, null));
             }
             catch (Exception e)
             {
-                return BadRequest(ApiResponseFactory.Error(e.Message));
+                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
             }
         }
     }
