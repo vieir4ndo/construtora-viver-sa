@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace ConstrutoraViverSA.Service.Tests
+namespace ConstrutoraViverSA.Application.Tests
 {
     public class UnitTest1
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ConstrutoraViverSA.Infraestrutura
+namespace ConstrutoraViverSA.Infrastructure
 {
     public class ApplicationContext : DbContext
     {

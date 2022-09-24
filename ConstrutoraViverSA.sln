@@ -5,21 +5,21 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Domain", "src\ConstrutoraViverSA.Domain\ConstrutoraViverSA.Domain.csproj", "{92AEC31F-E4A0-475D-B623-9F382AD15676}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Infraestrutura", "src\ConstrutoraViverSA.Infraestrutura\ConstrutoraViverSA.Infraestrutura.csproj", "{DB1B31C5-C0A7-47AF-A62F-A50A0CDB9E97}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3C6F05B-94A4-4209-AA05-6B1A553D8202}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Repository", "src\ConstrutoraViverSA.Repository\ConstrutoraViverSA.Repository.csproj", "{E6AD2530-24CB-40DC-869A-4DBBEE5B031B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{71E7A794-92BD-4199-B1B1-0D64379131B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Service.Tests", "tests\ConstrutoraViverSA.Service.Tests\ConstrutoraViverSA.Service.Tests.csproj", "{170AD53A-EAF9-429F-B950-F92FC9B09478}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Api", "src\ConstrutoraViverSA.Api\ConstrutoraViverSA.Api.csproj", "{D221046B-F786-4A4A-8F69-9D20D6BE93D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Api.Tests", "tests\ConstrutoraViverSA.Api.Tests\ConstrutoraViverSA.Api.Tests.csproj", "{896B69B1-6C74-4143-9D68-308C8231D309}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Application", "src\ConstrutoraViverSA.Application\ConstrutoraViverSA.Application.csproj", "{9DC9FD9E-093B-40A4-9839-D87886338AFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Application.Tests", "tests\ConstrutoraViverSA.Application.Tests\ConstrutoraViverSA.Application.Tests.csproj", "{03A0ECDA-4651-4BEE-AC31-AB69046D31D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Infrastructure", "src\ConstrutoraViverSA.Infrastructure\ConstrutoraViverSA.Infrastructure.csproj", "{F5DDB080-1300-4CD7-88BF-2578D2C0031A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,18 +31,10 @@ Global
 		{92AEC31F-E4A0-475D-B623-9F382AD15676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92AEC31F-E4A0-475D-B623-9F382AD15676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92AEC31F-E4A0-475D-B623-9F382AD15676}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB1B31C5-C0A7-47AF-A62F-A50A0CDB9E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB1B31C5-C0A7-47AF-A62F-A50A0CDB9E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB1B31C5-C0A7-47AF-A62F-A50A0CDB9E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB1B31C5-C0A7-47AF-A62F-A50A0CDB9E97}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E6AD2530-24CB-40DC-869A-4DBBEE5B031B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6AD2530-24CB-40DC-869A-4DBBEE5B031B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6AD2530-24CB-40DC-869A-4DBBEE5B031B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6AD2530-24CB-40DC-869A-4DBBEE5B031B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{170AD53A-EAF9-429F-B950-F92FC9B09478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{170AD53A-EAF9-429F-B950-F92FC9B09478}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{170AD53A-EAF9-429F-B950-F92FC9B09478}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{170AD53A-EAF9-429F-B950-F92FC9B09478}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D221046B-F786-4A4A-8F69-9D20D6BE93D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D221046B-F786-4A4A-8F69-9D20D6BE93D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D221046B-F786-4A4A-8F69-9D20D6BE93D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +47,14 @@ Global
 		{9DC9FD9E-093B-40A4-9839-D87886338AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DC9FD9E-093B-40A4-9839-D87886338AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DC9FD9E-093B-40A4-9839-D87886338AFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03A0ECDA-4651-4BEE-AC31-AB69046D31D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03A0ECDA-4651-4BEE-AC31-AB69046D31D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03A0ECDA-4651-4BEE-AC31-AB69046D31D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03A0ECDA-4651-4BEE-AC31-AB69046D31D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5DDB080-1300-4CD7-88BF-2578D2C0031A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5DDB080-1300-4CD7-88BF-2578D2C0031A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5DDB080-1300-4CD7-88BF-2578D2C0031A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5DDB080-1300-4CD7-88BF-2578D2C0031A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,11 +64,11 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{92AEC31F-E4A0-475D-B623-9F382AD15676} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
-		{DB1B31C5-C0A7-47AF-A62F-A50A0CDB9E97} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
 		{E6AD2530-24CB-40DC-869A-4DBBEE5B031B} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
-		{170AD53A-EAF9-429F-B950-F92FC9B09478} = {71E7A794-92BD-4199-B1B1-0D64379131B3}
 		{D221046B-F786-4A4A-8F69-9D20D6BE93D6} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
 		{896B69B1-6C74-4143-9D68-308C8231D309} = {71E7A794-92BD-4199-B1B1-0D64379131B3}
 		{9DC9FD9E-093B-40A4-9839-D87886338AFF} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
+		{03A0ECDA-4651-4BEE-AC31-AB69046D31D9} = {71E7A794-92BD-4199-B1B1-0D64379131B3}
+		{F5DDB080-1300-4CD7-88BF-2578D2C0031A} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
 	EndGlobalSection
 EndGlobal

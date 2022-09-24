@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ConstrutoraViverSA.Infraestrutura.Configurators
+namespace ConstrutoraViverSA.Infrastructure.Configurators
 {
     public class OrcamentoConfigurator : IEntityTypeConfiguration<Orcamento>
     {

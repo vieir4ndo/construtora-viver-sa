@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace ConstrutoraViverSA.Infraestrutura.Migrations
+namespace ConstrutoraViverSA.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class UpdateDatabaseStructure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
