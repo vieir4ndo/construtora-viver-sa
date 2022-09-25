@@ -6,5 +6,7 @@
         public virtual Obra Obra { get; set; } 
         public long MaterialId { get; set; }
         public virtual Material Material { get; set; }   
+        
+        public int Quantidade { get; set; }
     }
 }

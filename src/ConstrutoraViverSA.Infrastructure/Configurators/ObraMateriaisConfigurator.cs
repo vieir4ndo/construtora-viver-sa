@@ -9,13 +9,10 @@ namespace ConstrutoraViverSA.Infrastructure.Configurators
         public void Configure(EntityTypeBuilder<ObraMateriais> builder)
         {
             builder.HasKey(p => new { p.MaterialId, p.ObraId });
-            builder.Property(a => a.MaterialId)
-                .IsRequired();
-            builder.Property(a => a.ObraId)
-                .IsRequired();
+            builder.Property(a => a.MaterialId).IsRequired();
+            builder.Property(a => a.ObraId).IsRequired();
 
             builder.HasOne<Material>(c => c.Material).WithMany(c => c.ObraMateriais).HasForeignKey(c => c.MaterialId);
-
             builder.HasOne<Obra>(c => c.Obra).WithMany(c => c.ObraMateriais).HasForeignKey(c => c.ObraId);
         }
     }

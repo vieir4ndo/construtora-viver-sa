@@ -14,8 +14,7 @@ namespace ConstrutoraViverSA.Domain
         public string Descricao { get; set; }
         public double? Valor { get; set; }
         public DateTime? PrazoConclusao { get; set; }
-
-        protected virtual Orcamento Orcamento { get; set; }
+        public virtual Orcamento Orcamento { get; set; }
         public long OrcamentoId { get; set; }
 
         public virtual ICollection<ObraFuncionarios> ObraFuncionarios { get; set; }

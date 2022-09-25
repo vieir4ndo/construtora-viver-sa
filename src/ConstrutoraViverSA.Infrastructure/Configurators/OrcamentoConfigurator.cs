@@ -9,12 +9,12 @@ namespace ConstrutoraViverSA.Infrastructure.Configurators
         public void Configure(EntityTypeBuilder<Orcamento> builder)
         {
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.Descricao).IsRequired(false);
-            builder.Property(p => p.Endereco).IsRequired(false);
-            builder.Property(p => p.TipoObra).IsRequired(false);
-            builder.Property(p => p.DataEmissao).IsRequired(false);
-            builder.Property(p => p.DataValidade).IsRequired(false);
-            builder.Property(p => p.Valor).IsRequired(false);
+            builder.Property(p => p.Descricao).IsRequired();
+            builder.Property(p => p.Endereco).IsRequired();
+            builder.Property(p => p.TipoObra).IsRequired();
+            builder.Property(p => p.DataEmissao).IsRequired();
+            builder.Property(p => p.DataValidade).IsRequired();
+            builder.Property(p => p.Valor).IsRequired();
         }
     }
 }

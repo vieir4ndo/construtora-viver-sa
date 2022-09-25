@@ -1,5 +1,4 @@
 ﻿using ConstrutoraViverSA.Domain.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace ConstrutoraViverSA.Domain
@@ -11,8 +10,8 @@ namespace ConstrutoraViverSA.Domain
         public string Descricao { get; set; }
         public TipoMaterialEnum? Tipo { get; set; }
         public double? Valor { get; set; }
-        public DateTime? DataValidade { get; set; }
-        
+        public int Quantidade { get; set; }
+        public virtual ICollection<Estoque> Estoque { get; set; }
         public virtual ICollection<ObraMateriais> ObraMateriais { get; set; }
         public Material() { }
         public Material
@@ -20,15 +19,13 @@ namespace ConstrutoraViverSA.Domain
            string nome,
            string descricao,
            TipoMaterialEnum tipo,
-           double valor,
-           DateTime dataValidade
+           double valor
        )
         {
             Nome = nome;
             Descricao = descricao;
             Tipo = tipo;
             Valor = valor;
-            DataValidade = dataValidade;
         }
     }
 }

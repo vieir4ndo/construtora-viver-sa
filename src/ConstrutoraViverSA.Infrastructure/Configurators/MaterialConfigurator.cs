@@ -9,11 +9,11 @@ namespace ConstrutoraViverSA.Infrastructure.Configurators
         public void Configure(EntityTypeBuilder<Material> builder)
         {
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.Nome).HasMaxLength(80).IsRequired(false);
-            builder.Property(p => p.Descricao).IsRequired(false);
-            builder.Property(p => p.Tipo).IsRequired(false);
-            builder.Property(p => p.Valor).IsRequired(false);
-            builder.Property(p => p.DataValidade).IsRequired(false);
+            builder.Property(p => p.Nome).HasMaxLength(80).IsRequired();
+            builder.Property(p => p.Descricao).IsRequired();
+            builder.Property(p => p.Tipo).IsRequired();
+            builder.Property(p => p.Valor).IsRequired();
+            builder.Property(p => p.Quantidade).IsRequired().HasDefaultValue(0);
         }
     }
 }
