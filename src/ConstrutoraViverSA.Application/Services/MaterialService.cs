@@ -12,11 +12,9 @@ namespace ConstrutoraViverSA.Application.Services
     public class MaterialService : IMaterialService
     {
         private readonly IMaterialRepository _repository;
-        private readonly IEstoqueService _estoqueService;
-        public MaterialService(IMaterialRepository repository, IEstoqueService estoqueService)
+        public MaterialService(IMaterialRepository repository)
         {
             _repository = repository;
-            _estoqueService = estoqueService;
         }
 
         public List<Material> BuscarMateriais()
@@ -71,8 +69,8 @@ namespace ConstrutoraViverSA.Application.Services
 
             dto.MaterialId = material.Id;
             
-            _estoqueService.MovimentarEstoque(dto);
-
+            material.Estoque.Add(dto.DtoParaDominio());
+            
             if (dto.OperacaoEstoque == OperacaoEstoque.Entrada)
             {
                 material.Quantidade += dto.Quantidade;

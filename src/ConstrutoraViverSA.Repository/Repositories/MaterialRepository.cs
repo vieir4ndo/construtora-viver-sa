@@ -4,6 +4,8 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Infrastructure;
 using ConstrutoraViverSA.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace ConstrutoraViverSA.Repository.Repositories
 {
@@ -27,7 +29,9 @@ namespace ConstrutoraViverSA.Repository.Repositories
         public Material BuscarMaterialPorId(long buscaId)
         {
             return _database.Materiais
-                .FirstOrDefault(p => p.Id == buscaId);
+                .Where(p => p.Id == buscaId)
+                .Include(p => p.Estoque)
+                .FirstOrDefault();
         }
 
         public void AdicionarMaterial(MaterialDto material)

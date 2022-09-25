@@ -27,7 +27,9 @@ namespace ConstrutoraViverSA.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             
             services.AddScoped<ApplicationContext>();
 
@@ -36,14 +38,12 @@ namespace ConstrutoraViverSA.Api
             services.AddScoped<IFuncionarioService, FuncionarioService>();
             services.AddScoped<IObraService, ObraService>();
             services.AddScoped<IOrcamentoService, OrcamentoService>();
-            services.AddScoped<IEstoqueService, EstoqueService>();
             
             //Repositories
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddScoped<IObraRepository, ObraRepository>();
             services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
-            services.AddScoped<IEstoqueRepository, EstoqueRepository>();
 
             // Register the Swagger Generator service. This service is responsible for genrating Swagger Documents.
             // Note: Add this service at the end after AddMvc() or AddMvcCore().

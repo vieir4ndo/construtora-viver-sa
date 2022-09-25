@@ -8,4 +8,9 @@
       <ProjectReference Include="..\ConstrutoraViverSA.Repository\ConstrutoraViverSA.Repository.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Services\EstoqueService.cs" />
+      <Compile Remove="Interfaces\IEstoqueService.cs" />
+    </ItemGroup>
+
 </Project>

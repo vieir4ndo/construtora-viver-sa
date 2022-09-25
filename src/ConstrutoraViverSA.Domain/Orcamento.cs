@@ -1,23 +1,15 @@
-﻿using ConstrutoraViverSA.Domain.Enums;
-using System;
+﻿using System;
+using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Domain
 {
     public class Orcamento
     {
-        public long Id { get; set; }
-        public string Descricao { get; set; }
-        public string Endereco { get; set; }
-        public TipoObraEnum? TipoObra { get; set; }
-        public DateTime? DataEmissao { get; set; }
-        public DateTime? DataValidade { get; set; }
-        public double? Valor { get; set; }
-        
-        public virtual Obra Obra { get; set; }
+        public Orcamento()
+        {
+        }
 
-       public Orcamento() { }
-        
-       public Orcamento
+        public Orcamento
         (
             string descricao,
             string endereco,
@@ -34,5 +26,14 @@ namespace ConstrutoraViverSA.Domain
             DataValidade = dataValidade;
             Valor = valor;
         }
+
+        public long Id { get; set; }
+        public string Descricao { get; set; }
+        public string Endereco { get; set; }
+        public TipoObraEnum? TipoObra { get; set; }
+        public DateTime? DataEmissao { get; set; }
+        public DateTime? DataValidade { get; set; }
+        public double? Valor { get; set; }
+        public virtual Obra Obra { get; set; }
     }
 }
