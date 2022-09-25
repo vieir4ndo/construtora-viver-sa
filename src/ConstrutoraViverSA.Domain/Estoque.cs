@@ -8,7 +8,7 @@ namespace ConstrutoraViverSA.Domain
         public long Id { get; set; }
         public long MaterialId { get; set; }
         public virtual Material Material { get; set; }  
-        public OperacaoEstoque OperacaoEstoque { get; set; }
+        public EntradaSaidaEnum EntradaSaidaEnum { get; set; }
         public int Quantidade { get; set; }
         
         public DateTime DateTime { get; set; }

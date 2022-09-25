@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace ConstrutoraViverSA.Api.Controllers.Validators
 {
-    public class EstoqueValidator: AbstractValidator<EstoqueRequest>
+    public class GerenciarEntradaSaidaValidator: AbstractValidator<GerenciarEntradaSaidaMaterialRequest>
     {
-        public EstoqueValidator()
+        public GerenciarEntradaSaidaValidator()
         {
-            RuleFor(x => x.OperacaoEstoque)
+            RuleFor(x => x.EntradaSaidaEnum)
                 .IsInEnum()
                 .NotEmpty()
                 .NotNull();

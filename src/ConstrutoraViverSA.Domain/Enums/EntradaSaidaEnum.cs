@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ConstrutoraViverSA.Domain.Enums
 {
-    public enum OperacaoEstoque
+    public enum EntradaSaidaEnum
     {
         [Display(Name="Entrada")]
         Entrada = 2,

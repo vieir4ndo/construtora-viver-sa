@@ -27,28 +27,28 @@ namespace ConstrutoraViverSA.Api.Controllers
             return Ok(new ApiResponse(true, null, null));
         }
 
-        [HttpGet("{id}")]
-        public IActionResult BuscarFuncionario(long id)
+        [HttpGet("{funcionarioId}")]
+        public IActionResult BuscarFuncionario(long funcionarioId)
         {
-            var consulta = _funcionarioService.BuscarPorId(id);
+            var consulta = _funcionarioService.BuscarPorId(funcionarioId);
 
             return Ok(new ApiResponse(true, new List<object> { consulta }, null));
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult EditarFuncionario(FuncionarioRequest request, long id)
+        [HttpPatch("{funcionarioId}")]
+        public IActionResult EditarFuncionario(FuncionarioRequest request, long funcionarioId)
         {
             request.ValidarEdicao();
 
-            _funcionarioService.Editar(id, request.RequestParaDto());
+            _funcionarioService.Editar(funcionarioId, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult ExcluirFuncionario(long id)
+        [HttpDelete("{funcionarioId}")]
+        public IActionResult ExcluirFuncionario(long funcionarioId)
         {
-            _funcionarioService.Excluir(id);
+            _funcionarioService.Excluir(funcionarioId);
 
             return Ok(new ApiResponse(true, null, null));
         }

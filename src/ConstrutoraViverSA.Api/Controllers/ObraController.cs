@@ -28,60 +28,54 @@ namespace ConstrutoraViverSA.Api.Controllers
             return Ok(new ApiResponse(true, null, null));
         }
         
-        [HttpGet("{id}")]
-        public IActionResult BuscarObra(long id)
+        [HttpGet("{obraId}")]
+        public IActionResult BuscarObra(long obraId)
         {
-            var consulta = _obraService.BuscarPorId(id);
+            var consulta = _obraService.BuscarPorId(obraId);
             
             return Ok(new ApiResponse(true, new List<object> { consulta }, null));
         }
         
-        [HttpPatch("{id}")]
-        public IActionResult AlterarObra(ObraRequest request, long id)
+        [HttpPatch("{obraId}")]
+        public IActionResult AlterarObra(ObraRequest request, long obraId)
         {
             request.ValidarEdicao();
 
-            _obraService.Editar(id, request.RequestParaDto());
+            _obraService.Editar(obraId, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
   
-        [HttpDelete("{id}")]
-        public IActionResult ExcluirObra(long id)
+        [HttpDelete("{obraId}")]
+        public IActionResult ExcluirObra(long obraId)
         {
-            _obraService.Excluir(id);
+            _obraService.Excluir(obraId);
             
             return Ok(new ApiResponse(true, null, null));
         }
 
-        [HttpPost("{id}/funcionario/{funcionarioId}")]
-        public IActionResult AlocarFuncionarioNaObra(long id, long funcionarioId)
+        [HttpPost("{obraId}/funcionario/{funcionarioId}")]
+        public IActionResult AlocarFuncionarioNaObra(long obraId, long funcionarioId)
         {
-            _obraService.AlocarFuncionario(id, funcionarioId);
+            _obraService.AlocarFuncionario(obraId, funcionarioId);
             
             return Ok(new ApiResponse(true, null, null));
         }
         
-        [HttpDelete("{id}/funcionario/{funcionarioId}")]
-        public IActionResult DesalocarFuncionarioDaObra(long id, long funcionarioId)
+        [HttpDelete("{obraId}/funcionario/{funcionarioId}")]
+        public IActionResult DesalocarFuncionarioNaObra(long obraId, long funcionarioId)
         {
-            _obraService.DesalocarFuncionario(id, funcionarioId);
+            _obraService.DesalocarFuncionario(obraId, funcionarioId);
             
             return Ok(new ApiResponse(true, null, null));
         }
         
-        [HttpPost("{id}/material/{materialId}")]
-        public IActionResult AlocarMaterialNaObra(long id, long materialId)
+        [HttpPut("{obraId}/material/{materialId}")]
+        public IActionResult GerenciarMaterialNaObra(GerenciarEntradaSaidaMaterialRequest materialRequest, long obraId, long materialId)
         {
-            _obraService.AlocarMaterial(id, materialId);
+            materialRequest.Validar();
             
-            return Ok(new ApiResponse(true, null, null));
-        }
-        
-        [HttpDelete("{id}/material/{materialId}")]
-        public IActionResult DesalocarMaterialDaObra(long id, long materialId)
-        {
-            _obraService.DesalocarMaterial(id, materialId);
+            _obraService.GerenciarMaterial(materialRequest.RequestParaDto(),obraId, materialId);
             
             return Ok(new ApiResponse(true, null, null));
         }

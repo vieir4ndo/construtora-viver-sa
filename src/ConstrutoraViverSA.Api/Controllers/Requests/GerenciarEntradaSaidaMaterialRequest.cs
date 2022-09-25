@@ -5,23 +5,23 @@ using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Api.Controllers.Requests
 {
-    public class EstoqueRequest
+    public class GerenciarEntradaSaidaMaterialRequest
     {
-        public OperacaoEstoque OperacaoEstoque { get; set; }
+        public EntradaSaidaEnum EntradaSaidaEnum { get; set; }
         public int Quantidade { get; set; }
 
-        public EstoqueDto RequestParaDto()
+        public EntradaSaidaMaterialDto RequestParaDto()
         {
-            return new EstoqueDto
+            return new EntradaSaidaMaterialDto
             {
-                OperacaoEstoque = OperacaoEstoque,
+                EntradaSaidaEnum = EntradaSaidaEnum,
                 Quantidade = Quantidade
             };
         }
 
         public void Validar()
         {
-            var resultado = new EstoqueValidator().Validate(this);
+            var resultado = new GerenciarEntradaSaidaValidator().Validate(this);
 
             if (resultado.IsValid == false) throw new ErroValidacaoException(resultado.ToString());
         }

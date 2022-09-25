@@ -27,38 +27,38 @@ namespace ConstrutoraViverSA.Api.Controllers
             return Ok(new ApiResponse(true, null, null));
         }
 
-        [HttpGet("{id}")]
-        public IActionResult BuscarMaterial(long id)
+        [HttpGet("{materialId}")]
+        public IActionResult BuscarMaterial(long materialId)
         {
-            var consulta = _materialService.BuscarPorId(id);
+            var consulta = _materialService.BuscarPorId(materialId);
 
             return Ok(new ApiResponse(true, new List<object> { consulta }, null));
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult EditarMaterial(MaterialRequest request, long id)
+        [HttpPatch("{materialId}")]
+        public IActionResult EditarMaterial(MaterialRequest request, long materialId)
         {
             request.ValidarEdicao();
             
-            _materialService.Editar(id, request.RequestParaDto());
+            _materialService.Editar(materialId, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult ExcluirMaterial(long id)
+        [HttpDelete("{materialId}")]
+        public IActionResult ExcluirMaterial(long materialId)
         {
-            _materialService.Excluir(id);
+            _materialService.Excluir(materialId);
 
             return Ok(new ApiResponse(true, null, null));
         }
 
-        [HttpPut("{id}/estoque")]
-        public IActionResult GerenciarEstoque(EstoqueRequest request, long id)
+        [HttpPut("{materialId}/estoque")]
+        public IActionResult GerenciarEstoque(GerenciarEntradaSaidaMaterialRequest materiaisMaterialRequest, long materialId)
         {
-            request.Validar();
+            materiaisMaterialRequest.Validar();
 
-            _materialService.MovimentarEstoque(id, request.RequestParaDto());
+            _materialService.MovimentarEstoque(materialId, materiaisMaterialRequest.RequestParaDto());
             
             return Ok(new ApiResponse(true, null, null));
         }

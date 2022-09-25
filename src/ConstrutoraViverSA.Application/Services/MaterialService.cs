@@ -57,27 +57,27 @@ namespace ConstrutoraViverSA.Application.Services
             _repository.Editar(material);
         }
 
-        public void MovimentarEstoque(long id, EstoqueDto dto)
+        public void MovimentarEstoque(long id, EntradaSaidaMaterialDto materialDto)
         {
             var material = BuscarPorId(id);
 
-            if (dto.OperacaoEstoque == OperacaoEstoque.Saida && dto.Quantidade > material.Quantidade)
+            if (materialDto.EntradaSaidaEnum == EntradaSaidaEnum.Saida && materialDto.Quantidade > material.Quantidade)
             {
                 throw new OperacaoInvalidaException(
-                    $"Solicitou-se a baixa de {dto.Quantidade} itens do estoque, no entanto o material {material.Nome} possui apenas {material.Quantidade} itens em estoque");
+                    $"Solicitou-se a baixa de {materialDto.Quantidade} itens do estoque, no entanto o material {material.Nome} possui apenas {material.Quantidade} itens em estoque");
             }
 
-            dto.MaterialId = material.Id;
+            materialDto.MaterialId = material.Id;
             
-            material.Estoque.Add(dto.DtoParaDominio());
+            material.Estoque.Add(materialDto.DtoParaDominio());
             
-            if (dto.OperacaoEstoque == OperacaoEstoque.Entrada)
+            if (materialDto.EntradaSaidaEnum == EntradaSaidaEnum.Entrada)
             {
-                material.Quantidade += dto.Quantidade;
+                material.Quantidade += materialDto.Quantidade;
             }
             else
             {
-                material.Quantidade -= dto.Quantidade;
+                material.Quantidade -= materialDto.Quantidade;
             }
             
             _repository.Editar(material);

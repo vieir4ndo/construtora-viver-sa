@@ -5,6 +5,6 @@ namespace ConstrutoraViverSA.Application.Interfaces
 {
     public interface IMaterialService : IBaseService<Material, MaterialDto>
     {
-        void MovimentarEstoque(long id, EstoqueDto dto);
+        void MovimentarEstoque(long id, EntradaSaidaMaterialDto materialDto);
     }
 }

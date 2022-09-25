@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 
@@ -81,6 +82,14 @@ namespace ConstrutoraViverSA.Application.Services
             _repository.Editar(obra);
         }
 
+        public void GerenciarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
+        {
+            if (materialDto.EntradaSaidaEnum == EntradaSaidaEnum.Entrada)
+                AlocarMaterial(materialDto, id, materialId);
+            else
+                DesalocarMaterial(materialDto, id, materialId);
+        }
+
         public void AlocarFuncionario(long id, long funcionarioId)
         {
             var funcionario = _funcionarioService.BuscarPorId(funcionarioId);
@@ -111,41 +120,44 @@ namespace ConstrutoraViverSA.Application.Services
             _repository.Editar(obra);
         }
 
-        public void AlocarMaterial(long id, long materialId)
+        private void AlocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
         {
             var material = _materialService.BuscarPorId(materialId);
-
+    
             var obra = BuscarPorId(id);
+
+            if (material.Quantidade < materialDto.Quantidade)
+            {
+                throw new OperacaoInvalidaException(
+                    $"Não há itens suficientes em estoque do material {material.Nome} para alocar na obra {obra.Nome}");
+            }
 
             var obraMaterial = _obraMaterialService.BuscarPorObraIdEMaterialId(id, materialId);
 
-            if (obraMaterial != null)
+            _materialService.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { EntradaSaidaEnum = EntradaSaidaEnum.Saida, Quantidade = materialDto.Quantidade});
+
+            if (obraMaterial == null)
             {
-                if (!obra.ObraMateriais.Contains(obraMaterial))
+                var obraMaterialDto = new ObraMaterialDto
                 {
-                    obra.ObraMateriais.Add(obraMaterial);
+                    Material = material,
+                    MaterialId = material.Id,
+                    Obra = obra,
+                    ObraId = obra.Id,
+                    Quantidade = materialDto.Quantidade
+                };
 
-                    _repository.Editar(obra);
-                }
-
-                throw new OperacaoInvalidaException(
-                    $"Material {material.Nome} já está alocado na obra {obra.Nome}");
+                obra.ObraMateriais.Add(obraMaterialDto.DtoParaDominio());
             }
-
-            var dto = new ObraMaterialDto
+            else
             {
-                Material = material,
-                MaterialId = material.Id,
-                Obra = obra,
-                ObraId = obra.Id
-            };
-
-            obra.ObraMateriais.Add(dto.DtoParaDominio());
-
+                obraMaterial.Quantidade += materialDto.Quantidade;
+            }
+            
             _repository.Editar(obra);
         }
 
-        public void DesalocarMaterial(long id, long materialId)
+        private void DesalocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
         {
             var material = _materialService.BuscarPorId(materialId);
 
@@ -154,10 +166,14 @@ namespace ConstrutoraViverSA.Application.Services
             var obraMaterial = _obraMaterialService.BuscarPorObraIdEMaterialId(id, materialId);
 
             if (obraMaterial == null)
-            {
                 throw new OperacaoInvalidaException(
                     $"Material {material.Nome} não está alocado na obra {obra.Nome}");
-            }
+
+            if (obraMaterial.Quantidade < materialDto.Quantidade)
+                throw new OperacaoInvalidaException(
+                    $"Material {material.Nome} está alocado na obra {obra.Nome} com apenas {obraMaterial.Quantidade} itens");
+
+            _materialService.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { EntradaSaidaEnum = EntradaSaidaEnum.Entrada, Quantidade = materialDto.Quantidade});
 
             obra.ObraMateriais.Remove(obraMaterial);
 
