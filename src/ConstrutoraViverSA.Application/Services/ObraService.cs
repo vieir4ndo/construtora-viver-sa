@@ -2,6 +2,7 @@ using System;
 using ConstrutoraViverSA.Domain;
 using System.Collections.Generic;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services
@@ -25,7 +26,7 @@ namespace ConstrutoraViverSA.Application.Services
             
             if (obra is null)
             {
-                throw new Exception("Obra não encontrada");
+                throw new NaoEncontradoException("Obra não encontrada");
             }
 
             return obra;

@@ -3,6 +3,7 @@ using ConstrutoraViverSA.Domain;
 using System.Collections.Generic;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services
@@ -26,7 +27,7 @@ namespace ConstrutoraViverSA.Application.Services
             
             if (material is null)
             {
-                throw new Exception("Material não encontrado");
+                throw new NaoEncontradoException("Material não encontrado");
             }
 
             return material;

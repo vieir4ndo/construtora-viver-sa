@@ -1,8 +1,8 @@
-using System;
-using ConstrutoraViverSA.Domain;
 using System.Collections.Generic;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services
@@ -18,19 +18,16 @@ namespace ConstrutoraViverSA.Application.Services
 
         public List<Funcionario> BuscarFuncionarios()
         {
-            var funcionario= _repository.BuscarFuncionarios();
-            
-            if (funcionario is null)
-            {
-                throw new Exception("Funcionário não encontrado");
-            }
-
-            return funcionario;
+            return _repository.BuscarFuncionarios();
         }
 
         public Funcionario BuscarFuncionarioPorId(long buscaId)
         {
-            return _repository.BuscarFuncionarioPorId(buscaId);
+            var funcionario = _repository.BuscarFuncionarioPorId(buscaId);
+
+            if (funcionario is null) throw new NaoEncontradoException("Funcionário não encontrado");
+
+            return funcionario;
         }
 
         public void AdicionarFuncionario(FuncionarioDto dto)
@@ -38,10 +35,11 @@ namespace ConstrutoraViverSA.Application.Services
             // TODO: Usar automapper
             _repository.AdicionarFuncionario(dto.DtoParaDominio());
         }
+
         public void ExcluirFuncionario(long idExcluir)
         {
             var funcionario = BuscarFuncionarioPorId(idExcluir);
-            
+
             _repository.ExcluirFuncionario(funcionario);
         }
 
@@ -59,7 +57,7 @@ namespace ConstrutoraViverSA.Application.Services
             funcionario.Telefone = dto.Telefone ?? funcionario.Telefone;
             funcionario.Cargo = dto.Cargo ?? funcionario.Cargo;
 
-           _repository.AlterarFuncionario(funcionario);
+            _repository.AlterarFuncionario(funcionario);
         }
     }
 }

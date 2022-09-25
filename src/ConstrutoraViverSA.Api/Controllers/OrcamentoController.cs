@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using ConstrutoraViverSA.Api.Controllers.Requests;
+﻿using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
@@ -21,64 +19,36 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpPost]
         public IActionResult CadastrarOrcamento(OrcamentoRequest request)
         {
-            try
-            {
-                // TODO: Validar request
-                // TODO: Usar Automapper
-                
-                _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
-                
-                return Ok(new ApiResponse(true, null, null));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            // TODO: Validar request
+            // TODO: Usar Automapper
+
+            _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
+
+            return Ok(new ApiResponse(true, null, null));
         }
-        
+
         [HttpGet("{id}")]
         public IActionResult BuscarOrcamento(long id)
         {
-            try
-            {
-                var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+            var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
 
-                return Ok(consulta);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            return Ok(consulta);
         }
-        
+
         [HttpPatch("{id}")]
         public IActionResult EditarOrcamento(OrcamentoRequest request, long id)
         {
-            try
-            {
-                _orcamentoService.AlterarOrcamento(id, request.RequestParaDto());
+            _orcamentoService.AlterarOrcamento(id, request.RequestParaDto());
 
-                return Ok(new ApiResponse(true, null, null));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            return Ok(new ApiResponse(true, null, null));
         }
-        
+
         [HttpDelete("{id}")]
         public IActionResult ExcluirOrcamento(long id)
         {
-            try
-            {
-                _orcamentoService.ExcluirOrcamento(id);
+            _orcamentoService.ExcluirOrcamento(id);
 
-                return Ok(new ApiResponse(true, null, null));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            return Ok(new ApiResponse(true, null, null));
         }
     }
 }

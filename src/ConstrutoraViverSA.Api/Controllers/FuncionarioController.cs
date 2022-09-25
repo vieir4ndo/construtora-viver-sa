@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
-    
     [ApiController]
     [Route("funcionario")]
     public class FuncionarioController : ControllerBase
@@ -22,70 +20,39 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpPost]
         public IActionResult CadastrarFuncionario(FuncionarioRequest request)
         {
-            try
-            {
-                request.ValidarCriacao();
-                
-                _funcionarioService.AdicionarFuncionario(request.RequestParaDto());
-                
-                return Ok(new ApiResponse(true, null, null));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            request.ValidarCriacao();
+
+            _funcionarioService.AdicionarFuncionario(request.RequestParaDto());
+
+            return Ok(new ApiResponse(true, null, null));
         }
-        
+
         [HttpGet("{id}")]
         public IActionResult BuscarFuncionario(long id)
         {
-            try
-            {
-                // TODO: Levar lógica para service
-                var consulta = _funcionarioService.BuscarFuncionarioPorId(id);
-                
-                // TODO: Mapear para objeto de response
+            var consulta = _funcionarioService.BuscarFuncionarioPorId(id);
 
-                var result = new ApiResponse(true, new List<object>() { consulta }, null);
-                
-                return Ok(result);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            // TODO: Mapear para objeto de response
+
+            return Ok(new ApiResponse(true, new List<object> { consulta }, null));
         }
 
         [HttpPatch("{id}")]
         public IActionResult EditarFuncionario(FuncionarioRequest request, long id)
         {
-            try
-            {
-                request.ValidarEdicao();
-                
-                _funcionarioService.AlterarFuncionario(id, request.RequestParaDto());
+            request.ValidarEdicao();
 
-                return Ok( new ApiResponse(true, null, null));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            _funcionarioService.AlterarFuncionario(id, request.RequestParaDto());
+
+            return Ok(new ApiResponse(true, null, null));
         }
-        
+
         [HttpDelete("{id}")]
         public IActionResult ExcluirFuncionario(long id)
         {
-            try
-            {
-                _funcionarioService.ExcluirFuncionario(id);
+            _funcionarioService.ExcluirFuncionario(id);
 
-                return Ok(new ApiResponse(true, null, null));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ApiResponse(false, null, new List<string>(){ e.Message}));
-            }
+            return Ok(new ApiResponse(true, null, null));
         }
     }
 }

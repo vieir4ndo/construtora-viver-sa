@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
 
 namespace ConstrutoraViverSA.Domain.Exceptions
 {
-    public class ErroValidacaoException<T> : Exception
+    public class ErroValidacaoException : Exception
     {
-        public List<T> Erros { get; set; }
-        public ErroValidacaoException(List<T> erros)
+        public ErroValidacaoException(string message) : base(message)
         {
-            Erros = erros;
         }
     }
 }

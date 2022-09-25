@@ -41,7 +41,7 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
             
             if (resultado.IsValid == false)
             {
-                throw new ErroValidacaoException<ValidationFailure>(resultado.Errors);
+                throw new ErroValidacaoException(resultado.ToString());
             }
         }
         
@@ -51,7 +51,7 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
             
             if (resultado.IsValid == false)
             {
-                throw new ErroValidacaoException<ValidationFailure>(resultado.Errors);
+                throw new ErroValidacaoException(resultado.ToString());
             }
         }
     }
