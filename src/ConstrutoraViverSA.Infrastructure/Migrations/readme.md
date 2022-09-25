@@ -1,6 +1,7 @@
-﻿To run a migration
+﻿# To run a migration
 
 dotnet ef migrations add UpdateDatabaseFKs --context ConstrutoraViverSA.Infrastructure.ApplicationContext -o 'Migrations'
 
-To update the database
+# To update the database
+
 dotnet ef database update

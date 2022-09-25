@@ -69,5 +69,21 @@ namespace ConstrutoraViverSA.Api.Controllers
             
             return Ok(new ApiResponse(true, null, null));
         }
+        
+        [HttpPost("{id}/material/{materialId}")]
+        public IActionResult AlocarMaterialNaObra(long id, long materialId)
+        {
+            _obraService.AlocarMaterial(id, materialId);
+            
+            return Ok(new ApiResponse(true, null, null));
+        }
+        
+        [HttpDelete("{id}/material/{materialId}")]
+        public IActionResult DesalocarMaterialDaObra(long id, long materialId)
+        {
+            _obraService.DesalocarMaterial(id, materialId);
+            
+            return Ok(new ApiResponse(true, null, null));
+        }
     }
 }

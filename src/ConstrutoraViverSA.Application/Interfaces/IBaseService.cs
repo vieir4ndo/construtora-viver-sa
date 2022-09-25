@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ConstrutoraViverSA.Application.Interfaces
 {
-    public interface IServiceBase<T, Dto>
+    public interface IBaseService<T, Dto>
     {
         List<T> BuscarTodos();
         T BuscarPorId(long buscaId);

@@ -19,7 +19,7 @@ namespace ConstrutoraViverSA.Domain
 
         public virtual ICollection<Funcionario> Funcionarios { get; set; }
 
-        public virtual ICollection<Material> Materials { get; set; }
+        public virtual ICollection<ObraMaterial> ObraMateriais { get; set; }
 
         public Obra()
         {

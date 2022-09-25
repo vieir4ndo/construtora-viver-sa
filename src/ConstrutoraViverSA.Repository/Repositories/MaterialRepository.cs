@@ -18,7 +18,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
 
         public List<Material> BuscarTodos()
         {
-            return _database.Materiais
+            return _database.Material
                 .Where(p => p.Id > 0)
                 .OrderBy(p => p.Id)
                 .ToList();
@@ -26,7 +26,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
 
         public Material BuscarPorId(long buscaId)
         {
-            return _database.Materiais
+            return _database.Material
                 .Where(p => p.Id == buscaId)
                 .Include(p => p.Estoque)
                 .FirstOrDefault();
@@ -34,19 +34,19 @@ namespace ConstrutoraViverSA.Repository.Repositories
 
         public void Adicionar(Material obj)
         {
-            _database.Materiais.Add(obj);
+            _database.Material.Add(obj);
             _database.SaveChanges();
         }
 
         public void Excluir(Material obj)
         {
-            _database.Materiais.Remove(obj);
+            _database.Material.Remove(obj);
             _database.SaveChanges();
         }
 
         public void Editar(Material obj)
         {
-            _database.Materiais.Update(obj);
+            _database.Material.Update(obj);
             _database.SaveChanges();
         }
     }

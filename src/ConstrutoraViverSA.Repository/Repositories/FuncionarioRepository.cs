@@ -17,7 +17,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
         
         public List<Funcionario> BuscarTodos()
         {
-            return _database.Funcionarios
+            return _database.Funcionario
                 .Where(p => p.Id > 0)
                 .OrderBy(p => p.Id)
                 .ToList();
@@ -25,24 +25,24 @@ namespace ConstrutoraViverSA.Repository.Repositories
         
         public Funcionario BuscarPorId(long buscaId)
         {
-            return _database.Funcionarios
+            return _database.Funcionario
                 .FirstOrDefault(p => p.Id == buscaId);
         }
         
         public void Adicionar(Funcionario obj)
         {
-            _database.Funcionarios.Add(obj);
+            _database.Funcionario.Add(obj);
             _database.SaveChanges();
         }
         public void Excluir(Funcionario obj)
         {
-            _database.Funcionarios.Remove(obj);
+            _database.Funcionario.Remove(obj);
             _database.SaveChanges();
         }
         
         public void Editar(Funcionario obj)
         {
-            _database.Funcionarios.Update(obj);
+            _database.Funcionario.Update(obj);
             _database.SaveChanges();
         }
     }

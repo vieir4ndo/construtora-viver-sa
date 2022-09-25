@@ -17,7 +17,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
         }
         public List<Obra> BuscarTodos()
         {
-            return _database.Obras
+            return _database.Obra
                 .Where(p => p.Id > 0)
                 .OrderBy(p => p.Id)
                 .ToList();
@@ -25,29 +25,29 @@ namespace ConstrutoraViverSA.Repository.Repositories
 
         public Obra BuscarPorId(long buscaId)
         {
-            return _database.Obras
+            return _database.Obra
                 .Where(p => p.Id == buscaId)
                 .Include(p => p.Orcamento)
                 .Include(p => p.Funcionarios)
-                .Include(p => p.Materials)
+                .Include(p => p.ObraMateriais)
                 .FirstOrDefault();
         }
 
         public void Adicionar(Obra obra)
         {
-            _database.Obras.Add(obra);
+            _database.Obra.Add(obra);
             _database.SaveChanges();
         }
 
         public void Excluir(Obra obra)
         {
-            _database.Obras.Remove(obra);
+            _database.Obra.Remove(obra);
             _database.SaveChanges();
         }
 
         public void Editar(Obra obra)
         {
-            _database.Obras.Update(obra);
+            _database.Obra.Update(obra);
             _database.SaveChanges();
         }
     }

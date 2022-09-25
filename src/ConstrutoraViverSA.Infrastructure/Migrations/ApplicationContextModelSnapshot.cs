@@ -90,7 +90,7 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Funcionarios");
+                    b.ToTable("Funcionario");
                 });
 
             modelBuilder.Entity("ConstrutoraViverSA.Domain.Material", b =>
@@ -123,7 +123,7 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Materiais");
+                    b.ToTable("Material");
                 });
 
             modelBuilder.Entity("ConstrutoraViverSA.Domain.Obra", b =>
@@ -165,7 +165,33 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                     b.HasIndex("OrcamentoId")
                         .IsUnique();
 
-                    b.ToTable("Obras");
+                    b.ToTable("Obra");
+                });
+
+            modelBuilder.Entity("ConstrutoraViverSA.Domain.ObraMaterial", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("MaterialId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ObraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObraId");
+
+                    b.HasIndex("MaterialId", "ObraId")
+                        .IsUnique();
+
+                    b.ToTable("ObraMaterial");
                 });
 
             modelBuilder.Entity("ConstrutoraViverSA.Domain.Orcamento", b =>
@@ -200,7 +226,7 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orcamentos");
+                    b.ToTable("Orcamento");
                 });
 
             modelBuilder.Entity("FuncionarioObra", b =>
@@ -216,21 +242,6 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                     b.HasIndex("ObrasId");
 
                     b.ToTable("FuncionarioObra");
-                });
-
-            modelBuilder.Entity("MaterialObra", b =>
-                {
-                    b.Property<long>("MaterialsId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ObrasId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("MaterialsId", "ObrasId");
-
-                    b.HasIndex("ObrasId");
-
-                    b.ToTable("MaterialObra");
                 });
 
             modelBuilder.Entity("ConstrutoraViverSA.Domain.Estoque", b =>
@@ -255,6 +266,25 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                     b.Navigation("Orcamento");
                 });
 
+            modelBuilder.Entity("ConstrutoraViverSA.Domain.ObraMaterial", b =>
+                {
+                    b.HasOne("ConstrutoraViverSA.Domain.Material", "Material")
+                        .WithMany("ObraMateriais")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ConstrutoraViverSA.Domain.Obra", "Obra")
+                        .WithMany("ObraMateriais")
+                        .HasForeignKey("ObraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Obra");
+                });
+
             modelBuilder.Entity("FuncionarioObra", b =>
                 {
                     b.HasOne("ConstrutoraViverSA.Domain.Funcionario", null)
@@ -270,24 +300,16 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MaterialObra", b =>
-                {
-                    b.HasOne("ConstrutoraViverSA.Domain.Material", null)
-                        .WithMany()
-                        .HasForeignKey("MaterialsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ConstrutoraViverSA.Domain.Obra", null)
-                        .WithMany()
-                        .HasForeignKey("ObrasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ConstrutoraViverSA.Domain.Material", b =>
                 {
                     b.Navigation("Estoque");
+
+                    b.Navigation("ObraMateriais");
+                });
+
+            modelBuilder.Entity("ConstrutoraViverSA.Domain.Obra", b =>
+                {
+                    b.Navigation("ObraMateriais");
                 });
 
             modelBuilder.Entity("ConstrutoraViverSA.Domain.Orcamento", b =>

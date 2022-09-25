@@ -7,10 +7,12 @@ namespace ConstrutoraViverSA.Infrastructure
     public class ApplicationContext : DbContext
     {
         private static readonly ILoggerFactory _logger = LoggerFactory.Create(p => p.AddConsole());
-        public DbSet<Obra> Obras { get; set; }
-        public DbSet<Funcionario> Funcionarios { get; set; }
-        public DbSet<Orcamento> Orcamentos { get; set; }
-        public DbSet<Material> Materiais { get; set; }
+        public DbSet<Obra> Obra { get; set; }
+        public DbSet<Funcionario> Funcionario { get; set; }
+        public DbSet<Orcamento> Orcamento { get; set; }
+        public DbSet<Material> Material { get; set; }
+        
+        public DbSet<ObraMaterial> ObraMaterial { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

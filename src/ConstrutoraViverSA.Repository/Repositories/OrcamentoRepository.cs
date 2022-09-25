@@ -16,7 +16,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
         }
         public List<Orcamento> BuscarTodos()
         {
-            return _database.Orcamentos
+            return _database.Orcamento
                 .Where(p => p.Id > 0)
                 .OrderBy(p => p.Id)
                 .ToList();
@@ -24,25 +24,25 @@ namespace ConstrutoraViverSA.Repository.Repositories
 
         public Orcamento BuscarPorId(long buscaId)
         {
-            return _database.Orcamentos
+            return _database.Orcamento
                 .FirstOrDefault(p => p.Id == buscaId);
         }
 
         public void Adicionar(Orcamento obj)
         {
-            _database.Orcamentos.Add(obj);
+            _database.Orcamento.Add(obj);
             _database.SaveChanges();
         }
 
         public void Excluir(Orcamento obj)
         {
-            _database.Orcamentos.Remove(obj);
+            _database.Orcamento.Remove(obj);
             _database.SaveChanges();
         }
 
         public void Editar(Orcamento obj)
         {
-            _database.Orcamentos.Update(obj);
+            _database.Orcamento.Update(obj);
             _database.SaveChanges();
         }
     }
