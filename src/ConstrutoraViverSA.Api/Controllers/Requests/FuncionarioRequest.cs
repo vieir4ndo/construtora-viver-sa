@@ -1,6 +1,9 @@
 using System;
+using ConstrutoraViverSA.Api.Controllers.Validators;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+using FluentValidation.Results;
 
 namespace ConstrutoraViverSA.Api.Controllers.Requests
 {
@@ -30,6 +33,26 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
                 Telefone = this.Telefone,
                 Cargo = this.Cargo
             };
+        }
+
+        public void ValidarCriacao()
+        {
+            var resultado = new CriarFuncionarioValidator().Validate(this);
+            
+            if (resultado.IsValid == false)
+            {
+                throw new ErroValidacaoException<ValidationFailure>(resultado.Errors);
+            }
+        }
+        
+        public void ValidarEdicao()
+        {
+            var resultado = new EditarFuncionarioValidator().Validate(this);
+            
+            if (resultado.IsValid == false)
+            {
+                throw new ErroValidacaoException<ValidationFailure>(resultado.Errors);
+            }
         }
     }
 }

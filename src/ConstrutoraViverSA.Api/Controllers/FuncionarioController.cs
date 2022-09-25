@@ -24,8 +24,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             try
             {
-                // TODO: Validar request
-                // TODO: Usar Automapper
+                request.ValidarCriacao();
                 
                 _funcionarioService.AdicionarFuncionario(request.RequestParaDto());
                 
@@ -47,7 +46,9 @@ namespace ConstrutoraViverSA.Api.Controllers
                 
                 // TODO: Mapear para objeto de response
 
-                return Ok(new ApiResponse(true, new List<object>() { consulta }, null));
+                var result = new ApiResponse(true, new List<object>() { consulta }, null);
+                
+                return Ok(result);
             }
             catch (Exception e)
             {
@@ -60,6 +61,8 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             try
             {
+                request.ValidarEdicao();
+                
                 _funcionarioService.AlterarFuncionario(id, request.RequestParaDto());
 
                 return Ok( new ApiResponse(true, null, null));
