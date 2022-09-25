@@ -1,4 +1,3 @@
-using System;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 
@@ -10,7 +9,6 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
         public string Descricao { get; set; }
         public TipoMaterialEnum? Tipo { get; set; }
         public double? Valor { get; set; }
-        public DateTime? DataValidade { get; set; }
 
 
         public MaterialDto RequestParaDto()
@@ -21,7 +19,6 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
                 Descricao = this.Descricao,
                 Tipo = this.Tipo,
                 Valor = this.Valor,
-                DataValidade = this.DataValidade
             };
         }
     }

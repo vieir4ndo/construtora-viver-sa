@@ -9,7 +9,6 @@ namespace ConstrutoraViverSA.Domain.Dtos
         public string Descricao { get; set; }
         public TipoMaterialEnum? Tipo { get; set; }
         public double? Valor { get; set; }
-        public DateTime? DataValidade { get; set; }
 
         public Material DtoParaDominio()
         {
@@ -19,7 +18,6 @@ namespace ConstrutoraViverSA.Domain.Dtos
                 Descricao = this.Descricao,
                 Tipo = this.Tipo,
                 Valor = this.Valor,
-                DataValidade = this.DataValidade
             };
         }
     }

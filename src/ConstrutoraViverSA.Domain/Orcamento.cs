@@ -12,6 +12,8 @@ namespace ConstrutoraViverSA.Domain
         public DateTime? DataEmissao { get; set; }
         public DateTime? DataValidade { get; set; }
         public double? Valor { get; set; }
+        
+        public virtual Obra Obra { get; set; }
 
        public Orcamento() { }
         

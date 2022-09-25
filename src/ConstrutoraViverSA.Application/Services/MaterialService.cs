@@ -50,7 +50,6 @@ namespace ConstrutoraViverSA.Application.Services
             material.Nome = materialAtualizado.Nome ?? material.Nome;
             material.Descricao = materialAtualizado.Descricao ?? material.Descricao;
             material.Valor = materialAtualizado.Valor ?? material.Valor;
-            material.DataValidade = materialAtualizado.DataValidade ?? material.DataValidade;
             material.Tipo = materialAtualizado.Tipo ?? material.Tipo;
 
             _repository.AlterarMaterial(material);
