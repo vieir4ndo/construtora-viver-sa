@@ -32,8 +32,6 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             var consulta = _funcionarioService.BuscarFuncionarioPorId(id);
 
-            // TODO: Mapear para objeto de response
-
             return Ok(new ApiResponse(true, new List<object> { consulta }, null));
         }
 

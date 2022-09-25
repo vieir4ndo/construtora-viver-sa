@@ -2,7 +2,7 @@
 {
     public enum TipoObraEnum
     {
-        Residencial = 0,
+        Residencial = 3,
         Comercial = 1,
         Ambas = 2
     }

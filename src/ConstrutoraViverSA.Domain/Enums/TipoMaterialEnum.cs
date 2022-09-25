@@ -2,7 +2,7 @@
 {
     public enum TipoMaterialEnum
     {
-        Madeira = 0,
+        Madeira = 4,
         Telha = 1,
         Tijolo = 2,
         Cimento = 3

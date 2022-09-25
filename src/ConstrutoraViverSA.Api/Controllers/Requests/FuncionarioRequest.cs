@@ -3,7 +3,6 @@ using ConstrutoraViverSA.Api.Controllers.Validators;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
-using FluentValidation.Results;
 
 namespace ConstrutoraViverSA.Api.Controllers.Requests
 {

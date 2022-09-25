@@ -1,5 +1,7 @@
+using ConstrutoraViverSA.Api.Controllers.Validators;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Api.Controllers.Requests
 {
@@ -20,6 +22,26 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
                 Tipo = this.Tipo,
                 Valor = this.Valor,
             };
+        }
+        
+        public void ValidarCriacao()
+        {
+            var resultado = new CriarMaterialValidator().Validate(this);
+            
+            if (resultado.IsValid == false)
+            {
+                throw new ErroValidacaoException(resultado.ToString());
+            }
+        }
+        
+        public void ValidarEdicao()
+        {
+            var resultado = new EditarMaterialValidator().Validate(this);
+            
+            if (resultado.IsValid == false)
+            {
+                throw new ErroValidacaoException(resultado.ToString());
+            }
         }
     }
 }

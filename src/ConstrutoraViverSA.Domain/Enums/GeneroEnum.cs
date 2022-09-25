@@ -5,7 +5,7 @@ namespace ConstrutoraViverSA.Domain.Enums
     public enum GeneroEnum
     {
         [Display(Name="Masculino")]
-        Masculino = 0,
+        Masculino = 5,
 
         [Display(Name ="Feminino")]
         Feminino = 1,

@@ -20,6 +20,8 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpPost]
         public IActionResult CadastrarMaterial(MaterialRequest request)
         {
+            request.ValidarCriacao();
+            
             _materialService.AdicionarMaterial(request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
@@ -36,6 +38,8 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpPatch("{id}")]
         public IActionResult EditarMaterial(MaterialRequest request, long id)
         {
+            request.ValidarEdicao();
+            
             _materialService.AlterarMaterial(id, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));

@@ -1,4 +1,5 @@
-﻿using ConstrutoraViverSA.Api.Controllers.Requests;
+﻿using System.Collections.Generic;
+using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,8 +20,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpPost]
         public IActionResult CadastrarOrcamento(OrcamentoRequest request)
         {
-            // TODO: Validar request
-            // TODO: Usar Automapper
+            request.ValidarCriacao();
 
             _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
 
@@ -32,12 +32,14 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
 
-            return Ok(consulta);
+            return Ok(new ApiResponse(true, new List<object>() { consulta }, null));
         }
 
         [HttpPatch("{id}")]
         public IActionResult EditarOrcamento(OrcamentoRequest request, long id)
         {
+            request.ValidarEdicao();
+            
             _orcamentoService.AlterarOrcamento(id, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));

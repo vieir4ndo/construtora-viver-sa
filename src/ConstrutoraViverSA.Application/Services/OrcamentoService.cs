@@ -53,7 +53,7 @@ namespace ConstrutoraViverSA.Application.Services
             orcamento.TipoObra = orcamentolAtualizado.TipoObra ?? orcamento.TipoObra;
             orcamento.DataEmissao = orcamentolAtualizado.DataEmissao ?? orcamento.DataEmissao;
             orcamento.DataValidade = orcamentolAtualizado.DataValidade ?? orcamento.DataValidade;
-            orcamento.Valor = orcamentolAtualizado.Valor;
+            orcamento.Valor = orcamentolAtualizado.Valor ?? orcamento.Valor;
 
            _repository.AlterarOrcamento(orcamento);
         }

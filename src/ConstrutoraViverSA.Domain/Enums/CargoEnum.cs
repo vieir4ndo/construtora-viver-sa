@@ -5,7 +5,7 @@ namespace ConstrutoraViverSA.Domain.Enums
     public enum CargoEnum
     {
 		[Display(Name ="Sócio-Proprietário")]
-		SocioProprietário = 0,
+		SocioProprietário = 30,
 
 		[Display(Name = "Recepcionista")]
 		Recepcionista = 1,
