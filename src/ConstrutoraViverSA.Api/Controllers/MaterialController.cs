@@ -52,5 +52,15 @@ namespace ConstrutoraViverSA.Api.Controllers
 
             return Ok(new ApiResponse(true, null, null));
         }
+
+        [HttpPut("{id}/estoque")]
+        public IActionResult GerenciarEstoque(EstoqueRequest request, long id)
+        {
+            request.Validar();
+
+            _materialService.MovimentarEstoque(id, request.RequestParaDto());
+            
+            return Ok(new ApiResponse(true, null, null));
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace ConstrutoraViverSA.Application.Interfaces
         void AdicionarMaterial(MaterialDto material);
         void ExcluirMaterial(long idExcluir);
         void AlterarMaterial(long id, MaterialDto materialAtualizado);
+        void MovimentarEstoque(long id, EstoqueDto dto);
     }
 }

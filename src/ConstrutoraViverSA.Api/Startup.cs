@@ -36,12 +36,14 @@ namespace ConstrutoraViverSA.Api
             services.AddScoped<IFuncionarioService, FuncionarioService>();
             services.AddScoped<IObraService, ObraService>();
             services.AddScoped<IOrcamentoService, OrcamentoService>();
+            services.AddScoped<IEstoqueService, EstoqueService>();
             
             //Repositories
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddScoped<IObraRepository, ObraRepository>();
             services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
+            services.AddScoped<IEstoqueRepository, EstoqueRepository>();
 
             // Register the Swagger Generator service. This service is responsible for genrating Swagger Documents.
             // Note: Add this service at the end after AddMvc() or AddMvcCore().

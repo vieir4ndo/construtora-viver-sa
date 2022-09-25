@@ -48,6 +48,15 @@ namespace ConstrutoraViverSA.Api.Middlewares
 
                             await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
                         }
+                        else if (exceptionHandlerPathFeature?.Error is OperacaoInvalidaException invalidOperation)
+                        {
+                            var response = new ApiResponse(false, null, invalidOperation.Message);
+
+                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                            context.Response.ContentType = "application/json";
+
+                            await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                        }
                         else
                         {
                             var response = new ApiResponse(false, null,
