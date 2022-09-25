@@ -7,7 +7,7 @@ namespace ConstrutoraViverSA.Api.Controllers.Validators
     {
         public GerenciarEntradaSaidaValidator()
         {
-            RuleFor(x => x.EntradaSaidaEnum)
+            RuleFor(x => x.Operacao)
                 .IsInEnum()
                 .NotEmpty()
                 .NotNull();

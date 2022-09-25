@@ -5,7 +5,7 @@ namespace ConstrutoraViverSA.Domain.Dtos
 {
     public class EntradaSaidaMaterialDto
     {
-        public EntradaSaidaEnum EntradaSaidaEnum { get; set; }
+        public EntradaSaidaEnum Operacao { get; set; }
         public int Quantidade { get; set; }
         
         public long MaterialId { get; set; }
@@ -14,7 +14,7 @@ namespace ConstrutoraViverSA.Domain.Dtos
         {
             return new Estoque()
             {
-               EntradaSaidaEnum = EntradaSaidaEnum,
+               Operacao = Operacao,
                Quantidade = Quantidade,
                MaterialId = MaterialId,
                DateTime = DateTime.Now

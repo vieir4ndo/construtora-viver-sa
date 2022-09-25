@@ -30,6 +30,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
                 .Include(p => p.Orcamento)
                 .Include(p => p.Funcionarios)
                 .Include(p => p.ObraMateriais)
+                .ThenInclude(p => p.Material)
                 .FirstOrDefault();
         }
 

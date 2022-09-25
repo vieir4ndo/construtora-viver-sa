@@ -10,7 +10,7 @@ namespace ConstrutoraViverSA.Infrastructure.Configurators
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Quantidade).IsRequired();
-            builder.Property(p => p.EntradaSaidaEnum).IsRequired();
+            builder.Property(p => p.Operacao).IsRequired();
             builder.Property(a => a.MaterialId).IsRequired();
 
             builder.HasOne<Material>(c => c.Material).WithMany(c => c.Estoque).HasForeignKey(c => c.MaterialId);

@@ -61,7 +61,7 @@ namespace ConstrutoraViverSA.Application.Services
         {
             var material = BuscarPorId(id);
 
-            if (materialDto.EntradaSaidaEnum == EntradaSaidaEnum.Saida && materialDto.Quantidade > material.Quantidade)
+            if (materialDto.Operacao == EntradaSaidaEnum.Saida && materialDto.Quantidade > material.Quantidade)
             {
                 throw new OperacaoInvalidaException(
                     $"Solicitou-se a baixa de {materialDto.Quantidade} itens do estoque, no entanto o material {material.Nome} possui apenas {material.Quantidade} itens em estoque");
@@ -71,7 +71,7 @@ namespace ConstrutoraViverSA.Application.Services
             
             material.Estoque.Add(materialDto.DtoParaDominio());
             
-            if (materialDto.EntradaSaidaEnum == EntradaSaidaEnum.Entrada)
+            if (materialDto.Operacao == EntradaSaidaEnum.Entrada)
             {
                 material.Quantidade += materialDto.Quantidade;
             }

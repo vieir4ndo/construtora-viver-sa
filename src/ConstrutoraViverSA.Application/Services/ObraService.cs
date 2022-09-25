@@ -84,7 +84,7 @@ namespace ConstrutoraViverSA.Application.Services
 
         public void GerenciarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
         {
-            if (materialDto.EntradaSaidaEnum == EntradaSaidaEnum.Entrada)
+            if (materialDto.Operacao == EntradaSaidaEnum.Entrada)
                 AlocarMaterial(materialDto, id, materialId);
             else
                 DesalocarMaterial(materialDto, id, materialId);
@@ -134,7 +134,7 @@ namespace ConstrutoraViverSA.Application.Services
 
             var obraMaterial = _obraMaterialService.BuscarPorObraIdEMaterialId(id, materialId);
 
-            _materialService.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { EntradaSaidaEnum = EntradaSaidaEnum.Saida, Quantidade = materialDto.Quantidade});
+            _materialService.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Saida, Quantidade = materialDto.Quantidade});
 
             if (obraMaterial == null)
             {
@@ -173,7 +173,7 @@ namespace ConstrutoraViverSA.Application.Services
                 throw new OperacaoInvalidaException(
                     $"Material {material.Nome} está alocado na obra {obra.Nome} com apenas {obraMaterial.Quantidade} itens");
 
-            _materialService.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { EntradaSaidaEnum = EntradaSaidaEnum.Entrada, Quantidade = materialDto.Quantidade});
+            _materialService.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = materialDto.Quantidade});
 
             obra.ObraMateriais.Remove(obraMaterial);
 

@@ -7,14 +7,14 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
 {
     public class GerenciarEntradaSaidaMaterialRequest
     {
-        public EntradaSaidaEnum EntradaSaidaEnum { get; set; }
+        public EntradaSaidaEnum Operacao { get; set; }
         public int Quantidade { get; set; }
 
         public EntradaSaidaMaterialDto RequestParaDto()
         {
             return new EntradaSaidaMaterialDto
             {
-                EntradaSaidaEnum = EntradaSaidaEnum,
+                Operacao = Operacao,
                 Quantidade = Quantidade
             };
         }
