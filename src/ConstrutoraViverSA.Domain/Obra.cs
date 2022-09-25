@@ -17,9 +17,9 @@ namespace ConstrutoraViverSA.Domain
         public virtual Orcamento Orcamento { get; set; }
         public long OrcamentoId { get; set; }
 
-        public virtual ICollection<ObraFuncionarios> ObraFuncionarios { get; set; }
+        public virtual ICollection<Funcionario> Funcionarios { get; set; }
 
-        public virtual ICollection<ObraMateriais> ObraMateriais { get; set; }
+        public virtual ICollection<Material> Materials { get; set; }
 
         public Obra()
         {

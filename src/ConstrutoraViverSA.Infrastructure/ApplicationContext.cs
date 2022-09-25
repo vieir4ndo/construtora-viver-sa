@@ -8,15 +8,10 @@ namespace ConstrutoraViverSA.Infrastructure
     {
         private static readonly ILoggerFactory _logger = LoggerFactory.Create(p => p.AddConsole());
         public DbSet<Obra> Obras { get; set; }
-        
-        public DbSet<ObraFuncionarios> ObraFuncionarios { get; set; }
-        
-        public DbSet<ObraMateriais> ObraMateriais { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Orcamento> Orcamentos { get; set; }
         public DbSet<Material> Materiais { get; set; }
-        public DbSet<Estoque> Estoque { get; set; }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder

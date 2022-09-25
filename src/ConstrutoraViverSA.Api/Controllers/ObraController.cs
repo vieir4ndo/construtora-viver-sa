@@ -1,11 +1,14 @@
-﻿using ConstrutoraViverSA.Application.Interfaces;
+﻿using System.Collections.Generic;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Api.Controllers.Responses;
+using ConstrutoraViverSA.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers
 {
     
     [ApiController]
-    [Route("[controller]")]
+    [Route("obra")]
     public class ObraController : ControllerBase
     {
         private readonly IObraService _obraService;
@@ -14,92 +17,57 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             _obraService = obraService;
         }
+        
+        [HttpPost]
+        public IActionResult CadastrarObra(ObraRequest request)
+        {
+            request.ValidarCriacao();
+            
+            _obraService.Adicionar(request.RequestParaDto());
+
+            return Ok(new ApiResponse(true, null, null));
+        }
+        
+        [HttpGet("{id}")]
+        public IActionResult BuscarObra(long id)
+        {
+            var consulta = _obraService.BuscarPorId(id);
+            
+            return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+        }
+        
+        [HttpPatch("{id}")]
+        public IActionResult AlterarObra(ObraRequest request, long id)
+        {
+            request.ValidarEdicao();
+
+            _obraService.Editar(id, request.RequestParaDto());
+
+            return Ok(new ApiResponse(true, null, null));
+        }
   
-        /*
-        public void RelatorioObra()
+        [HttpDelete("{id}")]
+        public IActionResult ExcluirObra(long id)
         {
-            var Obras = _obraService.BuscarObras();
-
-            var relatorio = new RelatorioModel();
-            relatorio.Obras = Obras;
-
-            //return View(relatorio);
-            throw new Exception("NotImplemented");
+            _obraService.Excluir(id);
+            
+            return Ok(new ApiResponse(true, null, null));
         }
 
-        public void CadastrarObra(string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
+        [HttpPost("{id}/funcionario/{funcionarioId}")]
+        public IActionResult AlocarFuncionarioNaObra(long id, long funcionarioId)
         {
-            Obra obra = new Obra(
-                 nome,
-                 endereco,
-                 tipoObra,
-                 descricao,
-                 valor,
-                 prazoConclusao);
-
-            _obraService.AdicionarObra(obra);
-
-            //return View("SucessoView");
-            throw new Exception("NotImplemented");
+            _obraService.AlocarFuncionario(id, funcionarioId);
+            
+            return Ok(new ApiResponse(true, null, null));
         }
-        public void BuscarObra(long BuscaId)
+        
+        [HttpDelete("{id}/funcionario/{funcionarioId}")]
+        public IActionResult DesalocarFuncionarioDaObra(long id, long funcionarioId)
         {
-            var consulta = _obraService.BuscarObraPorId(BuscaId);
-
-            if (consulta == null)
-            {
-                //return View("ErroView");
-            }
-
-            ObraModel obraModel = new ObraModel(
-                consulta.Id,
-                consulta.Nome,
-                consulta.Endereco,
-                (TipoObraEnum)consulta.TipoObra,
-                consulta.Descricao,
-                Convert.ToDouble(consulta.Valor),
-                Convert.ToDateTime(consulta.PrazoConclusao)
-                );
-
-            //return View("EditarObra", obraModel);
-            throw new Exception("NotImplemented");
+            _obraService.DesalocarFuncionario(id, funcionarioId);
+            
+            return Ok(new ApiResponse(true, null, null));
         }
-        public void AlterarObra(long Id, string nome, string endereco, TipoObraEnum tipoObra, string descricao, double valor, DateTime prazoConclusao)
-        {
-            var consulta = _obraService.BuscarObraPorId(Id);
-
-            if (consulta == null)
-            {
-                //return View("ErroView");
-            }
-
-            Obra ObraEditado = new Obra(
-                 nome,
-                 endereco,
-                 tipoObra,
-                 descricao,
-                 valor,
-                 prazoConclusao);
-
-            _obraService.AlterarObra(Id, ObraEditado);
-
-            //return View("SucessoView");
-            throw new Exception("NotImplemented");
-        }
-        public void ExcluirObra(long IdExcluir)
-        {
-            var consulta = _obraService.BuscarObraPorId(IdExcluir);
-
-            if (consulta == null)
-            {
-                //return View("ErroView");
-            }
-
-            _obraService.ExcluirObra(IdExcluir);
-
-            //return View("SucessoView");
-            throw new Exception("NotImplemented");
-        }
-*/
     }
 }

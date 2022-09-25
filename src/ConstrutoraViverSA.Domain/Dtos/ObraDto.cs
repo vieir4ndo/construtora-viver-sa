@@ -11,6 +11,7 @@ namespace ConstrutoraViverSA.Domain.Dtos
         public string Descricao { get; set; }
         public double? Valor { get; set; }
         public DateTime? PrazoConclusao { get; set; }
+        public long? OrcamentoId { get; set; }
 
         public Obra DtoParaDominio()
         {

@@ -1,3 +1,4 @@
+using System;
 using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Domain.Dtos
@@ -15,7 +16,8 @@ namespace ConstrutoraViverSA.Domain.Dtos
             {
                OperacaoEstoque = OperacaoEstoque,
                Quantidade = Quantidade,
-               MaterialId = MaterialId
+               MaterialId = MaterialId,
+               DateTime = DateTime.Now
             };
         }
     }

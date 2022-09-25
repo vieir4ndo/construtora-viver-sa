@@ -16,7 +16,8 @@ namespace ConstrutoraViverSA.Domain
         public string Email { get; set; }
         public string Telefone { get; set; }
         public CargoEnum? Cargo { get; set; }
-        public virtual ICollection<ObraFuncionarios> ObraFuncionarios { get; set; }
+        
+        public virtual ICollection<Obra> Obras { get; set; }
         public Funcionario() { }
         public Funcionario
             (

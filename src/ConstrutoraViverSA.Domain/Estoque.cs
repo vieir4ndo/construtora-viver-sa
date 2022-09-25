@@ -1,3 +1,4 @@
+using System;
 using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Domain
@@ -9,5 +10,7 @@ namespace ConstrutoraViverSA.Domain
         public virtual Material Material { get; set; }  
         public OperacaoEstoque OperacaoEstoque { get; set; }
         public int Quantidade { get; set; }
+        
+        public DateTime DateTime { get; set; }
     }
 }

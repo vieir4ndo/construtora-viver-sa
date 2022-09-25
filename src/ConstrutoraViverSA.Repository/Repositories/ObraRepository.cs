@@ -3,6 +3,7 @@ using System.Linq;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Infrastructure;
 using ConstrutoraViverSA.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConstrutoraViverSA.Repository.Repositories
 {
@@ -25,7 +26,11 @@ namespace ConstrutoraViverSA.Repository.Repositories
         public Obra BuscarPorId(long buscaId)
         {
             return _database.Obras
-                .FirstOrDefault(p => p.Id == buscaId);
+                .Where(p => p.Id == buscaId)
+                .Include(p => p.Orcamento)
+                .Include(p => p.Funcionarios)
+                .Include(p => p.Materials)
+                .FirstOrDefault();
         }
 
         public void Adicionar(Obra obra)
