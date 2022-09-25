@@ -15,7 +15,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
             _database = applicationContext;
         }
         
-        public List<Funcionario> BuscarFuncionarios()
+        public List<Funcionario> BuscarTodos()
         {
             return _database.Funcionarios
                 .Where(p => p.Id > 0)
@@ -23,27 +23,26 @@ namespace ConstrutoraViverSA.Repository.Repositories
                 .ToList();
         }
         
-        public Funcionario BuscarFuncionarioPorId(long buscaId)
+        public Funcionario BuscarPorId(long buscaId)
         {
             return _database.Funcionarios
                 .FirstOrDefault(p => p.Id == buscaId);
         }
         
-        public void AdicionarFuncionario(Funcionario funcionario)
+        public void Adicionar(Funcionario obj)
         {
-            _database.Funcionarios.Add(funcionario);
+            _database.Funcionarios.Add(obj);
             _database.SaveChanges();
         }
-
-        public void ExcluirFuncionario(Funcionario funcionario)
+        public void Excluir(Funcionario obj)
         {
-            _database.Funcionarios.Remove(funcionario);
+            _database.Funcionarios.Remove(obj);
             _database.SaveChanges();
         }
         
-        public void AlterarFuncionario(Funcionario funcionario)
+        public void Editar(Funcionario obj)
         {
-            _database.Funcionarios.Update(funcionario);
+            _database.Funcionarios.Update(obj);
             _database.SaveChanges();
         }
     }

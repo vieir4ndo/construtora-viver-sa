@@ -22,7 +22,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             request.ValidarCriacao();
 
-            _funcionarioService.AdicionarFuncionario(request.RequestParaDto());
+            _funcionarioService.Adicionar(request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
@@ -30,7 +30,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult BuscarFuncionario(long id)
         {
-            var consulta = _funcionarioService.BuscarFuncionarioPorId(id);
+            var consulta = _funcionarioService.BuscarPorId(id);
 
             return Ok(new ApiResponse(true, new List<object> { consulta }, null));
         }
@@ -40,7 +40,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             request.ValidarEdicao();
 
-            _funcionarioService.AlterarFuncionario(id, request.RequestParaDto());
+            _funcionarioService.Editar(id, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
@@ -48,7 +48,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult ExcluirFuncionario(long id)
         {
-            _funcionarioService.ExcluirFuncionario(id);
+            _funcionarioService.Excluir(id);
 
             return Ok(new ApiResponse(true, null, null));
         }

@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <Compile Remove="Validators\**" />
+      <Compile Remove="Controllers\Requests\BaseRequest.cs" />
     </ItemGroup>
 
     <ItemGroup>

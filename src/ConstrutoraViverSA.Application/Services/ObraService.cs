@@ -1,7 +1,7 @@
-using System;
 using ConstrutoraViverSA.Domain;
 using System.Collections.Generic;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 
@@ -15,14 +15,14 @@ namespace ConstrutoraViverSA.Application.Services
             _repository = repository;
         }
 
-        public List<Obra> BuscarObras()
+        public List<Obra> BuscarTodos()
         {
-            return _repository.BuscarObras();
+            return _repository.BuscarTodos();
         }
 
-        public Obra BuscarObraPorId(long buscaId)
+        public Obra BuscarPorId(long buscaId)
         {
-            var obra = _repository.BuscarObraPorId(buscaId);
+            var obra = _repository.BuscarPorId(buscaId);
             
             if (obra is null)
             {
@@ -32,20 +32,20 @@ namespace ConstrutoraViverSA.Application.Services
             return obra;
         }
 
-        public void AdicionarObra(Obra obra)
+        public void Adicionar(ObraDto obra)
         {
-            _repository.AdicionarObra(obra);
+            _repository.Adicionar(obra.DtoParaDominio());
         }
-        public void ExcluirObra(long idExcluir)
+        public void Excluir(long idExcluir)
         {
-            var obra = BuscarObraPorId(idExcluir);
+            var obra = BuscarPorId(idExcluir);
 
-            _repository.ExcluirObra(obra);
+            _repository.Excluir(obra);
         }
 
-        public void AlterarObra(long id, Obra obralAtualizado)
+        public void Editar(long id, ObraDto obralAtualizado)
         {
-            var obra = BuscarObraPorId(id);
+            var obra = BuscarPorId(id);
 
             obra.Nome = obralAtualizado.Nome ?? obra.Nome;
             obra.Descricao = obralAtualizado.Descricao ?? obra.Descricao;
@@ -54,7 +54,7 @@ namespace ConstrutoraViverSA.Application.Services
             obra.Valor = obralAtualizado.Valor ?? obra.Valor;
             obra.PrazoConclusao = obralAtualizado.PrazoConclusao ?? obra.PrazoConclusao;
 
-            _repository.AlterarObra(obra);
+            _repository.Editar(obra);
         }
     }
 }

@@ -16,36 +16,36 @@ namespace ConstrutoraViverSA.Application.Services
             _repository = repository;
         }
 
-        public List<Funcionario> BuscarFuncionarios()
+        public List<Funcionario> BuscarTodos()
         {
-            return _repository.BuscarFuncionarios();
+            return _repository.BuscarTodos();
         }
 
-        public Funcionario BuscarFuncionarioPorId(long buscaId)
+        public Funcionario BuscarPorId(long buscaId)
         {
-            var funcionario = _repository.BuscarFuncionarioPorId(buscaId);
+            var funcionario = _repository.BuscarPorId(buscaId);
 
             if (funcionario is null) throw new NaoEncontradoException("Funcionário não encontrado");
 
             return funcionario;
         }
 
-        public void AdicionarFuncionario(FuncionarioDto dto)
+        public void Adicionar(FuncionarioDto dto)
         {
             // TODO: Usar automapper
-            _repository.AdicionarFuncionario(dto.DtoParaDominio());
+            _repository.Adicionar(dto.DtoParaDominio());
         }
 
-        public void ExcluirFuncionario(long idExcluir)
+        public void Excluir(long idExcluir)
         {
-            var funcionario = BuscarFuncionarioPorId(idExcluir);
+            var funcionario = BuscarPorId(idExcluir);
 
-            _repository.ExcluirFuncionario(funcionario);
+            _repository.Excluir(funcionario);
         }
 
-        public void AlterarFuncionario(long id, FuncionarioDto dto)
+        public void Editar(long id, FuncionarioDto dto)
         {
-            var funcionario = BuscarFuncionarioPorId(id);
+            var funcionario = BuscarPorId(id);
 
             funcionario.Nome = dto.Nome ?? funcionario.Nome;
             funcionario.DataNascimento = dto.DataNascimento ?? funcionario.DataNascimento;
@@ -57,7 +57,7 @@ namespace ConstrutoraViverSA.Application.Services
             funcionario.Telefone = dto.Telefone ?? funcionario.Telefone;
             funcionario.Cargo = dto.Cargo ?? funcionario.Cargo;
 
-            _repository.AlterarFuncionario(funcionario);
+            _repository.Editar(funcionario);
         }
     }
 }

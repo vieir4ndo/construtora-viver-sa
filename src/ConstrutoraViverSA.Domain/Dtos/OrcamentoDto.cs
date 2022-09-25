@@ -3,7 +3,7 @@ using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Domain.Dtos
 {
-    public class OrcamentoDto
+    public class OrcamentoDto 
     {
         public string Descricao { get; set; }
         public string Endereco { get; set; }

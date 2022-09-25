@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Infrastructure;
 using ConstrutoraViverSA.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace ConstrutoraViverSA.Repository.Repositories
 {
@@ -18,7 +16,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
             _database = applicationContext;
         }
 
-        public List<Material> BuscarMateriais()
+        public List<Material> BuscarTodos()
         {
             return _database.Materiais
                 .Where(p => p.Id > 0)
@@ -26,7 +24,7 @@ namespace ConstrutoraViverSA.Repository.Repositories
                 .ToList();
         }
 
-        public Material BuscarMaterialPorId(long buscaId)
+        public Material BuscarPorId(long buscaId)
         {
             return _database.Materiais
                 .Where(p => p.Id == buscaId)
@@ -34,21 +32,21 @@ namespace ConstrutoraViverSA.Repository.Repositories
                 .FirstOrDefault();
         }
 
-        public void AdicionarMaterial(MaterialDto material)
+        public void Adicionar(Material obj)
         {
-            _database.Materiais.Add(material.DtoParaDominio());
+            _database.Materiais.Add(obj);
             _database.SaveChanges();
         }
 
-        public void ExcluirMaterial(Material material)
+        public void Excluir(Material obj)
         {
-            _database.Materiais.Remove(material);
+            _database.Materiais.Remove(obj);
             _database.SaveChanges();
         }
 
-        public void AlterarMaterial(Material material)
+        public void Editar(Material obj)
         {
-            _database.Materiais.Update(material);
+            _database.Materiais.Update(obj);
             _database.SaveChanges();
         }
     }

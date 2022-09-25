@@ -22,7 +22,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             request.ValidarCriacao();
             
-            _materialService.AdicionarMaterial(request.RequestParaDto());
+            _materialService.Adicionar(request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
@@ -30,7 +30,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult BuscarMaterial(long id)
         {
-            var consulta = _materialService.BuscarMaterialPorId(id);
+            var consulta = _materialService.BuscarPorId(id);
 
             return Ok(new ApiResponse(true, new List<object> { consulta }, null));
         }
@@ -40,7 +40,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             request.ValidarEdicao();
             
-            _materialService.AlterarMaterial(id, request.RequestParaDto());
+            _materialService.Editar(id, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
@@ -48,7 +48,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult ExcluirMaterial(long id)
         {
-            _materialService.ExcluirMaterial(id);
+            _materialService.Excluir(id);
 
             return Ok(new ApiResponse(true, null, null));
         }

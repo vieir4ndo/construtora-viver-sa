@@ -1,14 +1,9 @@
-using System.Collections.Generic;
 using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Dtos;
 
 namespace ConstrutoraViverSA.Application.Interfaces
 {
-    public interface IObraService
+    public interface IObraService : IServiceBase<Obra, ObraDto>
     {
-        List<Obra> BuscarObras();
-        Obra BuscarObraPorId(long buscaId);
-        void AdicionarObra(Obra obra);
-        void ExcluirObra(long idExcluir);
-        void AlterarObra(long id, Obra obralAtualizado);
     }
 }

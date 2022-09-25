@@ -22,7 +22,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             request.ValidarCriacao();
 
-            _orcamentoService.AdicionarOrcamento(request.RequestParaDto());
+            _orcamentoService.Adicionar(request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
@@ -30,7 +30,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult BuscarOrcamento(long id)
         {
-            var consulta = _orcamentoService.BuscarOrcamentoPorId(id);
+            var consulta = _orcamentoService.BuscarPorId(id);
 
             return Ok(new ApiResponse(true, new List<object>() { consulta }, null));
         }
@@ -40,7 +40,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         {
             request.ValidarEdicao();
             
-            _orcamentoService.AlterarOrcamento(id, request.RequestParaDto());
+            _orcamentoService.Editar(id, request.RequestParaDto());
 
             return Ok(new ApiResponse(true, null, null));
         }
@@ -48,7 +48,7 @@ namespace ConstrutoraViverSA.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult ExcluirOrcamento(long id)
         {
-            _orcamentoService.ExcluirOrcamento(id);
+            _orcamentoService.Excluir(id);
 
             return Ok(new ApiResponse(true, null, null));
         }

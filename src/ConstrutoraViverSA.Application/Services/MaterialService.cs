@@ -17,14 +17,14 @@ namespace ConstrutoraViverSA.Application.Services
             _repository = repository;
         }
 
-        public List<Material> BuscarMateriais()
+        public List<Material> BuscarTodos()
         {
-            return _repository.BuscarMateriais();
+            return _repository.BuscarTodos();
         }
 
-        public Material BuscarMaterialPorId(long buscaId)
+        public Material BuscarPorId(long buscaId)
         {
-            var material = _repository.BuscarMaterialPorId(buscaId);
+            var material = _repository.BuscarPorId(buscaId);
             
             if (material is null)
             {
@@ -34,32 +34,32 @@ namespace ConstrutoraViverSA.Application.Services
             return material;
         }
 
-        public void AdicionarMaterial(MaterialDto material)
+        public void Adicionar(MaterialDto material)
         {
-            _repository.AdicionarMaterial(material);
+            _repository.Adicionar(material.DtoParaDominio());
         }
-        public void ExcluirMaterial(long idExcluir)
+        public void Excluir(long idExcluir)
         {
-            var material = BuscarMaterialPorId(idExcluir);
+            var material = BuscarPorId(idExcluir);
 
-            _repository.ExcluirMaterial(material);
+            _repository.Excluir(material);
         }
 
-        public void AlterarMaterial(long id, MaterialDto materialAtualizado)
+        public void Editar(long id, MaterialDto materialAtualizado)
         {
-            var material = BuscarMaterialPorId(id);
+            var material = BuscarPorId(id);
             
             material.Nome = materialAtualizado.Nome ?? material.Nome;
             material.Descricao = materialAtualizado.Descricao ?? material.Descricao;
             material.Valor = materialAtualizado.Valor ?? material.Valor;
             material.Tipo = materialAtualizado.Tipo ?? material.Tipo;
 
-            _repository.AlterarMaterial(material);
+            _repository.Editar(material);
         }
 
         public void MovimentarEstoque(long id, EstoqueDto dto)
         {
-            var material = BuscarMaterialPorId(id);
+            var material = BuscarPorId(id);
 
             if (dto.OperacaoEstoque == OperacaoEstoque.Saida && dto.Quantidade > material.Quantidade)
             {
@@ -80,7 +80,7 @@ namespace ConstrutoraViverSA.Application.Services
                 material.Quantidade -= dto.Quantidade;
             }
             
-            _repository.AlterarMaterial(material);
+            _repository.Editar(material);
         }
     }
 }

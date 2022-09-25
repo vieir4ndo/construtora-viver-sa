@@ -25,6 +25,5 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests
 
             if (resultado.IsValid == false) throw new ErroValidacaoException(resultado.ToString());
         }
-
     }
 }

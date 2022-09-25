@@ -16,14 +16,14 @@ namespace ConstrutoraViverSA.Application.Services
             _repository = repository;
         }
 
-        public List<Orcamento> BuscarOrcamentos()
+        public List<Orcamento> BuscarTodos()
         {
-            return _repository.BuscarOrcamentos();
+            return _repository.BuscarTodos();
         }
 
-        public Orcamento BuscarOrcamentoPorId(long buscaId)
+        public Orcamento BuscarPorId(long buscaId)
         {
-            var orcamento = _repository.BuscarOrcamentoPorId(buscaId);
+            var orcamento = _repository.BuscarPorId(buscaId);
             
             if (orcamento is null)
             {
@@ -33,20 +33,20 @@ namespace ConstrutoraViverSA.Application.Services
             return orcamento;
         }
 
-        public void AdicionarOrcamento(OrcamentoDto dto)
+        public void Adicionar(OrcamentoDto dto)
         {
-            _repository.AdicionarOrcamento(dto.DtoParaDominio());
+            _repository.Adicionar(dto.DtoParaDominio());
         }
-        public void ExcluirOrcamento(long idExcluir)
+        public void Excluir(long idExcluir)
         {
-            var orcamento = BuscarOrcamentoPorId(idExcluir);
+            var orcamento = BuscarPorId(idExcluir);
 
-            _repository.ExcluirOrcamento(orcamento);
+            _repository.Excluir(orcamento);
         }
 
-        public void AlterarOrcamento(long id, OrcamentoDto orcamentolAtualizado)
+        public void Editar(long id, OrcamentoDto orcamentolAtualizado)
         {
-            var orcamento = BuscarOrcamentoPorId(id);
+            var orcamento = BuscarPorId(id);
 
             orcamento.Descricao = orcamentolAtualizado.Descricao ?? orcamento.Descricao;
             orcamento.Endereco = orcamentolAtualizado.Endereco ?? orcamento.Endereco;
@@ -55,7 +55,7 @@ namespace ConstrutoraViverSA.Application.Services
             orcamento.DataValidade = orcamentolAtualizado.DataValidade ?? orcamento.DataValidade;
             orcamento.Valor = orcamentolAtualizado.Valor ?? orcamento.Valor;
 
-           _repository.AlterarOrcamento(orcamento);
+           _repository.Editar(orcamento);
         }
     }
 }
