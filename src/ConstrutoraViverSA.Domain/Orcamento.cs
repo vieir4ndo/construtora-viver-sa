@@ -5,10 +5,6 @@ namespace ConstrutoraViverSA.Domain
 {
     public class Orcamento
     {
-        public Orcamento()
-        {
-        }
-
         public Orcamento
         (
             string descricao,

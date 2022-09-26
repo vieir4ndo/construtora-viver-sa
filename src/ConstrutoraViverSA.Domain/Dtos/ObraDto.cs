@@ -15,15 +15,7 @@ namespace ConstrutoraViverSA.Domain.Dtos
 
         public Obra DtoParaDominio()
         {
-            return new Obra()
-            {
-                Nome = Nome,
-                Endereco = Endereco,
-                TipoObra = TipoObra,
-                Descricao = Descricao,
-                Valor = Valor,
-                PrazoConclusao = PrazoConclusao
-            };
+            return new Obra(Nome, Endereco, (TipoObraEnum)TipoObra, Descricao, (double)Valor, (DateTime)PrazoConclusao, (long)OrcamentoId);
         }
     }
 }

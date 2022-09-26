@@ -17,18 +17,17 @@ namespace ConstrutoraViverSA.Domain.Dtos
         
         public Funcionario DtoParaDominio()
         {
-            return new Funcionario()
-            {
-                Nome = this.Nome,
-                DataNascimento = this.DataNascimento,
-                Genero = this.Genero,
-                Cpf = this.Cpf,
-                NumCtps = this.NumCtps,
-                Endereco = this.Endereco,
-                Email = this.Email,
-                Telefone = this.Telefone,
-                Cargo = this.Cargo
-            };
+            return new Funcionario(
+                Nome,
+                (DateTime)DataNascimento,
+                (GeneroEnum)Genero,
+                Cpf,
+                NumCtps,
+                Endereco,
+                Email,
+                Telefone,
+                (CargoEnum)Cargo
+            );
         }
     }
 }

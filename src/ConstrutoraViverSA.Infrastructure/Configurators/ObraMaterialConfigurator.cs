@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ConstrutoraViverSA.Infrastructure.Configurators
 {
-    public class ObraMateriaisConfigurator : IEntityTypeConfiguration<ObraMaterial>
+    public class ObraMaterialConfigurator : IEntityTypeConfiguration<ObraMaterial>
     {
         public void Configure(EntityTypeBuilder<ObraMaterial> builder)
         {

@@ -10,7 +10,6 @@ namespace ConstrutoraViverSA.Domain
         public virtual Material Material { get; set; }  
         public EntradaSaidaEnum Operacao { get; set; }
         public int Quantidade { get; set; }
-        
         public DateTime DateTime { get; set; }
     }
 }

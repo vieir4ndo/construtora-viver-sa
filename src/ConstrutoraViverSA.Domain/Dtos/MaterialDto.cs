@@ -11,13 +11,12 @@ namespace ConstrutoraViverSA.Domain.Dtos
 
         public Material DtoParaDominio()
         {
-            return new Material()
-            {
-                Nome = this.Nome,
-                Descricao = this.Descricao,
-                Tipo = this.Tipo,
-                Valor = this.Valor,
-            };
+            return new Material(
+                Nome,
+                Descricao,
+                (TipoMaterialEnum)Tipo,
+                (double)Valor
+            );
         }
     }
 }
