@@ -1,11 +1,10 @@
 using System;
 
-namespace ConstrutoraViverSA.Domain.Exceptions
+namespace ConstrutoraViverSA.Domain.Exceptions;
+
+public class ErroValidacaoException : Exception
 {
-    public class ErroValidacaoException : Exception
+    public ErroValidacaoException(string message) : base(message)
     {
-        public ErroValidacaoException(string message) : base(message)
-        {
-        }
     }
 }

@@ -1,10 +1,9 @@
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 
-namespace ConstrutoraViverSA.Application.Interfaces
+namespace ConstrutoraViverSA.Application.Interfaces;
+
+public interface IMaterialService : IBaseService<Material, MaterialDto>
 {
-    public interface IMaterialService : IBaseService<Material, MaterialDto>
-    {
-        void MovimentarEstoque(long id, EntradaSaidaMaterialDto materialDto);
-    }
+    void MovimentarEstoque(long id, EntradaSaidaMaterialDto materialDto);
 }

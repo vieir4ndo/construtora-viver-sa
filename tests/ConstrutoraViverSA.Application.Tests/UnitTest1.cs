@@ -1,13 +1,11 @@
-using System;
 using Xunit;
 
-namespace ConstrutoraViverSA.Application.Tests
+namespace ConstrutoraViverSA.Application.Tests;
+
+public class UnitTest1
 {
-    public class UnitTest1
+    [Fact]
+    public void Test1()
     {
-        [Fact]
-        public void Test1()
-        {
-        }
     }
 }

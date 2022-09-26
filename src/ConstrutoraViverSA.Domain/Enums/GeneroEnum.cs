@@ -1,19 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ConstrutoraViverSA.Domain.Enums
+namespace ConstrutoraViverSA.Domain.Enums;
+
+public enum GeneroEnum
 {
-    public enum GeneroEnum
-    {
-        [Display(Name="Masculino")]
-        Masculino = 5,
+    [Display(Name = "Masculino")] Masculino = 5,
 
-        [Display(Name ="Feminino")]
-        Feminino = 1,
+    [Display(Name = "Feminino")] Feminino = 1,
 
-        [Display(Name ="Não-binário")]
-        NaoBinario = 3,
+    [Display(Name = "Não-binário")] NaoBinario = 3,
 
-        [Display(Name ="Outro")]
-        Outro = 4
-    }
+    [Display(Name = "Outro")] Outro = 4
 }

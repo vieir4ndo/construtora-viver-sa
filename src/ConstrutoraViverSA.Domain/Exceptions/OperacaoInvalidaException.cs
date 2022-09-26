@@ -1,12 +1,10 @@
 using System;
 
-namespace ConstrutoraViverSA.Domain.Exceptions
+namespace ConstrutoraViverSA.Domain.Exceptions;
+
+public class OperacaoInvalidaException : Exception
 {
-    public class OperacaoInvalidaException : Exception
+    public OperacaoInvalidaException(string mensagem) : base(mensagem)
     {
-        public OperacaoInvalidaException(string mensagem) : base(mensagem)
-        {
-            
-        }
     }
 }

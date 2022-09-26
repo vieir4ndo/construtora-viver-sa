@@ -1,8 +1,7 @@
 using ConstrutoraViverSA.Domain;
 
-namespace ConstrutoraViverSA.Repository.Interfaces
+namespace ConstrutoraViverSA.Repository.Interfaces;
+
+public interface IFuncionarioRepository : IBaseRepository<Funcionario>
 {
-    public interface IFuncionarioRepository : IBaseRepository<Funcionario>
-    {
-    }
 }

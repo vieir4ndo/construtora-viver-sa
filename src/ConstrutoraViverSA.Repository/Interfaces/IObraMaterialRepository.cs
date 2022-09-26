@@ -1,9 +1,8 @@
 using ConstrutoraViverSA.Domain;
 
-namespace ConstrutoraViverSA.Repository.Interfaces
+namespace ConstrutoraViverSA.Repository.Interfaces;
+
+public interface IObraMaterialRepository : IBaseRepository<ObraMaterial>
 {
-    public interface IObraMaterialRepository : IBaseRepository<ObraMaterial>
-    {
-        ObraMaterial BuscarPorObraIdEMaterialId(long obraId, long materialId);
-    }
+    ObraMaterial BuscarPorObraIdEMaterialId(long obraId, long materialId);
 }

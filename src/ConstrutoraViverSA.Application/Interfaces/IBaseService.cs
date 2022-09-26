@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 
-namespace ConstrutoraViverSA.Application.Interfaces
+namespace ConstrutoraViverSA.Application.Interfaces;
+
+public interface IBaseService<T, Dto>
 {
-    public interface IBaseService<T, Dto>
-    {
-        List<T> BuscarTodos();
-        T BuscarPorId(long buscaId);
-        void Adicionar(Dto dto);
-        void Excluir(long idExcluir);
-        void Editar(long id, Dto dto);
-    }
+    List<T> BuscarTodos();
+    T BuscarPorId(long buscaId);
+    void Adicionar(Dto dto);
+    void Excluir(long idExcluir);
+    void Editar(long id, Dto dto);
 }

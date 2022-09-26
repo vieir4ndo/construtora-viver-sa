@@ -1,10 +1,9 @@
-﻿namespace ConstrutoraViverSA.Domain.Enums
+﻿namespace ConstrutoraViverSA.Domain.Enums;
+
+public enum TipoMaterialEnum
 {
-    public enum TipoMaterialEnum
-    {
-        Madeira = 4,
-        Telha = 1,
-        Tijolo = 2,
-        Cimento = 3
-    }
+    Madeira = 4,
+    Telha = 1,
+    Tijolo = 2,
+    Cimento = 3
 }

@@ -7,69 +7,68 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace ConstrutoraViverSA.Api.Middlewares
+namespace ConstrutoraViverSA.Api.Middlewares;
+
+public static class ErrorHandlerExtensions
 {
-    public static class ErrorHandlerExtensions
+    public static IApplicationBuilder UseErrorHandler(
+        this IApplicationBuilder appBuilder,
+        ILoggerFactory loggerFactory)
     {
-        public static IApplicationBuilder UseErrorHandler(
-            this IApplicationBuilder appBuilder,
-            ILoggerFactory loggerFactory)
+        return appBuilder.UseExceptionHandler(builder =>
         {
-            return appBuilder.UseExceptionHandler(builder =>
+            builder.Run(async context =>
             {
-                builder.Run(async context =>
+                var exceptionHandlerFeature = context
+                    .Features
+                    .Get<IExceptionHandlerFeature>();
+                var exceptionHandlerPathFeature =
+                    context.Features.Get<IExceptionHandlerPathFeature>();
+
+                if (exceptionHandlerFeature != null)
                 {
-                    var exceptionHandlerFeature = context
-                        .Features
-                        .Get<IExceptionHandlerFeature>();
-                    var exceptionHandlerPathFeature =
-                        context.Features.Get<IExceptionHandlerPathFeature>();
+                    var logger = loggerFactory.CreateLogger("ErrorHandler");
+                    logger.LogError($"Error: {exceptionHandlerFeature.Error}");
 
-                    if (exceptionHandlerFeature != null)
+                    if (exceptionHandlerPathFeature?.Error is NaoEncontradoException naoEncontradoException)
                     {
-                        var logger = loggerFactory.CreateLogger("ErrorHandler");
-                        logger.LogError($"Error: {exceptionHandlerFeature.Error}");
+                        var response = new ApiResponse(false, null, naoEncontradoException.Message);
 
-                        if (exceptionHandlerPathFeature?.Error is NaoEncontradoException naoEncontradoException)
-                        {
-                            var response = new ApiResponse(false, null, naoEncontradoException.Message);
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                        context.Response.ContentType = "application/json";
 
-                            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                            context.Response.ContentType = "application/json";
-
-                            await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
-                        }
-                        else if (exceptionHandlerPathFeature?.Error is ErroValidacaoException erroValidacaoException)
-                        {
-                            var response = new ApiResponse(false, null, erroValidacaoException.Message);
-
-                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                            context.Response.ContentType = "application/json";
-
-                            await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
-                        }
-                        else if (exceptionHandlerPathFeature?.Error is OperacaoInvalidaException invalidOperation)
-                        {
-                            var response = new ApiResponse(false, null, invalidOperation.Message);
-
-                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                            context.Response.ContentType = "application/json";
-
-                            await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
-                        }
-                        else
-                        {
-                            var response = new ApiResponse(false, null,
-                                "Houve um problema ao realizar essa operação, por favor tente novamente mais tarde. Se os problemas persistirem, entre em contato com o suporte.");
-
-                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                            context.Response.ContentType = "application/json";
-
-                            await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
-                        }
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
                     }
-                });
+                    else if (exceptionHandlerPathFeature?.Error is ErroValidacaoException erroValidacaoException)
+                    {
+                        var response = new ApiResponse(false, null, erroValidacaoException.Message);
+
+                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                    }
+                    else if (exceptionHandlerPathFeature?.Error is OperacaoInvalidaException invalidOperation)
+                    {
+                        var response = new ApiResponse(false, null, invalidOperation.Message);
+
+                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                    }
+                    else
+                    {
+                        var response = new ApiResponse(false, null,
+                            "Houve um problema ao realizar essa operação, por favor tente novamente mais tarde. Se os problemas persistirem, entre em contato com o suporte.");
+
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                    }
+                }
             });
-        }
+        });
     }
 }

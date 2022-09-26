@@ -5,59 +5,58 @@ using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 
-namespace ConstrutoraViverSA.Application.Services
+namespace ConstrutoraViverSA.Application.Services;
+
+public class FuncionarioService : IFuncionarioService
 {
-    public class FuncionarioService : IFuncionarioService
+    private readonly IFuncionarioRepository _repository;
+
+    public FuncionarioService(IFuncionarioRepository repository)
     {
-        private readonly IFuncionarioRepository _repository;
+        _repository = repository;
+    }
 
-        public FuncionarioService(IFuncionarioRepository repository)
-        {
-            _repository = repository;
-        }
+    public List<Funcionario> BuscarTodos()
+    {
+        return _repository.BuscarTodos();
+    }
 
-        public List<Funcionario> BuscarTodos()
-        {
-            return _repository.BuscarTodos();
-        }
+    public Funcionario BuscarPorId(long buscaId)
+    {
+        var funcionario = _repository.BuscarPorId(buscaId);
 
-        public Funcionario BuscarPorId(long buscaId)
-        {
-            var funcionario = _repository.BuscarPorId(buscaId);
+        if (funcionario is null) throw new NaoEncontradoException("Funcionário não encontrado");
 
-            if (funcionario is null) throw new NaoEncontradoException("Funcionário não encontrado");
+        return funcionario;
+    }
 
-            return funcionario;
-        }
+    public void Adicionar(FuncionarioDto dto)
+    {
+        // TODO: Usar automapper
+        _repository.Adicionar(dto.DtoParaDominio());
+    }
 
-        public void Adicionar(FuncionarioDto dto)
-        {
-            // TODO: Usar automapper
-            _repository.Adicionar(dto.DtoParaDominio());
-        }
+    public void Excluir(long idExcluir)
+    {
+        var funcionario = BuscarPorId(idExcluir);
 
-        public void Excluir(long idExcluir)
-        {
-            var funcionario = BuscarPorId(idExcluir);
+        _repository.Excluir(funcionario);
+    }
 
-            _repository.Excluir(funcionario);
-        }
+    public void Editar(long id, FuncionarioDto dto)
+    {
+        var funcionario = BuscarPorId(id);
 
-        public void Editar(long id, FuncionarioDto dto)
-        {
-            var funcionario = BuscarPorId(id);
+        funcionario.Nome = dto.Nome ?? funcionario.Nome;
+        funcionario.DataNascimento = dto.DataNascimento ?? funcionario.DataNascimento;
+        funcionario.Genero = dto.Genero ?? funcionario.Genero;
+        funcionario.Cpf = dto.Cpf ?? funcionario.Cpf;
+        funcionario.NumCtps = dto.NumCtps ?? funcionario.NumCtps;
+        funcionario.Endereco = dto.Endereco ?? funcionario.Endereco;
+        funcionario.Email = dto.Email ?? funcionario.Email;
+        funcionario.Telefone = dto.Telefone ?? funcionario.Telefone;
+        funcionario.Cargo = dto.Cargo ?? funcionario.Cargo;
 
-            funcionario.Nome = dto.Nome ?? funcionario.Nome;
-            funcionario.DataNascimento = dto.DataNascimento ?? funcionario.DataNascimento;
-            funcionario.Genero = dto.Genero ?? funcionario.Genero;
-            funcionario.Cpf = dto.Cpf ?? funcionario.Cpf;
-            funcionario.NumCtps = dto.NumCtps ?? funcionario.NumCtps;
-            funcionario.Endereco = dto.Endereco ?? funcionario.Endereco;
-            funcionario.Email = dto.Email ?? funcionario.Email;
-            funcionario.Telefone = dto.Telefone ?? funcionario.Telefone;
-            funcionario.Cargo = dto.Cargo ?? funcionario.Cargo;
-
-            _repository.Editar(funcionario);
-        }
+        _repository.Editar(funcionario);
     }
 }

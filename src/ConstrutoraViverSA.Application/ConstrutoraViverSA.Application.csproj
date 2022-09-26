@@ -13,4 +13,12 @@
       <Compile Remove="Interfaces\IEstoqueService.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Mappers" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="11.0.1" />
+    </ItemGroup>
+
 </Project>
