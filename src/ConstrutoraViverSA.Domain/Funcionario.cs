@@ -18,6 +18,8 @@ namespace ConstrutoraViverSA.Domain
         public CargoEnum? Cargo { get; set; }
         
         public virtual ICollection<Obra> Obras { get; set; }
+        
+        public Funcionario(){}
         public Funcionario
             (
             string nome,

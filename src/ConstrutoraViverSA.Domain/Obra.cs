@@ -21,6 +21,7 @@ namespace ConstrutoraViverSA.Domain
 
         public virtual ICollection<ObraMaterial> ObraMateriais { get; set; }
 
+        public Obra() {}
         public Obra
         (
             string nome,
