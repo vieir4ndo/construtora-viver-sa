@@ -12,10 +12,4 @@ public class ObraDto
     public double? Valor { get; set; }
     public DateTime? PrazoConclusao { get; set; }
     public long? OrcamentoId { get; set; }
-
-    public Obra DtoParaDominio()
-    {
-        return new Obra(Nome, Endereco, (TipoObraEnum)TipoObra, Descricao, (double)Valor, (DateTime)PrazoConclusao,
-            (long)OrcamentoId);
-    }
 }

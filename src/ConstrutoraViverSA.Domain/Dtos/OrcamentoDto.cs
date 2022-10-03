@@ -11,16 +11,4 @@ public class OrcamentoDto
     public DateTime? DataEmissao { get; set; }
     public DateTime? DataValidade { get; set; }
     public double? Valor { get; set; }
-
-    public Orcamento DtoParaDominio()
-    {
-        return new Orcamento(
-            Descricao,
-            Endereco,
-            TipoObra,
-            Convert.ToDateTime(DataEmissao),
-            Convert.ToDateTime(DataValidade),
-            Convert.ToDouble(Valor)
-        );
-    }
 }

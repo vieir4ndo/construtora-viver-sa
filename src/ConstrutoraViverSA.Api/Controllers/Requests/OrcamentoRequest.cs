@@ -15,19 +15,6 @@ public class OrcamentoRequest
     public DateTime? DataValidade { get; set; }
     public double? Valor { get; set; }
 
-    public OrcamentoDto RequestParaDto()
-    {
-        return new OrcamentoDto()
-        {
-            Descricao = this.Descricao,
-            Endereco = this.Endereco,
-            TipoObra = this.TipoObra,
-            DataEmissao = this.DataEmissao,
-            DataValidade = this.DataValidade,
-            Valor = this.Valor
-        };
-    }
-
     public void ValidarCriacao()
     {
         var resultado = new CriarOrcamentoValidator().Validate(this);

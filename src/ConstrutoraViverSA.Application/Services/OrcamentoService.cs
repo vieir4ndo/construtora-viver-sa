@@ -1,5 +1,6 @@
 using ConstrutoraViverSA.Domain;
 using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -10,18 +11,34 @@ namespace ConstrutoraViverSA.Application.Services;
 public class OrcamentoService : IOrcamentoService
 {
     private readonly IOrcamentoRepository _repository;
+    private readonly IMapper _mapper;
 
-    public OrcamentoService(IOrcamentoRepository repository)
+    public OrcamentoService(IOrcamentoRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public List<Orcamento> BuscarTodos()
+    public List<OrcamentoDto> BuscarTodos()
     {
-        return _repository.BuscarTodos();
+        var orcamentos = _repository.BuscarTodos();
+
+        var listaOrcamentosDto = new List<OrcamentoDto>();
+            
+        orcamentos.ForEach(x => listaOrcamentosDto.Add(_mapper.Map<OrcamentoDto>(x)));
+
+        return listaOrcamentosDto;
     }
 
-    public Orcamento BuscarPorId(long buscaId)
+    public OrcamentoDto BuscarPorId(long buscaId)
+    {
+        var orcamento = BuscarEntidadePorId(buscaId);
+
+        return _mapper.Map<OrcamentoDto>(orcamento);
+    }
+
+
+    public Orcamento BuscarEntidadePorId(long buscaId)
     {
         var orcamento = _repository.BuscarPorId(buscaId);
 
@@ -35,19 +52,19 @@ public class OrcamentoService : IOrcamentoService
 
     public void Adicionar(OrcamentoDto dto)
     {
-        _repository.Adicionar(dto.DtoParaDominio());
+        _repository.Adicionar(_mapper.Map<Orcamento>(dto));
     }
 
     public void Excluir(long idExcluir)
     {
-        var orcamento = BuscarPorId(idExcluir);
+        var orcamento = BuscarEntidadePorId(idExcluir);
 
         _repository.Excluir(orcamento);
     }
 
     public void Editar(long id, OrcamentoDto orcamentolAtualizado)
     {
-        var orcamento = BuscarPorId(id);
+        var orcamento = BuscarEntidadePorId(id);
 
         orcamento.Descricao = orcamentolAtualizado.Descricao ?? orcamento.Descricao;
         orcamento.Endereco = orcamentolAtualizado.Endereco ?? orcamento.Endereco;

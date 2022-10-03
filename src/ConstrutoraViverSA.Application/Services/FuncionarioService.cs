@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
@@ -10,18 +11,26 @@ namespace ConstrutoraViverSA.Application.Services;
 public class FuncionarioService : IFuncionarioService
 {
     private readonly IFuncionarioRepository _repository;
+    private readonly IMapper _mapper;
 
-    public FuncionarioService(IFuncionarioRepository repository)
+    public FuncionarioService(IFuncionarioRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public List<Funcionario> BuscarTodos()
+    public List<FuncionarioDto> BuscarTodos()
     {
-        return _repository.BuscarTodos();
+        var funcionarios = _repository.BuscarTodos();
+
+        var listaFuncionariosDto = new List<FuncionarioDto>();
+            
+        funcionarios.ForEach(x => listaFuncionariosDto.Add(_mapper.Map<FuncionarioDto>(x)));
+
+        return listaFuncionariosDto;
     }
 
-    public Funcionario BuscarPorId(long buscaId)
+    public Funcionario BuscarEntidadePorId(long buscaId)
     {
         var funcionario = _repository.BuscarPorId(buscaId);
 
@@ -30,22 +39,29 @@ public class FuncionarioService : IFuncionarioService
         return funcionario;
     }
 
+    public FuncionarioDto BuscarPorId(long buscaId)
+    {
+        var funcionario = BuscarEntidadePorId(buscaId);
+        
+        return _mapper.Map<FuncionarioDto>(funcionario);
+    }
+
     public void Adicionar(FuncionarioDto dto)
     {
-        // TODO: Usar automapper
-        _repository.Adicionar(dto.DtoParaDominio());
+        var funcionario = _mapper.Map<Funcionario>(dto);
+        _repository.Adicionar(funcionario);
     }
 
     public void Excluir(long idExcluir)
     {
-        var funcionario = BuscarPorId(idExcluir);
+        var funcionario = BuscarEntidadePorId(idExcluir);
 
         _repository.Excluir(funcionario);
     }
 
     public void Editar(long id, FuncionarioDto dto)
     {
-        var funcionario = BuscarPorId(id);
+        var funcionario = BuscarEntidadePorId(id);
 
         funcionario.Nome = dto.Nome ?? funcionario.Nome;
         funcionario.DataNascimento = dto.DataNascimento ?? funcionario.DataNascimento;

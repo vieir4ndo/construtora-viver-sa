@@ -3,6 +3,7 @@ using ConstrutoraViverSA.Domain.Dtos;
 
 namespace ConstrutoraViverSA.Application.Interfaces;
 
-public interface IFuncionarioService : IBaseService<Funcionario, FuncionarioDto>
+public interface IFuncionarioService : IBaseService<FuncionarioDto>
 {
+    Funcionario BuscarEntidadePorId(long buscaId);
 }

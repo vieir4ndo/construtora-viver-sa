@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers;
@@ -11,10 +13,12 @@ namespace ConstrutoraViverSA.Api.Controllers;
 public class OrcamentoController : ControllerBase
 {
     private readonly IOrcamentoService _orcamentoService;
+    private readonly IMapper _mapper;
 
-    public OrcamentoController(IOrcamentoService orcamentoService)
+    public OrcamentoController(IOrcamentoService orcamentoService, IMapper mapper)
     {
         _orcamentoService = orcamentoService;
+        _mapper = mapper;
     }
 
     [HttpPost]
@@ -22,7 +26,9 @@ public class OrcamentoController : ControllerBase
     {
         request.ValidarCriacao();
 
-        _orcamentoService.Adicionar(request.RequestParaDto());
+        var dto = _mapper.Map<OrcamentoDto>(request);
+
+        _orcamentoService.Adicionar(dto);
 
         return Ok(new ApiResponse(true, null, null));
     }
@@ -40,7 +46,9 @@ public class OrcamentoController : ControllerBase
     {
         request.ValidarEdicao();
 
-        _orcamentoService.Editar(id, request.RequestParaDto());
+        var dto = _mapper.Map<OrcamentoDto>(request);
+        
+        _orcamentoService.Editar(id, dto);
 
         return Ok(new ApiResponse(true, null, null));
     }

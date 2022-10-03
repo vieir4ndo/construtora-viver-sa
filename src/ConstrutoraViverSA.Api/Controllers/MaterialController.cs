@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers;
@@ -11,18 +13,22 @@ namespace ConstrutoraViverSA.Api.Controllers;
 public class MaterialController : ControllerBase
 {
     private readonly IMaterialService _materialService;
+    private readonly IMapper _mapper;
 
-    public MaterialController(IMaterialService materialService)
+    public MaterialController(IMaterialService materialService, IMapper mapper)
     {
         _materialService = materialService;
+        _mapper = mapper;
     }
 
     [HttpPost]
     public IActionResult CadastrarMaterial(MaterialRequest request)
     {
         request.ValidarCriacao();
+        
+        var dto = _mapper.Map<MaterialDto>(request);
 
-        _materialService.Adicionar(request.RequestParaDto());
+        _materialService.Adicionar(dto);
 
         return Ok(new ApiResponse(true, null, null));
     }
@@ -39,8 +45,10 @@ public class MaterialController : ControllerBase
     public IActionResult EditarMaterial(MaterialRequest request, long materialId)
     {
         request.ValidarEdicao();
+        
+        var dto = _mapper.Map<MaterialDto>(request);
 
-        _materialService.Editar(materialId, request.RequestParaDto());
+        _materialService.Editar(materialId, dto);
 
         return Ok(new ApiResponse(true, null, null));
     }

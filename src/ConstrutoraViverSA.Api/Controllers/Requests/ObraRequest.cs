@@ -16,20 +16,6 @@ public class ObraRequest
     public DateTime? PrazoConclusao { get; set; }
     public long? OrcamentoId { get; set; }
 
-    public ObraDto RequestParaDto()
-    {
-        return new ObraDto()
-        {
-            Nome = this.Nome,
-            Endereco = this.Endereco,
-            TipoObra = this.TipoObra,
-            Descricao = this.Descricao,
-            Valor = this.Valor,
-            PrazoConclusao = this.PrazoConclusao,
-            OrcamentoId = this.OrcamentoId
-        };
-    }
-
     public void ValidarCriacao()
     {
         var resultado = new CriarObraValidator().Validate(this);

@@ -3,7 +3,7 @@ using ConstrutoraViverSA.Domain.Dtos;
 
 namespace ConstrutoraViverSA.Application.Interfaces;
 
-public interface IObraMaterialService : IBaseService<ObraMaterial, ObraMaterialDto>
+public interface IObraMaterialService : IBaseService<ObraMaterialDto>
 {
     ObraMaterial BuscarPorObraIdEMaterialId(long obraId, long materialId);
 }

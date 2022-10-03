@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Application.Services;
 using ConstrutoraViverSA.Infrastructure;
@@ -46,6 +47,24 @@ public class Startup
         services.AddScoped<IObraRepository, ObraRepository>();
         services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
         services.AddScoped<IObraMaterialRepository, ObraMaterialRepository>();
+        
+        //AutoMapper
+        // Auto Mapper Configurations
+        var mapperConfig = new MapperConfiguration(mc =>
+        {
+            mc.AddProfile(new Api.Mappers.FuncionarioMappers());
+            mc.AddProfile(new Domain.Mappers.FuncionarioMappers());
+            mc.AddProfile(new Api.Mappers.MaterialMappers());
+            mc.AddProfile(new Domain.Mappers.MaterialMappers());
+            mc.AddProfile(new Api.Mappers.ObraMappers());
+            mc.AddProfile(new Domain.Mappers.ObraMappers());
+            mc.AddProfile(new Api.Mappers.OrcamentoMappers());
+            mc.AddProfile(new Domain.Mappers.OrcamentoMappers());
+        });
+
+        IMapper mapper = mapperConfig.CreateMapper();
+        services.AddSingleton(mapper);
+
 
         // Register the Swagger Generator service. This service is responsible for genrating Swagger Documents.
         // Note: Add this service at the end after AddMvc() or AddMvcCore().

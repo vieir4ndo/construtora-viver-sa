@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
@@ -10,20 +11,26 @@ namespace ConstrutoraViverSA.Application.Services;
 public class ObraMaterialService : IObraMaterialService
 {
     private readonly IObraMaterialRepository _repository;
+    private readonly IMapper _mapper;
 
-    public ObraMaterialService(
-        IObraMaterialRepository repository
-    )
+    public ObraMaterialService(IObraMaterialRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public List<ObraMaterial> BuscarTodos()
+    public List<ObraMaterialDto> BuscarTodos()
     {
-        return _repository.BuscarTodos();
+        var obras = _repository.BuscarTodos();
+
+        var listaObrasDto = new List<ObraMaterialDto>();
+
+        obras.ForEach(x => listaObrasDto.Add(_mapper.Map<ObraMaterialDto>(x)));
+
+        return listaObrasDto;
     }
 
-    public ObraMaterial BuscarPorId(long buscaId)
+    private ObraMaterial BuscarEntidadePorId(long buscaId)
     {
         var obraMaterial = _repository.BuscarPorId(buscaId);
 
@@ -32,21 +39,30 @@ public class ObraMaterialService : IObraMaterialService
         return obraMaterial;
     }
 
+    public ObraMaterialDto BuscarPorId(long buscaId)
+    {
+        var obraMaterial = BuscarEntidadePorId(buscaId);
+
+        return _mapper.Map<ObraMaterialDto>(obraMaterial);
+    }
+
     public void Adicionar(ObraMaterialDto dto)
     {
-        _repository.Adicionar(dto.DtoParaDominio());
+        var obraMaterial = _mapper.Map<ObraMaterial>(dto);
+        
+        _repository.Adicionar(obraMaterial);
     }
 
     public void Excluir(long idExcluir)
     {
-        var obraMaterial = BuscarPorId(idExcluir);
+        var obraMaterial = BuscarEntidadePorId(idExcluir);
 
         _repository.Excluir(obraMaterial);
     }
 
     public void Editar(long id, ObraMaterialDto dto)
     {
-        var obraMaterial = BuscarPorId(id);
+        var obraMaterial = BuscarEntidadePorId(id);
 
         if (dto.MaterialId != null && dto.MaterialId != obraMaterial.MaterialId)
             obraMaterial.MaterialId = dto.MaterialId;

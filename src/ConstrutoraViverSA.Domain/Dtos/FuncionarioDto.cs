@@ -14,19 +14,4 @@ public class FuncionarioDto
     public string Email { get; set; }
     public string Telefone { get; set; }
     public CargoEnum? Cargo { get; set; }
-
-    public Funcionario DtoParaDominio()
-    {
-        return new Funcionario(
-            Nome,
-            (DateTime)DataNascimento,
-            (GeneroEnum)Genero,
-            Cpf,
-            NumCtps,
-            Endereco,
-            Email,
-            Telefone,
-            (CargoEnum)Cargo
-        );
-    }
 }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers;
@@ -11,10 +13,12 @@ namespace ConstrutoraViverSA.Api.Controllers;
 public class ObraController : ControllerBase
 {
     private readonly IObraService _obraService;
+    private readonly IMapper _mapper;
 
-    public ObraController(IObraService obraService)
+    public ObraController(IObraService obraService, IMapper mapper)
     {
         _obraService = obraService;
+        _mapper = mapper;
     }
 
     [HttpPost]
@@ -22,7 +26,9 @@ public class ObraController : ControllerBase
     {
         request.ValidarCriacao();
 
-        _obraService.Adicionar(request.RequestParaDto());
+        var dto = _mapper.Map<ObraDto>(request);
+
+        _obraService.Adicionar(dto);
 
         return Ok(new ApiResponse(true, null, null));
     }
@@ -39,8 +45,10 @@ public class ObraController : ControllerBase
     public IActionResult AlterarObra(ObraRequest request, long obraId)
     {
         request.ValidarEdicao();
+        
+        var dto = _mapper.Map<ObraDto>(request);
 
-        _obraService.Editar(obraId, request.RequestParaDto());
+        _obraService.Editar(obraId, dto);
 
         return Ok(new ApiResponse(true, null, null));
     }

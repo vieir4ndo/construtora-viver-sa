@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
@@ -15,27 +16,44 @@ public class ObraService : IObraService
     private readonly IObraMaterialService _obraMaterialService;
     private readonly IOrcamentoService _orcamentoService;
     private readonly IObraRepository _repository;
+    private readonly IMapper _mapper;
 
     public ObraService(
         IObraRepository repository,
         IOrcamentoService orcamentoService,
         IFuncionarioService funcionarioService,
         IMaterialService materialService,
-        IObraMaterialService obraMaterialService)
+        IObraMaterialService obraMaterialService,
+        IMapper mapper)
     {
         _repository = repository;
         _orcamentoService = orcamentoService;
         _funcionarioService = funcionarioService;
         _materialService = materialService;
         _obraMaterialService = obraMaterialService;
+        _mapper = mapper;
     }
 
-    public List<Obra> BuscarTodos()
+    public List<ObraDto> BuscarTodos()
     {
-        return _repository.BuscarTodos();
+        var obras= _repository.BuscarTodos();
+
+        var listaObrasDto = new List<ObraDto>();
+        
+        obras.ForEach(x => listaObrasDto.Add(_mapper.Map<ObraDto>(x)));
+
+        return listaObrasDto;
     }
 
-    public Obra BuscarPorId(long buscaId)
+    public ObraDto BuscarPorId(long buscaId)
+    {
+        var material = BuscarEntidadePorId(buscaId);
+
+        return _mapper.Map<ObraDto>(material);
+        
+    }
+    
+    private Obra BuscarEntidadePorId(long buscaId)
     {
         var obra = _repository.BuscarPorId(buscaId);
 
@@ -46,8 +64,8 @@ public class ObraService : IObraService
 
     public void Adicionar(ObraDto dto)
     {
-        var orcamento = _orcamentoService.BuscarPorId((long)dto.OrcamentoId);
-        var obra = dto.DtoParaDominio();
+        var orcamento = _orcamentoService.BuscarEntidadePorId((long)dto.OrcamentoId);
+        var obra = _mapper.Map<Obra>(dto);
 
         obra.Orcamento = orcamento;
 
@@ -56,18 +74,18 @@ public class ObraService : IObraService
 
     public void Excluir(long idExcluir)
     {
-        var obra = BuscarPorId(idExcluir);
+        var obra = BuscarEntidadePorId(idExcluir);
 
         _repository.Excluir(obra);
     }
 
     public void Editar(long id, ObraDto obralAtualizado)
     {
-        var obra = BuscarPorId(id);
+        var obra = BuscarEntidadePorId(id);
 
         if (obralAtualizado.OrcamentoId != null && obralAtualizado.OrcamentoId != obra.OrcamentoId)
         {
-            var orcamento = _orcamentoService.BuscarPorId((long)obralAtualizado.OrcamentoId);
+            var orcamento = _orcamentoService.BuscarEntidadePorId((long)obralAtualizado.OrcamentoId);
             obra.Orcamento = orcamento;
         }
 
@@ -92,9 +110,9 @@ public class ObraService : IObraService
 
     public void AlocarFuncionario(long id, long funcionarioId)
     {
-        var funcionario = _funcionarioService.BuscarPorId(funcionarioId);
+        var funcionario = _funcionarioService.BuscarEntidadePorId(funcionarioId);
 
-        var obra = BuscarPorId(id);
+        var obra = BuscarEntidadePorId(id);
 
         if (obra.Funcionarios.Contains(funcionario))
             throw new OperacaoInvalidaException(
@@ -107,9 +125,9 @@ public class ObraService : IObraService
 
     public void DesalocarFuncionario(long id, long funcionarioId)
     {
-        var funcionario = _funcionarioService.BuscarPorId(funcionarioId);
+        var funcionario = _funcionarioService.BuscarEntidadePorId(funcionarioId);
 
-        var obra = BuscarPorId(id);
+        var obra = BuscarEntidadePorId(id);
 
         if (!obra.Funcionarios.Contains(funcionario))
             throw new OperacaoInvalidaException(
@@ -122,9 +140,9 @@ public class ObraService : IObraService
 
     private void AlocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
     {
-        var material = _materialService.BuscarPorId(materialId);
+        var material = _materialService.BuscarEntidadePorId(materialId);
 
-        var obra = BuscarPorId(id);
+        var obra = BuscarEntidadePorId(id);
 
         if (material.Quantidade < materialDto.Quantidade)
         {
@@ -148,7 +166,7 @@ public class ObraService : IObraService
                 Quantidade = materialDto.Quantidade
             };
 
-            obra.ObraMateriais.Add(obraMaterialDto.DtoParaDominio());
+            obra.ObraMateriais.Add(_mapper.Map<ObraMaterial>(obraMaterialDto));
         }
         else
         {
@@ -162,7 +180,7 @@ public class ObraService : IObraService
     {
         var material = _materialService.BuscarPorId(materialId);
 
-        var obra = BuscarPorId(id);
+        var obra = BuscarEntidadePorId(id);
 
         var obraMaterial = _obraMaterialService.BuscarPorObraIdEMaterialId(id, materialId);
 

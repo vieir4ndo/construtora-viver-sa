@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstrutoraViverSA.Api.Controllers;
@@ -11,10 +13,12 @@ namespace ConstrutoraViverSA.Api.Controllers;
 public class FuncionarioController : ControllerBase
 {
     private readonly IFuncionarioService _funcionarioService;
+    private readonly IMapper _mapper;
 
-    public FuncionarioController(IFuncionarioService funcionarioService)
+    public FuncionarioController(IFuncionarioService funcionarioService, IMapper mapper)
     {
         _funcionarioService = funcionarioService;
+        _mapper = mapper;
     }
 
     [HttpPost]
@@ -22,7 +26,9 @@ public class FuncionarioController : ControllerBase
     {
         request.ValidarCriacao();
 
-        _funcionarioService.Adicionar(request.RequestParaDto());
+        var dto = _mapper.Map<FuncionarioDto>(request);
+        
+        _funcionarioService.Adicionar(dto);
 
         return Ok(new ApiResponse(true, null, null));
     }
@@ -39,8 +45,10 @@ public class FuncionarioController : ControllerBase
     public IActionResult EditarFuncionario(FuncionarioRequest request, long funcionarioId)
     {
         request.ValidarEdicao();
+        
+        var dto = _mapper.Map<FuncionarioDto>(request);
 
-        _funcionarioService.Editar(funcionarioId, request.RequestParaDto());
+        _funcionarioService.Editar(funcionarioId, dto);
 
         return Ok(new ApiResponse(true, null, null));
     }

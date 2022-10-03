@@ -12,18 +12,6 @@ public class MaterialRequest
     public TipoMaterialEnum? Tipo { get; set; }
     public double? Valor { get; set; }
 
-
-    public MaterialDto RequestParaDto()
-    {
-        return new MaterialDto()
-        {
-            Nome = this.Nome,
-            Descricao = this.Descricao,
-            Tipo = this.Tipo,
-            Valor = this.Valor,
-        };
-    }
-
     public void ValidarCriacao()
     {
         var resultado = new CriarMaterialValidator().Validate(this);
