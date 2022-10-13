@@ -67,7 +67,7 @@ public class ObraService : IObraService
         var orcamento = _orcamentoService.BuscarEntidadePorId((long)dto.OrcamentoId);
         var obra = _mapper.Map<Obra>(dto);
 
-        obra.Orcamento = orcamento;
+        obra.SetOrcamento(orcamento);
 
         _repository.Adicionar(obra);
     }
@@ -86,16 +86,15 @@ public class ObraService : IObraService
         if (obralAtualizado.OrcamentoId != null && obralAtualizado.OrcamentoId != obra.OrcamentoId)
         {
             var orcamento = _orcamentoService.BuscarEntidadePorId((long)obralAtualizado.OrcamentoId);
-            obra.Orcamento = orcamento;
+            obra.SetOrcamento(orcamento);
         }
 
-        obra.Nome = obralAtualizado.Nome ?? obra.Nome;
-        obra.Descricao = obralAtualizado.Descricao ?? obra.Descricao;
-        obra.Endereco = obralAtualizado.Endereco ?? obra.Endereco;
-        obra.TipoObra = obralAtualizado.TipoObra ?? obra.TipoObra;
-        obra.Valor = obralAtualizado.Valor ?? obra.Valor;
-        obra.PrazoConclusao = obralAtualizado.PrazoConclusao ?? obra.PrazoConclusao;
-        obra.OrcamentoId = obralAtualizado.OrcamentoId ?? obra.OrcamentoId;
+        obra.SetNome(obralAtualizado.Nome);
+        obra.SetDescricao(obralAtualizado.Descricao);
+        obra.SetEndereco(obralAtualizado.Endereco);
+        obra.SetTipoObra(obralAtualizado.TipoObra);
+        obra.SetValor(obralAtualizado.Valor);
+        obra.SetPrazoConclusao(obralAtualizado.PrazoConclusao);
 
         _repository.Editar(obra);
     }
@@ -152,9 +151,6 @@ public class ObraService : IObraService
 
         var obraMaterial = _obraMaterialService.BuscarPorObraIdEMaterialId(id, materialId);
 
-        _materialService.MovimentarEstoque(materialId,
-            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Saida, Quantidade = materialDto.Quantidade });
-
         if (obraMaterial == null)
         {
             var obraMaterialDto = new ObraMaterialDto
@@ -170,8 +166,11 @@ public class ObraService : IObraService
         }
         else
         {
-            obraMaterial.Quantidade += materialDto.Quantidade;
+            obraMaterial.SetQuantidade(materialDto.Quantidade);
         }
+        
+        _materialService.MovimentarEstoque(materialId,
+            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Saida, Quantidade = materialDto.Quantidade });
 
         _repository.Editar(obra);
     }

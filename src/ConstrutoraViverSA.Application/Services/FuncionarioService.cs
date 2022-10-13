@@ -63,15 +63,15 @@ public class FuncionarioService : IFuncionarioService
     {
         var funcionario = BuscarEntidadePorId(id);
 
-        funcionario.Nome = dto.Nome ?? funcionario.Nome;
-        funcionario.DataNascimento = dto.DataNascimento ?? funcionario.DataNascimento;
-        funcionario.Genero = dto.Genero ?? funcionario.Genero;
-        funcionario.Cpf = dto.Cpf ?? funcionario.Cpf;
-        funcionario.NumCtps = dto.NumCtps ?? funcionario.NumCtps;
-        funcionario.Endereco = dto.Endereco ?? funcionario.Endereco;
-        funcionario.Email = dto.Email ?? funcionario.Email;
-        funcionario.Telefone = dto.Telefone ?? funcionario.Telefone;
-        funcionario.Cargo = dto.Cargo ?? funcionario.Cargo;
+        funcionario.SetNome(dto.Nome);
+        funcionario.SetDataNascimento(dto.DataNascimento);
+        funcionario.SetGenero(dto.Genero);
+        funcionario.SetCpf(dto.Cpf);
+        funcionario.SetNumCtps(dto.NumCtps);
+        funcionario.SetEndereco(dto.Endereco);
+        funcionario.SetEmail(dto.Email);
+        funcionario.SetTelefone(dto.Telefone);
+        funcionario.SetCargo(dto.Cargo);
 
         _repository.Editar(funcionario);
     }

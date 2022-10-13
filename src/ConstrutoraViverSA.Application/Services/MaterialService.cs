@@ -67,10 +67,10 @@ public class MaterialService : IMaterialService
     {
         var material = BuscarEntidadePorId(id);
 
-        material.Nome = materialAtualizado.Nome ?? material.Nome;
-        material.Descricao = materialAtualizado.Descricao ?? material.Descricao;
-        material.Valor = materialAtualizado.Valor ?? material.Valor;
-        material.Tipo = materialAtualizado.Tipo ?? material.Tipo;
+        material.SetNome(materialAtualizado.Nome);
+        material.SetDescricao(materialAtualizado.Descricao);
+        material.SetValor(materialAtualizado.Valor);
+        material.SetTipo(materialAtualizado.Tipo);
 
         _repository.Editar(material);
     }
@@ -91,11 +91,11 @@ public class MaterialService : IMaterialService
 
         if (materialDto.Operacao == EntradaSaidaEnum.Entrada)
         {
-            material.Quantidade += materialDto.Quantidade;
+            material.SetQuantidade(materialDto.Quantidade);
         }
         else
         {
-            material.Quantidade -= materialDto.Quantidade;
+            material.SetQuantidade(materialDto.Quantidade);
         }
 
         _repository.Editar(material);

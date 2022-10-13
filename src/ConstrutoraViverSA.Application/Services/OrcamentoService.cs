@@ -66,12 +66,12 @@ public class OrcamentoService : IOrcamentoService
     {
         var orcamento = BuscarEntidadePorId(id);
 
-        orcamento.Descricao = orcamentolAtualizado.Descricao ?? orcamento.Descricao;
-        orcamento.Endereco = orcamentolAtualizado.Endereco ?? orcamento.Endereco;
-        orcamento.TipoObra = orcamentolAtualizado.TipoObra ?? orcamento.TipoObra;
-        orcamento.DataEmissao = orcamentolAtualizado.DataEmissao ?? orcamento.DataEmissao;
-        orcamento.DataValidade = orcamentolAtualizado.DataValidade ?? orcamento.DataValidade;
-        orcamento.Valor = orcamentolAtualizado.Valor ?? orcamento.Valor;
+        orcamento.SetDescricao(orcamentolAtualizado.Descricao);
+        orcamento.SetEndereco(orcamentolAtualizado.Endereco);
+        orcamento.SetTipoObra(orcamentolAtualizado.TipoObra);
+        orcamento.SetDataEmissao(orcamentolAtualizado.DataEmissao);
+        orcamento.SetDataValidade(orcamentolAtualizado.DataValidade);
+        orcamento.SetValor(orcamentolAtualizado.Valor);
 
         _repository.Editar(orcamento);
     }
