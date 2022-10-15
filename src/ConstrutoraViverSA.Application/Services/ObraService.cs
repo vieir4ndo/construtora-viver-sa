@@ -65,9 +65,8 @@ public class ObraService : IObraService
     public void Adicionar(ObraDto dto)
     {
         var orcamento = _orcamentoService.BuscarEntidadePorId((long)dto.OrcamentoId);
-        var obra = _mapper.Map<Obra>(dto);
-
-        obra.SetOrcamento(orcamento);
+        var obra = new Obra(dto.Nome, dto.Endereco, dto.TipoObra, dto.Descricao, dto.Valor, dto.PrazoConclusao,
+            orcamento, null, null);
 
         _repository.Adicionar(obra);
     }

@@ -1,5 +1,6 @@
 #nullable enable
 using System.Text;
+using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
@@ -37,6 +38,7 @@ public class ObraMaterial
         Obra = obra;
         Material = material;
         Quantidade = quantidade.Value;
+        Material.MovimentarEstoque(EntradaSaidaEnum.Saida, quantidade);
     }
     
     public void SetQuantidade(int? quantidade)

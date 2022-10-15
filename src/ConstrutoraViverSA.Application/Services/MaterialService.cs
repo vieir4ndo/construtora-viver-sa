@@ -1,5 +1,4 @@
-﻿using System;
-using ConstrutoraViverSA.Domain;
+﻿using ConstrutoraViverSA.Domain;
 using System.Collections.Generic;
 using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
@@ -51,9 +50,11 @@ public class MaterialService : IMaterialService
         return _mapper.Map<MaterialDto>(material);
     }
 
-    public void Adicionar(MaterialDto material)
+    public void Adicionar(MaterialDto dto)
     {
-        _repository.Adicionar(_mapper.Map<Material>(material));
+        var material = new Material(dto.Nome, dto.Descricao, dto.Tipo, dto.Valor,
+            dto.Quantidade);
+        _repository.Adicionar(material);
     }
 
     public void Excluir(long idExcluir)
@@ -63,7 +64,7 @@ public class MaterialService : IMaterialService
         _repository.Excluir(material);
     }
 
-    public void Editar(long id, MaterialDto materialAtualizado)
+    public void Editar(long id, EditarMaterialDto materialAtualizado)
     {
         var material = BuscarEntidadePorId(id);
 
@@ -85,18 +86,7 @@ public class MaterialService : IMaterialService
                 $"Solicitou-se a baixa de {materialDto.Quantidade} itens do estoque, no entanto o material {material.Nome} possui apenas {material.Quantidade} itens em estoque");
         }
 
-        materialDto.MaterialId = material.Id;
-
-        material.Estoque.Add(_mapper.Map<Estoque>(materialDto));
-
-        if (materialDto.Operacao == EntradaSaidaEnum.Entrada)
-        {
-            material.SetQuantidade(materialDto.Quantidade);
-        }
-        else
-        {
-            material.SetQuantidade(materialDto.Quantidade);
-        }
+        material.MovimentarEstoque(materialDto.Operacao, materialDto.Quantidade);
 
         _repository.Editar(material);
     }

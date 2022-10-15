@@ -43,7 +43,12 @@ public sealed class Material
         if (erros.Length > 0)
             throw new MaterialInvalidoException(erros.ToString());
 
-        Estoque.Append(new Estoque(this, EntradaSaidaEnum.Entrada, quantidade));
+        if (quantidade is > 0)
+        {
+            Estoque = new List<Estoque>();
+            Estoque.Add(new Estoque(this, EntradaSaidaEnum.Entrada, quantidade.Value));
+        }
+
         Quantidade = quantidade.Value;
         Nome = nome;
         Descricao = descricao;
@@ -83,11 +88,10 @@ public sealed class Material
         Valor = valor.Value;
     }
 
-    public void SetQuantidade(int? quantidade)
+    public void MovimentarEstoque(EntradaSaidaEnum? operacao, int? quantidade)
     {
-        if (quantidade is null or <= 0)
-            return;
+        Estoque.Append(new Estoque(this, operacao, quantidade));
 
-        Quantidade = quantidade.Value;
+        Quantidade = (operacao is EntradaSaidaEnum.Entrada) ? Quantidade + quantidade.Value : Quantidade - quantidade.Value;
     }
 }

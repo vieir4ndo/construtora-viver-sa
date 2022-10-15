@@ -26,7 +26,8 @@ public class Obra
     }
 
     public Obra(string nome, string endereco, TipoObraEnum? tipoObra, string descricao,
-        double? valor, DateTime? prazoConclusao, Orcamento? orcamento)
+        double? valor, DateTime? prazoConclusao, Orcamento? orcamento, List<Funcionario>? funcionarios,
+        Dictionary<Material, int>? materiais)
     {
         var erros = new StringBuilder();
 
@@ -61,6 +62,24 @@ public class Obra
         Valor = valor;
         PrazoConclusao = prazoConclusao;
         Orcamento = orcamento;
+
+        if (funcionarios is not null && funcionarios.Count is > 0)
+        {
+            //Funcionarios = new List<Funcionario>();
+            foreach (var funcionario in funcionarios)
+            {
+                Funcionarios.Add(funcionario);
+            }
+        }
+
+        if (materiais is not null && materiais.Count is > 0)
+        {
+            //ObraMateriais = new List<ObraMaterial>();
+            foreach (var material in materiais)
+            {
+                ObraMateriais.Add(new ObraMaterial(this, material.Key, material.Value));
+            }
+        }
     }
 
     public void SetNome(string nome)
@@ -117,5 +136,21 @@ public class Obra
             return;
 
         Orcamento = orcamento;
+    }
+
+    public void AlocarFuncionario()
+    {
+    }
+
+    public void DesalocarFuncionario()
+    {
+    }
+
+    public void AlocarMaterial()
+    {
+    }
+
+    public void DesalocarMaterial()
+    {
     }
 }

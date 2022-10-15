@@ -25,5 +25,10 @@ public class CriarMaterialValidator : AbstractValidator<MaterialRequest>
             .GreaterThan(0)
             .NotEmpty()
             .NotNull();
+        
+        RuleFor(x => x.Quantidade)
+            .GreaterThan(0)
+            .NotEmpty()
+            .NotNull();
     }
 }

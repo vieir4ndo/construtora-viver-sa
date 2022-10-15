@@ -7,5 +7,6 @@ public class MaterialMappers: AutoMapper.Profile
     public MaterialMappers()
     {
         CreateMap<Material, MaterialDto>().ReverseMap();
+        CreateMap<Material, EditarMaterialDto>().ReverseMap();
     }
 }

@@ -42,11 +42,11 @@ public class MaterialController : ControllerBase
     }
 
     [HttpPatch("{materialId}")]
-    public IActionResult EditarMaterial(MaterialRequest request, long materialId)
+    public IActionResult EditarMaterial(EditarMaterialRequest request, long materialId)
     {
         request.ValidarEdicao();
         
-        var dto = _mapper.Map<MaterialDto>(request);
+        var dto = _mapper.Map<EditarMaterialDto>(request);
 
         _materialService.Editar(materialId, dto);
 

@@ -48,7 +48,8 @@ public class FuncionarioService : IFuncionarioService
 
     public void Adicionar(FuncionarioDto dto)
     {
-        var funcionario = _mapper.Map<Funcionario>(dto);
+        var funcionario = new Funcionario(dto.Nome, dto.DataNascimento, dto.Genero, dto.Cpf, dto.NumCtps, dto.Endereco,
+            dto.Email, dto.Telefone, dto.Cargo);
         _repository.Adicionar(funcionario);
     }
 

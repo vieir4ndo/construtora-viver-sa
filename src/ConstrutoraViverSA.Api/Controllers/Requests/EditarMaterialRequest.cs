@@ -1,21 +1,19 @@
 using ConstrutoraViverSA.Api.Controllers.Validators;
-using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Api.Controllers.Requests;
 
-public class MaterialRequest
+public class EditarMaterialRequest
 {
     public string Nome { get; set; }
     public string Descricao { get; set; }
     public TipoMaterialEnum? Tipo { get; set; }
     public double? Valor { get; set; }
-    public int? Quantidade { get; set; }
 
-    public void ValidarCriacao()
+    public void ValidarEdicao()
     {
-        var resultado = new CriarMaterialValidator().Validate(this);
+        var resultado = new EditarMaterialValidator().Validate(this);
 
         if (resultado.IsValid == false)
         {

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ConstrutoraViverSA.Api.Controllers.Validators;
 
-public class EditarMaterialValidator : AbstractValidator<MaterialRequest>
+public class EditarMaterialValidator : AbstractValidator<EditarMaterialRequest>
 {
     public EditarMaterialValidator()
     {

@@ -9,5 +9,6 @@ public class MaterialMappers : Profile
     public MaterialMappers()
     {
         CreateMap<MaterialRequest, MaterialDto>().ReverseMap();
+        CreateMap<MaterialRequest, EditarMaterialDto>().ReverseMap();
     }
 }
