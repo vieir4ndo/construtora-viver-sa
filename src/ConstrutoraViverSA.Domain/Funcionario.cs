@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Extensions;
 
 namespace ConstrutoraViverSA.Domain;
 
@@ -37,8 +38,8 @@ public sealed class Funcionario
 
         if (genero is null)
             erros.Append("Gênero inválido.");
-
-        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11)
+        
+        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.IsValid(cpf))
             erros.Append("CPF inválido.");
 
         if (string.IsNullOrWhiteSpace(numCtps))
@@ -96,7 +97,7 @@ public sealed class Funcionario
 
     public void SetCpf(string cpf)
     {
-        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11)
+        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.IsValid(cpf))
             return;
 
         Cpf = cpf;

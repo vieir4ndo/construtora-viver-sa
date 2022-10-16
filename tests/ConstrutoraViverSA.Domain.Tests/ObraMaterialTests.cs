@@ -18,7 +18,7 @@ public class ObraMaterialTests
         var quantidadeMaterial = 10;
         var valorMaterial = 10.95;
         var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
+        var operacao = EntradaSaidaEnum.Entrada;
 
         var result = new ObraMaterial(obra, material,quantidade, operacao);
 
@@ -34,14 +34,14 @@ public class ObraMaterialTests
     }
     
     [Fact]
-    public void Construtor_ComQuantidadeDeMaterialInsuficiente_DeveLancarExcecao()
+    public void Construtor_EntradaNaObraComQuantidadeDeMaterialInsuficiente_DeveLancarExcecao()
     {
         var obra = _fixture.Create<Obra>();
         var quantidade = 11;
         var quantidadeMaterial = 10;
         var valorMaterial = 10.95;
+        var operacao = EntradaSaidaEnum.Entrada;
         var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
 
         Action result = () => new ObraMaterial(obra, material,quantidade, operacao);
 

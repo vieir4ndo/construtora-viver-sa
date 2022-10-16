@@ -48,7 +48,7 @@ public sealed class ObraMaterial
         Quantidade = quantidade!.Value;
         Operacao = operacao!.Value;
         DataHora = DateTime.Now;
-        Material.MovimentarEstoque(operacao.Value, quantidade);
+        Material.MovimentarEstoque((operacao is EntradaSaidaEnum.Entrada) ? EntradaSaidaEnum.Saida : EntradaSaidaEnum.Entrada, quantidade);
     }
 
 }
