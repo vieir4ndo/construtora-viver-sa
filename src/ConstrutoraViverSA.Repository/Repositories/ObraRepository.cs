@@ -22,6 +22,8 @@ public class ObraRepository : IObraRepository
     {
         return _database.Obra
             .Where(p => p.Id > 0)
+            .Include(x => x.Funcionarios)
+            .Include(x => x.ObraMateriais)
             .OrderBy(p => p.Id)
             .ToList();
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using FluentValidation;
 
@@ -40,5 +41,13 @@ public class CriarObraValidator : AbstractValidator<ObraRequest>
             .GreaterThan(0)
             .NotNull()
             .NotEmpty();
+
+        RuleFor(x => x.Funcionarios)
+            .NotEmpty()
+            .When(x => x.Funcionarios != null);
+        
+        RuleFor(x => x.Materiais)
+            .NotEmpty()
+            .When(x => x.Materiais != null);
     }
 }

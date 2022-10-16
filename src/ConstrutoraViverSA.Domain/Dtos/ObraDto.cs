@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using ConstrutoraViverSA.Domain.Enums;
 
@@ -14,4 +15,6 @@ public class ObraDto
     public double? Valor { get; set; }
     public DateTime? PrazoConclusao { get; set; }
     public long? OrcamentoId { get; set; }
+    public List<long>? Funcionarios { get; set; } = new List<long>();
+    public Dictionary<long, int>? Materiais { get; set; } = new Dictionary<long, int>();
 }

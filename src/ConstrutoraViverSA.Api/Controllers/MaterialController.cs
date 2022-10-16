@@ -41,6 +41,14 @@ public class MaterialController : ControllerBase
         return Ok(new ApiResponse(true, new List<object> { consulta }, null));
     }
 
+    [HttpGet]
+    public IActionResult BuscarMateriais()
+    {
+        var consulta = _materialService.BuscarTodos();
+
+        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+    }
+
     [HttpPatch("{materialId}")]
     public IActionResult EditarMaterial(EditarMaterialRequest request, long materialId)
     {

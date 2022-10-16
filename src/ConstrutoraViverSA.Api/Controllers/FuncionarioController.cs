@@ -40,6 +40,14 @@ public class FuncionarioController : ControllerBase
 
         return Ok(new ApiResponse(true, new List<object> { consulta }, null));
     }
+    
+    [HttpGet]
+    public IActionResult BuscarFuncionarios()
+    {
+        var consulta = _funcionarioService.BuscarTodos();
+
+        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+    }
 
     [HttpPatch("{funcionarioId}")]
     public IActionResult EditarFuncionario(FuncionarioRequest request, long funcionarioId)

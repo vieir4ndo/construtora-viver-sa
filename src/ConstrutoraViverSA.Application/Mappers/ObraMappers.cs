@@ -10,6 +10,9 @@ public class ObraMappers : Profile
 {
     public ObraMappers()
     {
-        CreateMap<Obra, ObraDto>().ReverseMap();
+        CreateMap<Obra, ObraDto>()
+            .ForMember(x => x.Funcionarios, opt => opt.Ignore())
+            .ForMember(x => x.Materiais, opt => opt.Ignore())
+            .ReverseMap();
     }
 }

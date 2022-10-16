@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain;
@@ -6,6 +7,7 @@ using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace ConstrutoraViverSA.Application.Services;
 
@@ -16,19 +18,22 @@ public class ObraService : IObraService
     private readonly IOrcamentoService _orcamentoService;
     private readonly IObraRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IObraParaObraDto _obraParaObraDto;
 
     public ObraService(
         IObraRepository repository,
         IOrcamentoService orcamentoService,
         IFuncionarioService funcionarioService,
         IMaterialService materialService,
-        IMapper mapper)
+        IMapper mapper,
+        IObraParaObraDto obraParaObraDto)
     {
         _repository = repository;
         _orcamentoService = orcamentoService;
         _funcionarioService = funcionarioService;
         _materialService = materialService;
         _mapper = mapper;
+        _obraParaObraDto = obraParaObraDto;
     }
 
     public List<ObraDto> BuscarTodos()
@@ -36,18 +41,17 @@ public class ObraService : IObraService
         var obras= _repository.BuscarTodos();
 
         var listaObrasDto = new List<ObraDto>();
-        
-        obras.ForEach(x => listaObrasDto.Add(_mapper.Map<ObraDto>(x)));
+
+        obras.ForEach(x => listaObrasDto.Add(_obraParaObraDto.Mapear(x)));
 
         return listaObrasDto;
     }
 
     public ObraDto BuscarPorId(long buscaId)
     {
-        var material = BuscarEntidadePorId(buscaId);
+        var obra = BuscarEntidadePorId(buscaId);
 
-        return _mapper.Map<ObraDto>(material);
-        
+        return _obraParaObraDto.Mapear(obra);
     }
     
     private Obra BuscarEntidadePorId(long buscaId)
@@ -62,10 +66,39 @@ public class ObraService : IObraService
     public void Adicionar(ObraDto dto)
     {
         var orcamento = _orcamentoService.BuscarEntidadePorId((long)dto.OrcamentoId);
+        
+        var funcionarios = (dto.Funcionarios is not null) ? BuscarListaDeFuncionarios(dto.Funcionarios) : null;
+
+        var materiais = (dto.Materiais is not null) ? BuscarDicionarioDeMateriaisEQuantidades(dto.Materiais) : null;
+        
         var obra = new Obra(dto.Nome, dto.Endereco, dto.TipoObra, dto.Descricao, dto.Valor, dto.PrazoConclusao,
-            orcamento, null, null);
+            orcamento, funcionarios, materiais);
 
         _repository.Adicionar(obra);
+    }
+
+    private List<Funcionario> BuscarListaDeFuncionarios(List<long> funcionariosId)
+    {
+        var funcionarios = new List<Funcionario>();
+
+        foreach (var funcionarioId in funcionariosId)
+        {
+            funcionarios.Add(_funcionarioService.BuscarEntidadePorId(funcionarioId));
+        }
+
+        return funcionarios;
+    }
+
+    private Dictionary<Material, int> BuscarDicionarioDeMateriaisEQuantidades(Dictionary<long, int> dicionarioDeMateriais)
+    {
+        var materiais = new Dictionary<Material, int>();
+
+        foreach (var material in dicionarioDeMateriais)
+        {
+            materiais.Add(_materialService.BuscarEntidadePorId(material.Key), material.Value);
+        }
+
+        return materiais;
     }
 
     public void Excluir(long idExcluir)

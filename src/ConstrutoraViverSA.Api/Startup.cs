@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using ConstrutoraViverSA.Api.Middlewares;
+using ConstrutoraViverSA.Application.Mappers;
 using Microsoft.Extensions.Logging;
 
 namespace ConstrutoraViverSA.Api;
@@ -47,14 +48,20 @@ public class Startup
         services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
         services.AddScoped<IObraMaterialRepository, ObraMaterialRepository>();
         
-        //AutoMapper
+        // Mappers
+        services.AddScoped<IObraParaObraDto, ObraParaObraDto>();
+        
         // Auto Mapper Configurations
         var mapperConfig = new MapperConfiguration(mc =>
         {
             mc.AddProfile(new Mappers.FuncionarioMappers());
+            mc.AddProfile(new Application.Mappers.FuncionarioMappers());
             mc.AddProfile(new Mappers.MaterialMappers());
+            mc.AddProfile(new Application.Mappers.MaterialMappers());
             mc.AddProfile(new Mappers.ObraMappers());
+            mc.AddProfile(new Application.Mappers.ObraMappers());
             mc.AddProfile(new Mappers.OrcamentoMappers());
+            mc.AddProfile(new Application.Mappers.OrcamentoMappers());
         });
 
         IMapper mapper = mapperConfig.CreateMapper();

@@ -40,6 +40,14 @@ public class ObraController : ControllerBase
 
         return Ok(new ApiResponse(true, new List<object> { consulta }, null));
     }
+    
+    [HttpGet]
+    public IActionResult BuscarObras()
+    {
+        var consulta = _obraService.BuscarTodos();
+
+        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+    }
 
     [HttpPatch("{obraId}")]
     public IActionResult AlterarObra(ObraRequest request, long obraId)

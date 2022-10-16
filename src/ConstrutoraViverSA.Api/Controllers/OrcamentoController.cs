@@ -33,30 +33,38 @@ public class OrcamentoController : ControllerBase
         return Ok(new ApiResponse(true, null, null));
     }
 
-    [HttpGet("{id}")]
-    public IActionResult BuscarOrcamento(long id)
+    [HttpGet("{orcamentoId}")]
+    public IActionResult BuscarOrcamento(long orcamentoId)
     {
-        var consulta = _orcamentoService.BuscarPorId(id);
+        var consulta = _orcamentoService.BuscarPorId(orcamentoId);
 
         return Ok(new ApiResponse(true, new List<object>() { consulta }, null));
     }
 
-    [HttpPatch("{id}")]
-    public IActionResult EditarOrcamento(OrcamentoRequest request, long id)
+    [HttpGet]
+    public IActionResult BuscarOrcamentos()
+    {
+        var consulta = _orcamentoService.BuscarTodos();
+
+        return Ok(new ApiResponse(true, new List<object>() { consulta }, null));
+    }
+
+    [HttpPatch("{orcamentoId}")]
+    public IActionResult EditarOrcamento(OrcamentoRequest request, long orcamentoId)
     {
         request.ValidarEdicao();
 
         var dto = _mapper.Map<OrcamentoDto>(request);
         
-        _orcamentoService.Editar(id, dto);
+        _orcamentoService.Editar(orcamentoId, dto);
 
         return Ok(new ApiResponse(true, null, null));
     }
 
-    [HttpDelete("{id}")]
-    public IActionResult ExcluirOrcamento(long id)
+    [HttpDelete("{orcamentoId}")]
+    public IActionResult ExcluirOrcamento(long orcamentoId)
     {
-        _orcamentoService.Excluir(id);
+        _orcamentoService.Excluir(orcamentoId);
 
         return Ok(new ApiResponse(true, null, null));
     }

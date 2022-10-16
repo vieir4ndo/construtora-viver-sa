@@ -1,6 +1,7 @@
+#nullable enable
 using System;
+using System.Collections.Generic;
 using ConstrutoraViverSA.Api.Controllers.Validators;
-using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 
@@ -15,6 +16,8 @@ public class ObraRequest
     public double? Valor { get; set; }
     public DateTime? PrazoConclusao { get; set; }
     public long? OrcamentoId { get; set; }
+    public List<long>? Funcionarios { get; set; }
+    public Dictionary<long, int>? Materiais { get; set; }
 
     public void ValidarCriacao()
     {
