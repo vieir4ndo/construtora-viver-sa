@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Infrastructure", "src\ConstrutoraViverSA.Infrastructure\ConstrutoraViverSA.Infrastructure.csproj", "{F5DDB080-1300-4CD7-88BF-2578D2C0031A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstrutoraViverSA.Domain.Tests", "tests\ConstrutoraViverSA.Domain.Tests\ConstrutoraViverSA.Domain.Tests.csproj", "{0FFDA8D5-A876-4EBD-B1AB-10D713D9CD9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{F5DDB080-1300-4CD7-88BF-2578D2C0031A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5DDB080-1300-4CD7-88BF-2578D2C0031A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5DDB080-1300-4CD7-88BF-2578D2C0031A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FFDA8D5-A876-4EBD-B1AB-10D713D9CD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FFDA8D5-A876-4EBD-B1AB-10D713D9CD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FFDA8D5-A876-4EBD-B1AB-10D713D9CD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FFDA8D5-A876-4EBD-B1AB-10D713D9CD9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +76,6 @@ Global
 		{9DC9FD9E-093B-40A4-9839-D87886338AFF} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
 		{03A0ECDA-4651-4BEE-AC31-AB69046D31D9} = {71E7A794-92BD-4199-B1B1-0D64379131B3}
 		{F5DDB080-1300-4CD7-88BF-2578D2C0031A} = {A3C6F05B-94A4-4209-AA05-6B1A553D8202}
+		{0FFDA8D5-A876-4EBD-B1AB-10D713D9CD9A} = {71E7A794-92BD-4199-B1B1-0D64379131B3}
 	EndGlobalSection
 EndGlobal

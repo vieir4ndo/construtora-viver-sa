@@ -38,7 +38,7 @@ public sealed class ObraMaterial
             erros.Append("Quantidade inválida.");
 
         if (operacao is null)
-            erros.Append("EntradaSaida inválida");
+            erros.Append("Operacao inválida");
 
         if (erros.Length > 0)
             throw new ObraMaterialInvalidaException(erros.ToString());
