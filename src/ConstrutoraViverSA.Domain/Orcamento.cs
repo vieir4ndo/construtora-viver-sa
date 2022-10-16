@@ -1,5 +1,6 @@
 ﻿#nullable enable
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -8,15 +9,16 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Orcamento
 {
-    public long Id { get; }
+    public long Id;
     public string Descricao { get; private set; }
     public string Endereco { get; private set; }
     public TipoObraEnum TipoObra { get; private set; }
     public DateTime DataEmissao { get; private set; }
     public DateTime DataValidade { get; private set; }
     public double? Valor { get; private set; }
-    public Obra? Obra { get; }
+    public Obra? Obra;
     
+    [ExcludeFromCodeCoverage]
     public Orcamento()
     {
     }

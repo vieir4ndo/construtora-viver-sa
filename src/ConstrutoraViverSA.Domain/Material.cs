@@ -1,5 +1,7 @@
 ﻿using ConstrutoraViverSA.Domain.Enums;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -14,9 +16,10 @@ public sealed class Material
     public TipoMaterialEnum Tipo { get; private set; }
     public double Valor { get; private set; }
     public int Quantidade { get; private set; }
-    public ICollection<Estoque> Estoque { get; }
-    public ICollection<ObraMaterial> ObraMateriais { get; private set; }
+    public ICollection<Estoque> Estoque { get; } = new Collection<Estoque>();
+    public ICollection<ObraMaterial> ObraMateriais { get; } = new Collection<ObraMaterial>();
 
+    [ExcludeFromCodeCoverage]
     public Material()
     {
     }
@@ -45,7 +48,6 @@ public sealed class Material
 
         if (quantidade > 0)
         {
-            Estoque = new List<Estoque>();
             Estoque.Add(new Estoque(this, EntradaSaidaEnum.Entrada, quantidade.Value));
         }
 

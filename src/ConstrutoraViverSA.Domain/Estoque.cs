@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -7,13 +8,14 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Estoque
 {
-    public long Id { get; }
-    public long MaterialId { get; }
+    public long Id;
+    public long MaterialId;
     public Material Material { get; }
     public EntradaSaidaEnum Operacao { get; }
     public int Quantidade { get; }
     public DateTime DataHora { get; }
 
+    [ExcludeFromCodeCoverage]
     public Estoque()
     {
     }

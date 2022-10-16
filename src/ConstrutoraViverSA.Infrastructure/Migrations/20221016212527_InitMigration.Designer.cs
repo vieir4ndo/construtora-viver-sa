@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ConstrutoraViverSA.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220925172421_Init")]
-    partial class Init
+    [Migration("20221016212527_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,13 +28,10 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<long>("MaterialId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("OperacaoEstoque")
+                    b.Property<int>("Operacao")
                         .HasColumnType("integer");
 
                     b.Property<int>("Quantidade")
@@ -119,8 +116,7 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                     b.Property<int>("Tipo")
                         .HasColumnType("integer");
 
-                    b.Property<double?>("Valor")
-                        .IsRequired()
+                    b.Property<double>("Valor")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
@@ -177,21 +173,23 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<long>("MaterialId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ObraId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Quantidade")
+                    b.Property<int>("Operacao")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ObraId");
+                    b.HasIndex("MaterialId");
 
-                    b.HasIndex("MaterialId", "ObraId")
-                        .IsUnique();
+                    b.HasIndex("ObraId");
 
                     b.ToTable("ObraMaterial");
                 });
@@ -203,12 +201,10 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime?>("DataEmissao")
-                        .IsRequired()
+                    b.Property<DateTime>("DataEmissao")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime?>("DataValidade")
-                        .IsRequired()
+                    b.Property<DateTime>("DataValidade")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Descricao")

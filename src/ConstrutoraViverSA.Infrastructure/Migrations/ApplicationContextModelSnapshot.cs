@@ -199,12 +199,10 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime?>("DataEmissao")
-                        .IsRequired()
+                    b.Property<DateTime>("DataEmissao")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime?>("DataValidade")
-                        .IsRequired()
+                    b.Property<DateTime>("DataValidade")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Descricao")
@@ -312,8 +310,7 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
 
             modelBuilder.Entity("ConstrutoraViverSA.Domain.Orcamento", b =>
                 {
-                    b.Navigation("Obra")
-                        .IsRequired();
+                    b.Navigation("Obra");
                 });
 #pragma warning restore 612, 618
         }

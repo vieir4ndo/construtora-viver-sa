@@ -23,6 +23,7 @@ public class CpfExtensionTests
     [InlineData("12212212234")]
     [InlineData("09901448878")]
     [InlineData("85240236559")]
+    [InlineData("85246559")]
     public void EhValido_ComDadosInvalidos_DeveRetornarFalso(string cpf)
     {
         var result = CpfExtension.EhValido(cpf);

@@ -3,6 +3,7 @@ using ConstrutoraViverSA.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -11,7 +12,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Obra
 {
-    public long Id { get; private set; }
+    public long Id { get; }
     public string Nome { get; private set; }
     public string Endereco { get; private set; }
     public TipoObraEnum? TipoObra { get; private set; }
@@ -19,10 +20,12 @@ public sealed class Obra
     public double? Valor { get; private set; }
     public DateTime? PrazoConclusao { get; private set; }
     public Orcamento Orcamento { get; private set; }
-    public long OrcamentoId { get; private set; }
-    public ICollection<Funcionario>? Funcionarios { get; private set; } = new Collection<Funcionario>();
-    public ICollection<ObraMaterial>? ObraMateriais { get; private set; } = new Collection<ObraMaterial>();
+    
+    public long OrcamentoId;
+    public ICollection<Funcionario>? Funcionarios { get; } = new Collection<Funcionario>();
+    public ICollection<ObraMaterial>? ObraMateriais { get; } = new Collection<ObraMaterial>();
 
+    [ExcludeFromCodeCoverage]
     public Obra()
     {
     }

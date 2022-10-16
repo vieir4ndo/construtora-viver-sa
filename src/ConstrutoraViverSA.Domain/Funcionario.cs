@@ -1,6 +1,7 @@
 ﻿using ConstrutoraViverSA.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Domain.Extensions;
@@ -9,7 +10,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Funcionario
 {
-    public long Id { get; }
+    public long Id;
     public string Nome { get; private set; }
     public DateTime? DataNascimento { get; private set; }
     public GeneroEnum? Genero { get; private set; }
@@ -19,8 +20,10 @@ public sealed class Funcionario
     public string Email { get; private set; }
     public string Telefone { get; private set; }
     public CargoEnum? Cargo { get; private set; }
-    public ICollection<Obra> Obras { get; private set; }
+    
+    public ICollection<Obra> Obras;
 
+    [ExcludeFromCodeCoverage]
     public Funcionario()
     {
     }

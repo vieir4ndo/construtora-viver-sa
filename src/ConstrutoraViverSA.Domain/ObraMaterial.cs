@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -19,6 +20,7 @@ public sealed class ObraMaterial
     public DateTime DataHora { get; }
     public EntradaSaidaEnum Operacao { get; }
 
+    [ExcludeFromCodeCoverage]
     public ObraMaterial()
     {
         

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ConstrutoraViverSA.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,9 +71,8 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MaterialId = table.Column<long>(type: "bigint", nullable: false),
-                    OperacaoEstoque = table.Column<int>(type: "integer", nullable: false),
-                    Quantidade = table.Column<int>(type: "integer", nullable: false),
-                    DateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Operacao = table.Column<int>(type: "integer", nullable: false),
+                    Quantidade = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -143,7 +142,8 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ObraId = table.Column<long>(type: "bigint", nullable: false),
                     MaterialId = table.Column<long>(type: "bigint", nullable: false),
-                    Quantidade = table.Column<int>(type: "integer", nullable: false)
+                    DataHora = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Operacao = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,10 +179,9 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ObraMaterial_MaterialId_ObraId",
+                name: "IX_ObraMaterial_MaterialId",
                 table: "ObraMaterial",
-                columns: new[] { "MaterialId", "ObraId" },
-                unique: true);
+                column: "MaterialId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ObraMaterial_ObraId",

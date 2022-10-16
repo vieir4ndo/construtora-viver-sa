@@ -27,8 +27,8 @@ public class MaterialTests
         result.Tipo.Should().Be(tipo);
         result.Valor.Should().Be(valor);
         result.Quantidade.Should().Be(quantidade);
-        result.Estoque.Should().BeNull();
-        result.ObraMateriais.Should().BeNull();
+        result.Estoque.Should().BeEmpty();
+        result.ObraMateriais.Should().BeEmpty();
     }
     
     [Fact]
@@ -51,7 +51,7 @@ public class MaterialTests
         result.Estoque.Count.Should().Be(1);
         result.Estoque.First().Quantidade.Should().Be(quantidade);
         result.Estoque.Count.Should().Be(1);
-        result.ObraMateriais.Should().BeNull();
+        result.ObraMateriais.Should().BeEmpty();
     }
     
     [Fact]
