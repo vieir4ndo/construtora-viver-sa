@@ -1,5 +1,4 @@
 using ConstrutoraViverSA.Application.Interfaces;
-using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services;
@@ -13,8 +12,8 @@ public class ObraMaterialService : IObraMaterialService
         _repository = repository;
     }
 
-    public ObraMaterial BuscarPorObraIdEMaterialId(long obraId, long materialId)
+    public int BuscarQuantidadeDeMateriaisPorObraIdEMaterialId(long obraId, long materialId)
     {
-        return _repository.BuscarPorObraIdEMaterialId(obraId, materialId);
+        return _repository.BuscarQuantidadeDeMateriaisPorObraIdEMaterialId(obraId, materialId);
     }
 }

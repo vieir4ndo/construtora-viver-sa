@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Infrastructure;
 using ConstrutoraViverSA.Repository.Interfaces;
 
@@ -45,9 +46,11 @@ public class ObraMaterialRepository : IObraMaterialRepository
         _database.SaveChanges();
     }
 
-    public ObraMaterial BuscarPorObraIdEMaterialId(long obraId, long materialId)
+    public int BuscarQuantidadeDeMateriaisPorObraIdEMaterialId(long obraId, long materialId)
     {
-        return _database.ObraMaterial
-            .FirstOrDefault(x => x.ObraId == obraId && x.MaterialId == materialId);
+        var entrada = _database.ObraMaterial.Where(x => x.ObraId == obraId && x.MaterialId == materialId && x.Operacao == EntradaSaidaEnum.Entrada).Sum(x => x.Quantidade);
+        var saida = _database.ObraMaterial.Where(x => x.ObraId == obraId && x.MaterialId == materialId && x.Operacao == EntradaSaidaEnum.Saida).Sum(x => x.Quantidade);
+
+        return entrada - saida;
     }
 }

@@ -8,13 +8,13 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Material
 {
-    public long Id { get; private set; }
+    public long Id { get; }
     public string Nome { get; private set; }
     public string Descricao { get; private set; }
     public TipoMaterialEnum Tipo { get; private set; }
     public double Valor { get; private set; }
     public int Quantidade { get; private set; }
-    public ICollection<Estoque> Estoque { get; private set; }
+    public ICollection<Estoque> Estoque { get; }
     public ICollection<ObraMaterial> ObraMateriais { get; private set; }
 
     public Material()
@@ -49,11 +49,11 @@ public sealed class Material
             Estoque.Add(new Estoque(this, EntradaSaidaEnum.Entrada, quantidade.Value));
         }
 
-        Quantidade = quantidade.Value;
+        Quantidade = quantidade!.Value;
         Nome = nome;
         Descricao = descricao;
-        Tipo = tipo.Value;
-        Valor = valor.Value;
+        Tipo = tipo!.Value;
+        Valor = valor!.Value;
     }
 
     public void SetNome(string nome)
@@ -90,8 +90,19 @@ public sealed class Material
 
     public void MovimentarEstoque(EntradaSaidaEnum? operacao, int? quantidade)
     {
-        Estoque.Append(new Estoque(this, operacao, quantidade));
+        if (quantidade <= 0)
+            throw new OperacaoInvalidaException("Qauntidade Inválida");
+        
+        var entrada = Estoque.Where(x => x.Operacao == EntradaSaidaEnum.Entrada).Sum(x => x.Quantidade);
+        var saida = Estoque.Where(x => x.Operacao == EntradaSaidaEnum.Saida).Sum(x => x.Quantidade);
 
-        Quantidade = (operacao is EntradaSaidaEnum.Entrada) ? Quantidade + quantidade.Value : Quantidade - quantidade.Value;
+        var saldoDeMateriais = entrada - saida;
+        
+        if ((operacao == EntradaSaidaEnum.Saida) && saldoDeMateriais < quantidade)
+            throw new OperacaoInvalidaException($"Solicitou-se a baixa de {quantidade} itens do estoque, no entanto o material {this.Nome} possui apenas {saldoDeMateriais} itens em estoque");
+
+        Estoque.Add(new Estoque(this, operacao, quantidade));
+
+        Quantidade = (operacao is EntradaSaidaEnum.Entrada) ? saldoDeMateriais + quantidade!.Value : saldoDeMateriais - quantidade!.Value;
     }
 }

@@ -2,12 +2,13 @@
 using ConstrutoraViverSA.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public class Obra
+public sealed class Obra
 {
     public long Id { get; private set; }
     public string Nome { get; private set; }
@@ -16,10 +17,10 @@ public class Obra
     public string Descricao { get; private set; }
     public double? Valor { get; private set; }
     public DateTime? PrazoConclusao { get; private set; }
-    public virtual Orcamento Orcamento { get; private set; }
+    public Orcamento Orcamento { get; private set; }
     public long OrcamentoId { get; private set; }
-    public virtual ICollection<Funcionario> Funcionarios { get; private set; }
-    public virtual ICollection<ObraMaterial> ObraMateriais { get; private set; }
+    public ICollection<Funcionario> Funcionarios { get; private set; }
+    public ICollection<ObraMaterial> ObraMateriais { get; private set; }
 
     public Obra()
     {
@@ -61,23 +62,21 @@ public class Obra
         Descricao = descricao;
         Valor = valor;
         PrazoConclusao = prazoConclusao;
-        Orcamento = orcamento;
+        Orcamento = orcamento!;
 
         if (funcionarios is not null && funcionarios.Count is > 0)
         {
-            //Funcionarios = new List<Funcionario>();
             foreach (var funcionario in funcionarios)
             {
-                Funcionarios.Add(funcionario);
+                Funcionarios!.Add(funcionario);
             }
         }
 
         if (materiais is not null && materiais.Count is > 0)
         {
-            //ObraMateriais = new List<ObraMaterial>();
             foreach (var material in materiais)
             {
-                ObraMateriais.Add(new ObraMaterial(this, material.Key, material.Value));
+                ObraMateriais!.Add(new ObraMaterial(this, material.Key, material.Value, EntradaSaidaEnum.Entrada));
             }
         }
     }
@@ -138,19 +137,50 @@ public class Obra
         Orcamento = orcamento;
     }
 
-    public void AlocarFuncionario()
+    public void AlocarFuncionario(Funcionario funcionario)
     {
+        if (Funcionarios.Contains(funcionario))
+            throw new OperacaoInvalidaException(
+                $"Funcionário {funcionario.Nome} já está alocado na obra {this.Nome}");
+        
+        Funcionarios.Add(funcionario);
     }
 
-    public void DesalocarFuncionario()
+    public void DesalocarFuncionario(Funcionario funcionario)
     {
+        if (!Funcionarios.Contains(funcionario))
+            throw new OperacaoInvalidaException($"Funcionário {funcionario.Nome} não está alocado na obra {this.Nome}");
+        
+        Funcionarios.Remove(funcionario);
     }
 
-    public void AlocarMaterial()
+    public void AlocarMaterial(Material material, int? quantidade)
     {
+        if (material.Quantidade < quantidade)
+            throw new OperacaoInvalidaException(
+                $"Não há itens suficientes em estoque do material {material.Nome} para alocar na obra {this.Nome}");
+        
+        ObraMateriais.Add(new ObraMaterial(this, material, quantidade, EntradaSaidaEnum.Entrada));
     }
 
-    public void DesalocarMaterial()
+    public void DesalocarMaterial(Material material, int? quantidade)
     {
+        if (quantidade is null or <= 0)
+            throw new OperacaoInvalidaException("Quantidade inválida");
+        
+        var entrada = ObraMateriais.Where(x => x.Operacao == EntradaSaidaEnum.Entrada && x.MaterialId == material.Id).Sum(x => x.Quantidade);
+        var saida = ObraMateriais.Where(x => x.Operacao == EntradaSaidaEnum.Saida && x.MaterialId == material.Id).Sum(x => x.Quantidade);
+
+        var saldoDeMateriaisNaObra = entrada - saida;
+        
+        if (saldoDeMateriaisNaObra <= 0)
+            throw new OperacaoInvalidaException(
+                $"Material {material.Nome} não está alocado na obra {this.Nome}");
+
+        if (quantidade > saldoDeMateriaisNaObra)
+            throw new OperacaoInvalidaException(
+                $"Material {material.Nome} está alocado na obra {this.Nome} com apenas {saldoDeMateriaisNaObra} itens");
+
+        ObraMateriais.Add(new ObraMaterial(this, material, quantidade, EntradaSaidaEnum.Saida));
     }
 }

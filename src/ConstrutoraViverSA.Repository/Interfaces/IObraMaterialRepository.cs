@@ -4,5 +4,5 @@ namespace ConstrutoraViverSA.Repository.Interfaces;
 
 public interface IObraMaterialRepository : IBaseRepository<ObraMaterial>
 {
-    ObraMaterial BuscarPorObraIdEMaterialId(long obraId, long materialId);
+    int BuscarQuantidadeDeMateriaisPorObraIdEMaterialId(long obraId, long materialId);
 }

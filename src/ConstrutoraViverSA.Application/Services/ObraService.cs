@@ -13,25 +13,25 @@ public class ObraService : IObraService
 {
     private readonly IFuncionarioService _funcionarioService;
     private readonly IMaterialService _materialService;
-    private readonly IObraMaterialService _obraMaterialService;
     private readonly IOrcamentoService _orcamentoService;
     private readonly IObraRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IObraMaterialService _obraMaterialService;
 
     public ObraService(
         IObraRepository repository,
         IOrcamentoService orcamentoService,
         IFuncionarioService funcionarioService,
         IMaterialService materialService,
-        IObraMaterialService obraMaterialService,
-        IMapper mapper)
+        IMapper mapper,
+        IObraMaterialService obraMaterialService)
     {
         _repository = repository;
         _orcamentoService = orcamentoService;
         _funcionarioService = funcionarioService;
         _materialService = materialService;
-        _obraMaterialService = obraMaterialService;
         _mapper = mapper;
+        _obraMaterialService = obraMaterialService;
     }
 
     public List<ObraDto> BuscarTodos()
@@ -112,11 +112,7 @@ public class ObraService : IObraService
 
         var obra = BuscarEntidadePorId(id);
 
-        if (obra.Funcionarios.Contains(funcionario))
-            throw new OperacaoInvalidaException(
-                $"Funcionário {funcionario.Nome} já está alocado na obra {obra.Nome}");
-
-        obra.Funcionarios.Add(funcionario);
+        obra.AlocarFuncionario(funcionario);
 
         _repository.Editar(obra);
     }
@@ -127,11 +123,7 @@ public class ObraService : IObraService
 
         var obra = BuscarEntidadePorId(id);
 
-        if (!obra.Funcionarios.Contains(funcionario))
-            throw new OperacaoInvalidaException(
-                $"Funcionário {funcionario.Nome} não está alocado na obra {obra.Nome}");
-
-        obra.Funcionarios.Remove(funcionario);
+        obra.DesalocarFuncionario(funcionario);
 
         _repository.Editar(obra);
     }
@@ -142,58 +134,18 @@ public class ObraService : IObraService
 
         var obra = BuscarEntidadePorId(id);
 
-        if (material.Quantidade < materialDto.Quantidade)
-        {
-            throw new OperacaoInvalidaException(
-                $"Não há itens suficientes em estoque do material {material.Nome} para alocar na obra {obra.Nome}");
-        }
-
-        var obraMaterial = _obraMaterialService.BuscarPorObraIdEMaterialId(id, materialId);
-
-        if (obraMaterial == null)
-        {
-            var obraMaterialDto = new ObraMaterialDto
-            {
-                Material = material,
-                MaterialId = material.Id,
-                Obra = obra,
-                ObraId = obra.Id,
-                Quantidade = materialDto.Quantidade
-            };
-
-            obra.ObraMateriais.Add(_mapper.Map<ObraMaterial>(obraMaterialDto));
-        }
-        else
-        {
-            obraMaterial.SetQuantidade(materialDto.Quantidade);
-        }
-        
-        _materialService.MovimentarEstoque(materialId,
-            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Saida, Quantidade = materialDto.Quantidade });
+        obra.AlocarMaterial(material, materialDto.Quantidade);
 
         _repository.Editar(obra);
     }
 
     private void DesalocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
     {
-        var material = _materialService.BuscarPorId(materialId);
+        var material = _materialService.BuscarEntidadePorId(materialId);
 
         var obra = BuscarEntidadePorId(id);
-
-        var obraMaterial = _obraMaterialService.BuscarPorObraIdEMaterialId(id, materialId);
-
-        if (obraMaterial == null)
-            throw new OperacaoInvalidaException(
-                $"Material {material.Nome} não está alocado na obra {obra.Nome}");
-
-        if (obraMaterial.Quantidade < materialDto.Quantidade)
-            throw new OperacaoInvalidaException(
-                $"Material {material.Nome} está alocado na obra {obra.Nome} com apenas {obraMaterial.Quantidade} itens");
-
-        _materialService.MovimentarEstoque(materialId,
-            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = materialDto.Quantidade });
-
-        obra.ObraMateriais.Remove(obraMaterial);
+        
+        obra.DesalocarMaterial(material, materialDto.Quantidade);
 
         _repository.Editar(obra);
     }

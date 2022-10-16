@@ -1,20 +1,21 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Text;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public class Orcamento
+public sealed class Orcamento
 {
-    public long Id { get; private set; }
+    public long Id { get; }
     public string Descricao { get; private set; }
     public string Endereco { get; private set; }
     public TipoObraEnum? TipoObra { get; private set; }
     public DateTime? DataEmissao { get; private set; }
     public DateTime? DataValidade { get; private set; }
     public double? Valor { get; private set; }
-    public virtual Obra Obra { get; private set; }
+    public Obra Obra { get; }
 
     public Orcamento()
     {
@@ -40,7 +41,7 @@ public class Orcamento
         if (dataValidade is null)
             erros.Append("Data Validade inválida.");
 
-        if (dataValidade.Value < dataEmissao.Value)
+        if (dataValidade!.Value < dataEmissao!.Value)
             erros.Append("Data de Emissão e Data de Validade em intervalo inválido.");
 
         if (valor is null or <= 0)
@@ -51,10 +52,10 @@ public class Orcamento
         
         Descricao = descricao;
         Endereco = endereco;
-        TipoObra = tipoObra.Value;
+        TipoObra = tipoObra!.Value;
         DataEmissao = dataEmissao.Value;
         DataValidade = dataValidade.Value;
-        Valor = valor.Value;
+        Valor = valor!.Value;
         Obra = obra;
     }
 
@@ -105,8 +106,4 @@ public class Orcamento
 
         Valor = valor;
     }
-        
-
-        
-
 }

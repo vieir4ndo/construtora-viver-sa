@@ -5,14 +5,14 @@ using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public class Estoque
+public sealed class Estoque
 {
-    public long Id { get; private set; }
-    public long MaterialId { get; private set; }
-    public virtual Material Material { get; private set; }
-    public EntradaSaidaEnum Operacao { get; private set; }
-    public int Quantidade { get; private set; }
-    public DateTime DataHora { get; private set; }
+    public long Id { get; }
+    public long MaterialId { get; }
+    public Material Material { get; }
+    public EntradaSaidaEnum Operacao { get; }
+    public int Quantidade { get; }
+    public DateTime DataHora { get; }
 
     public Estoque()
     {
@@ -35,8 +35,8 @@ public class Estoque
             throw new EstoqueInvalidoException(erros.ToString());
 
         Material = material;
-        Operacao = operacao.Value;
-        Quantidade = quantidade.Value;
+        Operacao = operacao!.Value;
+        Quantidade = quantidade!.Value;
         DataHora = DateTime.Now;
     }
 }

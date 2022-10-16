@@ -20,7 +20,7 @@ public class ApplicationContext : DbContext
             .UseLoggerFactory(_logger)
             .EnableSensitiveDataLogging()
             .UseNpgsql(
-                "Host=localhost;Port=5432;Pooling=true;Database=construtora-viver-sa;User Id=postgres;Password=Senha@2022;");
+                "Host=localhost;Port=5432;Pooling=true;Database=construtora-viver-sa;User Id=postgres;Password=secret;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

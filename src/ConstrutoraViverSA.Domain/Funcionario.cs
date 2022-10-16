@@ -6,9 +6,9 @@ using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public class Funcionario
+public sealed class Funcionario
 {
-    public long Id { get; private set; }
+    public long Id { get; }
     public string Nome { get; private set; }
     public DateTime? DataNascimento { get; private set; }
     public GeneroEnum? Genero { get; private set; }
@@ -18,7 +18,7 @@ public class Funcionario
     public string Email { get; private set; }
     public string Telefone { get; private set; }
     public CargoEnum? Cargo { get; private set; }
-    public virtual ICollection<Obra> Obras { get; private set; }
+    public ICollection<Obra> Obras { get; private set; }
 
     public Funcionario()
     {
@@ -60,7 +60,7 @@ public class Funcionario
             throw new FuncionarioInvalidoException(erros.ToString());
 
         Nome = nome;
-        DataNascimento = dataNascimento.Value;
+        DataNascimento = dataNascimento!.Value;
         Genero = genero;
         Cpf = cpf;
         NumCtps = numCtps;
