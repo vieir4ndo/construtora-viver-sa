@@ -11,9 +11,9 @@ public sealed class Orcamento
     public long Id { get; }
     public string Descricao { get; private set; }
     public string Endereco { get; private set; }
-    public TipoObraEnum? TipoObra { get; private set; }
-    public DateTime? DataEmissao { get; private set; }
-    public DateTime? DataValidade { get; private set; }
+    public TipoObraEnum TipoObra { get; private set; }
+    public DateTime DataEmissao { get; private set; }
+    public DateTime DataValidade { get; private set; }
     public double? Valor { get; private set; }
     public Obra Obra { get; }
 
@@ -22,12 +22,12 @@ public sealed class Orcamento
     }
 
     public Orcamento(string descricao, string endereco, TipoObraEnum? tipoObra, DateTime? dataEmissao,
-        DateTime? dataValidade, double? valor, Obra? obra)
+        DateTime? dataValidade, double? valor)
     {
         var erros = new StringBuilder();
         
         if (string.IsNullOrWhiteSpace(descricao))
-            erros.Append("Descrção inválida.");
+            erros.Append("Descrição inválida.");
 
         if (string.IsNullOrWhiteSpace(endereco))
             erros.Append("Endereço inválido.");
@@ -35,14 +35,17 @@ public sealed class Orcamento
         if (tipoObra is null)
             erros.Append("Tipo Obra inválido.");
 
-        if (dataEmissao is null)
+        if (dataEmissao is null || dataEmissao == DateTime.MinValue)
             erros.Append("Data Emissão inválida.");
         
-        if (dataValidade is null)
+        if (dataValidade is null || dataValidade == DateTime.MinValue)
             erros.Append("Data Validade inválida.");
 
-        if (dataValidade!.Value < dataEmissao!.Value)
-            erros.Append("Data de Emissão e Data de Validade em intervalo inválido.");
+        if (dataEmissao.HasValue && dataValidade.HasValue)
+        {
+            if (dataValidade!.Value < dataEmissao!.Value)
+                erros.Append("Data de Emissão e Data de Validade em intervalo inválido.");
+        }
 
         if (valor is null or <= 0)
             erros.Append("Valor inválido.");
@@ -53,10 +56,9 @@ public sealed class Orcamento
         Descricao = descricao;
         Endereco = endereco;
         TipoObra = tipoObra!.Value;
-        DataEmissao = dataEmissao.Value;
-        DataValidade = dataValidade.Value;
+        DataEmissao = dataEmissao!.Value;
+        DataValidade = dataValidade!.Value;
         Valor = valor!.Value;
-        Obra = obra;
     }
 
     public void SetDescricao(string descricao)
@@ -80,7 +82,7 @@ public sealed class Orcamento
         if (tipoObra is null)
             return;
 
-        TipoObra = tipoObra;
+        TipoObra = tipoObra!.Value;
     }
 
     public void SetDataEmissao(DateTime? dataEmissao)
@@ -88,7 +90,7 @@ public sealed class Orcamento
         if (dataEmissao is null || dataEmissao > DataValidade)
             return;
 
-        DataEmissao = dataEmissao.Value;
+        DataEmissao = dataEmissao!.Value;
     }
 
     public void SetDataValidade(DateTime? dataValidade)
@@ -96,7 +98,7 @@ public sealed class Orcamento
         if (dataValidade is null || dataValidade < DataEmissao)
             return;
 
-        DataValidade = dataValidade.Value;
+        DataValidade = dataValidade!.Value;
     }
 
     public void SetValor(double? valor)
