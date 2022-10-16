@@ -39,7 +39,6 @@ public class Startup
         services.AddScoped<IFuncionarioService, FuncionarioService>();
         services.AddScoped<IObraService, ObraService>();
         services.AddScoped<IOrcamentoService, OrcamentoService>();
-        services.AddScoped<IObraMaterialService, ObraMaterialService>();
 
         //Repositories
         services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();

@@ -1,9 +1,11 @@
-﻿using ConstrutoraViverSA.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using ConstrutoraViverSA.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace ConstrutoraViverSA.Infrastructure;
 
+[ExcludeFromCodeCoverage]
 public class ApplicationContext : DbContext
 {
     private static readonly ILoggerFactory _logger = LoggerFactory.Create(p => p.AddConsole());
@@ -11,7 +13,6 @@ public class ApplicationContext : DbContext
     public DbSet<Funcionario> Funcionario { get; set; }
     public DbSet<Orcamento> Orcamento { get; set; }
     public DbSet<Material> Material { get; set; }
-
     public DbSet<ObraMaterial> ObraMaterial { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

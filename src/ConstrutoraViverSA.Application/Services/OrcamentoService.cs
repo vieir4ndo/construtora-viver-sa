@@ -52,7 +52,9 @@ public class OrcamentoService : IOrcamentoService
 
     public void Adicionar(OrcamentoDto dto)
     {
-        _repository.Adicionar(_mapper.Map<Orcamento>(dto));
+        var orcamento = new Orcamento(dto.Descricao, dto.Endereco, dto.TipoObra, dto.DataEmissao, dto.DataValidade,
+            dto.Valor);
+        _repository.Adicionar(orcamento);
     }
 
     public void Excluir(long idExcluir)

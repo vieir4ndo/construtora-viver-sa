@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using ConstrutoraViverSA.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ConstrutoraViverSA.Infrastructure.Configurators;
 
+[ExcludeFromCodeCoverage]
 public class EstoqueConfigurator : IEntityTypeConfiguration<Estoque>
 {
     public void Configure(EntityTypeBuilder<Estoque> builder)

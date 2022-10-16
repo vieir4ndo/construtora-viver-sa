@@ -16,22 +16,19 @@ public class ObraService : IObraService
     private readonly IOrcamentoService _orcamentoService;
     private readonly IObraRepository _repository;
     private readonly IMapper _mapper;
-    private readonly IObraMaterialService _obraMaterialService;
 
     public ObraService(
         IObraRepository repository,
         IOrcamentoService orcamentoService,
         IFuncionarioService funcionarioService,
         IMaterialService materialService,
-        IMapper mapper,
-        IObraMaterialService obraMaterialService)
+        IMapper mapper)
     {
         _repository = repository;
         _orcamentoService = orcamentoService;
         _funcionarioService = funcionarioService;
         _materialService = materialService;
         _mapper = mapper;
-        _obraMaterialService = obraMaterialService;
     }
 
     public List<ObraDto> BuscarTodos()

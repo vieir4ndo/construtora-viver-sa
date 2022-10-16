@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Enums;
@@ -7,6 +8,7 @@ using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Repository.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class ObraMaterialRepository : IObraMaterialRepository
 {
     private readonly ApplicationContext _database;
