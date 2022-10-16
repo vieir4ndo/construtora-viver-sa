@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Domain.Dtos;
 
+[ExcludeFromCodeCoverage]
 public class MaterialDto
 {
     public string Nome { get; set; }

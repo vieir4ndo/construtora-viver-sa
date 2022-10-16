@@ -1,8 +1,9 @@
-using System;
+using System.Diagnostics.CodeAnalysis;
 using ConstrutoraViverSA.Domain.Enums;
 
 namespace ConstrutoraViverSA.Domain.Dtos;
 
+[ExcludeFromCodeCoverage]
 public class EntradaSaidaMaterialDto
 {
     public EntradaSaidaEnum Operacao { get; set; }

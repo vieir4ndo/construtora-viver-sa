@@ -39,7 +39,7 @@ public sealed class Funcionario
         if (genero is null)
             erros.Append("Gênero inválido.");
         
-        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.IsValid(cpf))
+        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.EhValido(cpf))
             erros.Append("CPF inválido.");
 
         if (string.IsNullOrWhiteSpace(numCtps))
@@ -97,7 +97,7 @@ public sealed class Funcionario
 
     public void SetCpf(string cpf)
     {
-        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.IsValid(cpf))
+        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.EhValido(cpf))
             return;
 
         Cpf = cpf;

@@ -52,14 +52,10 @@ public class Startup
         // Auto Mapper Configurations
         var mapperConfig = new MapperConfiguration(mc =>
         {
-            mc.AddProfile(new Api.Mappers.FuncionarioMappers());
-            mc.AddProfile(new Domain.Mappers.FuncionarioMappers());
-            mc.AddProfile(new Api.Mappers.MaterialMappers());
-            mc.AddProfile(new Domain.Mappers.MaterialMappers());
-            mc.AddProfile(new Api.Mappers.ObraMappers());
-            mc.AddProfile(new Domain.Mappers.ObraMappers());
-            mc.AddProfile(new Api.Mappers.OrcamentoMappers());
-            mc.AddProfile(new Domain.Mappers.OrcamentoMappers());
+            mc.AddProfile(new Mappers.FuncionarioMappers());
+            mc.AddProfile(new Mappers.MaterialMappers());
+            mc.AddProfile(new Mappers.ObraMappers());
+            mc.AddProfile(new Mappers.OrcamentoMappers());
         });
 
         IMapper mapper = mapperConfig.CreateMapper();
