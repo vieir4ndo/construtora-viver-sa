@@ -19,8 +19,8 @@ public sealed class Obra
     public DateTime? PrazoConclusao { get; private set; }
     public Orcamento Orcamento { get; private set; }
     public long OrcamentoId { get; private set; }
-    public ICollection<Funcionario> Funcionarios { get; private set; }
-    public ICollection<ObraMaterial> ObraMateriais { get; private set; }
+    public ICollection<Funcionario>? Funcionarios { get; private set; }
+    public ICollection<ObraMaterial>? ObraMateriais { get; private set; }
 
     public Obra()
     {

@@ -15,8 +15,8 @@ public sealed class Orcamento
     public DateTime DataEmissao { get; private set; }
     public DateTime DataValidade { get; private set; }
     public double? Valor { get; private set; }
-    public Obra Obra { get; }
-
+    public Obra? Obra { get; }
+    
     public Orcamento()
     {
     }
