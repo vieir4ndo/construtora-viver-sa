@@ -35,15 +35,15 @@ public sealed class Material
             erros.Append("Tipo inválido.");
 
         if (valor is null or 0)
-            erros.Append("Tipo inválido.");
+            erros.Append("Valor inválido.");
 
-        if (quantidade is null or <= 0)
+        if (quantidade is null or < 0)
             erros.Append("Quantidade inválida.");
 
         if (erros.Length > 0)
             throw new MaterialInvalidoException(erros.ToString());
 
-        if (quantidade is > 0)
+        if (quantidade > 0)
         {
             Estoque = new List<Estoque>();
             Estoque.Add(new Estoque(this, EntradaSaidaEnum.Entrada, quantidade.Value));
