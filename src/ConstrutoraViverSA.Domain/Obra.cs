@@ -2,6 +2,7 @@
 using ConstrutoraViverSA.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -19,8 +20,8 @@ public sealed class Obra
     public DateTime? PrazoConclusao { get; private set; }
     public Orcamento Orcamento { get; private set; }
     public long OrcamentoId { get; private set; }
-    public ICollection<Funcionario>? Funcionarios { get; private set; }
-    public ICollection<ObraMaterial>? ObraMateriais { get; private set; }
+    public ICollection<Funcionario>? Funcionarios { get; private set; } = new Collection<Funcionario>();
+    public ICollection<ObraMaterial>? ObraMateriais { get; private set; } = new Collection<ObraMaterial>();
 
     public Obra()
     {
@@ -46,12 +47,15 @@ public sealed class Obra
 
         if (valor is null or <= 0)
             erros.Append("Valor inválido.");
-
-        if (prazoConclusao is null || prazoConclusao.Value <= DateTime.Today)
-            erros.Append("Prazo conclusão inválido.");
-
+        
         if (orcamento is null)
-            erros.Append("Orçcamento inválido.");
+            erros.Append("Orcamento inválido.");
+
+        if (orcamento is not null)
+        {
+            if (prazoConclusao is null || prazoConclusao.Value < orcamento!.DataValidade )
+                erros.Append("Prazo conclusão inválido.");
+        }
 
         if (erros.Length > 0)
             throw new ObraInvalidaException(erros.ToString());
@@ -68,7 +72,7 @@ public sealed class Obra
         {
             foreach (var funcionario in funcionarios)
             {
-                Funcionarios!.Add(funcionario);
+                Funcionarios.Add(funcionario);
             }
         }
 
@@ -123,7 +127,7 @@ public sealed class Obra
 
     public void SetPrazoConclusao(DateTime? prazoConclusao)
     {
-        if (prazoConclusao is null || prazoConclusao.Value <= DateTime.Today)
+        if (prazoConclusao is null || prazoConclusao.Value < Orcamento.DataValidade)
             return;
 
         PrazoConclusao = prazoConclusao;
