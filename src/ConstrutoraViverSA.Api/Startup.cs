@@ -55,13 +55,14 @@ public class Startup
         var mapperConfig = new MapperConfiguration(mc =>
         {
             mc.AddProfile(new Mappers.FuncionarioMappers());
-            mc.AddProfile(new Application.Mappers.FuncionarioMappers());
+            mc.AddProfile(new FuncionarioMappers());
             mc.AddProfile(new Mappers.MaterialMappers());
-            mc.AddProfile(new Application.Mappers.MaterialMappers());
+            mc.AddProfile(new MaterialMappers());
             mc.AddProfile(new Mappers.ObraMappers());
-            mc.AddProfile(new Application.Mappers.ObraMappers());
+            mc.AddProfile(new ObraMappers());
             mc.AddProfile(new Mappers.OrcamentoMappers());
-            mc.AddProfile(new Application.Mappers.OrcamentoMappers());
+            mc.AddProfile(new OrcamentoMappers());            
+            mc.AddProfile(new Mappers.EntradaSaidaMaterialMappers());
         });
 
         IMapper mapper = mapperConfig.CreateMapper();

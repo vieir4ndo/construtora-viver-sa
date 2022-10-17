@@ -86,12 +86,12 @@ public class ObraController : ControllerBase
     }
 
     [HttpPut("{obraId}/material/{materialId}")]
-    public IActionResult GerenciarMaterialNaObra(GerenciarEntradaSaidaMaterialRequest materialRequest, long obraId,
+    public IActionResult GerenciarMaterialNaObra(EntradaSaidaMaterialRequest request, long obraId,
         long materialId)
     {
-        materialRequest.Validar();
+        request.Validar();
 
-        _obraService.GerenciarMaterial(materialRequest.RequestParaDto(), obraId, materialId);
+        _obraService.GerenciarMaterial(_mapper.Map<EntradaSaidaMaterialDto>(request), obraId, materialId);
 
         return Ok(new ApiResponse(true, null, null));
     }

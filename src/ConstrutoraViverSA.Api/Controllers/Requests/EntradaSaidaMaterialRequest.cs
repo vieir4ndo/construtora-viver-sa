@@ -1,23 +1,13 @@
 using ConstrutoraViverSA.Api.Controllers.Validators;
-using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Api.Controllers.Requests;
 
-public class GerenciarEntradaSaidaMaterialRequest
+public class EntradaSaidaMaterialRequest
 {
-    public EntradaSaidaEnum Operacao { get; set; }
-    public int Quantidade { get; set; }
-
-    public EntradaSaidaMaterialDto RequestParaDto()
-    {
-        return new EntradaSaidaMaterialDto
-        {
-            Operacao = Operacao,
-            Quantidade = Quantidade
-        };
-    }
+    public EntradaSaidaEnum? Operacao { get; set; }
+    public int? Quantidade { get; set; }
 
     public void Validar()
     {

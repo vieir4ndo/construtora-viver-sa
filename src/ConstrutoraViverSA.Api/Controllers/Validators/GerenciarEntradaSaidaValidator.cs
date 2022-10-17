@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ConstrutoraViverSA.Api.Controllers.Validators;
 
-public class GerenciarEntradaSaidaValidator : AbstractValidator<GerenciarEntradaSaidaMaterialRequest>
+public class GerenciarEntradaSaidaValidator : AbstractValidator<EntradaSaidaMaterialRequest>
 {
     public GerenciarEntradaSaidaValidator()
     {

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConstrutoraViverSA.Repository.Repositories;
 
-[ExcludeFromCodeCoverage]
 public class MaterialRepository : IMaterialRepository
 {
     private readonly ApplicationContext _database;
