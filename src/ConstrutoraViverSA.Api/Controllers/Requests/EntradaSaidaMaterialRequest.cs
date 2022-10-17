@@ -11,7 +11,7 @@ public class EntradaSaidaMaterialRequest
 
     public void Validar()
     {
-        var resultado = new GerenciarEntradaSaidaValidator().Validate(this);
+        var resultado = new EntradaSaidaMaterialValidator().Validate(this);
 
         if (resultado.IsValid == false) throw new ErroValidacaoException(resultado.ToString());
     }

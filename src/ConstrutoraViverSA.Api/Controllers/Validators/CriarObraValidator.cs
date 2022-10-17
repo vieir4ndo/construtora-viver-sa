@@ -44,10 +44,12 @@ public class CriarObraValidator : AbstractValidator<ObraRequest>
 
         RuleFor(x => x.Funcionarios)
             .NotEmpty()
+            .NotNull()
             .When(x => x.Funcionarios != null);
         
         RuleFor(x => x.Materiais)
             .NotEmpty()
+            .NotNull()
             .When(x => x.Materiais != null);
     }
 }

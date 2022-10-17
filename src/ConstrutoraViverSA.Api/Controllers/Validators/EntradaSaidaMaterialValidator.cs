@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace ConstrutoraViverSA.Api.Controllers.Validators;
 
-public class GerenciarEntradaSaidaValidator : AbstractValidator<EntradaSaidaMaterialRequest>
+public class EntradaSaidaMaterialValidator : AbstractValidator<EntradaSaidaMaterialRequest>
 {
-    public GerenciarEntradaSaidaValidator()
+    public EntradaSaidaMaterialValidator()
     {
         RuleFor(x => x.Operacao)
             .IsInEnum()

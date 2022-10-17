@@ -24,16 +24,22 @@ public class EditarOrcamentoValidator : AbstractValidator<OrcamentoRequest>
             .When(x => x.TipoObra != null);
 
         RuleFor(x => x.DataEmissao)
-            .LessThan(x => x.DataValidade)
             .NotEmpty()
             .NotNull()
             .When(x => x.DataEmissao != null);
+        
+        RuleFor(x => x.DataEmissao)
+            .LessThan(x => x.DataValidade)
+            .When(x => x.DataValidade != null);
 
         RuleFor(x => x.DataValidade)
-            .GreaterThan(x => x.DataEmissao)
             .NotEmpty()
             .NotNull()
             .When(x => x.DataValidade != null);
+        
+        RuleFor(x => x.DataValidade)
+            .GreaterThan(x => x.DataEmissao)
+            .When(x => x.DataEmissao != null);
 
         RuleFor(x => x.Valor)
             .GreaterThan(0)
