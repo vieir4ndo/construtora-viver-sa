@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Application.Services;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ConstrutoraViverSA.Api;
 
+[ExcludeFromCodeCoverage]
 public class Startup
 {
     public Startup(IConfiguration configuration)
