@@ -9,8 +9,8 @@ public class CriarFuncionarioValidator : AbstractValidator<FuncionarioRequest>
     {
         RuleFor(p => p.Nome)
             .MaximumLength(80)
-            .NotNull()
-            .NotEmpty();
+            .NotEmpty()
+            .NotNull();
 
         RuleFor(p => p.DataNascimento)
             .NotEmpty()

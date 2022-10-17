@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using AutoFixture;
 using ConstrutoraViverSA.Api.Controllers.Requests;
 using ConstrutoraViverSA.Domain.Enums;
@@ -46,7 +47,7 @@ public class FuncionarioRequestTests
     [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", " ", CargoEnum.Almoxarife)]
     [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", null, CargoEnum.Almoxarife)]
     [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", null)]
-    public void ValidarCriacao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string dataNascimento, GeneroEnum? genero, string cpf, string numCtps, string endereco, string email, string telefone, CargoEnum? cargo)
+    public void ValidarCriacao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome,[StringSyntax(StringSyntaxAttribute.DateTimeFormat)]string dataNascimento, GeneroEnum? genero, string cpf, string numCtps, string endereco, string email, string telefone, CargoEnum? cargo)
     {
         var request = new FuncionarioRequest()
         {
