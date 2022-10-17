@@ -50,7 +50,7 @@ public class ObraController : ControllerBase
     }
 
     [HttpPatch("{obraId}")]
-    public IActionResult AlterarObra(ObraRequest request, long obraId)
+    public IActionResult AlterarObra(EditarObraRequest request, long obraId)
     {
         request.ValidarEdicao();
         

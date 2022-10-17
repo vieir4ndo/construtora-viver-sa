@@ -105,7 +105,7 @@ public class FuncionarioRequestTests
             Cargo = cargo
         };
         
-        var result = () => request.ValidarCriacao();
+        var result = () => request.ValidarEdicao();
         
         result.Should().Throw<ErroValidacaoException>();
     }

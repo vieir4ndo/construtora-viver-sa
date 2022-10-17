@@ -83,7 +83,7 @@ public class OrcamentoRequestTests
             Valor = valor
         };
         
-        var result = () => request.ValidarCriacao();
+        var result = () => request.ValidarEdicao();
 
         result.Should().Throw<ErroValidacaoException>();
     }

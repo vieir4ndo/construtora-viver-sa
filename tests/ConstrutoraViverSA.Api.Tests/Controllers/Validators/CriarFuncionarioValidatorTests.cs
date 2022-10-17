@@ -95,12 +95,12 @@ public class CriarFuncionarioValidatorTests
     [Theory]
     [InlineData(1455767)]
     [InlineData(null)]
-    public void CriarFuncionarioValidator_DadoUmGeneroInvalido_DeveRetornarErros(int genero)
+    public void CriarFuncionarioValidator_DadoUmGeneroInvalido_DeveRetornarErros(int? genero)
     {
         var request = _fixture.Build<FuncionarioRequest>()
             .With(x => x.Cpf, CPF_VALIDO)
             .With(x => x.Email, EMAIL_VALIDO)
-            .With(x => x.Genero, (GeneroEnum)genero)
+            .With(x => x.Genero, genero is null ? null : (GeneroEnum)genero)
             .Create();
         
         var validationResult = _validator.Validate(request);
@@ -290,12 +290,12 @@ public class CriarFuncionarioValidatorTests
     [Theory]
     [InlineData(null)]
     [InlineData(2143643)]
-    public void CriarFuncionarioValidator_DadoUmCargoInvalido_DeveRetornarErros(int cargo)
+    public void CriarFuncionarioValidator_DadoUmCargoInvalido_DeveRetornarErros(int? cargo)
     {
         var request = _fixture.Build<FuncionarioRequest>()
             .With(x => x.Cpf, CPF_VALIDO)
             .With(x => x.Email, EMAIL_VALIDO)
-            .With(x => x.Cargo, (CargoEnum)cargo)
+            .With(x => x.Cargo, cargo is null ? null : (CargoEnum)cargo)
             .Create();
         
         var validationResult = _validator.Validate(request);

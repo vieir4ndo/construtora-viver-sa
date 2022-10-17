@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace ConstrutoraViverSA.Api.Controllers.Validators;
 
-public class EditarObraValidator : AbstractValidator<ObraRequest>
+public class EditarObraValidator : AbstractValidator<EditarObraRequest>
 {
     public EditarObraValidator()
     {
@@ -47,13 +47,5 @@ public class EditarObraValidator : AbstractValidator<ObraRequest>
             .NotNull()
             .NotEmpty()
             .When(x => x.OrcamentoId != null);
-        
-        RuleFor(x => x.Funcionarios)
-            .NotEmpty()
-            .When(x => x.Funcionarios != null);
-        
-        RuleFor(x => x.Materiais)
-            .NotEmpty()
-            .When(x => x.Materiais != null);
     }
 }
