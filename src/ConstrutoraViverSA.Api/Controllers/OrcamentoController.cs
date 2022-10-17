@@ -30,7 +30,7 @@ public class OrcamentoController : ControllerBase
 
         _orcamentoService.Adicionar(dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpGet("{orcamentoId}")]
@@ -38,7 +38,7 @@ public class OrcamentoController : ControllerBase
     {
         var consulta = _orcamentoService.BuscarPorId(orcamentoId);
 
-        return Ok(new ApiResponse(true, new List<object>() { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object>() { consulta }, null));
     }
 
     [HttpGet]
@@ -46,7 +46,7 @@ public class OrcamentoController : ControllerBase
     {
         var consulta = _orcamentoService.BuscarTodos();
 
-        return Ok(new ApiResponse(true, new List<object>() { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object>() { consulta }, null));
     }
 
     [HttpPatch("{orcamentoId}")]
@@ -58,7 +58,7 @@ public class OrcamentoController : ControllerBase
         
         _orcamentoService.Editar(orcamentoId, dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpDelete("{orcamentoId}")]
@@ -66,6 +66,6 @@ public class OrcamentoController : ControllerBase
     {
         _orcamentoService.Excluir(orcamentoId);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 }

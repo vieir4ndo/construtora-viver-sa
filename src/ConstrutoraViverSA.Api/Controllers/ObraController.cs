@@ -30,7 +30,7 @@ public class ObraController : ControllerBase
 
         _obraService.Adicionar(dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpGet("{obraId}")]
@@ -38,7 +38,7 @@ public class ObraController : ControllerBase
     {
         var consulta = _obraService.BuscarPorId(obraId);
 
-        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
     }
     
     [HttpGet]
@@ -46,7 +46,7 @@ public class ObraController : ControllerBase
     {
         var consulta = _obraService.BuscarTodos();
 
-        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
     }
 
     [HttpPatch("{obraId}")]
@@ -58,7 +58,7 @@ public class ObraController : ControllerBase
 
         _obraService.Editar(obraId, dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpDelete("{obraId}")]
@@ -66,7 +66,7 @@ public class ObraController : ControllerBase
     {
         _obraService.Excluir(obraId);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpPost("{obraId}/funcionario/{funcionarioId}")]
@@ -74,7 +74,7 @@ public class ObraController : ControllerBase
     {
         _obraService.AlocarFuncionario(obraId, funcionarioId);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpDelete("{obraId}/funcionario/{funcionarioId}")]
@@ -82,7 +82,7 @@ public class ObraController : ControllerBase
     {
         _obraService.DesalocarFuncionario(obraId, funcionarioId);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpPut("{obraId}/material/{materialId}")]
@@ -93,6 +93,6 @@ public class ObraController : ControllerBase
 
         _obraService.GerenciarMaterial(_mapper.Map<EntradaSaidaMaterialDto>(request), obraId, materialId);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 }

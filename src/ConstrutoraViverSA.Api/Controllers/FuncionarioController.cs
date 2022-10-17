@@ -30,7 +30,7 @@ public class FuncionarioController : ControllerBase
         
         _funcionarioService.Adicionar(dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpGet("{funcionarioId}")]
@@ -38,7 +38,7 @@ public class FuncionarioController : ControllerBase
     {
         var consulta = _funcionarioService.BuscarPorId(funcionarioId);
 
-        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
     }
     
     [HttpGet]
@@ -46,7 +46,7 @@ public class FuncionarioController : ControllerBase
     {
         var consulta = _funcionarioService.BuscarTodos();
 
-        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
     }
 
     [HttpPatch("{funcionarioId}")]
@@ -58,7 +58,7 @@ public class FuncionarioController : ControllerBase
 
         _funcionarioService.Editar(funcionarioId, dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpDelete("{funcionarioId}")]
@@ -66,6 +66,6 @@ public class FuncionarioController : ControllerBase
     {
         _funcionarioService.Excluir(funcionarioId);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 }

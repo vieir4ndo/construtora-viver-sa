@@ -16,7 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\Responses" />
       <Folder Include="Controllers\Validators" />
       <Folder Include="Middlewares" />
     </ItemGroup>

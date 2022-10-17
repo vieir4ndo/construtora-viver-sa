@@ -30,7 +30,7 @@ public class MaterialController : ControllerBase
 
         _materialService.Adicionar(dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpGet("{materialId}")]
@@ -38,7 +38,7 @@ public class MaterialController : ControllerBase
     {
         var consulta = _materialService.BuscarPorId(materialId);
 
-        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
     }
 
     [HttpGet]
@@ -46,7 +46,7 @@ public class MaterialController : ControllerBase
     {
         var consulta = _materialService.BuscarTodos();
 
-        return Ok(new ApiResponse(true, new List<object> { consulta }, null));
+        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
     }
 
     [HttpPatch("{materialId}")]
@@ -58,7 +58,7 @@ public class MaterialController : ControllerBase
 
         _materialService.Editar(materialId, dto);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpDelete("{materialId}")]
@@ -66,7 +66,7 @@ public class MaterialController : ControllerBase
     {
         _materialService.Excluir(materialId);
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 
     [HttpPut("{materialId}/estoque")]
@@ -77,6 +77,6 @@ public class MaterialController : ControllerBase
 
         _materialService.MovimentarEstoque(materialId, _mapper.Map<EntradaSaidaMaterialDto>(request));
 
-        return Ok(new ApiResponse(true, null, null));
+        return Ok(new ResponseApi(true, null, null));
     }
 }

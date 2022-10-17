@@ -32,7 +32,7 @@ public static class ErrorHandlerExtensions
 
                     if (exceptionHandlerPathFeature?.Error is NaoEncontradoException naoEncontradoException)
                     {
-                        var response = new ApiResponse(false, null, naoEncontradoException.Message);
+                        var response = new ResponseApi(false, null, naoEncontradoException.Message);
 
                         context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                         context.Response.ContentType = "application/json";
@@ -41,7 +41,7 @@ public static class ErrorHandlerExtensions
                     }
                     else if (exceptionHandlerPathFeature?.Error is ErroValidacaoException erroValidacaoException)
                     {
-                        var response = new ApiResponse(false, null, erroValidacaoException.Message);
+                        var response = new ResponseApi(false, null, erroValidacaoException.Message);
 
                         context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                         context.Response.ContentType = "application/json";
@@ -50,7 +50,7 @@ public static class ErrorHandlerExtensions
                     }
                     else if (exceptionHandlerPathFeature?.Error is OperacaoInvalidaException invalidOperation)
                     {
-                        var response = new ApiResponse(false, null, invalidOperation.Message);
+                        var response = new ResponseApi(false, null, invalidOperation.Message);
 
                         context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                         context.Response.ContentType = "application/json";
@@ -59,7 +59,7 @@ public static class ErrorHandlerExtensions
                     }
                     else
                     {
-                        var response = new ApiResponse(false, null,
+                        var response = new ResponseApi(false, null,
                             "Houve um problema ao realizar essa operação, por favor tente novamente mais tarde. Se os problemas persistirem, entre em contato com o suporte.");
 
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
