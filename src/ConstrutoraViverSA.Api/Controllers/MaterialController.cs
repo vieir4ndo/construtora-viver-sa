@@ -22,7 +22,7 @@ public class MaterialController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CadastrarMaterial(MaterialRequest request)
+    public ResponseApi<MaterialDto> CadastrarMaterial(MaterialRequest request)
     {
         request.ValidarCriacao();
         
@@ -30,27 +30,27 @@ public class MaterialController : ControllerBase
 
         _materialService.Adicionar(dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<MaterialDto>(true, null, null);
     }
 
     [HttpGet("{materialId}")]
-    public IActionResult BuscarMaterial(long materialId)
+    public ResponseApi<MaterialDto> BuscarMaterial(long materialId)
     {
         var consulta = _materialService.BuscarPorId(materialId);
 
-        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
+        return new ResponseApi<MaterialDto>(true, new List<MaterialDto> { consulta }, null);
     }
 
     [HttpGet]
-    public IActionResult BuscarMateriais()
+    public ResponseApi<MaterialDto> BuscarMateriais()
     {
         var consulta = _materialService.BuscarTodos();
 
-        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
+        return new ResponseApi<MaterialDto>(true, consulta, null);
     }
 
     [HttpPatch("{materialId}")]
-    public IActionResult EditarMaterial(EditarMaterialRequest request, long materialId)
+    public ResponseApi<MaterialDto> EditarMaterial(EditarMaterialRequest request, long materialId)
     {
         request.ValidarEdicao();
         
@@ -58,25 +58,25 @@ public class MaterialController : ControllerBase
 
         _materialService.Editar(materialId, dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<MaterialDto>(true, null, null);
     }
 
     [HttpDelete("{materialId}")]
-    public IActionResult ExcluirMaterial(long materialId)
+    public ResponseApi<MaterialDto> ExcluirMaterial(long materialId)
     {
         _materialService.Excluir(materialId);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<MaterialDto>(true, null, null);
     }
 
     [HttpPut("{materialId}/estoque")]
-    public IActionResult GerenciarEstoque(EntradaSaidaMaterialRequest request,
+    public ResponseApi<MaterialDto> GerenciarEstoque(EntradaSaidaMaterialRequest request,
         long materialId)
     {
         request.Validar();
 
         _materialService.MovimentarEstoque(materialId, _mapper.Map<EntradaSaidaMaterialDto>(request));
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<MaterialDto>(true, null, null);
     }
 }

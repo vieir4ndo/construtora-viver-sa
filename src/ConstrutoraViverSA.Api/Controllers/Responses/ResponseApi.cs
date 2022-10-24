@@ -4,13 +4,13 @@ using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Api.Controllers.Responses;
 
-public class ResponseApi
+public class ResponseApi<T> where T : class?
 {
     public bool Sucesso { get; set; }
-    public List<object>? Dados { get; set; }
+    public List<T>? Dados { get; set; }
     public string Mensagens { get; set; }
 
-    public ResponseApi(bool? sucesso, List<object>? dados, string mensagens)
+    public ResponseApi(bool? sucesso, List<T>? dados, string mensagens)
     {
         if (sucesso is null)
             throw new ResponseApiInvalido("Sucesso inválido");

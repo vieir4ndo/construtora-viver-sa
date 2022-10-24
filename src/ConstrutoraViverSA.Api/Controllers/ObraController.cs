@@ -22,7 +22,7 @@ public class ObraController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CadastrarObra(ObraRequest request)
+    public ResponseApi<ObraDto> CadastrarObra(ObraRequest request)
     {
         request.ValidarCriacao();
 
@@ -30,27 +30,27 @@ public class ObraController : ControllerBase
 
         _obraService.Adicionar(dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<ObraDto>(true, null, null);
     }
 
     [HttpGet("{obraId}")]
-    public IActionResult BuscarObra(long obraId)
+    public ResponseApi<ObraDto> BuscarObra(long obraId)
     {
         var consulta = _obraService.BuscarPorId(obraId);
 
-        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
+        return new ResponseApi<ObraDto>(true, new List<ObraDto> { consulta }, null);
     }
     
     [HttpGet]
-    public IActionResult BuscarObras()
+    public ResponseApi<ObraDto> BuscarObras()
     {
         var consulta = _obraService.BuscarTodos();
 
-        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
+        return new ResponseApi<ObraDto>(true, consulta, null);
     }
 
     [HttpPatch("{obraId}")]
-    public IActionResult AlterarObra(EditarObraRequest request, long obraId)
+    public ResponseApi<ObraDto> AlterarObra(EditarObraRequest request, long obraId)
     {
         request.ValidarEdicao();
         
@@ -58,41 +58,41 @@ public class ObraController : ControllerBase
 
         _obraService.Editar(obraId, dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<ObraDto>(true, null, null);
     }
 
     [HttpDelete("{obraId}")]
-    public IActionResult ExcluirObra(long obraId)
+    public ResponseApi<ObraDto> ExcluirObra(long obraId)
     {
         _obraService.Excluir(obraId);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<ObraDto>(true, null, null);
     }
 
     [HttpPost("{obraId}/funcionario/{funcionarioId}")]
-    public IActionResult AlocarFuncionarioNaObra(long obraId, long funcionarioId)
+    public ResponseApi<ObraDto> AlocarFuncionarioNaObra(long obraId, long funcionarioId)
     {
         _obraService.AlocarFuncionario(obraId, funcionarioId);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<ObraDto>(true, null, null);
     }
 
     [HttpDelete("{obraId}/funcionario/{funcionarioId}")]
-    public IActionResult DesalocarFuncionarioNaObra(long obraId, long funcionarioId)
+    public ResponseApi<ObraDto> DesalocarFuncionarioNaObra(long obraId, long funcionarioId)
     {
         _obraService.DesalocarFuncionario(obraId, funcionarioId);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<ObraDto>(true, null, null);
     }
 
     [HttpPut("{obraId}/material/{materialId}")]
-    public IActionResult GerenciarMaterialNaObra(EntradaSaidaMaterialRequest request, long obraId,
+    public ResponseApi<ObraDto> GerenciarMaterialNaObra(EntradaSaidaMaterialRequest request, long obraId,
         long materialId)
     {
         request.Validar();
 
         _obraService.GerenciarMaterial(_mapper.Map<EntradaSaidaMaterialDto>(request), obraId, materialId);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<ObraDto>(true, null, null);
     }
 }

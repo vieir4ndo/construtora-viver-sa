@@ -17,9 +17,9 @@ public class ResponseApiTests
     [InlineData(false, null, null)]
     [InlineData(true, null, "mensagem")]
     [InlineData(false, null, "mensagem")]
-    public void Construtor_ComDadosValidos_DeveRetornarComoEsperado(bool sucesso, List<object> dados, string mensagens)
+    public void Construtor_ComDadosValidos_DeveRetornarComoEsperado(bool sucesso, List<object>? dados, string mensagens)
     {
-        var result = new ResponseApi(sucesso, dados, mensagens);
+        var result = new ResponseApi<object>(sucesso, dados, mensagens);
 
         result.Should().NotBeNull();
         result.Sucesso.Should().Be(sucesso);
@@ -30,7 +30,7 @@ public class ResponseApiTests
     [Fact]
     public void Construtor_ComDadosInvalidos_DeveRetornarComoEsperado()
     {
-        Action result = () => new ResponseApi(null, null, null);
+        Action result = () => new ResponseApi<object>(null, null, null);
 
         result.Should().Throw<ResponseApiInvalido>();
     }

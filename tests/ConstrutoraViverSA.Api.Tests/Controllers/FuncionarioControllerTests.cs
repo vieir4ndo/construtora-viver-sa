@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using AutoMapper;
@@ -80,10 +81,13 @@ public class FuncionarioControllerTests
         var funcionario = _fixture.Create<FuncionarioDto>();
         _funcionarioServiceMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
 
-        Action result = () => _controller.BuscarFuncionario(funcionarioId);
+        var result = _controller.BuscarFuncionario(funcionarioId);
 
-        // Deve validar o retorno do result com o mock
-        result.Should().NotThrow<NaoEncontradoException>();
+        result.Sucesso.Should().BeTrue();
+        result.Mensagens.Should().BeNull();
+        result.Dados.Should().NotBeNull();
+        result.Dados.First().Should().BeOfType<FuncionarioDto>();
+        result.Dados.First().Should().BeEquivalentTo(funcionario);
         _funcionarioServiceMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
     
@@ -107,10 +111,17 @@ public class FuncionarioControllerTests
         _funcionarioServiceMock.Setup(x => x.BuscarTodos())
             .Returns(listaFuncionarios);
 
-        Action result = () => _controller.BuscarFuncionarios();
+        var result = _controller.BuscarFuncionarios();
 
-        // Deve validar o retorno do result com o mock
-        result.Should().NotThrow<NaoEncontradoException>();
+        result.Sucesso.Should().BeTrue();
+        result.Mensagens.Should().BeNull();
+        result.Dados.Should().NotBeNull();
+        result.Dados.Count.Should().Be(listaFuncionarios.Count);
+        result.Dados.ForEach(x => x.Should().BeOfType<FuncionarioDto>());
+        for (var i =0; i< listaFuncionarios.Count; i++)
+        {
+            result.Dados[i].Should().BeEquivalentTo(listaFuncionarios[i]);
+        }
         _funcionarioServiceMock.Verify(x => x.BuscarTodos(), Times.Once);
     }
 

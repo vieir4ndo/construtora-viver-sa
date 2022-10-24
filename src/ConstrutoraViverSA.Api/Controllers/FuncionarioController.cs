@@ -22,7 +22,7 @@ public class FuncionarioController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CadastrarFuncionario(FuncionarioRequest request)
+    public ResponseApi<FuncionarioDto> CadastrarFuncionario(FuncionarioRequest request)
     {
         request.ValidarCriacao();
 
@@ -30,27 +30,27 @@ public class FuncionarioController : ControllerBase
         
         _funcionarioService.Adicionar(dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<FuncionarioDto>(true, null, null);
     }
 
     [HttpGet("{funcionarioId}")]
-    public ResponseApi BuscarFuncionario(long funcionarioId)
+    public ResponseApi<FuncionarioDto> BuscarFuncionario(long funcionarioId)
     {
         var consulta = _funcionarioService.BuscarPorId(funcionarioId);
 
-        return new ResponseApi(true, new List<object> { consulta }, null);
+        return new ResponseApi<FuncionarioDto>(true, new List<FuncionarioDto>() {consulta}, null);
     }
     
     [HttpGet]
-    public IActionResult BuscarFuncionarios()
+    public ResponseApi<FuncionarioDto> BuscarFuncionarios()
     {
         var consulta = _funcionarioService.BuscarTodos();
 
-        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
+        return new ResponseApi<FuncionarioDto>(true, consulta, null);
     }
 
     [HttpPatch("{funcionarioId}")]
-    public IActionResult EditarFuncionario(FuncionarioRequest request, long funcionarioId)
+    public ResponseApi<FuncionarioDto> EditarFuncionario(FuncionarioRequest request, long funcionarioId)
     {
         request.ValidarEdicao();
         
@@ -58,14 +58,14 @@ public class FuncionarioController : ControllerBase
 
         _funcionarioService.Editar(funcionarioId, dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<FuncionarioDto>(true, null, null);
     }
 
     [HttpDelete("{funcionarioId}")]
-    public IActionResult ExcluirFuncionario(long funcionarioId)
+    public ResponseApi<FuncionarioDto> ExcluirFuncionario(long funcionarioId)
     {
         _funcionarioService.Excluir(funcionarioId);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<FuncionarioDto>(true, null, null);
     }
 }

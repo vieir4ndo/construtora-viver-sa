@@ -22,7 +22,7 @@ public class OrcamentoController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CadastrarOrcamento(OrcamentoRequest request)
+    public ResponseApi<OrcamentoDto> CadastrarOrcamento(OrcamentoRequest request)
     {
         request.ValidarCriacao();
 
@@ -30,27 +30,27 @@ public class OrcamentoController : ControllerBase
 
         _orcamentoService.Adicionar(dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<OrcamentoDto>(true, null, null);
     }
 
     [HttpGet("{orcamentoId}")]
-    public IActionResult BuscarOrcamento(long orcamentoId)
+    public ResponseApi<OrcamentoDto> BuscarOrcamento(long orcamentoId)
     {
         var consulta = _orcamentoService.BuscarPorId(orcamentoId);
 
-        return Ok(new ResponseApi(true, new List<object>() { consulta }, null));
+        return new ResponseApi<OrcamentoDto>(true, new List<OrcamentoDto>() { consulta }, null);
     }
 
     [HttpGet]
-    public IActionResult BuscarOrcamentos()
+    public ResponseApi<OrcamentoDto> BuscarOrcamentos()
     {
         var consulta = _orcamentoService.BuscarTodos();
 
-        return Ok(new ResponseApi(true, new List<object>() { consulta }, null));
+        return new ResponseApi<OrcamentoDto>(true,  consulta, null);
     }
 
     [HttpPatch("{orcamentoId}")]
-    public IActionResult EditarOrcamento(OrcamentoRequest request, long orcamentoId)
+    public ResponseApi<OrcamentoDto> EditarOrcamento(OrcamentoRequest request, long orcamentoId)
     {
         request.ValidarEdicao();
 
@@ -58,14 +58,14 @@ public class OrcamentoController : ControllerBase
         
         _orcamentoService.Editar(orcamentoId, dto);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<OrcamentoDto>(true, null, null);
     }
 
     [HttpDelete("{orcamentoId}")]
-    public IActionResult ExcluirOrcamento(long orcamentoId)
+    public ResponseApi<OrcamentoDto> ExcluirOrcamento(long orcamentoId)
     {
         _orcamentoService.Excluir(orcamentoId);
 
-        return Ok(new ResponseApi(true, null, null));
+        return new ResponseApi<OrcamentoDto>(true, null, null);
     }
 }
