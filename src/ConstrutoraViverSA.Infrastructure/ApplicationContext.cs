@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using ConstrutoraViverSA.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ConstrutoraViverSA.Infrastructure;
@@ -15,13 +17,17 @@ public class ApplicationContext : DbContext
     public DbSet<Material> Material { get; set; }
     public DbSet<ObraMaterial> ObraMaterial { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        optionsBuilder
-            .UseLoggerFactory(_logger)
-            .EnableSensitiveDataLogging()
-            .UseNpgsql(
-                "Host=localhost;Port=5432;Pooling=true;Database=construtora-viver-sa;User Id=postgres;Password=secret;");
+        if (!options.IsConfigured)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath($"{Directory.GetCurrentDirectory()}/../ConstrutoraViverSA.Api")
+                .AddJsonFile("appsettings.json")
+                .Build();
+            var connectionString = configuration["ConnectionString:Postgres"];
+            options.UseNpgsql(connectionString);
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

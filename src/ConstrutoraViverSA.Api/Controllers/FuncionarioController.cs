@@ -34,11 +34,11 @@ public class FuncionarioController : ControllerBase
     }
 
     [HttpGet("{funcionarioId}")]
-    public IActionResult BuscarFuncionario(long funcionarioId)
+    public ResponseApi BuscarFuncionario(long funcionarioId)
     {
         var consulta = _funcionarioService.BuscarPorId(funcionarioId);
 
-        return Ok(new ResponseApi(true, new List<object> { consulta }, null));
+        return new ResponseApi(true, new List<object> { consulta }, null);
     }
     
     [HttpGet]
