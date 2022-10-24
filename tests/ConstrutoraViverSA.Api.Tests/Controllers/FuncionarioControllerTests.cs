@@ -46,9 +46,11 @@ public class FuncionarioControllerTests
         _mapperMock.Setup(x => x.Map<FuncionarioDto>(It.Is<FuncionarioRequest>(x => x == request))).Returns(dto);
         _funcionarioServiceMock.Setup(x => x.Adicionar(It.Is<FuncionarioDto>(x => x == dto)));
 
-        var result = () => _controller.CadastrarFuncionario(request);
+        var resultado = _controller.CadastrarFuncionario(request);
 
-        result.Should().NotThrow<ErroValidacaoException>();
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
         _funcionarioServiceMock.Verify(X => X.Adicionar(It.Is<FuncionarioDto>(x => x == dto)), Times.Once);
         _mapperMock.Verify(x => x.Map<FuncionarioDto>(It.Is<FuncionarioRequest>(x => x == request)), Times.Once);
     }
@@ -60,19 +62,11 @@ public class FuncionarioControllerTests
             .With(x => x.Cpf, CPF_INVALIDO)
             .With(x => x.Email, EMAIL_INVALIDO)
             .Create();
-        var dto = _fixture.Build<FuncionarioDto>()
-            .With(x => x.Cpf, CPF_VALIDO)
-            .With(x => x.Email, EMAIL_VALIDO)
-            .Create();
-        _mapperMock.Setup(x => x.Map<FuncionarioDto>(It.Is<FuncionarioRequest>(x => x == request))).Returns(dto);
-        _funcionarioServiceMock.Setup(x => x.Adicionar(It.Is<FuncionarioDto>(x => x == dto)));
-
-        Action result = () => _controller.CadastrarFuncionario(request);
+     
+        var resultado = () => _controller.CadastrarFuncionario(request);
         
-        result.Should().Throw<ErroValidacaoException>();
-        _funcionarioServiceMock.Verify(X => X.Adicionar(It.Is<FuncionarioDto>(x => x == dto)), Times.Never);
-        _mapperMock.Verify(x => x.Map<FuncionarioDto>(It.Is<FuncionarioRequest>(x => x == request)), Times.Never);
-    }
+        resultado.Should().Throw<ErroValidacaoException>();
+       }
 
     [Fact]
     public void BuscarFuncionario_ComDadosValidos_DeveRealizarOperacao()
@@ -81,13 +75,13 @@ public class FuncionarioControllerTests
         var funcionario = _fixture.Create<FuncionarioDto>();
         _funcionarioServiceMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
 
-        var result = _controller.BuscarFuncionario(funcionarioId);
+        var resultado = _controller.BuscarFuncionario(funcionarioId);
 
-        result.Sucesso.Should().BeTrue();
-        result.Mensagens.Should().BeNull();
-        result.Dados.Should().NotBeNull();
-        result.Dados.First().Should().BeOfType<FuncionarioDto>();
-        result.Dados.First().Should().BeEquivalentTo(funcionario);
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Mensagens.Should().BeNull();
+        resultado.Dados.Should().NotBeNull();
+        resultado.Dados.First().Should().BeOfType<FuncionarioDto>();
+        resultado.Dados.First().Should().BeEquivalentTo(funcionario);
         _funcionarioServiceMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
     
@@ -98,9 +92,9 @@ public class FuncionarioControllerTests
         _funcionarioServiceMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)))
             .Throws(new NaoEncontradoException("Funcionario não encontrado"));
 
-        Action result = () => _controller.BuscarFuncionario(funcionarioId);
+        var resultado = () => _controller.BuscarFuncionario(funcionarioId);
 
-        result.Should().Throw<NaoEncontradoException>();
+        resultado.Should().Throw<NaoEncontradoException>();
         _funcionarioServiceMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
 
@@ -111,16 +105,16 @@ public class FuncionarioControllerTests
         _funcionarioServiceMock.Setup(x => x.BuscarTodos())
             .Returns(listaFuncionarios);
 
-        var result = _controller.BuscarFuncionarios();
+        var resultado = _controller.BuscarFuncionarios();
 
-        result.Sucesso.Should().BeTrue();
-        result.Mensagens.Should().BeNull();
-        result.Dados.Should().NotBeNull();
-        result.Dados.Count.Should().Be(listaFuncionarios.Count);
-        result.Dados.ForEach(x => x.Should().BeOfType<FuncionarioDto>());
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Mensagens.Should().BeNull();
+        resultado.Dados.Should().NotBeNull();
+        resultado.Dados.Count.Should().Be(listaFuncionarios.Count);
+        resultado.Dados.ForEach(x => x.Should().BeOfType<FuncionarioDto>());
         for (var i =0; i< listaFuncionarios.Count; i++)
         {
-            result.Dados[i].Should().BeEquivalentTo(listaFuncionarios[i]);
+            resultado.Dados[i].Should().BeEquivalentTo(listaFuncionarios[i]);
         }
         _funcionarioServiceMock.Verify(x => x.BuscarTodos(), Times.Once);
     }
@@ -140,9 +134,11 @@ public class FuncionarioControllerTests
         _mapperMock.Setup(x => x.Map<FuncionarioDto>(It.Is<FuncionarioRequest>(x => x == request))).Returns(dto);
         _funcionarioServiceMock.Setup(x => x.Editar(It.Is<long>(x => x == funcionarioId),It.Is<FuncionarioDto>(x => x == dto)));
 
-        var result = () => _controller.EditarFuncionario(request, funcionarioId);
+        var resultado = _controller.EditarFuncionario(request, funcionarioId);
 
-        result.Should().NotThrow<ErroValidacaoException>();
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
         _funcionarioServiceMock.Verify(X => X.Editar(It.Is<long>(x => x == funcionarioId),It.Is<FuncionarioDto>(x => x == dto)), Times.Once);
         _mapperMock.Verify(x => x.Map<FuncionarioDto>(It.Is<FuncionarioRequest>(x => x == request)), Times.Once);
     }
@@ -158,9 +154,9 @@ public class FuncionarioControllerTests
         _funcionarioServiceMock.Setup(x => x.Editar(It.Is<long>(x => x == funcionarioId), It.IsAny<FuncionarioDto>()))
             .Throws(new NaoEncontradoException("Funcionario não encontrado"));
         
-        Action result = () => _controller.EditarFuncionario(request, funcionarioId);
+        var resultado = () => _controller.EditarFuncionario(request, funcionarioId);
         
-        result.Should().Throw<NaoEncontradoException>();
+        resultado.Should().Throw<NaoEncontradoException>();
         _funcionarioServiceMock.Verify(x => x.Editar(It.Is<long>(x => x == funcionarioId), It.IsAny<FuncionarioDto>()), Times.Once);
     }
 
@@ -170,9 +166,11 @@ public class FuncionarioControllerTests
         var funcionarioId = 1;
         _funcionarioServiceMock.Setup(x => x.Excluir(It.Is<long>(x => x == funcionarioId)));
 
-        var result = () => _controller.ExcluirFuncionario(funcionarioId);
+        var resultado = _controller.ExcluirFuncionario(funcionarioId);
         
-        result.Should().NotThrow<NaoEncontradoException>();
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
         _funcionarioServiceMock.Verify(x => x.Excluir(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
     
@@ -183,9 +181,9 @@ public class FuncionarioControllerTests
         _funcionarioServiceMock.Setup(x => x.Excluir(It.Is<long>(x => x == funcionarioId)))
             .Throws(new NaoEncontradoException("Funcionario não encontrado"));
 
-        Action result = () => _controller.ExcluirFuncionario(funcionarioId);
+        var resultado = () => _controller.ExcluirFuncionario(funcionarioId);
         
-        result.Should().Throw<NaoEncontradoException>();
+        resultado.Should().Throw<NaoEncontradoException>();
         _funcionarioServiceMock.Verify(x => x.Excluir(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
 }

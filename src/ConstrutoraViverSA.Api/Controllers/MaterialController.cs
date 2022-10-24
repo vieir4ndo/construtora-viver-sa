@@ -70,12 +70,14 @@ public class MaterialController : ControllerBase
     }
 
     [HttpPut("{materialId}/estoque")]
-    public ResponseApi<MaterialDto> GerenciarEstoque(EntradaSaidaMaterialRequest request,
+    public ResponseApi<MaterialDto> MovimentarEstoque(EntradaSaidaMaterialRequest request,
         long materialId)
     {
         request.Validar();
 
-        _materialService.MovimentarEstoque(materialId, _mapper.Map<EntradaSaidaMaterialDto>(request));
+        var dto = _mapper.Map<EntradaSaidaMaterialDto>(request);
+        
+        _materialService.MovimentarEstoque(materialId, dto);
 
         return new ResponseApi<MaterialDto>(true, null, null);
     }
