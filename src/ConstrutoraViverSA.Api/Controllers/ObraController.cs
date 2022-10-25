@@ -50,7 +50,7 @@ public class ObraController : ControllerBase
     }
 
     [HttpPatch("{obraId}")]
-    public ResponseApi<ObraDto> AlterarObra(EditarObraRequest request, long obraId)
+    public ResponseApi<ObraDto> EditarObra(EditarObraRequest request, long obraId)
     {
         request.ValidarEdicao();
         
@@ -91,7 +91,9 @@ public class ObraController : ControllerBase
     {
         request.Validar();
 
-        _obraService.GerenciarMaterial(_mapper.Map<EntradaSaidaMaterialDto>(request), obraId, materialId);
+        var dto = _mapper.Map<EntradaSaidaMaterialDto>(request);
+        
+        _obraService.GerenciarMaterial(dto, obraId, materialId);
 
         return new ResponseApi<ObraDto>(true, null, null);
     }
