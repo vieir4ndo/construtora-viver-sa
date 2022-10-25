@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using ConstrutoraViverSA.Api.Controllers.Responses;
 using ConstrutoraViverSA.Domain.Exceptions;
@@ -9,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace ConstrutoraViverSA.Api.Middlewares;
 
+[ExcludeFromCodeCoverage]
 public static class ErrorHandlerExtensions
 {
     public static IApplicationBuilder UseErrorHandler(

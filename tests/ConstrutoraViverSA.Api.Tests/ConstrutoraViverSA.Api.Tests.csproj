@@ -17,10 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Middlewares" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\src\ConstrutoraViverSA.Api\ConstrutoraViverSA.Api.csproj" />
     </ItemGroup>
 
