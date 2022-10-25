@@ -97,6 +97,7 @@ public class FuncionarioServiceTests
 
         resultado.Should().NotBeNull();
         resultado.Should().BeOfType<FuncionarioDto>();
+        resultado.Should().BeEquivalentTo(funcionarioDto);
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
         _mapperMock.Verify(x => x.Map<FuncionarioDto>(It.Is<Funcionario>(x => x == funcionario)), Times.Once);
     }
@@ -136,12 +137,10 @@ public class FuncionarioServiceTests
             .With(x => x.Cpf, CPF_INVALIDO)
             .With(x => x.Email, EMAIL_INVALIDO)
             .Create();
-        _repositoryMock.Setup(x => x.Adicionar(It.IsAny<Funcionario>()));
 
         var resultado = () => _service.Adicionar(dto);
 
         resultado.Should().Throw<FuncionarioInvalidoException>();
-        _repositoryMock.Verify(x => x.Adicionar(It.IsAny<Funcionario>()), Times.Never);
     }
     
     [Fact]
@@ -155,14 +154,15 @@ public class FuncionarioServiceTests
         var funcionario = _fixture.Build<Funcionario>()
             .With(x => x.Id, funcionarioId)
             .Create();
-        _repositoryMock.Setup(x => x.Editar(It.IsAny<Funcionario>()));
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
+        _repositoryMock.Setup(x => x.Editar(It.IsAny<Funcionario>()));
 
         var resultado = () => _service.Editar(funcionarioId, dto);
 
-        resultado.Should().NotThrow<FuncionarioInvalidoException>();
-        _repositoryMock.Verify(x => x.Editar(It.IsAny<Funcionario>()), Times.Once);
+        //TODO: Alterar metodos editar para retornarem o objeto novo, assim podemos validar se a alteração acontece
+        resultado.Should().NotThrow<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
+        _repositoryMock.Verify(x => x.Editar(It.IsAny<Funcionario>()), Times.Once);
     }
     
     [Fact]
@@ -180,10 +180,11 @@ public class FuncionarioServiceTests
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Funcionario>()));
 
         var resultado = () => _service.Editar(funcionarioId, dto);
-
-        resultado.Should().NotThrow<FuncionarioInvalidoException>();
-        _repositoryMock.Verify(x => x.Editar(It.IsAny<Funcionario>()), Times.Once); 
+        
+        //TODO: Alterar metodos editar para retornarem o objeto novo, assim podemos validar se a alteração acontece
+        resultado.Should().NotThrow<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
+        _repositoryMock.Verify(x => x.Editar(It.IsAny<Funcionario>()), Times.Once); 
     }
     
     [Fact]
@@ -198,9 +199,9 @@ public class FuncionarioServiceTests
 
         var resultado = () => _service.Excluir(funcionarioId);
 
-        resultado.Should().NotThrow<FuncionarioInvalidoException>();
-        _repositoryMock.Verify(x => x.Excluir(It.Is<Funcionario>(x => x == funcionario)), Times.Once);
+        resultado.Should().NotThrow<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
+        _repositoryMock.Verify(x => x.Excluir(It.Is<Funcionario>(x => x == funcionario)), Times.Once);
     }
     
     [Fact]
@@ -213,9 +214,7 @@ public class FuncionarioServiceTests
         var resultado = () => _service.Excluir(funcionarioId);
 
         resultado.Should().Throw<NaoEncontradoException>();
-        _repositoryMock.Verify(x => x.Excluir(It.IsAny<Funcionario>()), Times.Never);
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
-
+        _repositoryMock.Verify(x => x.Excluir(It.IsAny<Funcionario>()), Times.Never);
     }
-
 }
