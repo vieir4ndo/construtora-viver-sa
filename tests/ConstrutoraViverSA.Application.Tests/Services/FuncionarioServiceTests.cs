@@ -72,7 +72,7 @@ public class FuncionarioServiceTests
     {
         var funcionarioId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)))
-            .Throws(new NaoEncontradoException("Funcionário não encontrado"));
+            .Returns((Funcionario)null);
 
         var resultado = () => _service.BuscarEntidadePorId(funcionarioId);
 
@@ -106,7 +106,7 @@ public class FuncionarioServiceTests
     {
         var funcionarioId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)))
-            .Throws(new NaoEncontradoException("Funcionário não encontrado"));
+            .Returns((Funcionario)null);
 
         var resultado = () => _service.BuscarPorId(funcionarioId);
 
@@ -208,7 +208,7 @@ public class FuncionarioServiceTests
     {
         var funcionarioId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)))
-            .Throws(new NaoEncontradoException("Funcionário não encontrado"));
+            .Returns((Funcionario)null);
 
         var resultado = () => _service.Excluir(funcionarioId);
 
