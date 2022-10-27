@@ -156,7 +156,6 @@ public class OrcamentoServiceTests
 
         var resultado = () => _service.Editar(orcamentoId, dto);
 
-        //TODO: Alterar metodos editar para retornarem o objeto novo, assim podemos validar se a alteração acontece
         resultado.Should().NotThrow<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId)), Times.Once);
         _repositoryMock.Verify(x => x.Editar(It.IsAny<Orcamento>()), Times.Once);
@@ -178,7 +177,6 @@ public class OrcamentoServiceTests
 
         var resultado = () => _service.Editar(orcamentoId, dto);
         
-        //TODO: Alterar metodos editar para retornarem o objeto novo, assim podemos validar se a alteração acontece
         resultado.Should().NotThrow<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId)), Times.Once);
         _repositoryMock.Verify(x => x.Editar(It.IsAny<Orcamento>()), Times.Once); 

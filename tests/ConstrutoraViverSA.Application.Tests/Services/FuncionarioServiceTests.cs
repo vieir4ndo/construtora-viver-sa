@@ -159,7 +159,6 @@ public class FuncionarioServiceTests
 
         var resultado = () => _service.Editar(funcionarioId, dto);
 
-        //TODO: Alterar metodos editar para retornarem o objeto novo, assim podemos validar se a alteração acontece
         resultado.Should().NotThrow<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
         _repositoryMock.Verify(x => x.Editar(It.IsAny<Funcionario>()), Times.Once);
@@ -181,7 +180,6 @@ public class FuncionarioServiceTests
 
         var resultado = () => _service.Editar(funcionarioId, dto);
         
-        //TODO: Alterar metodos editar para retornarem o objeto novo, assim podemos validar se a alteração acontece
         resultado.Should().NotThrow<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
         _repositoryMock.Verify(x => x.Editar(It.IsAny<Funcionario>()), Times.Once); 
