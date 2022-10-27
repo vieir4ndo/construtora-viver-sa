@@ -54,7 +54,7 @@ public class ObraService : IObraService
         return _obraParaObraDto.Mapear(obra);
     }
     
-    private Obra BuscarEntidadePorId(long buscaId)
+    public Obra BuscarEntidadePorId(long buscaId)
     {
         var obra = _repository.BuscarPorId(buscaId);
 
@@ -135,6 +135,28 @@ public class ObraService : IObraService
         else
             DesalocarMaterial(materialDto, id, materialId);
     }
+    
+    private void AlocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
+    {
+        var material = _materialService.BuscarEntidadePorId(materialId);
+
+        var obra = BuscarEntidadePorId(id);
+
+        obra.AlocarMaterial(material, materialDto.Quantidade);
+
+        _repository.Editar(obra);
+    }
+
+    private void DesalocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
+    {
+        var material = _materialService.BuscarEntidadePorId(materialId);
+
+        var obra = BuscarEntidadePorId(id);
+        
+        obra.DesalocarMaterial(material, materialDto.Quantidade);
+
+        _repository.Editar(obra);
+    }
 
     public void AlocarFuncionario(long id, long funcionarioId)
     {
@@ -154,28 +176,6 @@ public class ObraService : IObraService
         var obra = BuscarEntidadePorId(id);
 
         obra.DesalocarFuncionario(funcionario);
-
-        _repository.Editar(obra);
-    }
-
-    private void AlocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
-    {
-        var material = _materialService.BuscarEntidadePorId(materialId);
-
-        var obra = BuscarEntidadePorId(id);
-
-        obra.AlocarMaterial(material, materialDto.Quantidade);
-
-        _repository.Editar(obra);
-    }
-
-    private void DesalocarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
-    {
-        var material = _materialService.BuscarEntidadePorId(materialId);
-
-        var obra = BuscarEntidadePorId(id);
-        
-        obra.DesalocarMaterial(material, materialDto.Quantidade);
 
         _repository.Editar(obra);
     }
