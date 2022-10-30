@@ -6,10 +6,7 @@ stages:
 
 test:
   stage: test
-  variables:
-    test_path: "construtora-viver-sa"
   script:
-    - "cd $test_path"
     - "dotnet build"
     - "dotnet test"
   only:
