@@ -92,7 +92,10 @@ public sealed class Material
 
     public void MovimentarEstoque(EntradaSaidaEnum? operacao, int? quantidade)
     {
-        if (quantidade <= 0)
+        if (operacao is null)
+            throw new OperacaoInvalidaException("Operação Inválida");
+
+        if (quantidade is null or <= 0)
             throw new OperacaoInvalidaException("Quantidade Inválida");
         
         var entrada = Estoque.Where(x => x.Operacao == EntradaSaidaEnum.Entrada).Sum(x => x.Quantidade);

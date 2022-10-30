@@ -1,9 +1,11 @@
+using System;
 using System.Linq;
 using AutoFixture;
 using AutoMapper;
 using ConstrutoraViverSA.Application.Services;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 using FluentAssertions;
@@ -204,24 +206,72 @@ public class MaterialServiceTests
     [Fact]
     public void MovimentarEstoque_ComDadosValidos_DeveRealizarOperacao()
     {
-        
+        var materialId = 1;
+        var quantidade = 1;
+        var material = _fixture.Build<Material>()
+            .Create();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Returns(material);
+        _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
+
+         _service.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = quantidade });
+
+        _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == materialId)), Times.Once);
+        _repositoryMock.Verify(x => x.Editar(It.IsAny<Material>()), Times.Once); 
     }
     
-    [Fact]
-    public void MovimentarEstoque_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    [Theory]
+    [InlineData(EntradaSaidaEnum.Entrada, -1)]
+    [InlineData(EntradaSaidaEnum.Entrada, null)]
+    [InlineData(EntradaSaidaEnum.Saida, -1)]
+    [InlineData(EntradaSaidaEnum.Saida, null)]
+    [InlineData(null, 1)]
+    [InlineData(null, null)]
+    public void MovimentarEstoque_ComDadosInvalidos_NaoDeveRealizarOperacao(EntradaSaidaEnum? operacao, int? quantidade)
     {
+        var materialId = 1;
+        var material = _fixture.Build<Material>()
+            .Create();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Returns(material);
+
+        var resultado = () => _service.MovimentarEstoque(materialId,
+            new EntradaSaidaMaterialDto() { Operacao = operacao, Quantidade = quantidade });
         
+        resultado.Should().Throw<OperacaoInvalidaException>();
+        resultado.Should().NotThrow<NaoEncontradoException>();
+        resultado.Should().NotThrow<EstoqueInvalidoException>();
     }
     
     [Fact]
     public void MovimentarEstoque_ComDadosInvalidosEMaterialInexistente_NaoDeveRealizarOperacao()
     {
+        var materialId = 1;
+        var quantidade = 1;
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Returns((Material)null);
+        _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
+
+        var resultado = () => _service.MovimentarEstoque(materialId,
+            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = quantidade });
         
+        resultado.Should().Throw<NaoEncontradoException>();
+        resultado.Should().NotThrow<OperacaoInvalidaException>();
+        resultado.Should().NotThrow<EstoqueInvalidoException>();
     }
     
     [Fact]
     public void MovimentarEstoque_ComDadosInvalidosEMaterialSemEstoqueParaSaida_NaoDeveRealizarOperacao()
     {
+        var materialId = 1;
+        var quantidade = 1;
+        var material = _fixture.Build<Material>()
+            .Create();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Returns(material);
+        _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
+
+        var resultado = () => _service.MovimentarEstoque(materialId,
+            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Saida, Quantidade = quantidade });
         
+        resultado.Should().Throw<OperacaoInvalidaException>();
+        resultado.Should().NotThrow<NaoEncontradoException>();
+        resultado.Should().NotThrow<EstoqueInvalidoException>();
     }
 }
