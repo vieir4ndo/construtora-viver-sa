@@ -242,7 +242,6 @@ public class ObraControllerTests
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
             .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
             .With(x => x.Quantidade, quantidade)
-            .With(x => x.MaterialId, materialId)
             .Create();
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
             .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
@@ -269,7 +268,6 @@ public class ObraControllerTests
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
             .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
             .With(x => x.Quantidade, quantidade)
-            .With(x => x.MaterialId, materialId)
             .Create();
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
             .With(x => x.Operacao, EntradaSaidaEnum.Entrada)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using AutoMapper;
@@ -5,6 +6,7 @@ using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Application.Services;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 using FluentAssertions;
@@ -161,43 +163,145 @@ public class ObraServiceTests
     [Fact]
     public void Adicionar_ComDadosInvalidosEOrcamentoInexistente_NaoDeveRealizarOperacao()
     {
-        
+        var orcamentoId = 1;
+        var dto = _fixture.Build<ObraDto>()
+            .With(x => x.OrcamentoId, orcamentoId)
+            .Without(x => x.Funcionarios)
+            .Without(x => x.Materiais)
+            .Create();
+        _orcamentoServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId))).Returns((Orcamento)null);
+
+        var resultado = () => _service.Adicionar(dto);
+
+        resultado.Should().Throw<ObraInvalidaException>();
     }
     
     [Fact]
     public void Adicionar_ComDadosInvalidosEFuncionarioInexistente_NaoDeveRealizarOperacao()
     {
-        
+        var orcamentoId = 1;
+        var funcionarios = new List<long>() { 1 };
+        var dto = _fixture.Build<ObraDto>()
+            .With(x => x.OrcamentoId, orcamentoId)
+            .With(x => x.Funcionarios, funcionarios)
+            .Without(x => x.Materiais)
+            .Create();
+        var orcamento = _fixture.Build<Orcamento>()
+            .With(x => x.Id, orcamentoId)
+            .Create();
+        _orcamentoServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId))).Returns(orcamento);
+
+        var resultado = () => _service.Adicionar(dto);
+
+        resultado.Should().NotThrow<ObraInvalidaException>();
     }
     
     [Fact]
     public void Adicionar_ComDadosInvalidosEMaterialInexistente_NaoDeveRealizarOperacao()
     {
+        var orcamentoId = 1;
+        var materialId = 1;
+        var quantidadeMaterial = 1;
+        var materiais = new Dictionary<long, int>() { {materialId, quantidadeMaterial}};
+        var dto = _fixture.Build<ObraDto>()
+            .With(x => x.OrcamentoId, orcamentoId)
+            .Without(x => x.Funcionarios)
+            .With(x => x.Materiais, materiais)
+            .Create();
+        var orcamento = _fixture.Build<Orcamento>()
+            .With(x => x.Id, orcamentoId)
+            .Create();
+        _orcamentoServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId))).Returns(orcamento);
+        _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId)))
+            .Throws(new NaoEncontradoException("Material não encontrado"));
         
+        var resultado = () => _service.Adicionar(dto);
+
+        resultado.Should().Throw<NaoEncontradoException>();
     }
 
     [Fact]
     public void Editar_ComDadosValidos_DeveRealizarOperacao()
     {
+        var obraId = 1;
+        var obraDto = _fixture.Build<ObraDto>()
+            .Without(x => x.Funcionarios)
+            .Without(x => x.Materiais)
+            .Without(x => x.OrcamentoId)
+            .Without(x => x.PrazoConclusao)
+            .Create();
+        var obra = _fixture.Create<Obra>();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId)))
+            .Returns(obra);
+        _repositoryMock.Setup(x => x.Editar(It.Is<Obra>(x => x == obra)));
        
+        _service.Editar(obraId, obraDto);
+        
+        _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == obraId)), Times.Once);
+        _repositoryMock.Verify(x => x.Editar(It.Is<Obra>(x => x == obra)), Times.Once);
     }
     
     [Fact]
     public void Editar_ComDadosValidosEOrcamento_DeveRealizarOperacao()
     {
-       
+        var obraId = 1;
+        var orcamentoId = 1;
+        var obraDto = _fixture.Build<ObraDto>()
+            .Without(x => x.Funcionarios)
+            .Without(x => x.Materiais)
+            .With(x => x.OrcamentoId, orcamentoId)
+            .Without(x => x.PrazoConclusao)
+            .Create();
+        var obra = _fixture.Create<Obra>();
+        var orcamento = _fixture.Create<Orcamento>();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId)))
+            .Returns(obra);
+        _repositoryMock.Setup(x => x.Editar(It.Is<Obra>(x => x == obra)));
+        _orcamentoServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId))).Returns(orcamento);
+        
+        _service.Editar(obraId, obraDto);
+        
+        _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == obraId)), Times.Once);
+        _repositoryMock.Verify(x => x.Editar(It.Is<Obra>(x => x == obra)), Times.Once);
+        _orcamentoServiceMock.Verify(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId)), Times.Once);
     }
     
     [Fact]
     public void Editar_ComDadosInvalidos_NaoDeveRealizarOperacao()
     {
+        var obraId = 1;
+        var obraDto = _fixture.Build<ObraDto>()
+            .Without(x => x.Funcionarios)
+            .Without(x => x.Materiais)
+            .Create();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId)))
+            .Throws(new NaoEncontradoException("Obra não encontrada"));
         
+        var resultado = () => _service.Editar(obraId, obraDto);
+
+        resultado.Should().Throw<NaoEncontradoException>();
     }
     
     [Fact]
     public void Editar_ComDadosInvalidosEOrcamentoInexistente_NaoDeveRealizarOperacao()
     {
+        var obraId = 1;
+        var orcamentoId = 1;
+        var obraDto = _fixture.Build<ObraDto>()
+            .Without(x => x.Funcionarios)
+            .Without(x => x.Materiais)
+            .With(x => x.OrcamentoId, orcamentoId)
+            .Without(x => x.PrazoConclusao)
+            .Create();
+        var obra = _fixture.Create<Obra>();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId)))
+            .Returns(obra);
+        _repositoryMock.Setup(x => x.Editar(It.Is<Obra>(x => x == obra)));
+        _orcamentoServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId))).Throws(new NaoEncontradoException("Orcamento não encontrado"));
         
+        var resultado = () =>_service.Editar(obraId, obraDto);
+
+        resultado.Should().Throw<NaoEncontradoException>();
     }
     
     [Fact]
@@ -227,48 +331,162 @@ public class ObraServiceTests
 
         resultado.Should().Throw<NaoEncontradoException>();
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == obraId)), Times.Once);
-        _repositoryMock.Verify(x => x.Excluir(It.IsAny<Obra>()), Times.Never);
     }
 
     [Fact]
-    public void GerenciarMaterial_ComDadosValidos_DeveRealizarOperacao()
+    public void GerenciarMaterial_ComDadosValidosAlocandoMaterial_DeveRealizarOperacao()
     {
+        var obraId = 1;
+        var materialId = 1;
+        var quantidade = 1;
+        var dto = _fixture.Build<EntradaSaidaMaterialDto>()
+            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Quantidade, quantidade)
+            .Create();
+        var material = _fixture.Create<Material>();
+        material.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade);
+        _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Returns(material);
+        var obra = _fixture.Build<Obra>()
+            .Create();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId))).Returns(obra);
+        _repositoryMock.Setup(x => x.Editar(It.Is<Obra>(x => x == obra)));
         
+        _service.GerenciarMaterial(dto, obraId, materialId);
+
+        _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == obraId)), Times.Once);
+        _materialServiceMock.Verify(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId)), Times.Once);
+        _repositoryMock.Verify(x => x.Editar(It.Is<Obra>(x => x == obra)), Times.Once);
+    }
+    
+    [Fact]
+    public void GerenciarMaterial_ComDadosValidosDesalocando_DeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var materialId = 1;
+        var quantidade = 1;
+        var dto = _fixture.Build<EntradaSaidaMaterialDto>()
+            .With(x => x.Operacao, EntradaSaidaEnum.Saida)
+            .With(x => x.Quantidade, quantidade)
+            .Create();
+        var material = _fixture.Create<Material>();
+        material.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade);
+        _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Returns(material);
+        var obra = _fixture.Build<Obra>()
+            .Create();
+        obra.AlocarMaterial(material, quantidade);
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId))).Returns(obra);
+        _repositoryMock.Setup(x => x.Editar(It.Is<Obra>(x => x == obra)));
+        
+        _service.GerenciarMaterial(dto, obraId, materialId);
+
+        _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == obraId)), Times.Once);
+        _materialServiceMock.Verify(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId)), Times.Once);
+        _repositoryMock.Verify(x => x.Editar(It.Is<Obra>(x => x == obra)), Times.Once);
     }
     
     [Fact]
     public void GerenciarMaterial_ComDadosInvalidos_NaoDeveRealizarOperacao()
     {
-        
+        var obraId = 1;
+        var materialId = 1;
+        var quantidade = 1;
+        var dto = _fixture.Build<EntradaSaidaMaterialDto>()
+            .With(x => x.Operacao, EntradaSaidaEnum.Saida)
+            .Without(x => x.Quantidade)
+            .Create();
+        var material = _fixture.Create<Material>();
+        material.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade);
+        _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Returns(material);
+        var obra = _fixture.Build<Obra>()
+            .Create();
+        obra.AlocarMaterial(material, quantidade);
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId))).Returns(obra);
+        _repositoryMock.Setup(x => x.Editar(It.Is<Obra>(x => x == obra)));
+
+        var resultado = () => _service.GerenciarMaterial(dto, obraId, materialId);
+
+        resultado.Should().Throw<OperacaoInvalidaException>();
     }
     
     [Fact]
     public void GerenciarMaterial_ComDadosInvalidosEMaterialInexistente_NaoDeveRealizarOperacao()
     {
-        
+        var obraId = 1;
+        var materialId = 1;
+        var quantidade = 1;
+        var dto = _fixture.Build<EntradaSaidaMaterialDto>()
+            .With(x => x.Operacao, EntradaSaidaEnum.Saida)
+            .With(x => x.Quantidade, quantidade)
+            .Create();
+        _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Throws(new NaoEncontradoException("Material não encontrado"));
+        var obra = _fixture.Build<Obra>()
+            .Create();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId))).Returns(obra);
+        _repositoryMock.Setup(x => x.Editar(It.Is<Obra>(x => x == obra)));
+
+        var resultado = () => _service.GerenciarMaterial(dto, obraId, materialId);
+
+        resultado.Should().Throw<NaoEncontradoException>();
     }
     
     [Fact]
     public void AlocarFuncionario_ComDadosValidos_DeveRealizarOperacao()
     {
-        
+        var obraId = 1;
+        var funcionarioId = 1;
+        var obra = _fixture.Build<Obra>().Create();
+        var funcionario = _fixture.Build<Funcionario>().Create();
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId))).Returns(obra);
+        _funcionarioServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
+
+        var resultado = () => _service.AlocarFuncionario(obraId, funcionarioId);
+
+        resultado.Should().NotThrow<NaoEncontradoException>();
+        _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == obraId)), Times.Once);
+        _funcionarioServiceMock.Verify(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
     
     [Fact]
     public void AlocarFuncionario_ComDadosInvalidosEFuncionarioInexistente_NaoDeveRealizarOperacao()
     {
-        
+        var obraId = 1;
+        var funcionarioId = 1;
+        _funcionarioServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId))).Throws(new NaoEncontradoException("Funcionario não encontrado"));
+
+        var resultado = () => _service.AlocarFuncionario(obraId, funcionarioId);
+
+        resultado.Should().Throw<NaoEncontradoException>();
+        _funcionarioServiceMock.Verify(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
     
     [Fact]
     public void DesalocarFuncionario_ComDadosValidos_DeveRealizarOperacao()
     {
-        
+        var obraId = 1;
+        var funcionarioId = 1;
+        var funcionario = _fixture.Build<Funcionario>().Create();
+        var obra = _fixture.Build<Obra>().Create();
+        obra.AlocarFuncionario(funcionario);
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId))).Returns(obra);
+        _funcionarioServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
+
+        var resultado = () => _service.DesalocarFuncionario(obraId, funcionarioId);
+
+        resultado.Should().NotThrow<NaoEncontradoException>();
+        _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == obraId)), Times.Once);
+        _funcionarioServiceMock.Verify(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
     
     [Fact]
     public void DesalocarFuncionario_ComDadosInvalidosEFuncionarioInexistente_NaoDeveRealizarOperacao()
     {
-        
+        var obraId = 1;
+        var funcionarioId = 1;
+        _funcionarioServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId))).Throws(new NaoEncontradoException("Funcionário não encontrado"));
+
+        var resultado = () => _service.DesalocarFuncionario(obraId, funcionarioId);
+
+        resultado.Should().Throw<NaoEncontradoException>();
+        _funcionarioServiceMock.Verify(x => x.BuscarEntidadePorId(It.Is<long>(x => x == funcionarioId)), Times.Once);
     }
 }

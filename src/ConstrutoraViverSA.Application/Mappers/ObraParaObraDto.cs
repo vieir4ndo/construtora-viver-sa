@@ -20,7 +20,7 @@ public class ObraParaObraDto : IObraParaObraDto
     {
         var dto = _mapper.Map<ObraDto>(obra);
 
-        if (obra.Funcionarios is not null)
+        if (obra.Funcionarios != null && obra.Funcionarios.Count > 0)
         {
             foreach (var funcionario in obra.Funcionarios!)
             {
@@ -28,7 +28,7 @@ public class ObraParaObraDto : IObraParaObraDto
             } 
         }
 
-        if (obra.ObraMateriais is not null)
+        if (obra.ObraMateriais != null && obra.ObraMateriais.Count > 0)
         {
             foreach (var materialId in obra.ObraMateriais!.Select(x => x.MaterialId).Distinct())
             {

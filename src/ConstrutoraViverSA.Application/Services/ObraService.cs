@@ -110,6 +110,12 @@ public class ObraService : IObraService
 
     public void Editar(long id, ObraDto obralAtualizado)
     {
+        if (obralAtualizado.Funcionarios != null && obralAtualizado.Funcionarios.Count > 0)
+            throw new OperacaoInvalidaException("Funcionarios não podem ser alterados na edição");
+        
+        if (obralAtualizado.Materiais != null && obralAtualizado.Materiais.Count > 0)
+            throw new OperacaoInvalidaException("Materiais não podem ser alterados na edição");
+
         var obra = BuscarEntidadePorId(id);
 
         if (obralAtualizado.OrcamentoId != null && obralAtualizado.OrcamentoId != obra.OrcamentoId)
