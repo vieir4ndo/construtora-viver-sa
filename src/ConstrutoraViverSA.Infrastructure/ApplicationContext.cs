@@ -10,7 +10,6 @@ namespace ConstrutoraViverSA.Infrastructure;
 [ExcludeFromCodeCoverage]
 public class ApplicationContext : DbContext
 {
-    private static readonly ILoggerFactory _logger = LoggerFactory.Create(p => p.AddConsole());
     public DbSet<Obra> Obra { get; set; }
     public DbSet<Funcionario> Funcionario { get; set; }
     public DbSet<Orcamento> Orcamento { get; set; }
