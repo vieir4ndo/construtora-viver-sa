@@ -40,13 +40,16 @@ jobs:
         shell: powershell
         run: |
           dotnet tool install --global JetBrains.dotCover.GlobalTool
+      - name: Run DotCover
+        shell: powershell
+        run: |
+          dotnet dotcover test --dcReportType=HTML
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"vieir4ndo_construtora-viver-sa" /o:"vieir4ndo" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.dotcover.reportsPaths=dotCover.Output.html /d:"sonar.cs.dotcover.reportsPaths=**/*.html"
-          dotnet build -no-incremental
-          dotnet dotcover test --dcReportType=HTML
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"vieir4ndo_construtora-viver-sa" /o:"vieir4ndo" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
