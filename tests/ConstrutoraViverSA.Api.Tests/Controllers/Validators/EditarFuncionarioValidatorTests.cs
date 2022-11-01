@@ -52,7 +52,7 @@ public class EditarFuncionarioValidatorTests
     [Theory]
     [InlineData("2000-10-10")]
     [InlineData(null)]
-    public void EditarFuncionarioValidator_DadoUmaDataNascimentoValida_NaoDeveRetornarErros([StringSyntax(StringSyntaxAttribute.DateTimeFormat)]string dataNascimentoString)
+    public void EditarFuncionarioValidator_DadoUmaDataNascimentoValida_NaoDeveRetornarErros(string dataNascimentoString)
     {
         var dataNascimento = (dataNascimentoString is not null) ? DateTime.Parse(dataNascimentoString) : (DateTime?)null;
         

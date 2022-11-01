@@ -195,7 +195,7 @@ public class EditarObraValidatorTests
     [InlineData("2022-10-13")]
     [InlineData("2022-09-13")]
     [InlineData("2022-01-13")]
-    public void EditarObraValidator_DadoUmPrazoConclusaoInvalido_DeveRetornarErros([StringSyntax(StringSyntaxAttribute.DateTimeFormat)]string prazoConclusaoString)
+    public void EditarObraValidator_DadoUmPrazoConclusaoInvalido_DeveRetornarErros(string prazoConclusaoString)
     {
         var prazoConclusao = (prazoConclusaoString is null) ? (DateTime?)null : DateTime.Parse(prazoConclusaoString);
         
