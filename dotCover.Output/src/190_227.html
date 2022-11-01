@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Application/Mappers/ObraMappers.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
+using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Dtos;
+
+namespace ConstrutoraViverSA.Application.Mappers;
+
+[ExcludeFromCodeCoverage]
+public class ObraMappers : Profile
+{
+    public ObraMappers()
+    {
+        CreateMap&lt;Obra, ObraDto&gt;()
+            .ForMember(x =&gt; x.Funcionarios, opt =&gt; opt.Ignore())
+            .ForMember(x =&gt; x.Materiais, opt =&gt; opt.Ignore())
+            .ReverseMap();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,5,11,25,0],[12,5,12,6,0],[13,9,14,52,0],[14,52,14,64,0],[14,64,15,49,0],[15,49,15,61,0],[15,61,16,27,0],[17,5,17,6,0]]);
+    </script>
+  </body>
+</html>

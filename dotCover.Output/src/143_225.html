@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Validators/CriarFuncionarioValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using FluentValidation;
+
+namespace ConstrutoraViverSA.Api.Controllers.Validators;
+
+public class CriarFuncionarioValidator : AbstractValidator&lt;FuncionarioRequest&gt;
+{
+    public CriarFuncionarioValidator()
+    {
+        RuleFor(p =&gt; p.Nome)
+            .MaximumLength(80)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(p =&gt; p.DataNascimento)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(p =&gt; p.Genero)
+            .IsInEnum()
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(p =&gt; p.Cpf)
+            .IsValidCPF()
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(p =&gt; p.NumCtps)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(p =&gt; p.Endereco)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(p =&gt; p.Email)
+            .EmailAddress()
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(p =&gt; p.Telefone)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(p =&gt; p.Cargo)
+            .IsInEnum()
+            .NotEmpty()
+            .NotNull();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,5,8,39,1],[9,5,9,6,1],[10,9,13,24,1],[15,9,17,24,1],[19,9,22,24,1],[24,9,27,25,1],[29,9,31,24,1],[33,9,35,24,1],[37,9,40,24,1],[42,9,44,24,1],[46,9,49,24,1],[50,5,50,6,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Api.Tests/Controllers/Requests/EntradaSaidaMaterialRequestTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using AutoFixture;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Api.Tests.Controllers.Requests;
+
+public class EntradaSaidaMaterialRequestTests
+{
+    private readonly Fixture _fixture = new Fixture();
+
+    [Fact]
+    public void Validar_ComDadosValidos_DeveRetornarComoEsperado()
+    {
+        var request = _fixture.Create&lt;EntradaSaidaMaterialRequest&gt;();
+        
+        Action result = () =&gt; request.Validar();
+
+        result.Should().NotThrow&lt;ErroValidacaoException&gt;();
+    }
+    
+    [Theory]
+    [InlineData(EntradaSaidaEnum.Entrada, null)]
+    [InlineData(EntradaSaidaEnum.Saida, null)]
+    [InlineData(null, 1)]
+    public void Validar_ComDadosInvalidos_DeveRetornarComoEsperado(EntradaSaidaEnum? operacao, int? quantidade)
+    {
+        var request = new EntradaSaidaMaterialRequest()
+        {
+            Operacao = operacao,
+            Quantidade = quantidade
+        };
+        
+        Action result = () =&gt; request.Validar();
+
+        result.Should().Throw&lt;ErroValidacaoException&gt;();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,5,13,55,1],[17,5,17,6,1],[18,9,18,70,1],[20,9,20,31,1],[20,31,20,48,1],[20,48,20,49,1],[22,9,22,60,1],[23,5,23,6,1],[30,5,30,6,1],[31,9,35,11,1],[37,9,37,31,1],[37,31,37,48,1],[37,48,37,49,1],[39,9,39,57,1],[40,5,40,6,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Api.Tests/Controllers/ObraControllerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Linq;
+using AutoFixture;
+using AutoMapper;
+using ConstrutoraViverSA.Api.Controllers;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+using FluentAssertions;
+using Moq;
+using Xunit;
+
+namespace ConstrutoraViverSA.Api.Tests.Controllers;
+
+public class ObraControllerTests
+{
+    private readonly Mock&lt;IObraService&gt; _obraServiceMock;
+    private readonly Mock&lt;IMapper&gt; _mapperMock;
+    private readonly ObraController _controller;
+    private readonly Fixture _fixture = new Fixture();
+
+    public ObraControllerTests()
+    {
+        _obraServiceMock = new Mock&lt;IObraService&gt;();
+        _mapperMock = new Mock&lt;IMapper&gt;();
+        _controller = new ObraController(_obraServiceMock.Object, _mapperMock.Object);
+    }
+
+    [Fact]
+    public void CadastrarObra_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        var dto = _fixture.Build&lt;ObraDto&gt;()
+            .Create();
+        _mapperMock.Setup(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;ObraRequest&gt;(x =&gt; x == request))).Returns(dto);
+        _obraServiceMock.Setup(x =&gt; x.Adicionar(It.Is&lt;ObraDto&gt;(x =&gt; x == dto)));
+
+        var resultado = _controller.CadastrarObra(request);
+
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
+        _obraServiceMock.Verify(X =&gt; X.Adicionar(It.Is&lt;ObraDto&gt;(x =&gt; x == dto)), Times.Once);
+        _mapperMock.Verify(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;ObraRequest&gt;(x =&gt; x == request)), Times.Once);
+    }
+    
+    [Fact]
+    public void CadastrarObra_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .Without(x =&gt; x.Valor)
+            .Create();
+     
+        var resultado = () =&gt; _controller.CadastrarObra(request);
+        
+        resultado.Should().Throw&lt;ErroValidacaoException&gt;();
+    }
+
+    [Fact]
+    public void BuscarObra_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var obra = _fixture.Create&lt;ObraDto&gt;();
+        _obraServiceMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == obraId))).Returns(obra);
+
+        var resultado = _controller.BuscarObra(obraId);
+
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Mensagens.Should().BeNull();
+        resultado.Dados.Should().NotBeNull();
+        resultado.Dados.First().Should().BeOfType&lt;ObraDto&gt;();
+        resultado.Dados.First().Should().BeEquivalentTo(obra);
+        _obraServiceMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == obraId)), Times.Once);
+    }
+    
+    [Fact]
+    public void BuscarObra_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var obraId = 1;
+        _obraServiceMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == obraId)))
+            .Throws(new NaoEncontradoException(&quot;Obra n&#227;o encontrado&quot;));
+
+        var resultado = () =&gt; _controller.BuscarObra(obraId);
+
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _obraServiceMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == obraId)), Times.Once);
+    }
+
+    [Fact]
+    public void BuscarObras_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var listaObras = _fixture.CreateMany&lt;ObraDto&gt;().ToList();
+        _obraServiceMock.Setup(x =&gt; x.BuscarTodos())
+            .Returns(listaObras);
+
+        var resultado = _controller.BuscarObras();
+
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Mensagens.Should().BeNull();
+        resultado.Dados.Should().NotBeNull();
+        resultado.Dados.Count.Should().Be(listaObras.Count);
+        resultado.Dados.ForEach(x =&gt; x.Should().BeOfType&lt;ObraDto&gt;());
+        for (var i =0; i&lt; listaObras.Count; i++)
+        {
+            resultado.Dados[i].Should().BeEquivalentTo(listaObras[i]);
+        }
+        _obraServiceMock.Verify(x =&gt; x.BuscarTodos(), Times.Once);
+    }
+
+    [Fact]
+    public void EditarObra_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        var dto = _fixture.Build&lt;ObraDto&gt;()
+            .Create();
+        _mapperMock.Setup(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;EditarObraRequest&gt;(x =&gt; x == request))).Returns(dto);
+        _obraServiceMock.Setup(x =&gt; x.Editar(It.Is&lt;long&gt;(x =&gt; x == obraId),It.Is&lt;ObraDto&gt;(x =&gt; x == dto)));
+
+        var resultado = _controller.EditarObra(request, obraId);
+
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
+        _obraServiceMock.Verify(X =&gt; X.Editar(It.Is&lt;long&gt;(x =&gt; x == obraId),It.Is&lt;ObraDto&gt;(x =&gt; x == dto)), Times.Once);
+        _mapperMock.Verify(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;EditarObraRequest&gt;(x =&gt; x == request)), Times.Once);
+    }
+
+    [Fact]
+    public void EditarObra_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        _obraServiceMock.Setup(x =&gt; x.Editar(It.Is&lt;long&gt;(x =&gt; x == obraId), It.IsAny&lt;ObraDto&gt;()))
+            .Throws(new NaoEncontradoException(&quot;Obra n&#227;o encontrado&quot;));
+        
+        var resultado = () =&gt; _controller.EditarObra(request, obraId);
+        
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _obraServiceMock.Verify(x =&gt; x.Editar(It.Is&lt;long&gt;(x =&gt; x == obraId), It.IsAny&lt;ObraDto&gt;()), Times.Once);
+    }
+
+    [Fact]
+    public void ExcluirObra_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var obraId = 1;
+        _obraServiceMock.Setup(x =&gt; x.Excluir(It.Is&lt;long&gt;(x =&gt; x == obraId)));
+
+        var resultado = _controller.ExcluirObra(obraId);
+        
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
+        _obraServiceMock.Verify(x =&gt; x.Excluir(It.Is&lt;long&gt;(x =&gt; x == obraId)), Times.Once);
+    }
+    
+    [Fact]
+    public void ExcluirObra_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var obraId = 1;
+        _obraServiceMock.Setup(x =&gt; x.Excluir(It.Is&lt;long&gt;(x =&gt; x == obraId)))
+            .Throws(new NaoEncontradoException(&quot;Obra n&#227;o encontrado&quot;));
+
+        var resultado = () =&gt; _controller.ExcluirObra(obraId);
+        
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _obraServiceMock.Verify(x =&gt; x.Excluir(It.Is&lt;long&gt;(x =&gt; x == obraId)), Times.Once);
+    }
+
+    [Fact]
+    public void AlocarFuncionarioNaObra_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var funcionarioId = 1;
+        _obraServiceMock.Setup(x =&gt; x.AlocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)));
+
+        var resultado = _controller.AlocarFuncionarioNaObra(obraId, funcionarioId);
+        
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
+        _obraServiceMock.Verify(x =&gt; x.AlocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+    }
+    
+    [Fact]
+    public void AlocarFuncionarioNaObra_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var funcionarioId = 1;
+        _obraServiceMock.Setup(x =&gt; x.AlocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)))
+            .Throws( new NaoEncontradoException(&quot;Obra n&#227;o encontrado&quot;));
+
+        var resultado = () =&gt; _controller.AlocarFuncionarioNaObra(obraId, funcionarioId);
+        
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _obraServiceMock.Verify(x =&gt; x.AlocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+    }
+    
+    [Fact]
+    public void DesalocarFuncionarioNaObra_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var funcionarioId = 1;
+        _obraServiceMock.Setup(x =&gt; x.DesalocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)));
+
+        var resultado = _controller.DesalocarFuncionarioNaObra(obraId, funcionarioId);
+        
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
+        _obraServiceMock.Verify(x =&gt; x.DesalocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+    }
+    
+    [Fact]
+    public void DesalocarFuncionarioNaObra_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var funcionarioId = 1;
+        _obraServiceMock.Setup(x =&gt; x.DesalocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)))
+            .Throws( new NaoEncontradoException(&quot;Obra n&#227;o encontrado&quot;));
+
+        var resultado = () =&gt; _controller.DesalocarFuncionarioNaObra(obraId, funcionarioId);
+        
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _obraServiceMock.Verify(x =&gt; x.DesalocarFuncionario(It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+    }
+    
+    [Fact]
+    public void GerenciarMaterialNaObra_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var quantidade = 1;
+        var materialId = 1;
+        var dto = _fixture.Build&lt;EntradaSaidaMaterialDto&gt;()
+            .With(x =&gt; x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x =&gt; x.Quantidade, quantidade)
+            .Create();
+        var request = _fixture.Build&lt;EntradaSaidaMaterialRequest&gt;()
+            .With(x =&gt; x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x =&gt; x.Quantidade, quantidade)
+            .Create();
+        _obraServiceMock.Setup(x =&gt; x.GerenciarMaterial(It.Is&lt;EntradaSaidaMaterialDto&gt;(x =&gt; x == dto), It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == materialId)));
+        _mapperMock.Setup(x =&gt; x.Map&lt;EntradaSaidaMaterialDto&gt;(It.Is&lt;EntradaSaidaMaterialRequest&gt;(x =&gt; x == request))).Returns(dto);
+
+        var resultado = _controller.GerenciarMaterialNaObra(request, obraId, materialId);
+        
+        resultado.Sucesso.Should().BeTrue();
+        resultado.Dados.Should().BeNull();
+        resultado.Mensagens.Should().BeNull();
+        _mapperMock.Verify(x =&gt; x.Map&lt;EntradaSaidaMaterialDto&gt;(It.Is&lt;EntradaSaidaMaterialRequest&gt;(x =&gt; x == request)), Times.Once);
+        _obraServiceMock.Verify(x =&gt; x.GerenciarMaterial(It.Is&lt;EntradaSaidaMaterialDto&gt;(x =&gt; x == dto), It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+    }
+    
+    [Fact]
+    public void GerenciarMaterialNaObra_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var obraId = 1;
+        var quantidade = 1;
+        var materialId = 1;
+        var dto = _fixture.Build&lt;EntradaSaidaMaterialDto&gt;()
+            .With(x =&gt; x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x =&gt; x.Quantidade, quantidade)
+            .Create();
+        var request = _fixture.Build&lt;EntradaSaidaMaterialRequest&gt;()
+            .With(x =&gt; x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x =&gt; x.Quantidade, quantidade)
+            .Create();
+        _obraServiceMock.Setup(x =&gt; x.GerenciarMaterial(It.Is&lt;EntradaSaidaMaterialDto&gt;(x =&gt; x == dto), It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == materialId)))
+            .Throws( new NaoEncontradoException(&quot;Obra n&#227;o encontrado&quot;));;
+        _mapperMock.Setup(x =&gt; x.Map&lt;EntradaSaidaMaterialDto&gt;(It.Is&lt;EntradaSaidaMaterialRequest&gt;(x =&gt; x == request))).Returns(dto);
+
+        var resultado = () =&gt; _controller.GerenciarMaterialNaObra(request, obraId, materialId);
+        
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _obraServiceMock.Verify(x =&gt; x.GerenciarMaterial(It.Is&lt;EntradaSaidaMaterialDto&gt;(x =&gt; x == dto), It.Is&lt;long&gt;(x =&gt; x == obraId), It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+        _mapperMock.Verify(x =&gt; x.Map&lt;EntradaSaidaMaterialDto&gt;(It.Is&lt;EntradaSaidaMaterialRequest&gt;(x =&gt; x == request)), Times.Once);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,5,22,55,1],[24,5,24,33,1],[25,5,25,6,1],[26,9,26,53,1],[27,9,27,43,1],[28,9,28,87,1],[29,5,29,6,1],[33,5,33,6,1],[34,9,36,23,1],[37,9,38,23,1],[39,9,39,100,1],[40,9,40,81,1],[42,9,42,60,1],[44,9,44,45,1],[45,9,45,43,1],[46,9,46,47,1],[47,9,47,94,1],[48,9,48,100,1],[49,5,49,6,1],[53,5,53,6,1],[54,9,56,23,1],[58,9,58,31,1],[58,31,58,65,1],[58,65,58,66,1],[60,9,60,60,1],[61,5,61,6,1],[65,5,65,6,1],[66,9,66,24,1],[67,9,67,47,1],[68,9,68,97,1],[70,9,70,56,1],[72,9,72,45,1],[73,9,73,47,1],[74,9,74,46,1],[75,9,75,62,1],[76,9,76,63,1],[77,9,77,96,1],[78,5,78,6,1],[82,5,82,6,1],[83,9,83,24,1],[84,9,85,72,1],[87,9,87,31,1],[87,31,87,61,1],[87,61,87,62,1],[89,9,89,60,1],[90,9,90,96,1],[91,5,91,6,1],[95,5,95,6,1],[96,9,96,66,1],[97,9,98,34,1],[100,9,100,51,1],[102,9,102,45,1],[103,9,103,47,1],[104,9,104,46,1],[105,9,105,61,1],[106,9,106,38,1],[106,38,106,68,1],[106,68,106,70,1],[107,14,107,22,1],[107,24,107,43,1],[107,45,107,48,1],[108,9,108,10,1],[109,13,109,71,1],[110,9,110,10,1],[111,9,111,67,1],[112,5,112,6,1],[116,5,116,6,1],[117,9,117,24,1],[118,9,120,23,1],[121,9,122,23,1],[123,9,123,106,1],[124,9,124,108,1],[126,9,126,65,1],[128,9,128,45,1],[129,9,129,43,1],[130,9,130,47,1],[131,9,131,121,1],[132,9,132,106,1],[133,5,133,6,1],[137,5,137,6,1],[138,9,138,24,1],[139,9,141,23,1],[142,9,143,72,1],[145,9,145,31,1],[145,31,145,70,1],[145,70,145,71,1],[147,9,147,60,1],[148,9,148,112,1],[149,5,149,6,1],[153,5,153,6,1],[154,9,154,24,1],[155,9,155,79,1],[157,9,157,57,1],[159,9,159,45,1],[160,9,160,43,1],[161,9,161,47,1],[162,9,162,92,1],[163,5,163,6,1],[167,5,167,6,1],[168,9,168,24,1],[169,9,170,72,1],[172,9,172,31,1],[172,31,172,62,1],[172,62,172,63,1],[174,9,174,60,1],[175,9,175,92,1],[176,5,176,6,1],[180,5,180,6,1],[181,9,181,24,1],[182,9,182,31,1],[183,9,183,127,1],[185,9,185,84,1],[187,9,187,45,1],[188,9,188,43,1],[189,9,189,47,1],[190,9,190,140,1],[191,5,191,6,1],[195,5,195,6,1],[196,9,196,24,1],[197,9,197,31,1],[198,9,199,73,1],[201,9,201,31,1],[201,31,201,89,1],[201,89,201,90,1],[203,9,203,60,1],[204,9,204,140,1],[205,5,205,6,1],[209,5,209,6,1],[210,9,210,24,1],[211,9,211,31,1],[212,9,212,130,1],[214,9,214,87,1],[216,9,216,45,1],[217,9,217,43,1],[218,9,218,47,1],[219,9,219,143,1],[220,5,220,6,1],[224,5,224,6,1],[225,9,225,24,1],[226,9,226,31,1],[227,9,228,73,1],[230,9,230,31,1],[230,31,230,92,1],[230,92,230,93,1],[232,9,232,60,1],[233,9,233,143,1],[234,5,234,6,1],[238,5,238,6,1],[239,9,239,24,1],[240,9,240,28,1],[241,9,241,28,1],[242,9,245,23,1],[246,9,249,23,1],[250,9,250,171,1],[251,9,251,132,1],[253,9,253,90,1],[255,9,255,45,1],[256,9,256,43,1],[257,9,257,47,1],[258,9,258,132,1],[259,9,259,184,1],[260,5,260,6,1],[264,5,264,6,1],[265,9,265,24,1],[266,9,266,28,1],[267,9,267,28,1],[268,9,271,23,1],[272,9,275,23,1],[276,9,277,73,1],[277,73,277,74,1],[278,9,278,132,1],[280,9,280,31,1],[280,31,280,95,1],[280,95,280,96,1],[282,9,282,60,1],[283,9,283,184,1],[284,9,284,132,1],[285,5,285,6,1]]);
+    </script>
+  </body>
+</html>

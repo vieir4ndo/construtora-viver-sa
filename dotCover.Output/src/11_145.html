@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Api.Tests/Controllers/Validators/EditarObraValidatorTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using AutoFixture;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Api.Controllers.Validators;
+using ConstrutoraViverSA.Domain.Enums;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Api.Tests.Controllers.Validators;
+
+public class EditarObraValidatorTests
+{
+    private readonly EditarObraValidator _validator = new EditarObraValidator();
+    private readonly Fixture _fixture = new Fixture();
+    
+    [Theory]
+    [InlineData(null)]
+    [InlineData(&quot;nome&quot;)]
+    public void EditarObraValidator_DadoUmNomeValido_NaoDeveRetornarErros(string nome)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .With(x =&gt; x.Nome, nome)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot; &quot;)]
+    [InlineData(&quot;012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789&quot;)]
+    public void EditarObraValidator_DadoUmNomeInvalido_DeveRetornarErros(string nome)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .With(x =&gt; x.Nome, nome)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData(&quot;123123&quot;)]
+    [InlineData(&quot;descricao&quot;)]
+    [InlineData(null)]
+    public void EditarObraValidator_DadoUmDescricaoValido_NaoDeveRetornarErros(string descricao)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.Descricao, descricao)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot; &quot;)]
+    public void EditarObraValidator_DadoUmDescricaoInvalido_DeveRetornarErros(string descricao)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.Descricao, descricao)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData(&quot;Endereco&quot;)]
+    [InlineData(&quot;Rua do Saber&quot;)]    
+    [InlineData(null)]
+    public void EditarObraValidator_DadoUmEnderecoValido_NaoDeveRetornarErros(string endereco)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.Endereco, endereco)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot; &quot;)]
+    public void EditarObraValidator_DadoUmEnderecoInvalido_DeveRetornarErros(string endereco)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.Endereco, endereco)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(10.8)]
+    [InlineData(1)]
+    [InlineData(null)]
+    public void EditarObraValidator_DadoUmValorValido_NaoDeveRetornarErros(double? valor)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.Valor, valor)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    public void EditarObraValidator_DadoUmValorInvalido_DeveRetornarErros(double? valor)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.Valor, valor)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(TipoObraEnum.Ambas)]
+    [InlineData(TipoObraEnum.Comercial)]
+    [InlineData(TipoObraEnum.Residencial)]
+    [InlineData(null)]
+    public void EditarObraValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoObraEnum? tipoObra)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .With(x =&gt; x.TipoObra, tipoObra)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(1455767)]
+    public void EditarObraValidator_DadoUmTipoInvalido_DeveRetornarErros(int? tipoObra)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.TipoObra, tipoObra is null ? null : (TipoObraEnum)tipoObra)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void EditarObraValidator_DadoUmPrazoConclusaoValido_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void EditarObraValidator_DadoUmPrazoConclusaoNullo_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .Without(x =&gt; x.PrazoConclusao)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot;2022-10-13&quot;)]
+    [InlineData(&quot;2022-09-13&quot;)]
+    [InlineData(&quot;2022-01-13&quot;)]
+    public void EditarObraValidator_DadoUmPrazoConclusaoInvalido_DeveRetornarErros(string prazoConclusaoString)
+    {
+        var prazoConclusao = (prazoConclusaoString is null) ? (DateTime?)null : DateTime.Parse(prazoConclusaoString);
+        
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, prazoConclusao)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(10)]
+    [InlineData(1)]
+    [InlineData(null)]
+    public void EditarObraValidator_DadoUmOrcamentoIdValido_NaoDeveRetornarErros(int? orcamentoId)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.OrcamentoId, orcamentoId)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    public void EditarObraValidator_DadoUmOrcamentoIdInvalido_DeveRetornarErros(int? orcamentoId)
+    {
+        var request = _fixture.Build&lt;EditarObraRequest&gt;()
+            .With(x =&gt; x.OrcamentoId, orcamentoId)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,5,15,81,1],[16,5,16,55,1],[22,5,22,6,1],[23,9,26,23,1],[28,9,28,61,1],[30,9,30,52,1],[31,5,31,6,1],[37,5,37,6,1],[38,9,41,23,1],[43,9,43,61,1],[45,9,45,53,1],[46,5,46,6,1],[53,5,53,6,1],[54,9,57,23,1],[59,9,59,61,1],[61,9,61,52,1],[62,5,62,6,1],[67,5,67,6,1],[68,9,71,23,1],[73,9,73,61,1],[75,9,75,53,1],[76,5,76,6,1],[83,5,83,6,1],[84,9,87,23,1],[89,9,89,61,1],[91,9,91,52,1],[92,5,92,6,1],[97,5,97,6,1],[98,9,101,23,1],[103,9,103,61,1],[105,9,105,53,1],[106,5,106,6,1],[113,5,113,6,1],[114,9,117,23,1],[119,9,119,61,1],[121,9,121,52,1],[122,5,122,6,1],[128,5,128,6,1],[129,9,132,23,1],[134,9,134,61,1],[136,9,136,53,1],[137,5,137,6,1],[145,5,145,6,1],[146,9,149,23,1],[151,9,151,61,1],[153,9,153,52,1],[154,5,154,6,1],[159,5,159,6,1],[160,9,163,23,1],[165,9,165,61,1],[167,9,167,53,1],[168,5,168,6,1],[172,5,172,6,1],[173,9,175,23,1],[177,9,177,61,1],[179,9,179,52,1],[180,5,180,6,1],[184,5,184,6,1],[185,9,187,23,1],[189,9,189,61,1],[191,9,191,52,1],[192,5,192,6,1],[199,5,199,6,1],[200,9,200,118,1],[202,9,204,23,1],[206,9,206,61,1],[208,9,208,53,1],[209,5,209,6,1],[216,5,216,6,1],[217,9,220,23,1],[222,9,222,61,1],[224,9,224,52,1],[225,5,225,6,1],[231,5,231,6,1],[232,9,235,23,1],[237,9,237,61,1],[239,9,239,53,1],[240,5,240,6,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Infrastructure/Migrations/20221016233704_UpdateObraMaterialTable.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace ConstrutoraViverSA.Infrastructure.Migrations
+{
+    public partial class UpdateObraMaterialTable : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn&lt;int&gt;(
+                name: &quot;Quantidade&quot;,
+                table: &quot;ObraMaterial&quot;,
+                type: &quot;integer&quot;,
+                nullable: false,
+                defaultValue: 0);
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: &quot;Quantidade&quot;,
+                table: &quot;ObraMaterial&quot;);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,9,8,10,0],[9,13,14,34,0],[15,9,15,10,0],[18,9,18,10,0],[19,13,21,40,0],[22,9,22,10,0]]);
+    </script>
+  </body>
+</html>

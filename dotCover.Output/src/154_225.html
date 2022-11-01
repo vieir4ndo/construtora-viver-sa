@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Requests/EditarObraRequest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+#nullable enable
+using System;
+using System.Collections.Generic;
+using ConstrutoraViverSA.Api.Controllers.Validators;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+
+namespace ConstrutoraViverSA.Api.Controllers.Requests;
+
+public class EditarObraRequest
+{
+    public string Nome { get; set; }
+    public string Endereco { get; set; }
+    public TipoObraEnum? TipoObra { get; set; }
+    public string Descricao { get; set; }
+    public double? Valor { get; set; }
+    public DateTime? PrazoConclusao { get; set; }
+    public long? OrcamentoId { get; set; }
+
+    public void ValidarEdicao()
+    {
+        var resultado = new EditarObraValidator().Validate(this);
+
+        if (resultado.IsValid == false)
+        {
+            throw new ErroValidacaoException(resultado.ToString());
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,26,12,30,1],[12,31,12,35,1],[13,30,13,34,1],[13,35,13,39,1],[14,37,14,41,1],[14,42,14,46,1],[15,31,15,35,1],[15,36,15,40,1],[16,28,16,32,1],[16,33,16,37,1],[17,39,17,43,1],[17,44,17,48,1],[18,32,18,36,1],[18,37,18,41,1],[21,5,21,6,1],[22,9,22,66,1],[24,9,24,40,1],[25,9,25,10,1],[26,13,26,68,1],[28,5,28,6,1]]);
+    </script>
+  </body>
+</html>

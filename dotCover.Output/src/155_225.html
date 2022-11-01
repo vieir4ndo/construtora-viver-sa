@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Requests/EntradaSaidaMaterialRequest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ConstrutoraViverSA.Api.Controllers.Validators;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+
+namespace ConstrutoraViverSA.Api.Controllers.Requests;
+
+public class EntradaSaidaMaterialRequest
+{
+    public EntradaSaidaEnum? Operacao { get; set; }
+    public int? Quantidade { get; set; }
+
+    public void Validar()
+    {
+        var resultado = new EntradaSaidaMaterialValidator().Validate(this);
+
+        if (resultado.IsValid == false) throw new ErroValidacaoException(resultado.ToString());
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,41,9,45,1],[9,46,9,50,1],[10,30,10,34,1],[10,35,10,39,1],[13,5,13,6,1],[14,9,14,76,1],[16,9,16,40,1],[16,41,16,96,1],[17,5,17,6,1]]);
+    </script>
+  </body>
+</html>

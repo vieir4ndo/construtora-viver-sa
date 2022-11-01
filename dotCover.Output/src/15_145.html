@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Api.Tests/Controllers/Requests/EditarMaterialRequestTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using AutoFixture;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Api.Tests.Controllers.Requests;
+
+public class EditarMaterialRequestTests
+{
+    private readonly Fixture _fixture = new Fixture();
+    
+    [Fact]
+    public void ValidarEdicao_ComDadosValidos_DeveSeComportarComoEsperado()
+    {
+        var request = _fixture.Create&lt;EditarMaterialRequest&gt;();
+        
+        Action result = () =&gt; request.ValidarEdicao();
+
+        result.Should().NotThrow&lt;ErroValidacaoException&gt;();
+    }
+    
+    [Theory]
+    [InlineData(&quot; &quot;, &quot;descricao&quot;, TipoMaterialEnum.Cimento, 10.80)]
+    [InlineData(&quot;nome&quot;, &quot; &quot;, TipoMaterialEnum.Cimento, 10.80)]
+    [InlineData(&quot;012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789&quot;, &quot; &quot;, TipoMaterialEnum.Cimento, 10.80)]
+    [InlineData(&quot;nome&quot;, &quot;descricao&quot;, TipoMaterialEnum.Cimento, -1)]
+    
+    public void ValidarEdicao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string descricao, TipoMaterialEnum? tipo, double? valor)
+    {
+        var request = new EditarMaterialRequest()
+        {
+            Nome = nome,
+            Descricao = descricao,
+            Tipo = tipo,
+            Valor = valor
+        };
+
+        
+        Action result = () =&gt; request.ValidarEdicao();
+
+        result.Should().Throw&lt;ErroValidacaoException&gt;();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,5,13,55,1],[17,5,17,6,1],[18,9,18,64,1],[20,9,20,31,1],[20,31,20,54,1],[20,54,20,55,1],[22,9,22,60,1],[23,5,23,6,1],[32,5,32,6,1],[33,9,39,11,1],[42,9,42,31,1],[42,31,42,54,1],[42,54,42,55,1],[44,9,44,57,1],[45,5,45,6,1]]);
+    </script>
+  </body>
+</html>

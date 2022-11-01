@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Api.Tests/Controllers/Validators/CriarObraValidatorTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using AutoFixture;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Api.Controllers.Validators;
+using ConstrutoraViverSA.Domain.Enums;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Api.Tests.Controllers.Validators;
+
+public class CriarObraValidatorTests
+{
+    private readonly CriarObraValidator _validator = new CriarObraValidator();
+    private readonly Fixture _fixture = new Fixture();
+    private static readonly List&lt;long&gt; LISTA_FUNCIONARIOS_INVALIDA = new ();
+    private static readonly List&lt;long&gt; LISTA_FUNCIONARIOS_VALIDA = new () { 1,2,3 };
+    private static readonly Dictionary&lt;long, int&gt; DICIONARIO_MATERIAIS_INVALIDO = new();
+    private static readonly Dictionary&lt;long, int&gt; DICIONARIO_MATERIAIS_VALIDO = new() { {1, 2}, {2,3}};
+    
+    [Fact]
+    public void CriarObraValidator_DadoUmNomeValido_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(null)]
+    [InlineData(&quot; &quot;)]
+    [InlineData(&quot;012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789&quot;)]
+    public void CriarObraValidator_DadoUmNomeInvalido_DeveRetornarErros(string nome)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .With(x =&gt; x.Nome, nome)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData(&quot;123123&quot;)]
+    [InlineData(&quot;descricao&quot;)]
+    public void CriarObraValidator_DadoUmDescricaoValido_NaoDeveRetornarErros(string descricao)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Descricao, descricao)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot; &quot;)]
+    [InlineData(null)]
+    public void CriarObraValidator_DadoUmDescricaoInvalido_DeveRetornarErros(string descricao)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Descricao, descricao)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData(&quot;Endereco&quot;)]
+    [InlineData(&quot;Rua do Saber&quot;)]
+    public void CriarObraValidator_DadoUmEnderecoValido_NaoDeveRetornarErros(string endereco)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Endereco, endereco)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot; &quot;)]
+    [InlineData(null)]
+    public void CriarObraValidator_DadoUmEnderecoInvalido_DeveRetornarErros(string endereco)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Endereco, endereco)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(10.8)]
+    [InlineData(1)]
+    public void CriarObraValidator_DadoUmValorValido_NaoDeveRetornarErros(double valor)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Valor, valor)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    [InlineData(null)]
+    public void CriarObraValidator_DadoUmValorInvalido_DeveRetornarErros(double? valor)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Valor, valor)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(TipoObraEnum.Ambas)]
+    [InlineData(TipoObraEnum.Comercial)]
+    [InlineData(TipoObraEnum.Residencial)]
+    public void CriarObraValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoObraEnum tipoObra)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .With(x =&gt; x.TipoObra, tipoObra)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(1455767)]
+    [InlineData(null)]
+    public void CriarObraValidator_DadoUmTipoInvalido_DeveRetornarErros(int? tipoObra)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.TipoObra, tipoObra is null ? null : (TipoObraEnum)tipoObra)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void CriarObraValidator_DadoUmPrazoConclusaoValido_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    
+    [Theory]
+    [InlineData(null)]
+    [InlineData(&quot;2022-10-13&quot;)]
+    public void CriarObraValidator_DadoUmPrazoConclusaoInvalido_DeveRetornarErros(string prazoConclusaoString)
+    {
+        var prazoConclusao = (prazoConclusaoString is null) ? (DateTime?)null : DateTime.Parse(prazoConclusaoString);
+        
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, prazoConclusao)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(10)]
+    [InlineData(1)]
+    public void CriarObraValidator_DadoUmOrcamentoIdValido_NaoDeveRetornarErros(int orcamentoId)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.OrcamentoId, orcamentoId)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    [InlineData(null)]
+    public void CriarObraValidator_DadoUmOrcamentoIdInvalido_DeveRetornarErros(int? orcamentoId)
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.OrcamentoId, orcamentoId)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void CriarObraValidator_DadoUmaListaDeFuncionariosValida_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Funcionarios, LISTA_FUNCIONARIOS_VALIDA)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CriarObraValidator_DadoUmaListaDeFuncionariosNulla_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .Without(x =&gt; x.Funcionarios)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CriarObraValidator_DadoUmaListaDeFuncionariosInvalida_DeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Funcionarios, LISTA_FUNCIONARIOS_INVALIDA)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void CriarObraValidator_DadoUmDicionarioDeMateriaisValido_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .With(x =&gt; x.Materiais, DICIONARIO_MATERIAIS_VALIDO)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CriarObraValidator_DadoUmDicionarioDeMateriaisNullo_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Without(x =&gt; x.Materiais)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Fact]
+    public void CriarObraValidator_DadoUmDicionarioDeMateriaisInvalido_DeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;ObraRequest&gt;()
+            .With(x =&gt; x.Materiais, DICIONARIO_MATERIAIS_INVALIDO)
+            .With(x =&gt; x.PrazoConclusao, DateTime.Today.AddDays(1))
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,5,15,79,1],[16,5,16,55,1],[17,5,17,77,1],[18,5,18,85,1],[19,5,19,89,1],[20,5,20,104,1],[24,5,24,6,1],[25,9,27,23,1],[29,9,29,61,1],[31,9,31,52,1],[32,5,32,6,1],[39,5,39,6,1],[40,9,43,23,1],[45,9,45,61,1],[47,9,47,53,1],[48,5,48,6,1],[54,5,54,6,1],[55,9,58,23,1],[60,9,60,61,1],[62,9,62,52,1],[63,5,63,6,1],[69,5,69,6,1],[70,9,73,23,1],[75,9,75,61,1],[77,9,77,53,1],[78,5,78,6,1],[84,5,84,6,1],[85,9,88,23,1],[90,9,90,61,1],[92,9,92,52,1],[93,5,93,6,1],[99,5,99,6,1],[100,9,103,23,1],[105,9,105,61,1],[107,9,107,53,1],[108,5,108,6,1],[114,5,114,6,1],[115,9,118,23,1],[120,9,120,61,1],[122,9,122,52,1],[123,5,123,6,1],[130,5,130,6,1],[131,9,134,23,1],[136,9,136,61,1],[138,9,138,53,1],[139,5,139,6,1],[146,5,146,6,1],[147,9,150,23,1],[152,9,152,61,1],[154,9,154,52,1],[155,5,155,6,1],[161,5,161,6,1],[162,9,165,23,1],[167,9,167,61,1],[169,9,169,53,1],[170,5,170,6,1],[174,5,174,6,1],[175,9,177,23,1],[179,9,179,61,1],[181,9,181,52,1],[182,5,182,6,1],[189,5,189,6,1],[190,9,190,118,1],[192,9,194,23,1],[196,9,196,61,1],[198,9,198,53,1],[199,5,199,6,1],[205,5,205,6,1],[206,9,209,23,1],[211,9,211,61,1],[213,9,213,52,1],[214,5,214,6,1],[221,5,221,6,1],[222,9,225,23,1],[227,9,227,61,1],[229,9,229,53,1],[230,5,230,6,1],[234,5,234,6,1],[235,9,238,23,1],[240,9,240,61,1],[242,9,242,52,1],[243,5,243,6,1],[247,5,247,6,1],[248,9,251,23,1],[253,9,253,61,1],[255,9,255,52,1],[256,5,256,6,1],[260,5,260,6,1],[261,9,264,23,1],[266,9,266,61,1],[268,9,268,53,1],[269,5,269,6,1],[273,5,273,6,1],[274,9,277,23,1],[279,9,279,61,1],[281,9,281,52,1],[282,5,282,6,1],[286,5,286,6,1],[287,9,290,23,1],[292,9,292,61,1],[294,9,294,52,1],[295,5,295,6,1],[299,5,299,6,1],[300,9,303,23,1],[305,9,305,61,1],[307,9,307,53,1],[308,5,308,6,1]]);
+    </script>
+  </body>
+</html>

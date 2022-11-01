@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Application.Tests/Services/MaterialServiceTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Linq;
+using AutoFixture;
+using AutoMapper;
+using ConstrutoraViverSA.Application.Services;
+using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Repository.Interfaces;
+using FluentAssertions;
+using Moq;
+using Xunit;
+
+namespace ConstrutoraViverSA.Application.Tests.Services;
+
+public class MaterialServiceTests
+{
+    private readonly Mock&lt;IMaterialRepository&gt; _repositoryMock;
+    private readonly Mock&lt;IMapper&gt; _mapperMock;
+    private readonly Fixture _fixture = new Fixture();
+    private readonly MaterialService _service; 
+
+    public MaterialServiceTests()
+    {
+        _repositoryMock = new Mock&lt;IMaterialRepository&gt;();
+        _mapperMock = new Mock&lt;IMapper&gt;();
+        _service = new MaterialService(_repositoryMock.Object, _mapperMock.Object);
+    }
+
+    [Fact]
+    public void BuscarTodos_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var materials = _fixture.CreateMany&lt;Material&gt;().ToList();
+        var materialsDto = _fixture.CreateMany&lt;MaterialDto&gt;(3).ToList();
+        _repositoryMock.Setup(x =&gt; x.BuscarTodos()).Returns(materials);
+        _mapperMock.SetupSequence(x =&gt; x.Map&lt;MaterialDto&gt;(It.IsAny&lt;Material&gt;()))
+            .Returns(materialsDto[0])
+            .Returns(materialsDto[1])
+            .Returns(materialsDto[2]);
+
+        var resultado = _service.BuscarTodos();
+
+        resultado.Count.Should().Be(materials.Count);
+        resultado.Should().BeEquivalentTo(materialsDto);
+        _repositoryMock.Verify(x =&gt; x.BuscarTodos(), Times.Once);
+        _mapperMock.Verify(x =&gt; x.Map&lt;MaterialDto&gt;(It.IsAny&lt;Material&gt;()), Times.Exactly(3));
+    }
+
+    [Fact]
+    public void BuscarEntidadePorId_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)))
+            .Returns(material);
+
+        var resultado = _service.BuscarEntidadePorId(materialId);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;Material&gt;();
+        resultado.Should().BeEquivalentTo(material);
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+    }
+    
+    [Fact]
+    public void BuscarEntidadePorId_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var materialId = 1;
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)))
+            .Returns((Material)null);
+
+        var resultado = () =&gt; _service.BuscarEntidadePorId(materialId);
+
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+    }
+    
+    [Fact]
+    public void BuscarPorId_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        var materialDto = _fixture.Create&lt;MaterialDto&gt;();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)))
+            .Returns(material);
+        _mapperMock.Setup(x =&gt; x.Map&lt;MaterialDto&gt;(It.Is&lt;Material&gt;(x =&gt; x == material)))
+            .Returns(materialDto);
+
+        var resultado = _service.BuscarPorId(materialId);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;MaterialDto&gt;();
+        resultado.Should().BeEquivalentTo(materialDto);
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+        _mapperMock.Verify(x =&gt; x.Map&lt;MaterialDto&gt;(It.Is&lt;Material&gt;(x =&gt; x == material)), Times.Once);
+    }
+    
+    [Fact]
+    public void BuscarPorId_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var materialId = 1;
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)))
+            .Returns((Material)null);
+
+        var resultado = () =&gt; _service.BuscarPorId(materialId);
+
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+    }
+
+    [Fact]
+    public void Adicionar_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var dto = _fixture.Build&lt;MaterialDto&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.Adicionar(It.IsAny&lt;Material&gt;()));
+
+        var resultado = () =&gt; _service.Adicionar(dto);
+
+        resultado.Should().NotThrow&lt;MaterialInvalidoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.Adicionar(It.IsAny&lt;Material&gt;()), Times.Once);
+    }
+    
+    [Fact]
+    public void Adicionar_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var dto = _fixture.Build&lt;MaterialDto&gt;()
+            .Without(x =&gt; x.Nome)
+            .Create();
+
+        var resultado = () =&gt; _service.Adicionar(dto);
+
+        resultado.Should().Throw&lt;MaterialInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void Editar_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var dto = _fixture.Build&lt;EditarMaterialDto&gt;()
+            .Create();
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId))).Returns(material);
+        _repositoryMock.Setup(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()));
+
+        var resultado = () =&gt; _service.Editar(materialId, dto);
+
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()), Times.Once);
+    }
+    
+    [Fact]
+    public void Editar_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var dto = _fixture.Build&lt;EditarMaterialDto&gt;()
+            .Without(x =&gt; x.Nome)
+            .Create();
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId))).Returns(material);
+        _repositoryMock.Setup(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()));
+
+        var resultado = () =&gt; _service.Editar(materialId, dto);
+        
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()), Times.Once); 
+    }
+    
+    [Fact]
+    public void Excluir_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId))).Returns(material);
+        _repositoryMock.Setup(x =&gt; x.Excluir(It.Is&lt;Material&gt;(x =&gt; x == material)));
+
+        var resultado = () =&gt; _service.Excluir(materialId);
+
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Excluir(It.Is&lt;Material&gt;(x =&gt; x == material)), Times.Once);
+    }
+    
+    [Fact]
+    public void Excluir_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var materialId = 1;
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)))
+            .Returns((Material)null);
+
+        var resultado = () =&gt; _service.Excluir(materialId);
+
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Excluir(It.IsAny&lt;Material&gt;()), Times.Never);
+    }
+
+    [Fact]
+    public void MovimentarEstoque_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var quantidade = 1;
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId))).Returns(material);
+        _repositoryMock.Setup(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()));
+
+         _service.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = quantidade });
+
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()), Times.Once); 
+    }
+    
+    [Theory]
+    [InlineData(EntradaSaidaEnum.Entrada, -1)]
+    [InlineData(EntradaSaidaEnum.Entrada, null)]
+    [InlineData(EntradaSaidaEnum.Saida, -1)]
+    [InlineData(EntradaSaidaEnum.Saida, null)]
+    [InlineData(null, 1)]
+    [InlineData(null, null)]
+    public void MovimentarEstoque_ComDadosInvalidos_NaoDeveRealizarOperacao(EntradaSaidaEnum? operacao, int? quantidade)
+    {
+        var materialId = 1;
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId))).Returns(material);
+
+        var resultado = () =&gt; _service.MovimentarEstoque(materialId,
+            new EntradaSaidaMaterialDto() { Operacao = operacao, Quantidade = quantidade });
+        
+        resultado.Should().Throw&lt;OperacaoInvalidaException&gt;();
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        resultado.Should().NotThrow&lt;EstoqueInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void MovimentarEstoque_ComDadosInvalidosEMaterialInexistente_NaoDeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var quantidade = 1;
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId))).Returns((Material)null);
+        _repositoryMock.Setup(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()));
+
+        var resultado = () =&gt; _service.MovimentarEstoque(materialId,
+            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = quantidade });
+        
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        resultado.Should().NotThrow&lt;OperacaoInvalidaException&gt;();
+        resultado.Should().NotThrow&lt;EstoqueInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void MovimentarEstoque_ComDadosInvalidosEMaterialSemEstoqueParaSaida_NaoDeveRealizarOperacao()
+    {
+        var materialId = 1;
+        var quantidade = 1;
+        var material = _fixture.Build&lt;Material&gt;()
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == materialId))).Returns(material);
+        _repositoryMock.Setup(x =&gt; x.Editar(It.IsAny&lt;Material&gt;()));
+
+        var resultado = () =&gt; _service.MovimentarEstoque(materialId,
+            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Saida, Quantidade = quantidade });
+        
+        resultado.Should().Throw&lt;OperacaoInvalidaException&gt;();
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        resultado.Should().NotThrow&lt;EstoqueInvalidoException&gt;();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,5,21,55,1],[24,5,24,34,1],[25,5,25,6,1],[26,9,26,59,1],[27,9,27,43,1],[28,9,28,84,1],[29,5,29,6,1],[33,5,33,6,1],[34,9,34,66,1],[35,9,35,73,1],[36,9,36,72,1],[37,9,40,39,1],[42,9,42,48,1],[44,9,44,54,1],[45,9,45,57,1],[46,9,46,66,1],[47,9,47,93,1],[48,5,48,6,1],[52,5,52,6,1],[53,9,53,28,1],[54,9,55,23,1],[56,9,57,32,1],[59,9,59,66,1],[61,9,61,40,1],[62,9,62,49,1],[63,9,63,53,1],[64,9,64,99,1],[65,5,65,6,1],[69,5,69,6,1],[70,9,70,28,1],[71,9,72,38,1],[74,9,74,31,1],[74,31,74,71,1],[74,71,74,72,1],[76,9,76,60,1],[77,9,77,99,1],[78,5,78,6,1],[82,5,82,6,1],[83,9,83,28,1],[84,9,85,23,1],[86,9,86,58,1],[87,9,88,32,1],[89,9,90,35,1],[92,9,92,58,1],[94,9,94,40,1],[95,9,95,52,1],[96,9,96,56,1],[97,9,97,99,1],[98,9,98,102,1],[99,5,99,6,1],[103,5,103,6,1],[104,9,104,28,1],[105,9,106,38,1],[108,9,108,31,1],[108,31,108,63,1],[108,63,108,64,1],[110,9,110,60,1],[111,9,111,99,1],[112,5,112,6,1],[116,5,116,6,1],[117,9,118,23,1],[119,9,119,71,1],[121,9,121,31,1],[121,31,121,54,1],[121,54,121,55,1],[123,9,123,66,1],[124,9,124,84,1],[125,5,125,6,1],[129,5,129,6,1],[130,9,132,23,1],[134,9,134,31,1],[134,31,134,54,1],[134,54,134,55,1],[136,9,136,63,1],[137,5,137,6,1],[141,5,141,6,1],[142,9,142,28,1],[143,9,144,23,1],[145,9,146,23,1],[147,9,147,104,1],[148,9,148,68,1],[150,9,150,31,1],[150,31,150,63,1],[150,63,150,64,1],[152,9,152,63,1],[153,9,153,99,1],[154,9,154,81,1],[155,5,155,6,1],[159,5,159,6,1],[160,9,160,28,1],[161,9,163,23,1],[164,9,165,23,1],[166,9,166,104,1],[167,9,167,68,1],[169,9,169,31,1],[169,31,169,63,1],[169,63,169,64,1],[171,9,171,63,1],[172,9,172,99,1],[173,9,173,81,1],[174,5,174,6,1],[178,5,178,6,1],[179,9,179,28,1],[180,9,181,23,1],[182,9,182,104,1],[183,9,183,84,1],[185,9,185,31,1],[185,31,185,59,1],[185,59,185,60,1],[187,9,187,63,1],[188,9,188,99,1],[189,9,189,97,1],[190,5,190,6,1],[194,5,194,6,1],[195,9,195,28,1],[196,9,197,38,1],[199,9,199,31,1],[199,31,199,59,1],[199,59,199,60,1],[201,9,201,60,1],[202,9,202,99,1],[203,9,203,83,1],[204,5,204,6,1],[208,5,208,6,1],[209,9,209,28,1],[210,9,210,28,1],[211,9,212,23,1],[213,9,213,104,1],[214,9,214,68,1],[216,10,216,145,1],[218,9,218,99,1],[219,9,219,81,1],[220,5,220,6,1],[230,5,230,6,1],[231,9,231,28,1],[232,9,233,23,1],[234,9,234,104,1],[236,9,236,31,1],[236,31,237,92,1],[237,92,237,93,1],[239,9,239,63,1],[240,9,240,63,1],[241,9,241,65,1],[242,5,242,6,1],[246,5,246,6,1],[247,9,247,28,1],[248,9,248,28,1],[249,9,249,110,1],[250,9,250,68,1],[252,9,252,31,1],[252,31,253,108,1],[253,108,253,109,1],[255,9,255,60,1],[256,9,256,66,1],[257,9,257,65,1],[258,5,258,6,1],[262,5,262,6,1],[263,9,263,28,1],[264,9,264,28,1],[265,9,266,23,1],[267,9,267,104,1],[268,9,268,68,1],[270,9,270,31,1],[270,31,271,106,1],[271,106,271,107,1],[273,9,273,63,1],[274,9,274,63,1],[275,9,275,65,1],[276,5,276,6,1]]);
+    </script>
+  </body>
+</html>

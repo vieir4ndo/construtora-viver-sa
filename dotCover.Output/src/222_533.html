@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Domain.Tests/Extensions/CpfExtensionTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ConstrutoraViverSA.Domain.Extensions;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Domain.Tests.Extensions;
+
+public class CpfExtensionTests
+{
+    [Theory]
+    [InlineData(&quot;87359142032&quot;)]
+    [InlineData(&quot;45554911064&quot;)]
+    [InlineData(&quot;30314867066&quot;)]
+    [InlineData(&quot;65689631000&quot;)]
+    public void EhValido_ComDadosValidos_DeveRetornarVerdadeiro(string cpf)
+    {
+        var result = CpfExtension.EhValido(cpf);
+
+        result.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot;01747985263&quot;)]
+    [InlineData(&quot;12212212234&quot;)]
+    [InlineData(&quot;09901448878&quot;)]
+    [InlineData(&quot;85240236559&quot;)]
+    [InlineData(&quot;85246559&quot;)]
+    public void EhValido_ComDadosInvalidos_DeveRetornarFalso(string cpf)
+    {
+        var result = CpfExtension.EhValido(cpf);
+
+        result.Should().BeFalse();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,5,15,6,1],[16,9,16,49,1],[18,9,18,34,1],[19,5,19,6,1],[28,5,28,6,1],[29,9,29,49,1],[31,9,31,35,1],[32,5,32,6,1]]);
+    </script>
+  </body>
+</html>

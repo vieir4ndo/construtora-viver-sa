@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Mappers/MaterialMappers.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Domain.Dtos;
+
+namespace ConstrutoraViverSA.Api.Mappers;
+
+[ExcludeFromCodeCoverage]
+public class MaterialMappers : Profile
+{
+    public MaterialMappers()
+    {
+        CreateMap&lt;MaterialRequest, MaterialDto&gt;().ReverseMap();
+        CreateMap&lt;MaterialRequest, EditarMaterialDto&gt;().ReverseMap();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,5,11,29,0],[12,5,12,6,0],[13,9,13,64,0],[14,9,14,70,0],[15,5,15,6,0]]);
+    </script>
+  </body>
+</html>

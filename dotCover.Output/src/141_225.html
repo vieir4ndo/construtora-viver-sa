@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/ObraController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.Generic;
+using AutoMapper;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Api.Controllers.Responses;
+using ConstrutoraViverSA.Application.Interfaces;
+using ConstrutoraViverSA.Domain.Dtos;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ConstrutoraViverSA.Api.Controllers;
+
+[ApiController]
+[Route(&quot;obra&quot;)]
+public class ObraController : ControllerBase
+{
+    private readonly IObraService _obraService;
+    private readonly IMapper _mapper;
+
+    public ObraController(IObraService obraService, IMapper mapper)
+    {
+        _obraService = obraService;
+        _mapper = mapper;
+    }
+
+    [HttpPost]
+    public ResponseApi&lt;ObraDto&gt; CadastrarObra(ObraRequest request)
+    {
+        request.ValidarCriacao();
+
+        var dto = _mapper.Map&lt;ObraDto&gt;(request);
+
+        _obraService.Adicionar(dto);
+
+        return new ResponseApi&lt;ObraDto&gt;(true, null, null);
+    }
+
+    [HttpGet(&quot;{obraId}&quot;)]
+    public ResponseApi&lt;ObraDto&gt; BuscarObra(long obraId)
+    {
+        var consulta = _obraService.BuscarPorId(obraId);
+
+        return new ResponseApi&lt;ObraDto&gt;(true, new List&lt;ObraDto&gt; { consulta }, null);
+    }
+    
+    [HttpGet]
+    public ResponseApi&lt;ObraDto&gt; BuscarObras()
+    {
+        var consulta = _obraService.BuscarTodos();
+
+        return new ResponseApi&lt;ObraDto&gt;(true, consulta, null);
+    }
+
+    [HttpPatch(&quot;{obraId}&quot;)]
+    public ResponseApi&lt;ObraDto&gt; EditarObra(EditarObraRequest request, long obraId)
+    {
+        request.ValidarEdicao();
+        
+        var dto = _mapper.Map&lt;ObraDto&gt;(request);
+
+        _obraService.Editar(obraId, dto);
+
+        return new ResponseApi&lt;ObraDto&gt;(true, null, null);
+    }
+
+    [HttpDelete(&quot;{obraId}&quot;)]
+    public ResponseApi&lt;ObraDto&gt; ExcluirObra(long obraId)
+    {
+        _obraService.Excluir(obraId);
+
+        return new ResponseApi&lt;ObraDto&gt;(true, null, null);
+    }
+
+    [HttpPost(&quot;{obraId}/funcionario/{funcionarioId}&quot;)]
+    public ResponseApi&lt;ObraDto&gt; AlocarFuncionarioNaObra(long obraId, long funcionarioId)
+    {
+        _obraService.AlocarFuncionario(obraId, funcionarioId);
+
+        return new ResponseApi&lt;ObraDto&gt;(true, null, null);
+    }
+
+    [HttpDelete(&quot;{obraId}/funcionario/{funcionarioId}&quot;)]
+    public ResponseApi&lt;ObraDto&gt; DesalocarFuncionarioNaObra(long obraId, long funcionarioId)
+    {
+        _obraService.DesalocarFuncionario(obraId, funcionarioId);
+
+        return new ResponseApi&lt;ObraDto&gt;(true, null, null);
+    }
+
+    [HttpPut(&quot;{obraId}/material/{materialId}&quot;)]
+    public ResponseApi&lt;ObraDto&gt; GerenciarMaterialNaObra(EntradaSaidaMaterialRequest request, long obraId,
+        long materialId)
+    {
+        request.Validar();
+
+        var dto = _mapper.Map&lt;EntradaSaidaMaterialDto&gt;(request);
+        
+        _obraService.GerenciarMaterial(dto, obraId, materialId);
+
+        return new ResponseApi&lt;ObraDto&gt;(true, null, null);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,5,18,68,1],[19,5,19,6,1],[20,9,20,36,1],[21,9,21,26,1],[22,5,22,6,1],[26,5,26,6,1],[27,9,27,34,1],[29,9,29,49,1],[31,9,31,37,1],[33,9,33,59,1],[34,5,34,6,1],[38,5,38,6,1],[39,9,39,57,1],[41,9,41,85,1],[42,5,42,6,1],[46,5,46,6,1],[47,9,47,51,1],[49,9,49,63,1],[50,5,50,6,1],[54,5,54,6,1],[55,9,55,33,1],[57,9,57,49,1],[59,9,59,42,1],[61,9,61,59,1],[62,5,62,6,1],[66,5,66,6,1],[67,9,67,38,1],[69,9,69,59,1],[70,5,70,6,1],[74,5,74,6,1],[75,9,75,63,1],[77,9,77,59,1],[78,5,78,6,1],[82,5,82,6,1],[83,9,83,66,1],[85,9,85,59,1],[86,5,86,6,1],[91,5,91,6,1],[92,9,92,27,1],[94,9,94,65,1],[96,9,96,65,1],[98,9,98,59,1],[99,5,99,6,1]]);
+    </script>
+  </body>
+</html>

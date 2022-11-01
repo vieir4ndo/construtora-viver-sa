@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Infrastructure/Configurators/ObraMaterialConfigurator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Diagnostics.CodeAnalysis;
+using ConstrutoraViverSA.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace ConstrutoraViverSA.Infrastructure.Configurators;
+
+[ExcludeFromCodeCoverage]
+public class ObraMaterialConfigurator : IEntityTypeConfiguration&lt;ObraMaterial&gt;
+{
+    public void Configure(EntityTypeBuilder&lt;ObraMaterial&gt; builder)
+    {
+        builder.HasKey(p =&gt; p.Id);
+        builder.Property(a =&gt; a.MaterialId).IsRequired();
+        builder.Property(a =&gt; a.ObraId).IsRequired();
+        builder.Property(a =&gt; a.DataHora).IsRequired();
+        builder.Property(a =&gt; a.Operacao).IsRequired();
+        builder.Property(a =&gt; a.Quantidade).IsRequired();
+
+        builder.HasOne&lt;Material&gt;(c =&gt; c.Material).WithMany(c =&gt; c.ObraMateriais).HasForeignKey(c =&gt; c.MaterialId);
+        builder.HasOne&lt;Obra&gt;(c =&gt; c.Obra).WithMany(c =&gt; c.ObraMateriais).HasForeignKey(c =&gt; c.ObraId);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,5,12,6,0],[13,9,13,35,0],[14,9,14,58,0],[15,9,15,54,0],[16,9,16,56,0],[17,9,17,56,0],[18,9,18,58,0],[20,9,20,115,0],[21,9,21,103,0],[22,5,22,6,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Application.Tests/Services/FuncionarioServiceTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Linq;
+using AutoFixture;
+using AutoMapper;
+using ConstrutoraViverSA.Application.Services;
+using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Repository.Interfaces;
+using FluentAssertions;
+using Moq;
+using Xunit;
+
+namespace ConstrutoraViverSA.Application.Tests.Services;
+
+public class FuncionarioServiceTests
+{
+    private readonly Mock&lt;IFuncionarioRepository&gt; _repositoryMock;
+    private readonly Mock&lt;IMapper&gt; _mapperMock;
+    private readonly Fixture _fixture = new Fixture();
+    private readonly FuncionarioService _service; 
+    private const string CPF_VALIDO = &quot;14533067573&quot;;
+    private const string CPF_INVALIDO = &quot;14536067573&quot;;
+    private const string EMAIL_VALIDO = &quot;email@email&quot;;
+    private const string EMAIL_INVALIDO = &quot;email@&quot;;
+
+    public FuncionarioServiceTests()
+    {
+        _repositoryMock = new Mock&lt;IFuncionarioRepository&gt;();
+        _mapperMock = new Mock&lt;IMapper&gt;();
+        _service = new FuncionarioService(_repositoryMock.Object, _mapperMock.Object);
+    }
+
+    [Fact]
+    public void BuscarTodos_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var funcionarios = _fixture.CreateMany&lt;Funcionario&gt;().ToList();
+        var funcionariosDto = _fixture.CreateMany&lt;FuncionarioDto&gt;(3).ToList();
+        _repositoryMock.Setup(x =&gt; x.BuscarTodos()).Returns(funcionarios);
+        _mapperMock.SetupSequence(x =&gt; x.Map&lt;FuncionarioDto&gt;(It.IsAny&lt;Funcionario&gt;()))
+            .Returns(funcionariosDto[0])
+            .Returns(funcionariosDto[1])
+            .Returns(funcionariosDto[2]);
+
+        var resultado = _service.BuscarTodos();
+
+        resultado.Count.Should().Be(funcionarios.Count);
+        resultado.Should().BeEquivalentTo(funcionariosDto);
+        _repositoryMock.Verify(x =&gt; x.BuscarTodos(), Times.Once);
+        _mapperMock.Verify(x =&gt; x.Map&lt;FuncionarioDto&gt;(It.IsAny&lt;Funcionario&gt;()), Times.Exactly(3));
+    }
+
+    [Fact]
+    public void BuscarEntidadePorId_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        var funcionario = _fixture.Build&lt;Funcionario&gt;()
+            .With(x =&gt; x.Id, funcionarioId)
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)))
+            .Returns(funcionario);
+
+        var resultado = _service.BuscarEntidadePorId(funcionarioId);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;Funcionario&gt;();
+        resultado.Should().BeEquivalentTo(funcionario);
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+    }
+    
+    [Fact]
+    public void BuscarEntidadePorId_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)))
+            .Returns((Funcionario)null);
+
+        var resultado = () =&gt; _service.BuscarEntidadePorId(funcionarioId);
+
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+    }
+    
+    [Fact]
+    public void BuscarPorId_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        var funcionario = _fixture.Build&lt;Funcionario&gt;()
+            .With(x =&gt; x.Id, funcionarioId)
+            .Create();
+        var funcionarioDto = _fixture.Create&lt;FuncionarioDto&gt;();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)))
+            .Returns(funcionario);
+        _mapperMock.Setup(x =&gt; x.Map&lt;FuncionarioDto&gt;(It.Is&lt;Funcionario&gt;(x =&gt; x == funcionario)))
+            .Returns(funcionarioDto);
+
+        var resultado = _service.BuscarPorId(funcionarioId);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;FuncionarioDto&gt;();
+        resultado.Should().BeEquivalentTo(funcionarioDto);
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+        _mapperMock.Verify(x =&gt; x.Map&lt;FuncionarioDto&gt;(It.Is&lt;Funcionario&gt;(x =&gt; x == funcionario)), Times.Once);
+    }
+    
+    [Fact]
+    public void BuscarPorId_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)))
+            .Returns((Funcionario)null);
+
+        var resultado = () =&gt; _service.BuscarPorId(funcionarioId);
+
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+    }
+
+    [Fact]
+    public void Adicionar_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var dto = _fixture.Build&lt;FuncionarioDto&gt;()
+            .With(x =&gt; x.Cpf, CPF_VALIDO)
+            .With(x =&gt; x.Email, EMAIL_VALIDO)
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.Adicionar(It.IsAny&lt;Funcionario&gt;()));
+
+        var resultado = () =&gt; _service.Adicionar(dto);
+
+        resultado.Should().NotThrow&lt;FuncionarioInvalidoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.Adicionar(It.IsAny&lt;Funcionario&gt;()), Times.Once);
+    }
+    
+    [Fact]
+    public void Adicionar_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var dto = _fixture.Build&lt;FuncionarioDto&gt;()
+            .With(x =&gt; x.Cpf, CPF_INVALIDO)
+            .With(x =&gt; x.Email, EMAIL_INVALIDO)
+            .Create();
+
+        var resultado = () =&gt; _service.Adicionar(dto);
+
+        resultado.Should().Throw&lt;FuncionarioInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void Editar_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        var dto = _fixture.Build&lt;FuncionarioDto&gt;()
+            .With(x =&gt; x.Cpf, CPF_VALIDO)
+            .With(x =&gt; x.Email, EMAIL_VALIDO)
+            .Create();
+        var funcionario = _fixture.Build&lt;Funcionario&gt;()
+            .With(x =&gt; x.Id, funcionarioId)
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId))).Returns(funcionario);
+        _repositoryMock.Setup(x =&gt; x.Editar(It.IsAny&lt;Funcionario&gt;()));
+
+        var resultado = () =&gt; _service.Editar(funcionarioId, dto);
+
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Editar(It.IsAny&lt;Funcionario&gt;()), Times.Once);
+    }
+    
+    [Fact]
+    public void Editar_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        var dto = _fixture.Build&lt;FuncionarioDto&gt;()
+            .With(x =&gt; x.Cpf, CPF_INVALIDO)
+            .With(x =&gt; x.Email, EMAIL_INVALIDO)
+            .Create();
+        var funcionario = _fixture.Build&lt;Funcionario&gt;()
+            .With(x =&gt; x.Id, funcionarioId)
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId))).Returns(funcionario);
+        _repositoryMock.Setup(x =&gt; x.Editar(It.IsAny&lt;Funcionario&gt;()));
+
+        var resultado = () =&gt; _service.Editar(funcionarioId, dto);
+        
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Editar(It.IsAny&lt;Funcionario&gt;()), Times.Once); 
+    }
+    
+    [Fact]
+    public void Excluir_ComDadosValidos_DeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        var funcionario = _fixture.Build&lt;Funcionario&gt;()
+            .With(x =&gt; x.Id, funcionarioId)
+            .Create();
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId))).Returns(funcionario);
+        _repositoryMock.Setup(x =&gt; x.Excluir(It.Is&lt;Funcionario&gt;(x =&gt; x == funcionario)));
+
+        var resultado = () =&gt; _service.Excluir(funcionarioId);
+
+        resultado.Should().NotThrow&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Excluir(It.Is&lt;Funcionario&gt;(x =&gt; x == funcionario)), Times.Once);
+    }
+    
+    [Fact]
+    public void Excluir_ComDadosInvalidos_NaoDeveRealizarOperacao()
+    {
+        var funcionarioId = 1;
+        _repositoryMock.Setup(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)))
+            .Returns((Funcionario)null);
+
+        var resultado = () =&gt; _service.Excluir(funcionarioId);
+
+        resultado.Should().Throw&lt;NaoEncontradoException&gt;();
+        _repositoryMock.Verify(x =&gt; x.BuscarPorId(It.Is&lt;long&gt;(x =&gt; x == funcionarioId)), Times.Once);
+        _repositoryMock.Verify(x =&gt; x.Excluir(It.IsAny&lt;Funcionario&gt;()), Times.Never);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[19,5,19,55,1],[26,5,26,37,1],[27,5,27,6,1],[28,9,28,62,1],[29,9,29,43,1],[30,9,30,87,1],[31,5,31,6,1],[35,5,35,6,1],[36,9,36,72,1],[37,9,37,79,1],[38,9,38,75,1],[39,9,42,42,1],[44,9,44,48,1],[46,9,46,57,1],[47,9,47,60,1],[48,9,48,66,1],[49,9,49,99,1],[50,5,50,6,1],[54,5,54,6,1],[55,9,55,31,1],[56,9,58,23,1],[59,9,60,35,1],[62,9,62,69,1],[64,9,64,40,1],[65,9,65,52,1],[66,9,66,56,1],[67,9,67,102,1],[68,5,68,6,1],[72,5,72,6,1],[73,9,73,31,1],[74,9,75,41,1],[77,9,77,31,1],[77,31,77,74,1],[77,74,77,75,1],[79,9,79,60,1],[80,9,80,102,1],[81,5,81,6,1],[85,5,85,6,1],[86,9,86,31,1],[87,9,89,23,1],[90,9,90,64,1],[91,9,92,35,1],[93,9,94,38,1],[96,9,96,61,1],[98,9,98,40,1],[99,9,99,55,1],[100,9,100,59,1],[101,9,101,102,1],[102,9,102,111,1],[103,5,103,6,1],[107,5,107,6,1],[108,9,108,31,1],[109,9,110,41,1],[112,9,112,31,1],[112,31,112,66,1],[112,66,112,67,1],[114,9,114,60,1],[115,9,115,102,1],[116,5,116,6,1],[120,5,120,6,1],[121,9,124,23,1],[125,9,125,74,1],[127,9,127,31,1],[127,31,127,54,1],[127,54,127,55,1],[129,9,129,69,1],[130,9,130,87,1],[131,5,131,6,1],[135,5,135,6,1],[136,9,139,23,1],[141,9,141,31,1],[141,31,141,54,1],[141,54,141,55,1],[143,9,143,66,1],[144,5,144,6,1],[148,5,148,6,1],[149,9,149,31,1],[150,9,153,23,1],[154,9,156,23,1],[157,9,157,110,1],[158,9,158,71,1],[160,9,160,31,1],[160,31,160,66,1],[160,66,160,67,1],[162,9,162,63,1],[163,9,163,102,1],[164,9,164,84,1],[165,5,165,6,1],[169,5,169,6,1],[170,9,170,31,1],[171,9,174,23,1],[175,9,177,23,1],[178,9,178,110,1],[179,9,179,71,1],[181,9,181,31,1],[181,31,181,66,1],[181,66,181,67,1],[183,9,183,63,1],[184,9,184,102,1],[185,9,185,84,1],[186,5,186,6,1],[190,5,190,6,1],[191,9,191,31,1],[192,9,194,23,1],[195,9,195,110,1],[196,9,196,90,1],[198,9,198,31,1],[198,31,198,62,1],[198,62,198,63,1],[200,9,200,63,1],[201,9,201,102,1],[202,9,202,103,1],[203,5,203,6,1],[207,5,207,6,1],[208,9,208,31,1],[209,9,210,41,1],[212,9,212,31,1],[212,31,212,62,1],[212,62,212,63,1],[214,9,214,60,1],[215,9,215,102,1],[216,9,216,86,1],[217,5,217,6,1]]);
+    </script>
+  </body>
+</html>

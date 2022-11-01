@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Domain.Tests/ObraMaterialTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoFixture;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Domain.Tests;
+
+public class ObraMaterialTests
+{
+    private readonly Fixture _fixture = new Fixture();
+
+    [Fact]
+    public void Construtor_ComDadosValidos_DeveConstruirCorretamente()
+    {
+        var obra = _fixture.Create&lt;Obra&gt;();
+        var quantidade = 10;
+        var quantidadeMaterial = 10;
+        var valorMaterial = 10.95;
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
+        var operacao = EntradaSaidaEnum.Entrada;
+
+        var result = new ObraMaterial(obra, material,quantidade, operacao);
+
+        result.Should().NotBeNull();
+        result.Obra.Should().BeEquivalentTo(obra);
+        result.ObraId.Should().Be(obra.Id);
+        result.Material.Should().BeEquivalentTo(material);
+        result.MaterialId.Should().Be(material.Id);
+        result.Quantidade.Should().Be(quantidade);
+        result.Operacao.Should().Be(operacao);
+        result.DataHora.Should().NotBe(null);
+        result.Material.Quantidade.Should().Be(quantidadeMaterial - quantidade);
+    }
+    
+    [Fact]
+    public void Construtor_EntradaNaObraComQuantidadeDeMaterialInsuficiente_DeveLancarExcecao()
+    {
+        var obra = _fixture.Create&lt;Obra&gt;();
+        var quantidade = 11;
+        var quantidadeMaterial = 10;
+        var valorMaterial = 10.95;
+        var operacao = EntradaSaidaEnum.Entrada;
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
+
+        Action result = () =&gt; new ObraMaterial(obra, material,quantidade, operacao);
+
+        result.Should().Throw&lt;OperacaoInvalidaException&gt;();
+    }
+    
+    [Fact]
+    public void Construtor_ComObraInvalida_DeveLancarExcecao()
+    {
+        var quantidade = 11;
+        var quantidadeMaterial = 10;
+        var valorMaterial = 10.95;
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
+        var operacao = _fixture.Create&lt;EntradaSaidaEnum&gt;();
+
+        Action result = () =&gt; new ObraMaterial(null, material,quantidade, operacao);
+
+        result.Should().Throw&lt;ObraMaterialInvalidaException&gt;();
+    }
+    
+    [Fact]
+    public void Construtor_ComMaterialInvalido_DeveLancarExcecao()
+    {
+        var obra = _fixture.Create&lt;Obra&gt;();
+        var quantidade = 11;
+        var operacao = _fixture.Create&lt;EntradaSaidaEnum&gt;();
+
+        Action result = () =&gt; new ObraMaterial(obra, null, quantidade, operacao);
+
+        result.Should().Throw&lt;ObraMaterialInvalidaException&gt;();
+    }
+    
+    [Theory]
+    [InlineData(null)]
+    [InlineData(-1)]
+    [InlineData(0)]
+    public void Construtor_ComQuantidadeInvalida_DeveLancarExcecao(int? quantidade)
+    {
+        var obra = _fixture.Create&lt;Obra&gt;();
+        var quantidadeMaterial = 10;
+        var valorMaterial = 10.95;
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
+        var operacao = _fixture.Create&lt;EntradaSaidaEnum&gt;();
+
+        Action result = () =&gt; new ObraMaterial(obra, material, quantidade, operacao);
+
+        result.Should().Throw&lt;ObraMaterialInvalidaException&gt;();
+    }
+    
+    [Fact]
+    public void Construtor_ComOperacaoInvalida_DeveLancarExcecao()
+    {
+        var obra = _fixture.Create&lt;Obra&gt;();
+        var quantidadeMaterial = 10;
+        var valorMaterial = 10.95;
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
+        var quantidade = _fixture.Create&lt;int&gt;();
+        
+        Action result = () =&gt; new ObraMaterial(obra, material, quantidade, null);
+
+        result.Should().Throw&lt;ObraMaterialInvalidaException&gt;();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,5,11,55,1],[15,5,15,6,1],[16,9,16,44,1],[17,9,17,29,1],[18,9,18,37,1],[19,9,19,35,1],[20,9,20,116,1],[21,9,21,49,1],[23,9,23,76,1],[25,9,25,37,1],[26,9,26,51,1],[27,9,27,44,1],[28,9,28,59,1],[29,9,29,52,1],[30,9,30,51,1],[31,9,31,47,1],[32,9,32,46,1],[33,9,33,81,1],[34,5,34,6,1],[38,5,38,6,1],[39,9,39,44,1],[40,9,40,29,1],[41,9,41,37,1],[42,9,42,35,1],[43,9,43,49,1],[44,9,44,116,1],[46,9,46,31,1],[46,31,46,84,1],[46,84,46,85,1],[48,9,48,60,1],[49,5,49,6,1],[53,5,53,6,1],[54,9,54,29,1],[55,9,55,37,1],[56,9,56,35,1],[57,9,57,116,1],[58,9,58,60,1],[60,9,60,31,1],[60,31,60,84,1],[60,84,60,85,1],[62,9,62,64,1],[63,5,63,6,1],[67,5,67,6,1],[68,9,68,44,1],[69,9,69,29,1],[70,9,70,60,1],[72,9,72,31,1],[72,31,72,81,1],[72,81,72,82,1],[74,9,74,64,1],[75,5,75,6,1],[82,5,82,6,1],[83,9,83,44,1],[84,9,84,37,1],[85,9,85,35,1],[86,9,86,116,1],[87,9,87,60,1],[89,9,89,31,1],[89,31,89,85,1],[89,85,89,86,1],[91,9,91,64,1],[92,5,92,6,1],[96,5,96,6,1],[97,9,97,44,1],[98,9,98,37,1],[99,9,99,35,1],[100,9,100,116,1],[101,9,101,49,1],[103,9,103,31,1],[103,31,103,81,1],[103,81,103,82,1],[105,9,105,64,1],[106,5,106,6,1]]);
+    </script>
+  </body>
+</html>

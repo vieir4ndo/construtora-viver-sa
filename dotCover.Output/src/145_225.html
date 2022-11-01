@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Validators/CriarObraValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Data;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using FluentValidation;
+
+namespace ConstrutoraViverSA.Api.Controllers.Validators;
+
+public class CriarObraValidator : AbstractValidator&lt;ObraRequest&gt;
+{
+    public CriarObraValidator()
+    {
+        RuleFor(x =&gt; x.Nome)
+            .MaximumLength(80)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(x =&gt; x.Endereco)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(x =&gt; x.TipoObra)
+            .IsInEnum()
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(x =&gt; x.Descricao)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(x =&gt; x.Valor)
+            .GreaterThan(0)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(x =&gt; x.PrazoConclusao)
+            .GreaterThan(DateTime.Today)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(x =&gt; x.OrcamentoId)
+            .GreaterThan(0)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(x =&gt; x.Funcionarios)
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.Funcionarios != null);
+        
+        RuleFor(x =&gt; x.Materiais)
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.Materiais != null);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,5,10,32,1],[11,5,11,6,1],[12,9,15,25,1],[17,9,19,25,1],[21,9,24,25,1],[26,9,28,25,1],[30,9,33,24,1],[35,9,38,25,1],[40,9,43,25,1],[45,9,48,24,1],[48,24,48,46,1],[48,46,48,48,1],[50,9,53,24,1],[53,24,53,43,1],[53,43,53,45,1],[54,5,54,6,1]]);
+    </script>
+  </body>
+</html>

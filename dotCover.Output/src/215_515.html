@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Application.Tests/Mappers/ObraParaObraDtoTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoFixture;
+using AutoMapper;
+using ConstrutoraViverSA.Application.Mappers;
+using ConstrutoraViverSA.Domain;
+using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Enums;
+using FluentAssertions;
+using Moq;
+using Xunit;
+
+namespace ConstrutoraViverSA.Application.Tests.Mappers;
+
+public class ObraParaObraDtoTests
+{
+    private readonly Mock&lt;IMapper&gt; _mapperMock;
+    private readonly ObraParaObraDto _mapper;
+    private readonly Fixture _fixture = new ();
+
+    public ObraParaObraDtoTests()
+    {
+        _mapperMock = new Mock&lt;IMapper&gt;();
+        _mapper = new ObraParaObraDto(_mapperMock.Object);
+    }
+    
+    [Fact]
+    public void Mapear_ComDadosValidosESemFuncionariosEMateriais_DeveRealizarOperacao()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var endereco = _fixture.Create&lt;string&gt;();
+        var tipoObra = _fixture.Create&lt;TipoObraEnum&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var orcamento = new Orcamento(&quot;teste&quot;, &quot;teste&quot;, TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+            10.85);
+        var prazoConclusao = DateTime.Today.AddDays(2);
+        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        var obraDto = _fixture.Build&lt;ObraDto&gt;()
+            .Without(x =&gt; x.Funcionarios)
+            .Without(x =&gt; x.Materiais)
+            .Create();
+        _mapperMock.Setup(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra))).Returns(obraDto);
+        
+        var resultado = _mapper.Mapear(obra);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;ObraDto&gt;();
+        resultado.Funcionarios.Should().BeEmpty();
+        resultado.Materiais.Should().BeEmpty();
+        _mapperMock.Verify(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra)), Times.Once);
+    }
+    
+    [Fact]
+    public void Mapear_ComDadosValidosEComFuncionariosESemMateriais_DeveRealizarOperacao()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var endereco = _fixture.Create&lt;string&gt;();
+        var tipoObra = _fixture.Create&lt;TipoObraEnum&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var orcamento = new Orcamento(&quot;teste&quot;, &quot;teste&quot;, TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+            10.85);
+        var prazoConclusao = DateTime.Today.AddDays(2);
+        var funcionarios = _fixture.CreateMany&lt;Funcionario&gt;(3).ToList();
+        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, null);
+        var obraDto = _fixture.Build&lt;ObraDto&gt;()
+            .Without(x =&gt; x.Funcionarios)
+            .Without(x =&gt; x.Materiais)
+            .Create();
+        _mapperMock.Setup(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra))).Returns(obraDto);
+        
+        var resultado = _mapper.Mapear(obra);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;ObraDto&gt;();
+        resultado.Funcionarios.Should().NotBeEmpty();
+        resultado.Funcionarios.Should().HaveCount(3);
+        resultado.Materiais.Should().BeEmpty();
+        _mapperMock.Verify(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra)), Times.Once);
+    }
+    
+    [Fact]
+    public void Mapear_ComDadosValidosESemFuncionariosEComMateriais_DeveRealizarOperacao()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var endereco = _fixture.Create&lt;string&gt;();
+        var tipoObra = _fixture.Create&lt;TipoObraEnum&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var orcamento = new Orcamento(&quot;teste&quot;, &quot;teste&quot;, TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+            10.85);
+        var prazoConclusao = DateTime.Today.AddDays(2);
+        var quantidade = 1;
+        var materiais = _fixture.CreateMany&lt;Material&gt;(3).ToList();
+        materiais.ForEach(x =&gt; x.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade));
+        var dicionarioMateriais = new Dictionary&lt;Material, int&gt;();
+        materiais.ForEach(x =&gt; dicionarioMateriais.Add(x, quantidade));
+        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, dicionarioMateriais);
+        var obraDto = _fixture.Build&lt;ObraDto&gt;()
+            .Without(x =&gt; x.Funcionarios)
+            .Without(x =&gt; x.Materiais)
+            .Create();
+        _mapperMock.Setup(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra))).Returns(obraDto);
+        
+        var resultado = _mapper.Mapear(obra);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;ObraDto&gt;();
+        resultado.Materiais.Should().NotBeEmpty();
+        resultado.Materiais.Should().HaveCount(1);
+        resultado.Funcionarios.Should().BeEmpty();
+        _mapperMock.Verify(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra)), Times.Once);
+    }
+    
+    [Fact]
+    public void Mapear_ComDadosValidosEComFuncionariosEMateriais_DeveRealizarOperacao()
+    { var nome = _fixture.Create&lt;string&gt;();
+        var endereco = _fixture.Create&lt;string&gt;();
+        var tipoObra = _fixture.Create&lt;TipoObraEnum&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var orcamento = new Orcamento(&quot;teste&quot;, &quot;teste&quot;, TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+            10.85);
+        var prazoConclusao = DateTime.Today.AddDays(2);
+        var quantidade = 1;
+        var materiais = _fixture.CreateMany&lt;Material&gt;(3).ToList();
+        materiais.ForEach(x =&gt; x.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade));
+        var dicionarioMateriais = new Dictionary&lt;Material, int&gt;();
+        materiais.ForEach(x =&gt; dicionarioMateriais.Add(x, quantidade));
+        var funcionarios = _fixture.CreateMany&lt;Funcionario&gt;(3).ToList();
+        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, dicionarioMateriais);
+        var obraDto = _fixture.Build&lt;ObraDto&gt;()
+            .Without(x =&gt; x.Funcionarios)
+            .Without(x =&gt; x.Materiais)
+            .Create();
+        _mapperMock.Setup(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra))).Returns(obraDto);
+        
+        var resultado = _mapper.Mapear(obra);
+
+        resultado.Should().NotBeNull();
+        resultado.Should().BeOfType&lt;ObraDto&gt;();
+        resultado.Materiais.Should().NotBeEmpty();
+        resultado.Materiais.Should().HaveCount(1);
+        resultado.Funcionarios.Should().NotBeEmpty();
+        resultado.Funcionarios.Should().HaveCount(3);
+        _mapperMock.Verify(x =&gt; x.Map&lt;ObraDto&gt;(It.Is&lt;Obra&gt;(x =&gt; x == obra)), Times.Once);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[20,5,20,48,1],[22,5,22,34,1],[23,5,23,6,1],[24,9,24,43,1],[25,9,25,59,1],[26,5,26,6,1],[30,5,30,6,1],[31,9,31,46,1],[32,9,32,50,1],[33,9,33,56,1],[34,9,34,51,1],[35,9,35,47,1],[36,9,37,20,1],[38,9,38,56,1],[39,9,39,112,1],[40,9,43,23,1],[44,9,44,94,1],[46,9,46,46,1],[48,9,48,40,1],[49,9,49,48,1],[50,9,50,51,1],[51,9,51,48,1],[52,9,52,90,1],[53,5,53,6,1],[57,5,57,6,1],[58,9,58,46,1],[59,9,59,50,1],[60,9,60,56,1],[61,9,61,51,1],[62,9,62,47,1],[63,9,64,20,1],[65,9,65,56,1],[66,9,66,73,1],[67,9,67,120,1],[68,9,71,23,1],[72,9,72,94,1],[74,9,74,46,1],[76,9,76,40,1],[77,9,77,48,1],[78,9,78,54,1],[79,9,79,54,1],[80,9,80,48,1],[81,9,81,90,1],[82,5,82,6,1],[86,5,86,6,1],[87,9,87,46,1],[88,9,88,50,1],[89,9,89,56,1],[90,9,90,51,1],[91,9,91,47,1],[92,9,93,20,1],[94,9,94,56,1],[95,9,95,28,1],[96,9,96,67,1],[97,9,97,32,1],[97,32,97,89,1],[97,89,97,91,1],[98,9,98,67,1],[99,9,99,32,1],[99,32,99,70,1],[99,70,99,72,1],[100,9,100,127,1],[101,9,104,23,1],[105,9,105,94,1],[107,9,107,46,1],[109,9,109,40,1],[110,9,110,48,1],[111,9,111,51,1],[112,9,112,51,1],[113,9,113,51,1],[114,9,114,90,1],[115,5,115,6,1],[119,5,119,6,1],[119,7,119,44,1],[120,9,120,50,1],[121,9,121,56,1],[122,9,122,51,1],[123,9,123,47,1],[124,9,125,20,1],[126,9,126,56,1],[127,9,127,28,1],[128,9,128,67,1],[129,9,129,32,1],[129,32,129,89,1],[129,89,129,91,1],[130,9,130,67,1],[131,9,131,32,1],[131,32,131,70,1],[131,70,131,72,1],[132,9,132,73,1],[133,9,133,135,1],[134,9,137,23,1],[138,9,138,94,1],[140,9,140,46,1],[142,9,142,40,1],[143,9,143,48,1],[144,9,144,51,1],[145,9,145,51,1],[146,9,146,54,1],[147,9,147,54,1],[148,9,148,90,1],[149,5,149,6,1]]);
+    </script>
+  </body>
+</html>

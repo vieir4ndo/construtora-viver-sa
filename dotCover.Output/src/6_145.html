@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Api.Tests/Controllers/Validators/CriarMaterialValidatorTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoFixture;
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using ConstrutoraViverSA.Api.Controllers.Validators;
+using ConstrutoraViverSA.Domain.Enums;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Api.Tests.Controllers.Validators;
+
+public class CriarMaterialValidatorTests
+{
+    private readonly CriarMaterialValidator _validator = new CriarMaterialValidator();
+    private readonly Fixture _fixture = new Fixture();
+
+    [Fact]
+    public void CriarMaterialValidator_DadoUmNomeValido_NaoDeveRetornarErros()
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(null)]
+    [InlineData(&quot; &quot;)]
+    [InlineData(&quot;012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789&quot;)]
+    public void CriarMaterialValidator_DadoUmNomeInvalido_DeveRetornarErros(string nome)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Nome, nome)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData(&quot;123123&quot;)]
+    [InlineData(&quot;descricao&quot;)]
+    public void CriarMaterialValidator_DadoUmDescricaoValido_NaoDeveRetornarErros(string descricao)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Descricao, descricao)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(&quot; &quot;)]
+    [InlineData(null)]
+    public void CriarMaterialValidator_DadoUmDescricaoInvalido_DeveRetornarErros(string descricao)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Descricao, descricao)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(TipoMaterialEnum.Cimento)]
+    [InlineData(TipoMaterialEnum.Madeira)]
+    [InlineData(TipoMaterialEnum.Telha)]
+    [InlineData(TipoMaterialEnum.Tijolo)]
+    public void CriarFuncionarioValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoMaterialEnum tipoMaterial)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Tipo, tipoMaterial)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(100)]
+    [InlineData(null)]
+    public void CriarFuncionarioValidator_DadoUmTipoInvalido_DeveRetornarErros(int? tipoMaterial)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Tipo, tipoMaterial is null ? null : (TipoMaterialEnum)tipoMaterial)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(10.8)]
+    [InlineData(1)]
+    public void CriarMaterialValidator_DadoUmValorValido_NaoDeveRetornarErros(double valor)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Valor, valor)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(null)]
+    public void CriarMaterialValidator_DadoUmValorInvalido_DeveRetornarErros(double? valor)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Valor, valor)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+    
+    [Theory]
+    [InlineData(10)]
+    [InlineData(1)]
+    public void CriarMaterialValidator_DadoUmQuantidadeValido_NaoDeveRetornarErros(int quantidade)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Quantidade, quantidade)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeTrue();
+    }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    [InlineData(null)]
+    public void CriarMaterialValidator_DadoUmQuantidadeInvalido_DeveRetornarErros(int? quantidade)
+    {
+        var request = _fixture.Build&lt;MaterialRequest&gt;()
+            .With(x =&gt; x.Quantidade, quantidade)
+            .Create();
+        
+        var validationResult = _validator.Validate(request);
+        
+        validationResult.IsValid.Should().BeFalse();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,5,12,87,1],[13,5,13,55,1],[17,5,17,6,1],[18,9,19,23,1],[21,9,21,61,1],[23,9,23,52,1],[24,5,24,6,1],[31,5,31,6,1],[32,9,34,23,1],[36,9,36,61,1],[38,9,38,53,1],[39,5,39,6,1],[45,5,45,6,1],[46,9,48,23,1],[50,9,50,61,1],[52,9,52,52,1],[53,5,53,6,1],[59,5,59,6,1],[60,9,62,23,1],[64,9,64,61,1],[66,9,66,53,1],[67,5,67,6,1],[75,5,75,6,1],[76,9,78,23,1],[80,9,80,61,1],[82,9,82,52,1],[83,5,83,6,1],[89,5,89,6,1],[90,9,92,23,1],[94,9,94,61,1],[96,9,96,53,1],[97,5,97,6,1],[103,5,103,6,1],[104,9,106,23,1],[108,9,108,61,1],[110,9,110,52,1],[111,5,111,6,1],[117,5,117,6,1],[118,9,120,23,1],[122,9,122,61,1],[124,9,124,53,1],[125,5,125,6,1],[131,5,131,6,1],[132,9,134,23,1],[136,9,136,61,1],[138,9,138,52,1],[139,5,139,6,1],[146,5,146,6,1],[147,9,149,23,1],[151,9,151,61,1],[153,9,153,53,1],[154,5,154,6,1]]);
+    </script>
+  </body>
+</html>

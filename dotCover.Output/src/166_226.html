@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Domain/Extensions/CpfExtension.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace ConstrutoraViverSA.Domain.Extensions;
+
+public static class CpfExtension
+{
+    public static bool EhValido(string cpf)
+    {
+        int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        string tempCpf;
+        string digito;
+        int soma;
+        int resto;
+        cpf = cpf.Trim();
+        cpf = cpf.Replace(&quot;.&quot;, &quot;&quot;).Replace(&quot;-&quot;, &quot;&quot;);
+        if (cpf.Length != 11)
+            return false;
+        tempCpf = cpf.Substring(0, 9);
+        soma = 0;
+
+        for(int i=0; i&lt;9; i++)
+            soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+        resto = soma % 11;
+        if ( resto &lt; 2 )
+            resto = 0;
+        else
+            resto = 11 - resto;
+        digito = resto.ToString();
+        tempCpf = tempCpf + digito;
+        soma = 0;
+        for(int i=0; i&lt;10; i++)
+            soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+        resto = soma % 11;
+        if (resto &lt; 2)
+            resto = 0;
+        else
+            resto = 11 - resto;
+        digito = digito + resto.ToString();
+        return cpf.EndsWith(digito);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[6,5,6,6,1],[7,9,7,74,1],[8,9,8,79,1],[13,9,13,26,1],[14,9,14,53,1],[15,9,15,30,1],[16,13,16,26,1],[17,9,17,39,1],[18,9,18,18,1],[20,13,20,20,1],[20,22,20,25,1],[20,27,20,30,1],[21,13,21,74,1],[22,9,22,27,1],[23,9,23,25,1],[24,13,24,23,1],[26,13,26,32,1],[27,9,27,35,1],[28,9,28,36,1],[29,9,29,18,1],[30,13,30,20,1],[30,22,30,26,1],[30,28,30,31,1],[31,13,31,74,1],[32,9,32,27,1],[33,9,33,23,1],[34,13,34,23,1],[36,13,36,32,1],[37,9,37,44,1],[38,9,38,37,1],[39,5,39,6,1]]);
+    </script>
+  </body>
+</html>

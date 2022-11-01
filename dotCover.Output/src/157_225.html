@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Requests/MaterialRequest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ConstrutoraViverSA.Api.Controllers.Validators;
+using ConstrutoraViverSA.Domain.Dtos;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+
+namespace ConstrutoraViverSA.Api.Controllers.Requests;
+
+public class MaterialRequest
+{
+    public string Nome { get; set; }
+    public string Descricao { get; set; }
+    public TipoMaterialEnum? Tipo { get; set; }
+    public double? Valor { get; set; }
+    public int? Quantidade { get; set; }
+
+    public void ValidarCriacao()
+    {
+        var resultado = new CriarMaterialValidator().Validate(this);
+
+        if (resultado.IsValid == false)
+        {
+            throw new ErroValidacaoException(resultado.ToString());
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[10,26,10,30,1],[10,31,10,35,1],[11,31,11,35,1],[11,36,11,40,1],[12,37,12,41,1],[12,42,12,46,1],[13,28,13,32,1],[13,33,13,37,1],[14,30,14,34,1],[14,35,14,39,1],[17,5,17,6,1],[18,9,18,69,1],[20,9,20,40,1],[21,9,21,10,1],[22,13,22,68,1],[24,5,24,6,1]]);
+    </script>
+  </body>
+</html>

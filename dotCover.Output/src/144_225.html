@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Validators/CriarMaterialValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using FluentValidation;
+
+namespace ConstrutoraViverSA.Api.Controllers.Validators;
+
+public class CriarMaterialValidator : AbstractValidator&lt;MaterialRequest&gt;
+{
+    public CriarMaterialValidator()
+    {
+        RuleFor(x =&gt; x.Nome)
+            .MaximumLength(80)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(x =&gt; x.Descricao)
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(x =&gt; x.Tipo)
+            .IsInEnum()
+            .NotEmpty()
+            .NotNull();
+
+        RuleFor(x =&gt; x.Valor)
+            .GreaterThan(0)
+            .NotEmpty()
+            .NotNull();
+        
+        RuleFor(x =&gt; x.Quantidade)
+            .GreaterThan(0)
+            .NotEmpty()
+            .NotNull();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,5,8,36,1],[9,5,9,6,1],[10,9,13,24,1],[15,9,17,24,1],[19,9,22,24,1],[24,9,27,24,1],[29,9,32,24,1],[33,5,33,6,1]]);
+    </script>
+  </body>
+</html>

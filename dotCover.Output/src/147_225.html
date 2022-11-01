@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Validators/EditarFuncionarioValidator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using ConstrutoraViverSA.Api.Controllers.Requests;
+using FluentValidation;
+
+namespace ConstrutoraViverSA.Api.Controllers.Validators;
+
+public class EditarFuncionarioValidator : AbstractValidator&lt;FuncionarioRequest&gt;
+{
+    public EditarFuncionarioValidator()
+    {
+        RuleFor(p =&gt; p.Nome)
+            .MaximumLength(80)
+            .NotNull()
+            .NotEmpty()
+            .When(x =&gt; x.Nome != null);
+
+        RuleFor(p =&gt; p.DataNascimento)
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.DataNascimento != null);
+
+        RuleFor(p =&gt; p.Genero)
+            .IsInEnum()
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.Genero != null);
+
+        RuleFor(p =&gt; p.Cpf)
+            .IsValidCPF()
+            .NotNull()
+            .NotEmpty()
+            .When(x =&gt; x.Cpf != null);
+
+        RuleFor(p =&gt; p.NumCtps)
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.NumCtps != null);
+
+        RuleFor(p =&gt; p.Endereco)
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.Endereco != null);
+
+        RuleFor(p =&gt; p.Email)
+            .EmailAddress()
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.Email != null);
+
+        RuleFor(p =&gt; p.Telefone)
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.Telefone != null);
+
+        RuleFor(p =&gt; p.Cargo)
+            .IsInEnum()
+            .NotEmpty()
+            .NotNull()
+            .When(x =&gt; x.Cargo != null);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,5,8,40,1],[9,5,9,6,1],[10,9,14,24,1],[14,24,14,38,1],[14,38,14,40,1],[16,9,19,24,1],[19,24,19,48,1],[19,48,19,50,1],[21,9,25,24,1],[25,24,25,40,1],[25,40,25,42,1],[27,9,31,24,1],[31,24,31,37,1],[31,37,31,39,1],[33,9,36,24,1],[36,24,36,41,1],[36,41,36,43,1],[38,9,41,24,1],[41,24,41,42,1],[41,42,41,44,1],[43,9,47,24,1],[47,24,47,39,1],[47,39,47,41,1],[49,9,52,24,1],[52,24,52,42,1],[52,42,52,44,1],[54,9,58,24,1],[58,24,58,39,1],[58,39,58,41,1],[59,5,59,6,1]]);
+    </script>
+  </body>
+</html>

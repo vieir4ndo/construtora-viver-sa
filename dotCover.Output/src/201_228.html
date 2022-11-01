@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Infrastructure/Configurators/FuncionarioConfigurator.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Diagnostics.CodeAnalysis;
+using ConstrutoraViverSA.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace ConstrutoraViverSA.Infrastructure.Configurators;
+
+[ExcludeFromCodeCoverage]
+public class FuncionarioConfigurator : IEntityTypeConfiguration&lt;Funcionario&gt;
+{
+    public void Configure(EntityTypeBuilder&lt;Funcionario&gt; builder)
+    {
+        builder.HasKey(p =&gt; p.Id);
+        builder.Property(p =&gt; p.Nome).HasMaxLength(80).IsRequired();
+        builder.Property(p =&gt; p.Cpf).HasMaxLength(11).IsRequired();
+        builder.Property(p =&gt; p.DataNascimento).IsRequired();
+        builder.Property(p =&gt; p.Genero).IsRequired();
+        builder.Property(p =&gt; p.NumCtps).IsRequired();
+        builder.Property(p =&gt; p.Endereco).IsRequired();
+        builder.Property(p =&gt; p.Email).IsRequired();
+        builder.Property(p =&gt; p.Telefone).IsRequired();
+        builder.Property(p =&gt; p.Cargo).IsRequired();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,5,12,6,0],[13,9,13,35,0],[14,9,14,69,0],[15,9,15,68,0],[16,9,16,62,0],[17,9,17,54,0],[18,9,18,55,0],[19,9,19,56,0],[20,9,20,53,0],[21,9,21,56,0],[22,9,22,53,0],[23,5,23,6,0]]);
+    </script>
+  </body>
+</html>

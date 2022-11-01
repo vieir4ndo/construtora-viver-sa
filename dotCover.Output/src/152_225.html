@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/src/ConstrutoraViverSA.Api/Controllers/Responses/ResponseApi.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+#nullable enable
+using System.Collections.Generic;
+using ConstrutoraViverSA.Domain.Exceptions;
+
+namespace ConstrutoraViverSA.Api.Controllers.Responses;
+
+public class ResponseApi&lt;T&gt; where T : class?
+{
+    public bool Sucesso { get; set; }
+    public List&lt;T&gt;? Dados { get; set; }
+    public string Mensagens { get; set; }
+
+    public ResponseApi(bool? sucesso, List&lt;T&gt;? dados, string mensagens)
+    {
+        if (sucesso is null)
+            throw new ResponseApiInvalido(&quot;Sucesso inv&#225;lido&quot;);
+        
+        Sucesso = sucesso.Value;
+        Dados = dados;
+        Mensagens = mensagens;
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[9,27,9,31,1],[9,32,9,36,1],[10,29,10,33,1],[10,34,10,38,1],[11,31,11,35,1],[11,36,11,40,1],[13,5,13,72,1],[14,5,14,6,1],[15,9,15,29,1],[16,13,16,63,1],[18,9,18,33,1],[19,9,19,23,1],[20,9,20,31,1],[21,5,21,6,1]]);
+    </script>
+  </body>
+</html>

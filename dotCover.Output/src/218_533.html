@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/vieir4ndo/Workspace/construtora-viver-sa/tests/ConstrutoraViverSA.Domain.Tests/MaterialTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoFixture;
+using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Exceptions;
+using FluentAssertions;
+using Xunit;
+
+namespace ConstrutoraViverSA.Domain.Tests;
+
+public class MaterialTests
+{
+    private readonly Fixture _fixture = new Fixture();
+
+    [Fact]
+    public void Construtor_ComDadosValidosEQuantidadeIgualAZero_DeveConstruirCorretamente()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var tipo = _fixture.Create&lt;TipoMaterialEnum&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var quantidade = 0;
+
+        var result = new Material(nome, descricao, tipo, valor, quantidade);
+
+        result.Should().NotBeNull();
+        result.Nome.Should().Be(nome);
+        result.Descricao.Should().Be(descricao);
+        result.Tipo.Should().Be(tipo);
+        result.Valor.Should().Be(valor);
+        result.Quantidade.Should().Be(quantidade);
+        result.Estoque.Should().BeEmpty();
+        result.ObraMateriais.Should().BeEmpty();
+    }
+    
+    [Fact]
+    public void Construtor_ComDadosValidosEQuantidadeMaiorQueZero_DeveConstruirCorretamente()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var tipo = _fixture.Create&lt;TipoMaterialEnum&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var quantidade = 10;
+
+        var result = new Material(nome, descricao, tipo, valor, quantidade);
+
+        result.Should().NotBeNull();
+        result.Nome.Should().Be(nome);
+        result.Descricao.Should().Be(descricao);
+        result.Tipo.Should().Be(tipo);
+        result.Valor.Should().Be(valor);
+        result.Quantidade.Should().Be(quantidade);
+        result.Estoque.Count.Should().Be(1);
+        result.Estoque.First().Quantidade.Should().Be(quantidade);
+        result.Estoque.Count.Should().Be(1);
+        result.ObraMateriais.Should().BeEmpty();
+    }
+    
+    [Fact]
+    public void Construtor_ComNomeInvalido_DeveLancarExcecao()
+    {
+        var descricao = _fixture.Create&lt;string&gt;();
+        var tipo = _fixture.Create&lt;TipoMaterialEnum&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var quantidade = 0;
+
+        Action result = () =&gt; new Material(null, descricao, tipo, valor, quantidade);
+
+        result.Should().Throw&lt;MaterialInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void Construtor_ComDescricaoInvalido_DeveLancarExcecao()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var tipo = _fixture.Create&lt;TipoMaterialEnum&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var quantidade = 0;
+
+        Action result = () =&gt; new Material(nome, null, tipo, valor, quantidade);
+
+        result.Should().Throw&lt;MaterialInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void Construtor_ComTipoInvalido_DeveLancarExcecao()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+        var quantidade = 0;
+
+        Action result = () =&gt; new Material(nome, descricao, null, valor, quantidade);
+
+        result.Should().Throw&lt;MaterialInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void Construtor_ComValorInvalido_DeveLancarExcecao()
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var tipo = _fixture.Create&lt;TipoMaterialEnum&gt;();
+        var quantidade = 0;
+
+        Action result = () =&gt; new Material(nome, descricao, tipo, null, quantidade);
+
+        result.Should().Throw&lt;MaterialInvalidoException&gt;();
+    }
+    
+    [Theory]
+    [InlineData(null)]
+    [InlineData(-1)]
+    public void Construtor_ComQuantidadeInvalido_DeveLancarExcecao(int? quantidade)
+    {
+        var nome = _fixture.Create&lt;string&gt;();
+        var descricao = _fixture.Create&lt;string&gt;();
+        var tipo = _fixture.Create&lt;TipoMaterialEnum&gt;();
+        var valor = _fixture.Create&lt;double&gt;();
+
+        Action result = () =&gt; new Material(nome, descricao, tipo, valor, quantidade);
+
+        result.Should().Throw&lt;MaterialInvalidoException&gt;();
+    }
+    
+    [Fact]
+    public void SetNome_ComDadosValidos_DeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var nomeNovo = _fixture.Create&lt;string&gt;();
+        
+        material.SetNome(nomeNovo);
+
+        material.Nome.Should().Be(nomeNovo);
+    }
+    
+    [Fact]
+    public void SetNome_ComDadosInvalidos_NaoDeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var nomeAntigo = material.Nome;
+        
+        material.SetNome(null);
+
+        material.Nome.Should().Be(nomeAntigo);
+    }
+    
+    [Fact]
+    public void SetDescricao_ComDadosValidos_DeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var descricaoNovo = _fixture.Create&lt;string&gt;();
+        
+        material.SetDescricao(descricaoNovo);
+
+        material.Descricao.Should().Be(descricaoNovo);
+    }
+    
+    [Fact]
+    public void SetDescricao_ComDadosInvalidos_NaoDeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var descricaoAntiga = material.Descricao;
+        
+        material.SetDescricao(null);
+
+        material.Descricao.Should().Be(descricaoAntiga);
+    }
+    
+    [Fact]
+    public void SetTipo_ComDadosValidos_DeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var tipoNovo = _fixture.Create&lt;TipoMaterialEnum&gt;();
+        
+        material.SetTipo(tipoNovo);
+
+        material.Tipo.Should().Be(tipoNovo);
+    }
+    
+    [Fact]
+    public void SetTipo_ComDadosInvalidos_NaoDeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var tipoAntigo = material.Tipo;
+        
+        material.SetTipo(null);
+
+        material.Tipo.Should().Be(tipoAntigo);
+    }
+    
+    [Fact]
+    public void SetValor_ComDadosValidos_DeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var valorNovo = _fixture.Create&lt;double&gt;();
+        
+        material.SetValor(valorNovo);
+
+        material.Valor.Should().Be(valorNovo);
+    }
+    
+    [Fact]
+    public void SetValor_ComDadosInvalidos_NaoDeveRealizarAlteracao()
+    {
+        var material = _fixture.Create&lt;Material&gt;();
+        var valorAntigo = material.Valor;
+        
+        material.SetValor(null);
+
+        material.Valor.Should().Be(valorAntigo);
+    }
+
+    [Fact]
+    public void MovimentarEstoque_ComDadosValidos_DeveRetornarComoEsperado()
+    {
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, 10.80, 1);
+        var quantidade = 10;
+        var operacao = EntradaSaidaEnum.Entrada;
+        
+        material.MovimentarEstoque(operacao, quantidade);
+
+        material.Estoque.Count.Should().Be(2);
+        material.Estoque.Last().Quantidade.Should().Be(quantidade);
+        material.Estoque.Last().Operacao.Should().Be(operacao);
+    }
+    
+    [Fact]
+    public void MovimentarEstoque_ComQuantidadeInvalida_DeveLancarExcecao()
+    {
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, 10.80, 1);
+        var quantidade = -10;
+        var operacao = EntradaSaidaEnum.Entrada;
+        
+        Action result = () =&gt; material.MovimentarEstoque(operacao, quantidade);
+
+        result.Should().Throw&lt;OperacaoInvalidaException&gt;();
+    }
+    
+    [Fact]
+    public void MovimentarEstoque_SaidaComMaterialSemEstoqueSuficiente_DeveLancarExcecao()
+    {
+        var material = new Material(&quot;teste&quot;, &quot;teste&quot;, TipoMaterialEnum.Cimento, 10.80, 1);
+        var quantidade = 10;
+        var operacao = EntradaSaidaEnum.Saida;
+        
+        Action result = () =&gt; material.MovimentarEstoque(operacao, quantidade);
+
+        result.Should().Throw&lt;OperacaoInvalidaException&gt;();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,5,11,55,1],[15,5,15,6,1],[16,9,16,46,1],[17,9,17,51,1],[18,9,18,56,1],[19,9,19,47,1],[20,9,20,28,1],[22,9,22,77,1],[24,9,24,37,1],[25,9,25,39,1],[26,9,26,49,1],[27,9,27,39,1],[28,9,28,41,1],[29,9,29,51,1],[30,9,30,43,1],[31,9,31,49,1],[32,5,32,6,1],[36,5,36,6,1],[37,9,37,46,1],[38,9,38,51,1],[39,9,39,56,1],[40,9,40,47,1],[41,9,41,29,1],[43,9,43,77,1],[45,9,45,37,1],[46,9,46,39,1],[47,9,47,49,1],[48,9,48,39,1],[49,9,49,41,1],[50,9,50,51,1],[51,9,51,45,1],[52,9,52,67,1],[53,9,53,45,1],[54,9,54,49,1],[55,5,55,6,1],[59,5,59,6,1],[60,9,60,51,1],[61,9,61,56,1],[62,9,62,47,1],[63,9,63,28,1],[65,9,65,31,1],[65,31,65,85,1],[65,85,65,86,1],[67,9,67,60,1],[68,5,68,6,1],[72,5,72,6,1],[73,9,73,46,1],[74,9,74,56,1],[75,9,75,47,1],[76,9,76,28,1],[78,9,78,31,1],[78,31,78,80,1],[78,80,78,81,1],[80,9,80,60,1],[81,5,81,6,1],[85,5,85,6,1],[86,9,86,46,1],[87,9,87,51,1],[88,9,88,47,1],[89,9,89,28,1],[91,9,91,31,1],[91,31,91,85,1],[91,85,91,86,1],[93,9,93,60,1],[94,5,94,6,1],[98,5,98,6,1],[99,9,99,46,1],[100,9,100,51,1],[101,9,101,56,1],[102,9,102,28,1],[104,9,104,31,1],[104,31,104,84,1],[104,84,104,85,1],[106,9,106,60,1],[107,5,107,6,1],[113,5,113,6,1],[114,9,114,46,1],[115,9,115,51,1],[116,9,116,56,1],[117,9,117,47,1],[119,9,119,31,1],[119,31,119,85,1],[119,85,119,86,1],[121,9,121,60,1],[122,5,122,6,1],[126,5,126,6,1],[127,9,127,52,1],[128,9,128,50,1],[130,9,130,36,1],[132,9,132,45,1],[133,5,133,6,1],[137,5,137,6,1],[138,9,138,52,1],[139,9,139,40,1],[141,9,141,32,1],[143,9,143,47,1],[144,5,144,6,1],[148,5,148,6,1],[149,9,149,52,1],[150,9,150,55,1],[152,9,152,46,1],[154,9,154,55,1],[155,5,155,6,1],[159,5,159,6,1],[160,9,160,52,1],[161,9,161,50,1],[163,9,163,37,1],[165,9,165,57,1],[166,5,166,6,1],[170,5,170,6,1],[171,9,171,52,1],[172,9,172,60,1],[174,9,174,36,1],[176,9,176,45,1],[177,5,177,6,1],[181,5,181,6,1],[182,9,182,52,1],[183,9,183,40,1],[185,9,185,32,1],[187,9,187,47,1],[188,5,188,6,1],[192,5,192,6,1],[193,9,193,52,1],[194,9,194,51,1],[196,9,196,38,1],[198,9,198,47,1],[199,5,199,6,1],[203,5,203,6,1],[204,9,204,52,1],[205,9,205,42,1],[207,9,207,33,1],[209,9,209,49,1],[210,5,210,6,1],[214,5,214,6,1],[215,9,215,91,1],[216,9,216,29,1],[217,9,217,49,1],[219,9,219,58,1],[221,9,221,47,1],[222,9,222,68,1],[223,9,223,64,1],[224,5,224,6,1],[228,5,228,6,1],[229,9,229,91,1],[230,9,230,30,1],[231,9,231,49,1],[233,9,233,31,1],[233,31,233,79,1],[233,79,233,80,1],[235,9,235,60,1],[236,5,236,6,1],[240,5,240,6,1],[241,9,241,91,1],[242,9,242,29,1],[243,9,243,47,1],[245,9,245,31,1],[245,31,245,79,1],[245,79,245,80,1],[247,9,247,60,1],[248,5,248,6,1]]);
+    </script>
+  </body>
+</html>
