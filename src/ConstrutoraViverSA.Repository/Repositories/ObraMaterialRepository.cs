@@ -8,6 +8,7 @@ using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Repository.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class ObraMaterialRepository : IObraMaterialRepository
 {
     private readonly ApplicationContext _database;

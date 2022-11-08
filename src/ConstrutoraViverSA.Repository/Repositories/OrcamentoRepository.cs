@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConstrutoraViverSA.Repository.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class OrcamentoRepository : IOrcamentoRepository
 {
     private readonly ApplicationContext _database;
