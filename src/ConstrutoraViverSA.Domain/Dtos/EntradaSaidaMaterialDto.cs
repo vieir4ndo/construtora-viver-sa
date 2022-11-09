@@ -6,6 +6,6 @@ namespace ConstrutoraViverSA.Domain.Dtos;
 [ExcludeFromCodeCoverage]
 public class EntradaSaidaMaterialDto
 {
-    public EntradaSaidaEnum? Operacao { get; set; }
+    public EntradaSaida? Operacao { get; set; }
     public int? Quantidade { get; set; }
 }

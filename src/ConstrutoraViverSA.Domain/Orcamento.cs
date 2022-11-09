@@ -12,7 +12,7 @@ public sealed class Orcamento
     public long Id;
     public string Descricao { get; private set; }
     public string Endereco { get; private set; }
-    public TipoObraEnum TipoObra { get; private set; }
+    public TipoObra TipoObra { get; private set; }
     public DateTime DataEmissao { get; private set; }
     public DateTime DataValidade { get; private set; }
     public double? Valor { get; private set; }
@@ -23,7 +23,7 @@ public sealed class Orcamento
     {
     }
 
-    public Orcamento(string descricao, string endereco, TipoObraEnum? tipoObra, DateTime? dataEmissao,
+    public Orcamento(string descricao, string endereco, TipoObra? tipoObra, DateTime? dataEmissao,
         DateTime? dataValidade, double? valor)
     {
         var erros = new StringBuilder();
@@ -79,7 +79,7 @@ public sealed class Orcamento
         Endereco = endereco;
     }
 
-    public void SetTipoObra(TipoObraEnum? tipoObra)
+    public void SetTipoObra(TipoObra? tipoObra)
     {
         if (tipoObra is null)
             return;

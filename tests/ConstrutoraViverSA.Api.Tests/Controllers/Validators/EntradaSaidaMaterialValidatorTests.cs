@@ -13,9 +13,9 @@ public class EntradaSaidaMaterialValidatorTests
     private readonly Fixture _fixture = new Fixture();
     
     [Theory]
-    [InlineData(EntradaSaidaEnum.Entrada)]
-    [InlineData(EntradaSaidaEnum.Saida)]
-    public void EntradaSaidaMaterialValidator_DadoUmaOperacaoValida_NaoDeveRetornarErros(EntradaSaidaEnum operacao)
+    [InlineData(EntradaSaida.Entrada)]
+    [InlineData(EntradaSaida.Saida)]
+    public void EntradaSaidaMaterialValidator_DadoUmaOperacaoValida_NaoDeveRetornarErros(EntradaSaida operacao)
     {
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
             .With(x => x.Operacao, operacao)
@@ -32,7 +32,7 @@ public class EntradaSaidaMaterialValidatorTests
     public void EntradaSaidaMaterialValidator_DadoUmaOperacaoInvalida_DeveRetornarErros(int? operacao)
     {
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
-            .With(x => x.Operacao, (operacao is null) ? null : (EntradaSaidaEnum)operacao)
+            .With(x => x.Operacao, (operacao is null) ? null : (EntradaSaida)operacao)
             .Create();
         
         var validationResult = _validator.Validate(request);

@@ -13,7 +13,7 @@ public sealed class Material
     public long Id { get; }
     public string Nome { get; private set; }
     public string Descricao { get; private set; }
-    public TipoMaterialEnum Tipo { get; private set; }
+    public TipoMaterial Tipo { get; private set; }
     public double Valor { get; private set; }
     public int Quantidade { get; private set; }
     public ICollection<Estoque> Estoque { get; } = new Collection<Estoque>();
@@ -24,7 +24,7 @@ public sealed class Material
     {
     }
 
-    public Material(string nome, string descricao, TipoMaterialEnum? tipo, double? valor, int? quantidade)
+    public Material(string nome, string descricao, TipoMaterial? tipo, double? valor, int? quantidade)
     {
         var erros = new StringBuilder();
 
@@ -48,7 +48,7 @@ public sealed class Material
 
         if (quantidade > 0)
         {
-            Estoque.Add(new Estoque(this, EntradaSaidaEnum.Entrada, quantidade.Value));
+            Estoque.Add(new Estoque(this, EntradaSaida.Entrada, quantidade.Value));
         }
 
         Quantidade = quantidade!.Value;
@@ -74,7 +74,7 @@ public sealed class Material
         Descricao = descricao;
     }
 
-    public void SetTipo(TipoMaterialEnum? tipo)
+    public void SetTipo(TipoMaterial? tipo)
     {
         if (tipo is null)
             return;
@@ -90,7 +90,7 @@ public sealed class Material
         Valor = valor.Value;
     }
 
-    public void MovimentarEstoque(EntradaSaidaEnum? operacao, int? quantidade)
+    public void MovimentarEstoque(EntradaSaida? operacao, int? quantidade)
     {
         if (operacao is null)
             throw new OperacaoInvalidaException("Operação Inválida");
@@ -98,16 +98,16 @@ public sealed class Material
         if (quantidade is null or <= 0)
             throw new OperacaoInvalidaException("Quantidade Inválida");
         
-        var entrada = Estoque.Where(x => x.Operacao == EntradaSaidaEnum.Entrada).Sum(x => x.Quantidade);
-        var saida = Estoque.Where(x => x.Operacao == EntradaSaidaEnum.Saida).Sum(x => x.Quantidade);
+        var entrada = Estoque.Where(x => x.Operacao == EntradaSaida.Entrada).Sum(x => x.Quantidade);
+        var saida = Estoque.Where(x => x.Operacao == EntradaSaida.Saida).Sum(x => x.Quantidade);
 
         var saldoDeMateriais = entrada - saida;
         
-        if ((operacao == EntradaSaidaEnum.Saida) && saldoDeMateriais < quantidade)
+        if ((operacao == EntradaSaida.Saida) && saldoDeMateriais < quantidade)
             throw new OperacaoInvalidaException($"Solicitou-se a baixa de {quantidade} itens do estoque, no entanto o material {this.Nome} possui apenas {saldoDeMateriais} itens em estoque");
 
         Estoque.Add(new Estoque(this, operacao, quantidade));
 
-        Quantidade = (operacao is EntradaSaidaEnum.Entrada) ? saldoDeMateriais + quantidade!.Value : saldoDeMateriais - quantidade!.Value;
+        Quantidade = (operacao is EntradaSaida.Entrada) ? saldoDeMateriais + quantidade!.Value : saldoDeMateriais - quantidade!.Value;
     }
 }

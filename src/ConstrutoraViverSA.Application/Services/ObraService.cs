@@ -17,7 +17,6 @@ public class ObraService : IObraService
     private readonly IMaterialService _materialService;
     private readonly IOrcamentoService _orcamentoService;
     private readonly IObraRepository _repository;
-    private readonly IMapper _mapper;
     private readonly IObraParaObraDto _obraParaObraDto;
 
     public ObraService(
@@ -25,14 +24,12 @@ public class ObraService : IObraService
         IOrcamentoService orcamentoService,
         IFuncionarioService funcionarioService,
         IMaterialService materialService,
-        IMapper mapper,
         IObraParaObraDto obraParaObraDto)
     {
         _repository = repository;
         _orcamentoService = orcamentoService;
         _funcionarioService = funcionarioService;
         _materialService = materialService;
-        _mapper = mapper;
         _obraParaObraDto = obraParaObraDto;
     }
 
@@ -136,7 +133,7 @@ public class ObraService : IObraService
 
     public void GerenciarMaterial(EntradaSaidaMaterialDto materialDto, long id, long materialId)
     {
-        if (materialDto.Operacao == EntradaSaidaEnum.Entrada)
+        if (materialDto.Operacao == EntradaSaida.Entrada)
             AlocarMaterial(materialDto, id, materialId);
         else
             DesalocarMaterial(materialDto, id, materialId);

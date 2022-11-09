@@ -240,11 +240,11 @@ public class ObraControllerTests
         var quantidade = 1;
         var materialId = 1;
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         _obraServiceMock.Setup(x => x.GerenciarMaterial(It.Is<EntradaSaidaMaterialDto>(x => x == dto), It.Is<long>(x => x == obraId), It.Is<long>(x => x == materialId)));
@@ -266,11 +266,11 @@ public class ObraControllerTests
         var quantidade = 1;
         var materialId = 1;
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         _obraServiceMock.Setup(x => x.GerenciarMaterial(It.Is<EntradaSaidaMaterialDto>(x => x == dto), It.Is<long>(x => x == obraId), It.Is<long>(x => x == materialId)))

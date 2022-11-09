@@ -30,24 +30,24 @@ public class FuncionarioRequestTests
     }
     
     [Theory]
-    [InlineData(null, "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData(" ", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", null, GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", null, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, null, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, " ", "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_INVALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, null, "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, " ", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", null, "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", " ", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", " ", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", null, "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", " ", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", null, CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", null)]
-    public void ValidarCriacao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string dataNascimento, GeneroEnum? genero, string cpf, string numCtps, string endereco, string email, string telefone, CargoEnum? cargo)
+    [InlineData(null, "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData(" ", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", null, Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", null, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, null, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, " ", "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_INVALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, null, "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, " ", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", null, "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", " ", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", " ", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", null, "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", " ", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", null, Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", null)]
+    public void ValidarCriacao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string dataNascimento, Genero? genero, string cpf, string numCtps, string endereco, string email, string telefone, Cargo? cargo)
     {
         var request = new FuncionarioRequest()
         {
@@ -82,15 +82,15 @@ public class FuncionarioRequestTests
     }
     
     [Theory]
-    [InlineData(" ", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, " ", "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_INVALIDO, "numCtps", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, " ", "endereco", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", " ", "email@email.com", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", " ", "49988703656", CargoEnum.Almoxarife)]
-    [InlineData("nome", "2000-06-20", GeneroEnum.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", " ", CargoEnum.Almoxarife)]
-    public void ValidarEdicao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string dataNascimento, GeneroEnum? genero, string cpf, string numCtps, string endereco, string email, string telefone, CargoEnum? cargo)
+    [InlineData(" ", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, " ", "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_INVALIDO, "numCtps", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, " ", "endereco", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", " ", "email@email.com", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", " ", "49988703656", Cargo.Almoxarife)]
+    [InlineData("nome", "2000-06-20", Genero.Feminino, CPF_VALIDO, "numCtps", "endereco", "email@email.com", " ", Cargo.Almoxarife)]
+    public void ValidarEdicao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string dataNascimento, Genero? genero, string cpf, string numCtps, string endereco, string email, string telefone, Cargo? cargo)
     {
         var request = new FuncionarioRequest()
         {

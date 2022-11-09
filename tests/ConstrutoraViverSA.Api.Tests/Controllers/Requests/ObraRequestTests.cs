@@ -29,21 +29,21 @@ public class ObraRequestTests
     }
 
     [Theory]
-    [InlineData(null, "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 1, false, false)]
-    [InlineData(" ", null, TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 1, false, false)]
-    [InlineData("nome", " ", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 1, false, false)]
+    [InlineData(null, "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 1, false, false)]
+    [InlineData(" ", null, TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 1, false, false)]
+    [InlineData("nome", " ", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 1, false, false)]
     [InlineData("nome", "endereco", null, "descricao", 10.80, "2000-10-10", 1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, null, 10.80, "2000-10-10", 1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, " ", 10.80, "2000-10-10", 1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 0, "2000-10-10", 1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", -1, "2000-10-10", 1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", null, "2000-10-10", 1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, null, 1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 0, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", -1, false, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 1, true, false)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 1, false, true)]
-    public void ValidarCricao_ComDadosInvalidos_DeveRetornarComoEsperado(string nome, string endereco, TipoObraEnum? tipoObra, string descricao, double? valor, string prazoConclusao, long? orcamentoId, bool comFuncionarios, bool comMateriais)
+    [InlineData("nome", "endereco", TipoObra.Ambas, null, 10.80, "2000-10-10", 1, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, " ", 10.80, "2000-10-10", 1, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 0, "2000-10-10", 1, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", -1, "2000-10-10", 1, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", null, "2000-10-10", 1, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 10.80, null, 1, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 0, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", -1, false, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 1, true, false)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 1, false, true)]
+    public void ValidarCricao_ComDadosInvalidos_DeveRetornarComoEsperado(string nome, string endereco, TipoObra? tipoObra, string descricao, double? valor, string prazoConclusao, long? orcamentoId, bool comFuncionarios, bool comMateriais)
     {
         var request = new ObraRequest()
         {

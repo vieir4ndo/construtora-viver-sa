@@ -26,17 +26,17 @@ public class OrcamentoRequestTests
     }
     
     [Theory]
-    [InlineData(" ", "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 10.80)]
-    [InlineData(null, "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 10.80)]
-    [InlineData("descricao", " ", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 10.80)]
-    [InlineData("descricao", null, TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 10.80)]
+    [InlineData(" ", "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", 10.80)]
+    [InlineData(null, "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", 10.80)]
+    [InlineData("descricao", " ", TipoObra.Ambas, "2000-06-10", "2000-07-12", 10.80)]
+    [InlineData("descricao", null, TipoObra.Ambas, "2000-06-10", "2000-07-12", 10.80)]
     [InlineData("descricao", "endereco", null, "2000-06-10", "2000-07-12", 10.80)]
-    [InlineData("descricao", "endereco", TipoObraEnum.Ambas, null, "2000-07-12", 10.80)]
-    [InlineData("descricao", "endereco", TipoObraEnum.Ambas, "2000-06-10", null, 10.80)]
-    [InlineData("descricao", "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 0)]
-    [InlineData("descricao", "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", -1)]
-    [InlineData("descricao", "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", null)]
-    public void ValidarCriacao_ComDadosInvalidos_DeveRetornarComoEsperado(string descricao, string endereco, TipoObraEnum? tipoObra, string dataEmissao, string dataValidade, double? valor)
+    [InlineData("descricao", "endereco", TipoObra.Ambas, null, "2000-07-12", 10.80)]
+    [InlineData("descricao", "endereco", TipoObra.Ambas, "2000-06-10", null, 10.80)]
+    [InlineData("descricao", "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", 0)]
+    [InlineData("descricao", "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", -1)]
+    [InlineData("descricao", "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", null)]
+    public void ValidarCriacao_ComDadosInvalidos_DeveRetornarComoEsperado(string descricao, string endereco, TipoObra? tipoObra, string dataEmissao, string dataValidade, double? valor)
     {
         var request = new OrcamentoRequest()
         {
@@ -67,11 +67,11 @@ public class OrcamentoRequestTests
     }
     
     [Theory]
-    [InlineData(" ", "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 10.80)]
-    [InlineData("descricao", " ", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 10.80)]
-    [InlineData("descricao", "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", 0)]
-    [InlineData("descricao", "endereco", TipoObraEnum.Ambas, "2000-06-10", "2000-07-12", -1)]
-    public void ValidarEdicao_ComDadosInvalidos_DeveRetornarComoEsperado(string descricao, string endereco, TipoObraEnum? tipoObra, string dataEmissao, string dataValidade, double? valor)
+    [InlineData(" ", "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", 10.80)]
+    [InlineData("descricao", " ", TipoObra.Ambas, "2000-06-10", "2000-07-12", 10.80)]
+    [InlineData("descricao", "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", 0)]
+    [InlineData("descricao", "endereco", TipoObra.Ambas, "2000-06-10", "2000-07-12", -1)]
+    public void ValidarEdicao_ComDadosInvalidos_DeveRetornarComoEsperado(string descricao, string endereco, TipoObra? tipoObra, string dataEmissao, string dataValidade, double? valor)
     {
         var request = new OrcamentoRequest()
         {

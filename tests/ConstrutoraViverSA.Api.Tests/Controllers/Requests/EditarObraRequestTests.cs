@@ -26,15 +26,15 @@ public class EditarObraRequestTests
     }
     
     [Theory]
-    [InlineData(" ", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 1)]
-    [InlineData("nome", " ", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 1)]
+    [InlineData(" ", "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 1)]
+    [InlineData("nome", " ", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 1)]
     [InlineData("nome", "endereco", null, " ", 10.80, "2000-10-10", 1)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, " ", 10.80, "2000-10-10", 1)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 0, "2000-10-10", 1)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", -1, "2000-10-10", 1)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", 0)]
-    [InlineData("nome", "endereco", TipoObraEnum.Ambas, "descricao", 10.80, "2000-10-10", -1)]
-    public void ValidarEdicao_ComDadosInvalidos_DeveRetornarComoEsperado(string nome, string endereco, TipoObraEnum? tipoObra, string descricao, double? valor, string prazoConclusao, long? orcamentoId)
+    [InlineData("nome", "endereco", TipoObra.Ambas, " ", 10.80, "2000-10-10", 1)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 0, "2000-10-10", 1)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", -1, "2000-10-10", 1)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", 0)]
+    [InlineData("nome", "endereco", TipoObra.Ambas, "descricao", 10.80, "2000-10-10", -1)]
+    public void ValidarEdicao_ComDadosInvalidos_DeveRetornarComoEsperado(string nome, string endereco, TipoObra? tipoObra, string descricao, double? valor, string prazoConclusao, long? orcamentoId)
     {
         var request = new EditarObraRequest()
         {

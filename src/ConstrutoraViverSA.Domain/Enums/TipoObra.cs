@@ -1,6 +1,6 @@
 ﻿namespace ConstrutoraViverSA.Domain.Enums;
 
-public enum TipoObraEnum
+public enum TipoObra
 {
     Residencial = 3,
     Comercial = 1,

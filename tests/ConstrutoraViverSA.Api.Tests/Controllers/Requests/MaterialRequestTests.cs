@@ -23,15 +23,15 @@ public class MaterialRequestTests
     }
     
     [Theory]
-    [InlineData(null, "descricao", TipoMaterialEnum.Cimento, 10.80)]
-    [InlineData("nome", null, TipoMaterialEnum.Cimento, 10.80)]
-    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", null, TipoMaterialEnum.Cimento, 10.80)]
-    [InlineData(" ", "descricao", TipoMaterialEnum.Cimento, 10.80)]
-    [InlineData("nome", " ", TipoMaterialEnum.Cimento, 10.80)]
+    [InlineData(null, "descricao", TipoMaterial.Cimento, 10.80)]
+    [InlineData("nome", null, TipoMaterial.Cimento, 10.80)]
+    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", null, TipoMaterial.Cimento, 10.80)]
+    [InlineData(" ", "descricao", TipoMaterial.Cimento, 10.80)]
+    [InlineData("nome", " ", TipoMaterial.Cimento, 10.80)]
     [InlineData("nome", "descricao", null, 10.80)]
-    [InlineData("nome", "descricao", TipoMaterialEnum.Cimento, null)]
+    [InlineData("nome", "descricao", TipoMaterial.Cimento, null)]
     
-    public void ValidarCriacao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string descricao, TipoMaterialEnum? tipo, double? valor)
+    public void ValidarCriacao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string descricao, TipoMaterial? tipo, double? valor)
     {
         var request = new MaterialRequest()
         {

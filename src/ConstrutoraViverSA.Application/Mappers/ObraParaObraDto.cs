@@ -33,11 +33,11 @@ public class ObraParaObraDto : IObraParaObraDto
             foreach (var materialId in obra.ObraMateriais!.Select(x => x.MaterialId).Distinct())
             {
                 int entrada = obra.ObraMateriais
-                    .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaidaEnum.Entrada)
+                    .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaida.Entrada)
                     .Sum(x => x.Quantidade);
 
                 int saida = obra.ObraMateriais
-                    .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaidaEnum.Saida)
+                    .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaida.Saida)
                     .Sum(x => x.Quantidade);
                     
                 var saldoMateriasObra = entrada - saida;

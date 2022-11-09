@@ -69,12 +69,12 @@ public class EditarMaterialValidatorTests
     }
     
     [Theory]
-    [InlineData(TipoMaterialEnum.Cimento)]
-    [InlineData(TipoMaterialEnum.Madeira)]
-    [InlineData(TipoMaterialEnum.Telha)]
-    [InlineData(TipoMaterialEnum.Tijolo)]    
+    [InlineData(TipoMaterial.Cimento)]
+    [InlineData(TipoMaterial.Madeira)]
+    [InlineData(TipoMaterial.Telha)]
+    [InlineData(TipoMaterial.Tijolo)]    
     [InlineData(null)]
-    public void CriarFuncionarioValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoMaterialEnum? tipoMaterial)
+    public void CriarFuncionarioValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoMaterial? tipoMaterial)
     {
         var request = _fixture.Build<EditarMaterialRequest>()
             .With(x => x.Tipo, tipoMaterial)
@@ -90,7 +90,7 @@ public class EditarMaterialValidatorTests
     public void CriarFuncionarioValidator_DadoUmTipoInvalido_DeveRetornarErros(int tipoMaterial)
     {
         var request = _fixture.Build<EditarMaterialRequest>()
-            .With(x => x.Tipo, (TipoMaterialEnum)tipoMaterial)
+            .With(x => x.Tipo, (TipoMaterial)tipoMaterial)
             .Create();
         
         var validationResult = _validator.Validate(request);

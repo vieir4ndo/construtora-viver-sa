@@ -67,11 +67,11 @@ public class CriarMaterialValidatorTests
     }
     
     [Theory]
-    [InlineData(TipoMaterialEnum.Cimento)]
-    [InlineData(TipoMaterialEnum.Madeira)]
-    [InlineData(TipoMaterialEnum.Telha)]
-    [InlineData(TipoMaterialEnum.Tijolo)]
-    public void CriarFuncionarioValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoMaterialEnum tipoMaterial)
+    [InlineData(TipoMaterial.Cimento)]
+    [InlineData(TipoMaterial.Madeira)]
+    [InlineData(TipoMaterial.Telha)]
+    [InlineData(TipoMaterial.Tijolo)]
+    public void CriarFuncionarioValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoMaterial tipoMaterial)
     {
         var request = _fixture.Build<MaterialRequest>()
             .With(x => x.Tipo, tipoMaterial)
@@ -88,7 +88,7 @@ public class CriarMaterialValidatorTests
     public void CriarFuncionarioValidator_DadoUmTipoInvalido_DeveRetornarErros(int? tipoMaterial)
     {
         var request = _fixture.Build<MaterialRequest>()
-            .With(x => x.Tipo, tipoMaterial is null ? null : (TipoMaterialEnum)tipoMaterial)
+            .With(x => x.Tipo, tipoMaterial is null ? null : (TipoMaterial)tipoMaterial)
             .Create();
         
         var validationResult = _validator.Validate(request);

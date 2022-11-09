@@ -17,13 +17,13 @@ public class FuncionarioTests
     {
         var nome = _fixture.Create<string>();
         var dataNascimento = _fixture.Create<DateTime>();
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var cpf = CPF_VALIDO;
         var numCtps = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         var result = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
 
@@ -43,13 +43,13 @@ public class FuncionarioTests
     public void Construtor_ComNomeInvalido_DeveLancarExcecao()
     {
         var dataNascimento = _fixture.Create<DateTime>();
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var cpf = CPF_VALIDO;
         var numCtps = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(null, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
 
@@ -60,13 +60,13 @@ public class FuncionarioTests
     public void Construtor_ComDataDeNascimentoNull_DeveLancarExcecao()
     {
         var nome = _fixture.Create<string>();
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var cpf = CPF_VALIDO;
         var numCtps = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, null, genero, cpf, numCtps, endereco, email, telefone, cargo);
 
@@ -79,13 +79,13 @@ public class FuncionarioTests
     {
         var nome = _fixture.Create<string>();
         var dataNascimento = DateTime.MinValue;
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var cpf = CPF_VALIDO;
         var numCtps = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
 
@@ -102,7 +102,7 @@ public class FuncionarioTests
         var endereco = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, dataNascimento, null, cpf, numCtps, endereco, email, telefone, cargo);
 
@@ -117,12 +117,12 @@ public class FuncionarioTests
     {
         var nome = _fixture.Create<string>();
         var dataNascimento = _fixture.Create<DateTime>();
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var numCtps = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
 
@@ -135,11 +135,11 @@ public class FuncionarioTests
         var nome = _fixture.Create<string>();
         var dataNascimento = _fixture.Create<DateTime>();
         var cpf = CPF_VALIDO;
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var endereco = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, null, endereco, email, telefone, cargo);
 
@@ -152,11 +152,11 @@ public class FuncionarioTests
         var nome = _fixture.Create<string>();
         var dataNascimento = _fixture.Create<DateTime>();
         var cpf = CPF_VALIDO;
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var email = _fixture.Create<string>();
         var numCtps = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, null, email, telefone, cargo);
 
@@ -169,11 +169,11 @@ public class FuncionarioTests
         var nome = _fixture.Create<string>();
         var dataNascimento = _fixture.Create<DateTime>();
         var cpf = CPF_VALIDO;
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var numCtps = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, null, telefone, cargo);
 
@@ -186,11 +186,11 @@ public class FuncionarioTests
         var nome = _fixture.Create<string>();
         var dataNascimento = _fixture.Create<DateTime>();
         var cpf = CPF_VALIDO;
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var numCtps = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var cargo = _fixture.Create<CargoEnum>();
+        var cargo = _fixture.Create<Cargo>();
 
         Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, null, cargo);
 
@@ -203,7 +203,7 @@ public class FuncionarioTests
         var nome = _fixture.Create<string>();
         var dataNascimento = _fixture.Create<DateTime>();
         var cpf = CPF_VALIDO;
-        var genero = _fixture.Create<GeneroEnum>();
+        var genero = _fixture.Create<Genero>();
         var numCtps = _fixture.Create<string>();
         var email = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
@@ -273,7 +273,7 @@ public class FuncionarioTests
     public void SetGenero_ComDadosValidos_DeveRealizarAlteracao()
     {
         var funcionario = _fixture.Create<Funcionario>();
-        var generoNovo = GeneroEnum.Feminino;
+        var generoNovo = Genero.Feminino;
         
         funcionario.SetGenero(generoNovo);
 
@@ -408,7 +408,7 @@ public class FuncionarioTests
     public void SetCargo_ComDadosValidos_DeveRealizarAlteracao()
     {
         var funcionario = _fixture.Create<Funcionario>();
-        var cargoNovo = CargoEnum.Almoxarife;
+        var cargoNovo = Cargo.Almoxarife;
         
         funcionario.SetCargo(cargoNovo);
 

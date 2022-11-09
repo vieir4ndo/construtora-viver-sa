@@ -13,13 +13,13 @@ public sealed class Funcionario
     public long Id;
     public string Nome { get; private set; }
     public DateTime? DataNascimento { get; private set; }
-    public GeneroEnum? Genero { get; private set; }
+    public Genero? Genero { get; private set; }
     public string Cpf { get; private set; }
     public string NumCtps { get; private set; }
     public string Endereco { get; private set; }
     public string Email { get; private set; }
     public string Telefone { get; private set; }
-    public CargoEnum? Cargo { get; private set; }
+    public Cargo? Cargo { get; private set; }
     
     public ICollection<Obra> Obras;
 
@@ -28,8 +28,8 @@ public sealed class Funcionario
     {
     }
 
-    public Funcionario(string nome, DateTime? dataNascimento, GeneroEnum? genero, string cpf, string numCtps,
-        string endereco, string email, string telefone, CargoEnum? cargo)
+    public Funcionario(string nome, DateTime? dataNascimento, Genero? genero, string cpf, string numCtps,
+        string endereco, string email, string telefone, Cargo? cargo)
     {
         var erros = new StringBuilder();
 
@@ -90,7 +90,7 @@ public sealed class Funcionario
         DataNascimento = dataNascimento.Value;
     }
 
-    public void SetGenero(GeneroEnum? genero)
+    public void SetGenero(Genero? genero)
     {
         if (genero is null)
             return;
@@ -138,7 +138,7 @@ public sealed class Funcionario
         Telefone = telefone;
     }
 
-    public void SetCargo(CargoEnum? cargo)
+    public void SetCargo(Cargo? cargo)
     {
         if (cargo is null)
             return;

@@ -2,7 +2,7 @@
 
 namespace ConstrutoraViverSA.Domain.Enums;
 
-public enum CargoEnum
+public enum Cargo
 {
     [Display(Name = "Sócio-Proprietário")] SocioProprietário = 30,
 

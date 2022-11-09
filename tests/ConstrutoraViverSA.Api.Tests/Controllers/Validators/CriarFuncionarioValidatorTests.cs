@@ -75,11 +75,11 @@ public class CriarFuncionarioValidatorTests
     }
     
     [Theory]
-    [InlineData(GeneroEnum.Feminino)]
-    [InlineData(GeneroEnum.Masculino)]
-    [InlineData(GeneroEnum.NaoBinario)]
-    [InlineData(GeneroEnum.Outro)]
-    public void CriarFuncionarioValidator_DadoUmGeneroValido_NaoDeveRetornarErros(GeneroEnum genero)
+    [InlineData(Genero.Feminino)]
+    [InlineData(Genero.Masculino)]
+    [InlineData(Genero.NaoBinario)]
+    [InlineData(Genero.Outro)]
+    public void CriarFuncionarioValidator_DadoUmGeneroValido_NaoDeveRetornarErros(Genero genero)
     {
         var request = _fixture.Build<FuncionarioRequest>()
             .With(x => x.Cpf, CPF_VALIDO)
@@ -100,7 +100,7 @@ public class CriarFuncionarioValidatorTests
         var request = _fixture.Build<FuncionarioRequest>()
             .With(x => x.Cpf, CPF_VALIDO)
             .With(x => x.Email, EMAIL_VALIDO)
-            .With(x => x.Genero, genero is null ? null : (GeneroEnum)genero)
+            .With(x => x.Genero, genero is null ? null : (Genero)genero)
             .Create();
         
         var validationResult = _validator.Validate(request);
@@ -270,11 +270,11 @@ public class CriarFuncionarioValidatorTests
     }
     
     [Theory]
-    [InlineData(CargoEnum.Almoxarife)]
-    [InlineData(CargoEnum.Arquiteto)]
-    [InlineData(CargoEnum.AnalistaFinanceiro)]
-    [InlineData(CargoEnum.MestreObras)]
-    public void CriarFuncionarioValidator_DadoUmCargoValido_NaoDeveRetornarErros(CargoEnum cargo)
+    [InlineData(Cargo.Almoxarife)]
+    [InlineData(Cargo.Arquiteto)]
+    [InlineData(Cargo.AnalistaFinanceiro)]
+    [InlineData(Cargo.MestreObras)]
+    public void CriarFuncionarioValidator_DadoUmCargoValido_NaoDeveRetornarErros(Cargo cargo)
     {
         var request = _fixture.Build<FuncionarioRequest>()
             .With(x => x.Cpf, CPF_VALIDO)
@@ -295,7 +295,7 @@ public class CriarFuncionarioValidatorTests
         var request = _fixture.Build<FuncionarioRequest>()
             .With(x => x.Cpf, CPF_VALIDO)
             .With(x => x.Email, EMAIL_VALIDO)
-            .With(x => x.Cargo, cargo is null ? null : (CargoEnum)cargo)
+            .With(x => x.Cargo, cargo is null ? null : (Cargo)cargo)
             .Create();
         
         var validationResult = _validator.Validate(request);

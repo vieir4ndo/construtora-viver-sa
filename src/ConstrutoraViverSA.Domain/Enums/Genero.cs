@@ -2,7 +2,7 @@
 
 namespace ConstrutoraViverSA.Domain.Enums;
 
-public enum GeneroEnum
+public enum Genero
 {
     [Display(Name = "Masculino")] Masculino = 1,
 

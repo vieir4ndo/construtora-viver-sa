@@ -23,12 +23,12 @@ public class EditarMaterialRequestTests
     }
     
     [Theory]
-    [InlineData(" ", "descricao", TipoMaterialEnum.Cimento, 10.80)]
-    [InlineData("nome", " ", TipoMaterialEnum.Cimento, 10.80)]
-    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", " ", TipoMaterialEnum.Cimento, 10.80)]
-    [InlineData("nome", "descricao", TipoMaterialEnum.Cimento, -1)]
+    [InlineData(" ", "descricao", TipoMaterial.Cimento, 10.80)]
+    [InlineData("nome", " ", TipoMaterial.Cimento, 10.80)]
+    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", " ", TipoMaterial.Cimento, 10.80)]
+    [InlineData("nome", "descricao", TipoMaterial.Cimento, -1)]
     
-    public void ValidarEdicao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string descricao, TipoMaterialEnum? tipo, double? valor)
+    public void ValidarEdicao_ComDadosInvalidos_DeveSeComportarComoEsperado(string nome, string descricao, TipoMaterial? tipo, double? valor)
     {
         var request = new EditarMaterialRequest()
         {

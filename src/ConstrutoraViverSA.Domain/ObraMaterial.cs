@@ -18,7 +18,7 @@ public sealed class ObraMaterial
     public Material Material { get; }
     public int Quantidade { get; }
     public DateTime DataHora { get; }
-    public EntradaSaidaEnum Operacao { get; }
+    public EntradaSaida Operacao { get; }
 
     [ExcludeFromCodeCoverage]
     public ObraMaterial()
@@ -26,7 +26,7 @@ public sealed class ObraMaterial
         
     }
 
-    public ObraMaterial(Obra? obra, Material? material, int? quantidade, EntradaSaidaEnum? operacao)
+    public ObraMaterial(Obra? obra, Material? material, int? quantidade, EntradaSaida? operacao)
     {
         var erros = new StringBuilder();
         
@@ -50,7 +50,7 @@ public sealed class ObraMaterial
         Quantidade = quantidade!.Value;
         Operacao = operacao!.Value;
         DataHora = DateTime.Now;
-        Material.MovimentarEstoque((operacao is EntradaSaidaEnum.Entrada) ? EntradaSaidaEnum.Saida : EntradaSaidaEnum.Entrada, quantidade);
+        Material.MovimentarEstoque((operacao is EntradaSaida.Entrada) ? EntradaSaida.Saida : EntradaSaida.Entrada, quantidade);
     }
 
 }

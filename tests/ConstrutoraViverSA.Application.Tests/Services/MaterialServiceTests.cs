@@ -213,20 +213,20 @@ public class MaterialServiceTests
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Returns(material);
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
 
-         _service.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = quantidade });
+         _service.MovimentarEstoque(materialId, new EntradaSaidaMaterialDto() { Operacao = EntradaSaida.Entrada, Quantidade = quantidade });
 
         _repositoryMock.Verify(x => x.BuscarPorId(It.Is<long>(x => x == materialId)), Times.Once);
         _repositoryMock.Verify(x => x.Editar(It.IsAny<Material>()), Times.Once); 
     }
     
     [Theory]
-    [InlineData(EntradaSaidaEnum.Entrada, -1)]
-    [InlineData(EntradaSaidaEnum.Entrada, null)]
-    [InlineData(EntradaSaidaEnum.Saida, -1)]
-    [InlineData(EntradaSaidaEnum.Saida, null)]
+    [InlineData(EntradaSaida.Entrada, -1)]
+    [InlineData(EntradaSaida.Entrada, null)]
+    [InlineData(EntradaSaida.Saida, -1)]
+    [InlineData(EntradaSaida.Saida, null)]
     [InlineData(null, 1)]
     [InlineData(null, null)]
-    public void MovimentarEstoque_ComDadosInvalidos_NaoDeveRealizarOperacao(EntradaSaidaEnum? operacao, int? quantidade)
+    public void MovimentarEstoque_ComDadosInvalidos_NaoDeveRealizarOperacao(EntradaSaida? operacao, int? quantidade)
     {
         var materialId = 1;
         var material = _fixture.Build<Material>()
@@ -250,7 +250,7 @@ public class MaterialServiceTests
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
 
         var resultado = () => _service.MovimentarEstoque(materialId,
-            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Entrada, Quantidade = quantidade });
+            new EntradaSaidaMaterialDto() { Operacao = EntradaSaida.Entrada, Quantidade = quantidade });
         
         resultado.Should().Throw<NaoEncontradoException>();
         resultado.Should().NotThrow<OperacaoInvalidaException>();
@@ -268,7 +268,7 @@ public class MaterialServiceTests
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
 
         var resultado = () => _service.MovimentarEstoque(materialId,
-            new EntradaSaidaMaterialDto() { Operacao = EntradaSaidaEnum.Saida, Quantidade = quantidade });
+            new EntradaSaidaMaterialDto() { Operacao = EntradaSaida.Saida, Quantidade = quantidade });
         
         resultado.Should().Throw<OperacaoInvalidaException>();
         resultado.Should().NotThrow<NaoEncontradoException>();

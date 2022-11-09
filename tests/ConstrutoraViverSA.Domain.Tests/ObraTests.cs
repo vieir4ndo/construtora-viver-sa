@@ -15,10 +15,10 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
 
@@ -39,10 +39,10 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var funcionarios = _fixture.CreateMany<Funcionario>().ToList();
@@ -65,19 +65,19 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var materiais = new List<Material>()
         {
-            new Material("TESTE", "teste", TipoMaterialEnum.Cimento, 10.80, 1),
-            new Material("TESTE", "teste", TipoMaterialEnum.Cimento, 10.80, 1),
-            new Material("TESTE", "teste", TipoMaterialEnum.Cimento, 10.80, 1),
-            new Material("TESTE", "teste", TipoMaterialEnum.Cimento, 10.80, 1),
-            new Material("TESTE", "teste", TipoMaterialEnum.Cimento, 10.80, 1),
+            new Material("TESTE", "teste", TipoMaterial.Cimento, 10.80, 1),
+            new Material("TESTE", "teste", TipoMaterial.Cimento, 10.80, 1),
+            new Material("TESTE", "teste", TipoMaterial.Cimento, 10.80, 1),
+            new Material("TESTE", "teste", TipoMaterial.Cimento, 10.80, 1),
+            new Material("TESTE", "teste", TipoMaterial.Cimento, 10.80, 1),
         };
         var dicionarioMateriais = new Dictionary<Material, int>();
         materiais.ForEach(x => dicionarioMateriais.Add(x, 1));
@@ -99,10 +99,10 @@ public class ObraTests
     public void Construtor_ComNomeInvalido_DeveLancarExcecao()
     {
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
 
@@ -115,10 +115,10 @@ public class ObraTests
     public void Construtor_ComEnderecoInvalido_DeveLancarExcecao()
     {
         var nome = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
 
@@ -134,7 +134,7 @@ public class ObraTests
         var endereco = _fixture.Create<string>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
 
@@ -148,9 +148,9 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
 
@@ -166,9 +166,9 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
 
@@ -182,7 +182,7 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
         var prazoConclusao = DateTime.Today.AddDays(2);
@@ -197,10 +197,10 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
 
         Action result = () => new Obra(nome, endereco, tipoObra, descricao, valor, null, orcamento, null, null);
@@ -213,10 +213,10 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(-1);
 
@@ -295,7 +295,7 @@ public class ObraTests
     public void SetTipoObra_ComDadosValidos_DeveRealizarAlteracao()
     {
         var obra = _fixture.Create<Obra>();
-        var tipoObraNovo = _fixture.Create<TipoObraEnum>();
+        var tipoObraNovo = _fixture.Create<TipoObra>();
         
         obra.SetTipoObra(tipoObraNovo);
 
@@ -362,10 +362,10 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
@@ -393,10 +393,10 @@ public class ObraTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
@@ -462,14 +462,14 @@ public class ObraTests
         var quantidade = 1;
 
         var obra = _fixture.Create<Obra>();
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, quantidade);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, quantidade);
         
         obra.AlocarMaterial(material, quantidade);
 
         obra.ObraMateriais.Should().NotBeNull();
         obra.ObraMateriais.Count.Should().Be(1);
         obra.ObraMateriais.First().Material.Should().BeEquivalentTo(material);
-        obra.ObraMateriais.First().Operacao.Should().Be(EntradaSaidaEnum.Entrada);
+        obra.ObraMateriais.First().Operacao.Should().Be(EntradaSaida.Entrada);
         obra.ObraMateriais.First().Quantidade.Should().Be(quantidade);
     }
     
@@ -477,7 +477,7 @@ public class ObraTests
     public void AlocarMaterial_ComMaterialSemEstoqueSuficiente_DeveLancarExcecao()
     {
         var obra = _fixture.Create<Obra>();
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, 1);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         
         Action result = () => obra.AlocarMaterial(material, 10);
 
@@ -489,7 +489,7 @@ public class ObraTests
     {
         var quantidade = 1;
         var obra = _fixture.Create<Obra>();
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, quantidade);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, quantidade);
         
         obra.AlocarMaterial(material, quantidade);
         
@@ -497,7 +497,7 @@ public class ObraTests
 
         obra.ObraMateriais.Count.Should().Be(2);
         obra.ObraMateriais.Last().Material.Should().BeEquivalentTo(material);
-        obra.ObraMateriais.Last().Operacao.Should().Be(EntradaSaidaEnum.Saida);
+        obra.ObraMateriais.Last().Operacao.Should().Be(EntradaSaida.Saida);
         obra.ObraMateriais.Last().Quantidade.Should().Be(quantidade);
     }
     
@@ -505,7 +505,7 @@ public class ObraTests
     public void DesalocarMaterial_ComQuantidadeInvalida_DeveLancarExcecao()
     {
         var obra = _fixture.Create<Obra>();
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, 1);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         obra.AlocarMaterial(material, 1);
         
         Action result = () => obra.DesalocarMaterial(material, null);
@@ -517,7 +517,7 @@ public class ObraTests
     public void DesalocarMaterial_ComQuantidadeParaDesalocarMaiorQueAQuantidadeMateriaisAlocados_DeveLancarExcecao()
     {
         var obra = _fixture.Create<Obra>();
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, 1);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         obra.AlocarMaterial(material, 1);
         
         Action result = () => obra.DesalocarMaterial(material, 2);
@@ -529,7 +529,7 @@ public class ObraTests
     public void DesalocarMaterial_ComMaterialNaoAlocado_DeveLancarExcecao()
     {
         var obra = _fixture.Create<Obra>();
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, 1);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         
         Action result = () => obra.DesalocarMaterial(material, 1);
 

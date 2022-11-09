@@ -6,7 +6,7 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests;
 
 public class EntradaSaidaMaterialRequest
 {
-    public EntradaSaidaEnum? Operacao { get; set; }
+    public EntradaSaida? Operacao { get; set; }
     public int? Quantidade { get; set; }
 
     public void Validar()

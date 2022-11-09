@@ -182,11 +182,11 @@ public class MaterialControllerTests
         var materialId = 1;
         var quantidade = 1;
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         
@@ -208,11 +208,11 @@ public class MaterialControllerTests
         var materialId = 1;
         var quantidade = 1;
         var request = _fixture.Build<EntradaSaidaMaterialRequest>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         _mapperMock.Setup(x => x.Map<EntradaSaidaMaterialDto>(It.Is<EntradaSaidaMaterialRequest>(x => x == request))).Returns(dto);

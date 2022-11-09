@@ -137,11 +137,11 @@ public class EditarObraValidatorTests
     }
     
     [Theory]
-    [InlineData(TipoObraEnum.Ambas)]
-    [InlineData(TipoObraEnum.Comercial)]
-    [InlineData(TipoObraEnum.Residencial)]
+    [InlineData(TipoObra.Ambas)]
+    [InlineData(TipoObra.Comercial)]
+    [InlineData(TipoObra.Residencial)]
     [InlineData(null)]
-    public void EditarObraValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoObraEnum? tipoObra)
+    public void EditarObraValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoObra? tipoObra)
     {
         var request = _fixture.Build<EditarObraRequest>()
             .With(x => x.PrazoConclusao, DateTime.Today.AddDays(1))
@@ -158,7 +158,7 @@ public class EditarObraValidatorTests
     public void EditarObraValidator_DadoUmTipoInvalido_DeveRetornarErros(int? tipoObra)
     {
         var request = _fixture.Build<EditarObraRequest>()
-            .With(x => x.TipoObra, tipoObra is null ? null : (TipoObraEnum)tipoObra)
+            .With(x => x.TipoObra, tipoObra is null ? null : (TipoObra)tipoObra)
             .With(x => x.PrazoConclusao, DateTime.Today.AddDays(1))
             .Create();
         

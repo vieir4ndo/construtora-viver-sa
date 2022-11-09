@@ -23,10 +23,10 @@ public class EntradaSaidaMaterialRequestTests
     }
     
     [Theory]
-    [InlineData(EntradaSaidaEnum.Entrada, null)]
-    [InlineData(EntradaSaidaEnum.Saida, null)]
+    [InlineData(EntradaSaida.Entrada, null)]
+    [InlineData(EntradaSaida.Saida, null)]
     [InlineData(null, 1)]
-    public void Validar_ComDadosInvalidos_DeveRetornarComoEsperado(EntradaSaidaEnum? operacao, int? quantidade)
+    public void Validar_ComDadosInvalidos_DeveRetornarComoEsperado(EntradaSaida? operacao, int? quantidade)
     {
         var request = new EntradaSaidaMaterialRequest()
         {

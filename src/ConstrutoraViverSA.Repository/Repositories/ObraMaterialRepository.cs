@@ -50,8 +50,8 @@ public class ObraMaterialRepository : IObraMaterialRepository
 
     public int BuscarQuantidadeDeMateriaisPorObraIdEMaterialId(long obraId, long materialId)
     {
-        var entrada = _database.ObraMaterial.Where(x => x.ObraId == obraId && x.MaterialId == materialId && x.Operacao == EntradaSaidaEnum.Entrada).Sum(x => x.Quantidade);
-        var saida = _database.ObraMaterial.Where(x => x.ObraId == obraId && x.MaterialId == materialId && x.Operacao == EntradaSaidaEnum.Saida).Sum(x => x.Quantidade);
+        var entrada = _database.ObraMaterial.Where(x => x.ObraId == obraId && x.MaterialId == materialId && x.Operacao == EntradaSaida.Entrada).Sum(x => x.Quantidade);
+        var saida = _database.ObraMaterial.Where(x => x.ObraId == obraId && x.MaterialId == materialId && x.Operacao == EntradaSaida.Saida).Sum(x => x.Quantidade);
 
         return entrada - saida;
     }

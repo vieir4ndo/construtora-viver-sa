@@ -15,7 +15,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
@@ -35,7 +35,7 @@ public class OrcamentoTests
     public void Construtor_ComDescricaoInvalida_DeveLancarExcecao()
     {
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
@@ -49,7 +49,7 @@ public class OrcamentoTests
     public void Construtor_ComEnderecoInvalido_DeveLancarExcecao()
     {
         var descricao = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
@@ -78,7 +78,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
 
@@ -92,7 +92,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
 
@@ -106,7 +106,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var valor = _fixture.Create<double>();
 
@@ -120,7 +120,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var valor = _fixture.Create<double>();
 
@@ -134,7 +134,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today.AddDays(1);
         var dataValidade = DateTime.Today;
         var valor = _fixture.Create<double>();
@@ -149,7 +149,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
 
@@ -206,7 +206,7 @@ public class OrcamentoTests
     public void SetTipoObra_ComDadosValidos_DeveRealizarAlteracao()
     {
         var orcamento = _fixture.Create<Orcamento>();
-        var tipoObraNovo = _fixture.Create<TipoObraEnum>();
+        var tipoObraNovo = _fixture.Create<TipoObra>();
         
         orcamento.SetTipoObra(tipoObraNovo);
 
@@ -229,7 +229,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(2);
         var valor = _fixture.Create<double>();
@@ -258,7 +258,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
@@ -275,7 +275,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(2);
         var valor = _fixture.Create<double>();
@@ -303,7 +303,7 @@ public class OrcamentoTests
     {
         var descricao = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(2);
         var valor = _fixture.Create<double>();

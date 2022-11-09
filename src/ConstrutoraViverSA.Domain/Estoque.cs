@@ -11,7 +11,7 @@ public sealed class Estoque
     public long Id;
     public long MaterialId;
     public Material Material { get; }
-    public EntradaSaidaEnum Operacao { get; }
+    public EntradaSaida Operacao { get; }
     public int Quantidade { get; }
     public DateTime DataHora { get; }
 
@@ -20,7 +20,7 @@ public sealed class Estoque
     {
     }
 
-    public Estoque(Material material, EntradaSaidaEnum? operacao, int? quantidade)
+    public Estoque(Material material, EntradaSaida? operacao, int? quantidade)
     {
         var erros = new StringBuilder();
         

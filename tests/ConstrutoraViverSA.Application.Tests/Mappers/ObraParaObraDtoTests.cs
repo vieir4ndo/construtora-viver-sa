@@ -30,10 +30,10 @@ public class ObraParaObraDtoTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
@@ -57,10 +57,10 @@ public class ObraParaObraDtoTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var funcionarios = _fixture.CreateMany<Funcionario>(3).ToList();
@@ -86,15 +86,15 @@ public class ObraParaObraDtoTests
     {
         var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var quantidade = 1;
         var materiais = _fixture.CreateMany<Material>(3).ToList();
-        materiais.ForEach(x => x.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade));
+        materiais.ForEach(x => x.MovimentarEstoque(EntradaSaida.Entrada, quantidade));
         var dicionarioMateriais = new Dictionary<Material, int>();
         materiais.ForEach(x => dicionarioMateriais.Add(x, quantidade));
         var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, dicionarioMateriais);
@@ -118,15 +118,15 @@ public class ObraParaObraDtoTests
     public void Mapear_ComDadosValidosEComFuncionariosEMateriais_DeveRealizarOperacao()
     { var nome = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObraEnum>();
+        var tipoObra = _fixture.Create<TipoObra>();
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObraEnum.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
+        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var quantidade = 1;
         var materiais = _fixture.CreateMany<Material>(3).ToList();
-        materiais.ForEach(x => x.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade));
+        materiais.ForEach(x => x.MovimentarEstoque(EntradaSaida.Entrada, quantidade));
         var dicionarioMateriais = new Dictionary<Material, int>();
         materiais.ForEach(x => dicionarioMateriais.Add(x, quantidade));
         var funcionarios = _fixture.CreateMany<Funcionario>(3).ToList();

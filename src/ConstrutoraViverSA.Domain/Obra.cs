@@ -15,7 +15,7 @@ public sealed class Obra
     public long Id { get; }
     public string Nome { get; private set; }
     public string Endereco { get; private set; }
-    public TipoObraEnum? TipoObra { get; private set; }
+    public TipoObra? TipoObra { get; private set; }
     public string Descricao { get; private set; }
     public double? Valor { get; private set; }
     public DateTime? PrazoConclusao { get; private set; }
@@ -30,7 +30,7 @@ public sealed class Obra
     {
     }
 
-    public Obra(string nome, string endereco, TipoObraEnum? tipoObra, string descricao,
+    public Obra(string nome, string endereco, TipoObra? tipoObra, string descricao,
         double? valor, DateTime? prazoConclusao, Orcamento? orcamento, List<Funcionario>? funcionarios,
         Dictionary<Material, int>? materiais)
     {
@@ -83,7 +83,7 @@ public sealed class Obra
         {
             foreach (var material in materiais)
             {
-                ObraMateriais!.Add(new ObraMaterial(this, material.Key, material.Value, EntradaSaidaEnum.Entrada));
+                ObraMateriais!.Add(new ObraMaterial(this, material.Key, material.Value, EntradaSaida.Entrada));
             }
         }
     }
@@ -104,7 +104,7 @@ public sealed class Obra
         Endereco = endereco;
     }
 
-    public void SetTipoObra(TipoObraEnum? tipoObra)
+    public void SetTipoObra(TipoObra? tipoObra)
     {
         if (tipoObra is null)
             return;
@@ -167,7 +167,7 @@ public sealed class Obra
             throw new OperacaoInvalidaException(
                 $"Não há itens suficientes em estoque do material {material.Nome} para alocar na obra {this.Nome}");
         
-        ObraMateriais.Add(new ObraMaterial(this, material, quantidade, EntradaSaidaEnum.Entrada));
+        ObraMateriais.Add(new ObraMaterial(this, material, quantidade, EntradaSaida.Entrada));
     }
 
     public void DesalocarMaterial(Material material, int? quantidade)
@@ -175,8 +175,8 @@ public sealed class Obra
         if (quantidade is null or <= 0)
             throw new OperacaoInvalidaException("Quantidade inválida");
         
-        var entrada = ObraMateriais.Where(x => x.Operacao == EntradaSaidaEnum.Entrada && x.MaterialId == material.Id).Sum(x => x.Quantidade);
-        var saida = ObraMateriais.Where(x => x.Operacao == EntradaSaidaEnum.Saida && x.MaterialId == material.Id).Sum(x => x.Quantidade);
+        var entrada = ObraMateriais.Where(x => x.Operacao == EntradaSaida.Entrada && x.MaterialId == material.Id).Sum(x => x.Quantidade);
+        var saida = ObraMateriais.Where(x => x.Operacao == EntradaSaida.Saida && x.MaterialId == material.Id).Sum(x => x.Quantidade);
 
         var saldoDeMateriaisNaObra = entrada - saida;
         
@@ -188,6 +188,6 @@ public sealed class Obra
             throw new OperacaoInvalidaException(
                 $"Material {material.Nome} está alocado na obra {this.Nome} com apenas {saldoDeMateriaisNaObra} itens");
 
-        ObraMateriais.Add(new ObraMaterial(this, material, quantidade, EntradaSaidaEnum.Saida));
+        ObraMateriais.Add(new ObraMaterial(this, material, quantidade, EntradaSaida.Saida));
     }
 }

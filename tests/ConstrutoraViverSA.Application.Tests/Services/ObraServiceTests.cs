@@ -340,11 +340,11 @@ public class ObraServiceTests
         var materialId = 1;
         var quantidade = 1;
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Entrada)
+            .With(x => x.Operacao, EntradaSaida.Entrada)
             .With(x => x.Quantidade, quantidade)
             .Create();
         var material = _fixture.Create<Material>();
-        material.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade);
+        material.MovimentarEstoque(EntradaSaida.Entrada, quantidade);
         _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Returns(material);
         var obra = _fixture.Build<Obra>()
             .Create();
@@ -365,11 +365,11 @@ public class ObraServiceTests
         var materialId = 1;
         var quantidade = 1;
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Saida)
+            .With(x => x.Operacao, EntradaSaida.Saida)
             .With(x => x.Quantidade, quantidade)
             .Create();
         var material = _fixture.Create<Material>();
-        material.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade);
+        material.MovimentarEstoque(EntradaSaida.Entrada, quantidade);
         _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Returns(material);
         var obra = _fixture.Build<Obra>()
             .Create();
@@ -391,11 +391,11 @@ public class ObraServiceTests
         var materialId = 1;
         var quantidade = 1;
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Saida)
+            .With(x => x.Operacao, EntradaSaida.Saida)
             .Without(x => x.Quantidade)
             .Create();
         var material = _fixture.Create<Material>();
-        material.MovimentarEstoque(EntradaSaidaEnum.Entrada, quantidade);
+        material.MovimentarEstoque(EntradaSaida.Entrada, quantidade);
         _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Returns(material);
         var obra = _fixture.Build<Obra>()
             .Create();
@@ -415,7 +415,7 @@ public class ObraServiceTests
         var materialId = 1;
         var quantidade = 1;
         var dto = _fixture.Build<EntradaSaidaMaterialDto>()
-            .With(x => x.Operacao, EntradaSaidaEnum.Saida)
+            .With(x => x.Operacao, EntradaSaida.Saida)
             .With(x => x.Quantidade, quantidade)
             .Create();
         _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Throws(new NaoEncontradoException("Material não encontrado"));

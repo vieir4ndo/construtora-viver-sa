@@ -14,7 +14,7 @@ public class EstoqueTests
     public void Construtor_ComDadosValidos_DeveConstruirCorretamente()
     {
         var material = _fixture.Create<Material>();
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
+        var operacao = _fixture.Create<EntradaSaida>();
         var quantidade = _fixture.Create<int>();
 
         var result = new Estoque(material, operacao, quantidade);
@@ -30,7 +30,7 @@ public class EstoqueTests
     
     public void Construtor_ComMaterialInvalido_DeveLancarExcecao()
     {
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
+        var operacao = _fixture.Create<EntradaSaida>();
         var quantidade = _fixture.Create<int>();
 
         Action result = () => new Estoque(null, operacao, quantidade);
@@ -57,7 +57,7 @@ public class EstoqueTests
     
     public void Construtor_ComQuantidadeInvalida_DeveLancarExcecao(int? quantidade)
     {
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
+        var operacao = _fixture.Create<EntradaSaida>();
         var material = _fixture.Create<Material>();
 
         Action result = () => new Estoque(material, operacao, quantidade);

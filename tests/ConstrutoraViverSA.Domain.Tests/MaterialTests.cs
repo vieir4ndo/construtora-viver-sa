@@ -15,7 +15,7 @@ public class MaterialTests
     {
         var nome = _fixture.Create<string>();
         var descricao = _fixture.Create<string>();
-        var tipo = _fixture.Create<TipoMaterialEnum>();
+        var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
         var quantidade = 0;
 
@@ -36,7 +36,7 @@ public class MaterialTests
     {
         var nome = _fixture.Create<string>();
         var descricao = _fixture.Create<string>();
-        var tipo = _fixture.Create<TipoMaterialEnum>();
+        var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
         var quantidade = 10;
 
@@ -58,7 +58,7 @@ public class MaterialTests
     public void Construtor_ComNomeInvalido_DeveLancarExcecao()
     {
         var descricao = _fixture.Create<string>();
-        var tipo = _fixture.Create<TipoMaterialEnum>();
+        var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
         var quantidade = 0;
 
@@ -71,7 +71,7 @@ public class MaterialTests
     public void Construtor_ComDescricaoInvalido_DeveLancarExcecao()
     {
         var nome = _fixture.Create<string>();
-        var tipo = _fixture.Create<TipoMaterialEnum>();
+        var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
         var quantidade = 0;
 
@@ -98,7 +98,7 @@ public class MaterialTests
     {
         var nome = _fixture.Create<string>();
         var descricao = _fixture.Create<string>();
-        var tipo = _fixture.Create<TipoMaterialEnum>();
+        var tipo = _fixture.Create<TipoMaterial>();
         var quantidade = 0;
 
         Action result = () => new Material(nome, descricao, tipo, null, quantidade);
@@ -113,7 +113,7 @@ public class MaterialTests
     {
         var nome = _fixture.Create<string>();
         var descricao = _fixture.Create<string>();
-        var tipo = _fixture.Create<TipoMaterialEnum>();
+        var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
 
         Action result = () => new Material(nome, descricao, tipo, valor, quantidade);
@@ -169,7 +169,7 @@ public class MaterialTests
     public void SetTipo_ComDadosValidos_DeveRealizarAlteracao()
     {
         var material = _fixture.Create<Material>();
-        var tipoNovo = _fixture.Create<TipoMaterialEnum>();
+        var tipoNovo = _fixture.Create<TipoMaterial>();
         
         material.SetTipo(tipoNovo);
 
@@ -212,9 +212,9 @@ public class MaterialTests
     [Fact]
     public void MovimentarEstoque_ComDadosValidos_DeveRetornarComoEsperado()
     {
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, 1);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         var quantidade = 10;
-        var operacao = EntradaSaidaEnum.Entrada;
+        var operacao = EntradaSaida.Entrada;
         
         material.MovimentarEstoque(operacao, quantidade);
 
@@ -226,9 +226,9 @@ public class MaterialTests
     [Fact]
     public void MovimentarEstoque_ComQuantidadeInvalida_DeveLancarExcecao()
     {
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, 1);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         var quantidade = -10;
-        var operacao = EntradaSaidaEnum.Entrada;
+        var operacao = EntradaSaida.Entrada;
         
         Action result = () => material.MovimentarEstoque(operacao, quantidade);
 
@@ -238,9 +238,9 @@ public class MaterialTests
     [Fact]
     public void MovimentarEstoque_SaidaComMaterialSemEstoqueSuficiente_DeveLancarExcecao()
     {
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, 10.80, 1);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         var quantidade = 10;
-        var operacao = EntradaSaidaEnum.Saida;
+        var operacao = EntradaSaida.Saida;
         
         Action result = () => material.MovimentarEstoque(operacao, quantidade);
 

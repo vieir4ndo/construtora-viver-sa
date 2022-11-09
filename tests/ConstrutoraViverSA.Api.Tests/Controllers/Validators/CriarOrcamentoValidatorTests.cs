@@ -78,10 +78,10 @@ public class CriarOrcamentoValidatorTests
     }
     
     [Theory]
-    [InlineData(TipoObraEnum.Ambas)]
-    [InlineData(TipoObraEnum.Comercial)]
-    [InlineData(TipoObraEnum.Residencial)]
-    public void CriarOrcamentoValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoObraEnum tipoObra)
+    [InlineData(TipoObra.Ambas)]
+    [InlineData(TipoObra.Comercial)]
+    [InlineData(TipoObra.Residencial)]
+    public void CriarOrcamentoValidator_DadoUmTipoValido_NaoDeveRetornarErros(TipoObra tipoObra)
     {
         var request = _fixture.Build<OrcamentoRequest>()
             .With(x => x.TipoObra, tipoObra)
@@ -100,7 +100,7 @@ public class CriarOrcamentoValidatorTests
     public void CriarOrcamentoValidator_DadoUmTipoInvalido_DeveRetornarErros(int? tipoObra)
     {
         var request = _fixture.Build<OrcamentoRequest>()
-            .With(x => x.TipoObra, tipoObra is null ? null : (TipoObraEnum)tipoObra)
+            .With(x => x.TipoObra, tipoObra is null ? null : (TipoObra)tipoObra)
             .With(x => x.DataEmissao, DateTime.Today)
             .With(x => x.DataValidade, DateTime.Today.AddDays(1))
             .Create();

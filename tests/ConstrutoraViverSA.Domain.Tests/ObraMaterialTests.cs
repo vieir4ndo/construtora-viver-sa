@@ -17,8 +17,8 @@ public class ObraMaterialTests
         var quantidade = 10;
         var quantidadeMaterial = 10;
         var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
-        var operacao = EntradaSaidaEnum.Entrada;
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var operacao = EntradaSaida.Entrada;
 
         var result = new ObraMaterial(obra, material,quantidade, operacao);
 
@@ -40,8 +40,8 @@ public class ObraMaterialTests
         var quantidade = 11;
         var quantidadeMaterial = 10;
         var valorMaterial = 10.95;
-        var operacao = EntradaSaidaEnum.Entrada;
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
+        var operacao = EntradaSaida.Entrada;
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
 
         Action result = () => new ObraMaterial(obra, material,quantidade, operacao);
 
@@ -54,8 +54,8 @@ public class ObraMaterialTests
         var quantidade = 11;
         var quantidadeMaterial = 10;
         var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var operacao = _fixture.Create<EntradaSaida>();
 
         Action result = () => new ObraMaterial(null, material,quantidade, operacao);
 
@@ -67,7 +67,7 @@ public class ObraMaterialTests
     {
         var obra = _fixture.Create<Obra>();
         var quantidade = 11;
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
+        var operacao = _fixture.Create<EntradaSaida>();
 
         Action result = () => new ObraMaterial(obra, null, quantidade, operacao);
 
@@ -83,8 +83,8 @@ public class ObraMaterialTests
         var obra = _fixture.Create<Obra>();
         var quantidadeMaterial = 10;
         var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
-        var operacao = _fixture.Create<EntradaSaidaEnum>();
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var operacao = _fixture.Create<EntradaSaida>();
 
         Action result = () => new ObraMaterial(obra, material, quantidade, operacao);
 
@@ -97,7 +97,7 @@ public class ObraMaterialTests
         var obra = _fixture.Create<Obra>();
         var quantidadeMaterial = 10;
         var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterialEnum.Cimento, valorMaterial, quantidadeMaterial);
+        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
         var quantidade = _fixture.Create<int>();
         
         Action result = () => new ObraMaterial(obra, material, quantidade, null);
