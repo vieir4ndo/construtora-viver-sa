@@ -4,9 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace ConstrutoraViverSA.Domain.Exceptions;
 
 [ExcludeFromCodeCoverage]
-public class ResponseApiInvalido : Exception
+public class ResponseApiInvalidoException : Exception
 {
-    public ResponseApiInvalido(string mensagem) : base(mensagem)
+    public ResponseApiInvalidoException(string mensagem) : base(mensagem)
     {
         
     }

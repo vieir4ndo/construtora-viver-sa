@@ -33,6 +33,6 @@ public class ResponseApiTests
     {
         Action result = () => new ResponseApi<object>(null, null, null);
 
-        result.Should().Throw<ResponseApiInvalido>();
+        result.Should().Throw<ResponseApiInvalidoException>();
     }
 }

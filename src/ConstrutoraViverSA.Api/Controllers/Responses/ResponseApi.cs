@@ -13,7 +13,7 @@ public class ResponseApi<T> where T : class?
     public ResponseApi(bool? sucesso, List<T>? dados, string mensagens)
     {
         if (sucesso is null)
-            throw new ResponseApiInvalido("Sucesso inválido");
+            throw new ResponseApiInvalidoException("Sucesso inválido");
         
         Sucesso = sucesso.Value;
         Dados = dados;

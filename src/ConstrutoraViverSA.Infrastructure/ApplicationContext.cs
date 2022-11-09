@@ -16,16 +16,16 @@ public class ApplicationContext : DbContext
     public DbSet<Material> Material { get; set; }
     public DbSet<ObraMaterial> ObraMaterial { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!options.IsConfigured)
+        if (!optionsBuilder.IsConfigured)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath($"{Directory.GetCurrentDirectory()}/../ConstrutoraViverSA.Api")
                 .AddJsonFile("appsettings.json")
                 .Build();
             var connectionString = configuration["ConnectionString:Postgres"];
-            options.UseNpgsql(connectionString);
+            optionsBuilder.UseNpgsql(connectionString);
         }
     }
 
