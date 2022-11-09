@@ -34,7 +34,7 @@ public class ObraServiceTests
         _materialServiceMock = new Mock<IMaterialService>();
         _orcamentoServiceMock = new Mock<IOrcamentoService>();
         _obraParaObraDtoServiceMock = new Mock<IObraParaObraDto>();
-        _service = new ObraService(_repositoryMock.Object, _orcamentoServiceMock.Object, _funcionarioServiceMock.Object, _materialServiceMock.Object,_mapperMock.Object, _obraParaObraDtoServiceMock.Object);
+        _service = new ObraService(_repositoryMock.Object, _orcamentoServiceMock.Object, _funcionarioServiceMock.Object, _materialServiceMock.Object, _obraParaObraDtoServiceMock.Object);
     }
 
     [Fact]
