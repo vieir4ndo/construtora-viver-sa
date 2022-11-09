@@ -21,7 +21,7 @@ public class FuncionarioRequest
     {
         var resultado = new CriarFuncionarioValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }
@@ -31,7 +31,7 @@ public class FuncionarioRequest
     {
         var resultado = new EditarFuncionarioValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }

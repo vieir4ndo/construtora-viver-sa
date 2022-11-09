@@ -17,7 +17,7 @@ public class MaterialRequest
     {
         var resultado = new CriarMaterialValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }

@@ -21,7 +21,7 @@ public class EditarObraRequest
     {
         var resultado = new EditarObraValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }

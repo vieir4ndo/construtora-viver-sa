@@ -19,7 +19,7 @@ public class OrcamentoRequest
     {
         var resultado = new CriarOrcamentoValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }
@@ -29,7 +29,7 @@ public class OrcamentoRequest
     {
         var resultado = new EditarOrcamentoValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }

@@ -23,7 +23,7 @@ public class ObraRequest
     {
         var resultado = new CriarObraValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }

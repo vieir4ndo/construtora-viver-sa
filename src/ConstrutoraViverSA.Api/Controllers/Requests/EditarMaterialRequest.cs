@@ -15,7 +15,7 @@ public class EditarMaterialRequest
     {
         var resultado = new EditarMaterialValidator().Validate(this);
 
-        if (resultado.IsValid == false)
+        if (!resultado.IsValid)
         {
             throw new ErroValidacaoException(resultado.ToString());
         }

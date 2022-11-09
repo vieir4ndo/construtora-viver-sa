@@ -13,6 +13,6 @@ public class EntradaSaidaMaterialRequest
     {
         var resultado = new EntradaSaidaMaterialValidator().Validate(this);
 
-        if (resultado.IsValid == false) throw new ErroValidacaoException(resultado.ToString());
+        if (!resultado.IsValid) throw new ErroValidacaoException(resultado.ToString());
     }
 }
