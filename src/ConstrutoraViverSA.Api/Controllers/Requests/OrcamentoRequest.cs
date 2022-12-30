@@ -8,8 +8,8 @@ namespace ConstrutoraViverSA.Api.Controllers.Requests;
 
 public class OrcamentoRequest
 {
-    public string Descricao { get; set; }
-    public string Endereco { get; set; }
+    public string? Descricao { get; set; }
+    public string? Endereco { get; set; }
     public TipoObra? TipoObra { get; set; }
     public DateTime? DataEmissao { get; set; }
     public DateTime? DataValidade { get; set; }
