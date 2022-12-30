@@ -16,8 +16,7 @@ public sealed class Orcamento
     public DateTime DataEmissao { get; private set; }
     public DateTime DataValidade { get; private set; }
     public double? Valor { get; private set; }
-    
-    public Obra? Obra;
+    public Obra? Obra { get; private set; }
     
     [ExcludeFromCodeCoverage]
     public Orcamento()
@@ -44,10 +43,9 @@ public sealed class Orcamento
         if (dataValidade is null || dataValidade == DateTime.MinValue)
             erros.Append("Data Validade inválida.");
 
-        if (dataEmissao.HasValue && dataValidade.HasValue)
+        if ((dataEmissao.HasValue && dataValidade.HasValue) && (dataValidade!.Value < dataEmissao!.Value))
         {
-            if (dataValidade!.Value < dataEmissao!.Value)
-                erros.Append("Data de Emissão e Data de Validade em intervalo inválido.");
+            erros.Append("Data de Emissão e Data de Validade em intervalo inválido.");
         }
 
         if (valor is null or <= 0)

@@ -21,7 +21,7 @@ public sealed class Funcionario
     public string Telefone { get; private set; }
     public Cargo? Cargo { get; private set; }
     
-    public ICollection<Obra> Obras;
+    public ICollection<Obra> Obras { get; private set; }
 
     [ExcludeFromCodeCoverage]
     public Funcionario()

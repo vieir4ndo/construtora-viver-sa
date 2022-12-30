@@ -11,7 +11,7 @@ public sealed class ObraMaterial
 {
     public long Id { get; private set; }
     public long ObraId { get; private set; }
-    public Obra Obra { get; }
+    public Obra Obra { get; private set; }
     public long MaterialId { get; private set; }
     public Material Material { get; }
     public int Quantidade { get; }
