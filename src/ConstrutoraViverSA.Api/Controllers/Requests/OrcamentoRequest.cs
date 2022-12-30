@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using ConstrutoraViverSA.Api.Controllers.Validators;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
