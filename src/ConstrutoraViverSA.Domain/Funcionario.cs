@@ -12,14 +12,14 @@ namespace ConstrutoraViverSA.Domain;
 public sealed class Funcionario
 {
     public long Id { get; set; }
-    public string Nome { get; private set; }
+    public string Nome { get; private set; } = null!;
     public DateTime? DataNascimento { get; private set; }
     public Genero? Genero { get; private set; }
-    public string Cpf { get; private set; }
-    public string NumCtps { get; private set; }
-    public string Endereco { get; private set; }
-    public string Email { get; private set; }
-    public string Telefone { get; private set; }
+    public string Cpf { get; private set; } = null!;
+    public string NumCtps { get; private set; } = null!;
+    public string Endereco { get; private set; } = null!;
+    public string Email { get; private set; } = null!;
+    public string Telefone { get; private set; } = null!;
     public Cargo? Cargo { get; private set; }
     
     public ICollection<Obra>? Obras { get; private set; }

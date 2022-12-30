@@ -10,8 +10,8 @@ namespace ConstrutoraViverSA.Domain;
 public sealed class Orcamento
 {
     public long Id { get; set; }
-    public string Descricao { get; private set; }
-    public string Endereco { get; private set; }
+    public string Descricao { get; private set; } = null!;
+    public string Endereco { get; private set; } = null!;
     public TipoObra TipoObra { get; private set; }
     public DateTime DataEmissao { get; private set; }
     public DateTime DataValidade { get; private set; }

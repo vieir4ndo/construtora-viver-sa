@@ -11,7 +11,7 @@ public sealed class Estoque
 {
     public long Id { get; set; }
     public long MaterialId { get; private set; }
-    public Material Material { get; }
+    public Material Material { get; } = null!;
     public EntradaSaida Operacao { get; }
     public int Quantidade { get; }
     public DateTime DataHora { get; }

@@ -13,14 +13,14 @@ namespace ConstrutoraViverSA.Domain;
 public sealed class Obra
 {
     public long Id { get; set; }
-    public string Nome { get; private set; }
-    public string Endereco { get; private set; }
+    public string Nome { get; private set; } = null!;
+    public string Endereco { get; private set; } = null!;
     public TipoObra? TipoObra { get; private set; }
-    public string Descricao { get; private set; }
+    public string Descricao { get; private set; } = null!;
     public double? Valor { get; private set; }
     public DateTime? PrazoConclusao { get; private set; }
-    public Orcamento Orcamento { get; private set; }
-    
+    public Orcamento Orcamento { get; private set; } = null!;
+
     public long OrcamentoId { get; private set; }
     public ICollection<Funcionario>? Funcionarios { get; private set;  } = new Collection<Funcionario>();
     public ICollection<ObraMaterial>? ObraMateriais { get; private set; } = new Collection<ObraMaterial>();

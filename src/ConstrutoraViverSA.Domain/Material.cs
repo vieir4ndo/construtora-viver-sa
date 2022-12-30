@@ -12,8 +12,8 @@ namespace ConstrutoraViverSA.Domain;
 public sealed class Material
 {
     public long Id { get; set; }
-    public string Nome { get; private set; }
-    public string Descricao { get; private set; }
+    public string Nome { get; private set; } = null!;
+    public string Descricao { get; private set; } = null!;
     public TipoMaterial Tipo { get; private set; }
     public double Valor { get; private set; }
     public int Quantidade { get; private set; }
