@@ -14,8 +14,7 @@ namespace ConstrutoraViverSA.Api.Middlewares;
 public static class ErrorHandlerExtensions
 {
     public static IApplicationBuilder UseErrorHandler(
-        this IApplicationBuilder appBuilder,
-        ILoggerFactory loggerFactory)
+        this IApplicationBuilder appBuilder)
     {
         return appBuilder.UseExceptionHandler(builder =>
         {
@@ -29,9 +28,6 @@ public static class ErrorHandlerExtensions
 
                 if (exceptionHandlerFeature != null)
                 {
-                    var logger = loggerFactory.CreateLogger("ErrorHandler");
-                    logger.LogError($"Error: {exceptionHandlerFeature.Error}");
-
                     if (exceptionHandlerPathFeature?.Error is NaoEncontradoException naoEncontradoException)
                     {
                         var response = new ResponseApi<object>(false, null, naoEncontradoException.Message);
