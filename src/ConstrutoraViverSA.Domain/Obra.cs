@@ -54,10 +54,9 @@ public sealed class Obra
         if (orcamento is null)
             erros.Append("Orcamento inválido.");
 
-        if (orcamento is not null)
+        if (orcamento is not null && (prazoConclusao is null || prazoConclusao.Value < orcamento!.DataValidade ))
         {
-            if (prazoConclusao is null || prazoConclusao.Value < orcamento!.DataValidade )
-                erros.Append("Prazo conclusão inválido.");
+            erros.Append("Prazo conclusão inválido.");
         }
 
         if (erros.Length > 0)
