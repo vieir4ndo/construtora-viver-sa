@@ -1,3 +1,4 @@
+#nullable enable
 using ConstrutoraViverSA.Api.Controllers.Validators;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
