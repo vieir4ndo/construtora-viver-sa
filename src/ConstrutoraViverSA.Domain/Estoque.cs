@@ -7,7 +7,7 @@ using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public sealed class Estoque
+public class Estoque
 {
     public long Id { get; set; }
     public long MaterialId { get; private set; }

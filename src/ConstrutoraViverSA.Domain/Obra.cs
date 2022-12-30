@@ -10,7 +10,7 @@ using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public sealed class Obra
+public class Obra
 {
     public long Id { get; set; }
     public string Nome { get; private set; } = null!;

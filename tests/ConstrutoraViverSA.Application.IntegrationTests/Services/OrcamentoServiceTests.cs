@@ -4,6 +4,7 @@ using ConstrutoraViverSA.Application.Services;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using ConstrutoraViverSA.Repository.Interfaces;
 using FluentAssertions;
 using Moq;
@@ -28,7 +29,8 @@ public class OrcamentoServiceTests
     [Fact]
     public void BuscarTodos_ComDadosValidos_DeveRealizarOperacao()
     {
-        var orcamentos = _fixture.CreateMany<Orcamento>().ToList();
+        var orcamentos = new List<Orcamento>()
+            { OrcamentoStub.Valido(_fixture), OrcamentoStub.Valido(_fixture), OrcamentoStub.Valido(_fixture) };
         var orcamentosDto = _fixture.CreateMany<OrcamentoDto>(3).ToList();
         _repositoryMock.Setup(x => x.BuscarTodos()).Returns(orcamentos);
         _mapperMock.SetupSequence(x => x.Map<OrcamentoDto>(It.IsAny<Orcamento>()))
@@ -48,9 +50,7 @@ public class OrcamentoServiceTests
     public void BuscarEntidadePorId_ComDadosValidos_DeveRealizarOperacao()
     {
         var orcamentoId = 1;
-        var orcamento = _fixture.Build<Orcamento>()
-            .With(x => x.Id, orcamentoId)
-            .Create();
+        var orcamento = OrcamentoStub.ValidoComId(_fixture, orcamentoId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId)))
             .Returns(orcamento);
 
@@ -79,9 +79,7 @@ public class OrcamentoServiceTests
     public void BuscarPorId_ComDadosValidos_DeveRealizarOperacao()
     {
         var orcamentoId = 1;
-        var orcamento = _fixture.Build<Orcamento>()
-            .With(x => x.Id, orcamentoId)
-            .Create();
+        var orcamento = OrcamentoStub.ValidoComId(_fixture, orcamentoId);
         var orcamentoDto = _fixture.Create<OrcamentoDto>();
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId)))
             .Returns(orcamento);
@@ -146,9 +144,7 @@ public class OrcamentoServiceTests
             .With(x => x.DataEmissao, DateTime.Today)
             .With(x => x.DataValidade, DateTime.Today.AddDays(1))
             .Create();
-        var orcamento = _fixture.Build<Orcamento>()
-            .With(x => x.Id, orcamentoId)
-            .Create();
+        var orcamento = OrcamentoStub.ValidoComId(_fixture, orcamentoId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId))).Returns(orcamento);
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Orcamento>()));
 
@@ -167,9 +163,7 @@ public class OrcamentoServiceTests
             .With(x => x.DataEmissao, DateTime.Today)
             .With(x => x.DataValidade, DateTime.Today.AddDays(-1))
             .Create();
-        var orcamento = _fixture.Build<Orcamento>()
-            .With(x => x.Id, orcamentoId)
-            .Create();
+        var orcamento = OrcamentoStub.ValidoComId(_fixture, orcamentoId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId))).Returns(orcamento);
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Orcamento>()));
 
@@ -184,9 +178,7 @@ public class OrcamentoServiceTests
     public void Excluir_ComDadosValidos_DeveRealizarOperacao()
     {
         var orcamentoId = 1;
-        var orcamento = _fixture.Build<Orcamento>()
-            .With(x => x.Id, orcamentoId)
-            .Create();
+        var orcamento = OrcamentoStub.ValidoComId(_fixture, orcamentoId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId))).Returns(orcamento);
         _repositoryMock.Setup(x => x.Excluir(It.Is<Orcamento>(x => x == orcamento)));
 

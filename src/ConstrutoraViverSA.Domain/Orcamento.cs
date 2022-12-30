@@ -7,7 +7,7 @@ using ConstrutoraViverSA.Domain.Exceptions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public sealed class Orcamento
+public class Orcamento
 {
     public long Id { get; set; }
     public string Descricao { get; private set; } = null!;

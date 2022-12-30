@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
 
@@ -45,7 +46,7 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
-        var funcionarios = _fixture.CreateMany<Funcionario>().ToList();
+        var funcionarios = new List<Funcionario>() { FuncionarioStub.Valido(_fixture) };
 
         var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, null);
 
@@ -268,7 +269,7 @@ public class ObraTests
     [Fact]
     public void SetNome_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var nomeNovo = _fixture.Create<string>();
         
         obra.SetNome(nomeNovo);
@@ -279,7 +280,7 @@ public class ObraTests
     [Fact]
     public void SetNome_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var nomeAntigo = obra.Nome;
         
         obra.SetNome(null);
@@ -290,7 +291,7 @@ public class ObraTests
     [Fact]
     public void SetEndereco_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var enderecoNovo = _fixture.Create<string>();
         
         obra.SetEndereco(enderecoNovo);
@@ -301,7 +302,7 @@ public class ObraTests
     [Fact]
     public void SetEndereco_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var enderecoAntigo = obra.Endereco;
         
         obra.SetEndereco(null);
@@ -312,7 +313,7 @@ public class ObraTests
     [Fact]
     public void SetDescricao_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var enderecoNovo = _fixture.Create<string>();
         
         obra.SetDescricao(enderecoNovo);
@@ -323,7 +324,7 @@ public class ObraTests
     [Fact]
     public void SetDescricao_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var enderecoAntigo = obra.Descricao;
         
         obra.SetDescricao(null);
@@ -334,7 +335,7 @@ public class ObraTests
     [Fact]
     public void SetTipoObra_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var tipoObraNovo = _fixture.Create<TipoObra>();
         
         obra.SetTipoObra(tipoObraNovo);
@@ -345,7 +346,7 @@ public class ObraTests
     [Fact]
     public void SetTipoObra_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var tipoObraAntigo = obra.TipoObra;
         
         obra.SetTipoObra(null);
@@ -356,7 +357,7 @@ public class ObraTests
     [Fact]
     public void SetValor_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var valorNovo = _fixture.Create<double>();
         
         obra.SetValor(valorNovo);
@@ -367,7 +368,7 @@ public class ObraTests
     [Fact]
     public void SetValor_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var valorAntigo = obra.Valor;
         
         obra.SetValor(null);
@@ -378,7 +379,7 @@ public class ObraTests
     [Fact]
     public void SetOrcamento_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var orcamentoNovo = _fixture.Create<Orcamento>();
         
         obra.SetOrcamento(orcamentoNovo);
@@ -389,7 +390,7 @@ public class ObraTests
     [Fact]
     public void SetOrcamento_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var orcamentoAntigo = obra.Orcamento;
         
         obra.SetOrcamento(null);
@@ -420,7 +421,7 @@ public class ObraTests
     [Fact]
     public void SetPrazoConclusao_ComDadoNull_NaoDeveRealizarAlteracao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var prazoConclusaoAntigo = obra.PrazoConclusao;
         
         obra.SetPrazoConclusao(null);
@@ -451,8 +452,8 @@ public class ObraTests
     [Fact]
     public void AlocarFuncionario_ComDadoValido_DeveRealizarOperacao()
     {
-        var obra = _fixture.Create<Obra>();
-        var funcionario = _fixture.Create<Funcionario>();
+        var obra = ObraStub.Valido(_fixture);
+        var funcionario = FuncionarioStub.Valido(_fixture);
         
         obra.AlocarFuncionario(funcionario);
 
@@ -463,8 +464,8 @@ public class ObraTests
     [Fact]
     public void AlocarFuncionario_ComFuncionarioAlocado_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
-        var funcionario = _fixture.Create<Funcionario>();
+        var obra = ObraStub.Valido(_fixture);
+        var funcionario = FuncionarioStub.Valido(_fixture);
         obra.AlocarFuncionario(funcionario);
         
         var result = () => obra.AlocarFuncionario(funcionario);
@@ -475,8 +476,8 @@ public class ObraTests
     [Fact]
     public void DesalocarFuncionario_ComDadoValido_DeveRealizarOperacao()
     {
-        var obra = _fixture.Create<Obra>();
-        var funcionario = _fixture.Create<Funcionario>();
+        var obra = ObraStub.Valido(_fixture);
+        var funcionario = FuncionarioStub.Valido(_fixture);
         obra.AlocarFuncionario(funcionario);
         
         obra.DesalocarFuncionario(funcionario);
@@ -488,8 +489,8 @@ public class ObraTests
     [Fact]
     public void DesalocarFuncionario_ComFuncionarioNaoAlocado_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
-        var funcionario = _fixture.Create<Funcionario>();
+        var obra = ObraStub.Valido(_fixture);
+        var funcionario = FuncionarioStub.Valido(_fixture);
         
         var result = () => obra.DesalocarFuncionario(funcionario);
 
@@ -501,7 +502,7 @@ public class ObraTests
     {
         var quantidade = 1;
 
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, quantidade);
         
         obra.AlocarMaterial(material, quantidade);
@@ -516,7 +517,7 @@ public class ObraTests
     [Fact]
     public void AlocarMaterial_ComMaterialSemEstoqueSuficiente_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         
         var result = () => obra.AlocarMaterial(material, 10);
@@ -528,7 +529,7 @@ public class ObraTests
     public void DesalocarMaterial_ComDadoValido_DeveRealizarOperacao()
     {
         var quantidade = 1;
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, quantidade);
         
         obra.AlocarMaterial(material, quantidade);
@@ -544,7 +545,7 @@ public class ObraTests
     [Fact]
     public void DesalocarMaterial_ComQuantidadeInvalida_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         obra.AlocarMaterial(material, 1);
         
@@ -556,7 +557,7 @@ public class ObraTests
     [Fact]
     public void DesalocarMaterial_ComQuantidadeParaDesalocarMaiorQueAQuantidadeMateriaisAlocados_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         obra.AlocarMaterial(material, 1);
         
@@ -568,7 +569,7 @@ public class ObraTests
     [Fact]
     public void DesalocarMaterial_ComMaterialNaoAlocado_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         
         var result = () => obra.DesalocarMaterial(material, 1);

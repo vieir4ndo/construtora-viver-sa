@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
 
@@ -267,7 +268,7 @@ public class FuncionarioTests
     [Fact]
     public void SetNome_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var nomeNovo = _fixture.Create<string>();
         
         funcionario.SetNome(nomeNovo);
@@ -278,7 +279,7 @@ public class FuncionarioTests
     [Fact]
     public void SetNome_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var nomeAntigo = funcionario.Nome;
         
         funcionario.SetNome(null);
@@ -289,7 +290,7 @@ public class FuncionarioTests
     [Fact]
     public void SetDataNascimento_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var dataNascimentoNova = DateTime.Now;
         
         funcionario.SetDataNascimento(dataNascimentoNova);
@@ -300,7 +301,7 @@ public class FuncionarioTests
     [Fact]
     public void SetDataNascimento_ComDadoNull_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var dataNascimentoAntiga = funcionario.DataNascimento;
         
         funcionario.SetDataNascimento(null);
@@ -311,7 +312,7 @@ public class FuncionarioTests
     [Fact]
     public void SetDataNascimento_ComDadoInvalido_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var dataNascimentoAntiga = funcionario.DataNascimento;
         
         funcionario.SetDataNascimento(DateTime.MinValue);
@@ -322,7 +323,7 @@ public class FuncionarioTests
     [Fact]
     public void SetGenero_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var generoNovo = Genero.Feminino;
         
         funcionario.SetGenero(generoNovo);
@@ -333,7 +334,7 @@ public class FuncionarioTests
     [Fact]
     public void SetGenero_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var generoAntigo = funcionario.Genero;
         
         funcionario.SetGenero(null);
@@ -344,7 +345,7 @@ public class FuncionarioTests
     [Fact]
     public void SetCpf_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var cpfNovo = CPF_VALIDO;
         
         funcionario.SetCpf(cpfNovo);
@@ -358,7 +359,7 @@ public class FuncionarioTests
     [InlineData("123456789111")]
     public void SetCpf_ComDadosInvalidos_NaoDeveRealizarAlteracao(string cpfNovo)
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var cpfAntigo = funcionario.Cpf;
         
         funcionario.SetCpf(cpfNovo);
@@ -369,7 +370,7 @@ public class FuncionarioTests
     [Fact]
     public void SetNumCtps_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var numCtpsNovo = _fixture.Create<string>();
         
         funcionario.SetNumCtps(numCtpsNovo);
@@ -380,7 +381,7 @@ public class FuncionarioTests
     [Fact]
     public void SetNumCtps_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var numCtpsAntigo = funcionario.NumCtps;
         
         funcionario.SetNumCtps(null);
@@ -391,7 +392,7 @@ public class FuncionarioTests
     [Fact]
     public void SetEndereco_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var enderecoNovo = _fixture.Create<string>();
         
         funcionario.SetEndereco(enderecoNovo);
@@ -402,7 +403,7 @@ public class FuncionarioTests
     [Fact]
     public void SetEndereco_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var enderecoAntigo = funcionario.Endereco;
         
         funcionario.SetEndereco(null);
@@ -413,7 +414,7 @@ public class FuncionarioTests
     [Fact]
     public void SetEmail_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var emailNovo = _fixture.Create<string>();
         
         funcionario.SetEmail(emailNovo);
@@ -424,7 +425,7 @@ public class FuncionarioTests
     [Fact]
     public void SetEmail_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var emailAntigo = funcionario.Email;
         
         funcionario.SetEmail(null);
@@ -435,7 +436,7 @@ public class FuncionarioTests
     [Fact]
     public void SetTelefone_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var telefoneNovo = _fixture.Create<string>();
         
         funcionario.SetTelefone(telefoneNovo);
@@ -446,7 +447,7 @@ public class FuncionarioTests
     [Fact]
     public void SetTelefone_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var telefoneAntigo = funcionario.Telefone;
         
         funcionario.SetTelefone(null);
@@ -457,7 +458,7 @@ public class FuncionarioTests
     [Fact]
     public void SetCargo_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var cargoNovo = Cargo.Almoxarife;
         
         funcionario.SetCargo(cargoNovo);
@@ -468,7 +469,7 @@ public class FuncionarioTests
     [Fact]
     public void SetCargo_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var funcionario = _fixture.Create<Funcionario>();
+        var funcionario = FuncionarioStub.Valido(_fixture);
         var cargoAntigo = funcionario.Cargo;
         
         funcionario.SetCargo(null);

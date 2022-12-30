@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
 
@@ -13,7 +14,7 @@ public class EstoqueTests
     [Fact]
     public void Construtor_ComDadosValidos_DeveConstruirCorretamente()
     {
-        var material = _fixture.Create<Material>();
+        var material = MaterialStub.Valido(_fixture);
         var operacao = _fixture.Create<EntradaSaida>();
         var quantidade = _fixture.Create<int>();
 
@@ -48,7 +49,7 @@ public class EstoqueTests
     public void Construtor_ComOperacaoInvalida_DeveLancarExcecao()
     {
         var quantidade = _fixture.Create<int>();
-        var material = _fixture.Create<Material>();
+        var material = MaterialStub.Valido(_fixture);
         Estoque? estoque = null;
         
         var result = () =>
@@ -68,7 +69,7 @@ public class EstoqueTests
     public void Construtor_ComQuantidadeInvalida_DeveLancarExcecao(int? quantidade)
     {
         var operacao = _fixture.Create<EntradaSaida>();
-        var material = _fixture.Create<Material>();
+        var material = MaterialStub.Valido(_fixture);
         Estoque? estoque = null;
         
         var result = () =>

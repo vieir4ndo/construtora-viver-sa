@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
 
@@ -206,7 +207,7 @@ public class OrcamentoTests
     [Fact]
     public void SetDescricao_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var descricaoNova = _fixture.Create<string>();
         
         orcamento.SetDescricao(descricaoNova);
@@ -217,7 +218,7 @@ public class OrcamentoTests
     [Fact]
     public void SetDescricao_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var descricaoAntiga = orcamento.Descricao;
         
         orcamento.SetDescricao(null);
@@ -228,18 +229,18 @@ public class OrcamentoTests
     [Fact]
     public void SetEndereco_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
-        var enderecoNova = _fixture.Create<string>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
+        var enderecoNovo = _fixture.Create<string>();
         
-        orcamento.SetEndereco(enderecoNova);
+        orcamento.SetEndereco(enderecoNovo);
 
-        orcamento.Endereco.Should().Be(enderecoNova);
+        orcamento.Endereco.Should().Be(enderecoNovo);
     }
     
     [Fact]
     public void SetEndereco_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var enderecoAntiga = orcamento.Endereco;
         
         orcamento.SetEndereco(null);
@@ -250,7 +251,7 @@ public class OrcamentoTests
     [Fact]
     public void SetTipoObra_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var tipoObraNovo = _fixture.Create<TipoObra>();
         
         orcamento.SetTipoObra(tipoObraNovo);
@@ -261,7 +262,7 @@ public class OrcamentoTests
     [Fact]
     public void SetTipoObra_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var tipoObraAntigo = orcamento.TipoObra;
         
         orcamento.SetTipoObra(null);
@@ -272,14 +273,9 @@ public class OrcamentoTests
     [Fact]
     public void SetDataEmissao_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var descricao = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(2);
-        var valor = _fixture.Create<double>();
-
-        var orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, valor);
+        var orcamento = OrcamentoStub.ValidoComDataDeEmissaoEValidade(_fixture, dataEmissao, dataValidade);
         var dataEmissaoNova = dataEmissao.AddDays(1);
         
         orcamento.SetDataEmissao(dataEmissaoNova);
@@ -290,7 +286,7 @@ public class OrcamentoTests
     [Fact]
     public void SetDataEmissao_ComDadoNull_NaoDeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var dataEmissaoAntigo = orcamento.DataEmissao;
         
         orcamento.SetDataEmissao(null);
@@ -301,16 +297,11 @@ public class OrcamentoTests
     [Fact]
     public void SetDataEmissao_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var descricao = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
-        var valor = _fixture.Create<double>();
-
-        var orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, valor);
+        var orcamento = OrcamentoStub.ValidoComDataDeEmissaoEValidade(_fixture, dataEmissao, dataValidade);
         
-        orcamento.SetDataEmissao(dataValidade.AddDays(+3));
+        orcamento.SetDataEmissao(dataValidade.AddDays(3));
 
         orcamento.DataEmissao.Should().Be(dataEmissao);
     }
@@ -318,14 +309,10 @@ public class OrcamentoTests
     [Fact]
     public void SetDataValidade_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var descricao = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(2);
-        var valor = _fixture.Create<double>();
         var dataValidadeNovo = dataValidade.AddDays(1);
-        var orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, valor);
+        var orcamento = OrcamentoStub.ValidoComDataDeEmissaoEValidade(_fixture, dataEmissao, dataValidade);
         
         orcamento.SetDataValidade(dataValidadeNovo);
 
@@ -335,7 +322,7 @@ public class OrcamentoTests
     [Fact]
     public void SetDataValidade_ComDadoNull_NaoDeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var dataValidadeAntigo = orcamento.DataValidade;
         
         orcamento.SetDataValidade(null);
@@ -346,13 +333,9 @@ public class OrcamentoTests
     [Fact]
     public void SetDataValidade_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var descricao = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(2);
-        var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, valor);
+        var orcamento = OrcamentoStub.ValidoComDataDeEmissaoEValidade(_fixture, dataEmissao, dataValidade);
         
         orcamento.SetDataValidade(dataEmissao.AddDays(-1));
 
@@ -362,7 +345,7 @@ public class OrcamentoTests
     [Fact]
     public void SetValor_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var valorNovo = _fixture.Create<double>();
         
         orcamento.SetValor(valorNovo);
@@ -373,7 +356,7 @@ public class OrcamentoTests
     [Fact]
     public void SetValor_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var orcamento = _fixture.Create<Orcamento>();
+        var orcamento = OrcamentoStub.Valido(_fixture);
         var valorAntigo = orcamento.Valor;
         
         orcamento.SetValor(null);

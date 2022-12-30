@@ -5,6 +5,7 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using ConstrutoraViverSA.Repository.Interfaces;
 using FluentAssertions;
 using Moq;
@@ -260,8 +261,7 @@ public class MaterialServiceTests
     {
         var materialId = 1;
         var quantidade = 1;
-        var material = _fixture.Build<Material>()
-            .Create();
+        var material = MaterialStub.ValidoComQuantidade(_fixture, 0);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Returns(material);
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
 

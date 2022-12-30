@@ -9,7 +9,7 @@ using ConstrutoraViverSA.Domain.Extensions;
 
 namespace ConstrutoraViverSA.Domain;
 
-public sealed class Funcionario
+public class Funcionario
 {
     public long Id { get; set; }
     public string Nome { get; private set; } = null!;

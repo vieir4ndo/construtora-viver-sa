@@ -4,6 +4,7 @@ using ConstrutoraViverSA.Application.Services;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using ConstrutoraViverSA.Repository.Interfaces;
 using FluentAssertions;
 using Moq;
@@ -32,7 +33,8 @@ public class FuncionarioServiceTests
     [Fact]
     public void BuscarTodos_ComDadosValidos_DeveRealizarOperacao()
     {
-        var funcionarios = _fixture.CreateMany<Funcionario>().ToList();
+        var funcionarios = new List<Funcionario>()
+            { FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture) };
         var funcionariosDto = _fixture.CreateMany<FuncionarioDto>(3).ToList();
         _repositoryMock.Setup(x => x.BuscarTodos()).Returns(funcionarios);
         _mapperMock.SetupSequence(x => x.Map<FuncionarioDto>(It.IsAny<Funcionario>()))
@@ -52,9 +54,7 @@ public class FuncionarioServiceTests
     public void BuscarEntidadePorId_ComDadosValidos_DeveRealizarOperacao()
     {
         var funcionarioId = 1;
-        var funcionario = _fixture.Build<Funcionario>()
-            .With(x => x.Id, funcionarioId)
-            .Create();
+        var funcionario = FuncionarioStub.ValidoComId(_fixture, funcionarioId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)))
             .Returns(funcionario);
 
@@ -83,9 +83,7 @@ public class FuncionarioServiceTests
     public void BuscarPorId_ComDadosValidos_DeveRealizarOperacao()
     {
         var funcionarioId = 1;
-        var funcionario = _fixture.Build<Funcionario>()
-            .With(x => x.Id, funcionarioId)
-            .Create();
+        var funcionario = FuncionarioStub.ValidoComId(_fixture, funcionarioId);
         var funcionarioDto = _fixture.Create<FuncionarioDto>();
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId)))
             .Returns(funcionario);
@@ -150,9 +148,7 @@ public class FuncionarioServiceTests
             .With(x => x.Cpf, CPF_VALIDO)
             .With(x => x.Email, EMAIL_VALIDO)
             .Create();
-        var funcionario = _fixture.Build<Funcionario>()
-            .With(x => x.Id, funcionarioId)
-            .Create();
+        var funcionario = FuncionarioStub.ValidoComId(_fixture, funcionarioId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Funcionario>()));
 
@@ -171,9 +167,7 @@ public class FuncionarioServiceTests
             .With(x => x.Cpf, CPF_INVALIDO)
             .With(x => x.Email, EMAIL_INVALIDO)
             .Create();
-        var funcionario = _fixture.Build<Funcionario>()
-            .With(x => x.Id, funcionarioId)
-            .Create();
+        var funcionario = FuncionarioStub.ValidoComId(_fixture, funcionarioId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Funcionario>()));
 
@@ -188,9 +182,7 @@ public class FuncionarioServiceTests
     public void Excluir_ComDadosValidos_DeveRealizarOperacao()
     {
         var funcionarioId = 1;
-        var funcionario = _fixture.Build<Funcionario>()
-            .With(x => x.Id, funcionarioId)
-            .Create();
+        var funcionario = FuncionarioStub.ValidoComId(_fixture, funcionarioId);
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == funcionarioId))).Returns(funcionario);
         _repositoryMock.Setup(x => x.Excluir(It.Is<Funcionario>(x => x == funcionario)));
 

@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
 
@@ -237,7 +238,7 @@ public class MaterialTests
     [Fact]
     public void MovimentarEstoque_ComDadosValidos_DeveRetornarComoEsperado()
     {
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
+        var material = MaterialStub.ValidoComQuantidade(_fixture, 1);
         var quantidade = 10;
         var operacao = EntradaSaida.Entrada;
         
@@ -251,7 +252,7 @@ public class MaterialTests
     [Fact]
     public void MovimentarEstoque_ComQuantidadeInvalida_DeveLancarExcecao()
     {
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
+        var material = MaterialStub.ValidoComQuantidade(_fixture, 1);
         var quantidade = -10;
         var operacao = EntradaSaida.Entrada;
         
@@ -263,7 +264,7 @@ public class MaterialTests
     [Fact]
     public void MovimentarEstoque_SaidaComMaterialSemEstoqueSuficiente_DeveLancarExcecao()
     {
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
+        var material = MaterialStub.ValidoComQuantidade(_fixture, 1);
         var quantidade = 10;
         var operacao = EntradaSaida.Saida;
         

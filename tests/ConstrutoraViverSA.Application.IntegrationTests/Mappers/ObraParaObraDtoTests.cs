@@ -4,6 +4,7 @@ using ConstrutoraViverSA.Application.Mappers;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -60,7 +61,8 @@ public class ObraParaObraDtoTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
-        var funcionarios = _fixture.CreateMany<Funcionario>(3).ToList();
+        var funcionarios = new List<Funcionario>()
+            { FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture) };
         var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, null);
         var obraDto = _fixture.Build<ObraDto>()
             .Without(x => x.Funcionarios)
@@ -90,7 +92,8 @@ public class ObraParaObraDtoTests
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var quantidade = 1;
-        var materiais = _fixture.CreateMany<Material>(3).ToList();
+        var materiais = new List<Material>()
+            { MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture) };
         materiais.ForEach(x => x.MovimentarEstoque(EntradaSaida.Entrada, quantidade));
         var dicionarioMateriais = new Dictionary<Material, int>();
         materiais.ForEach(x => dicionarioMateriais.Add(x, quantidade));
@@ -122,11 +125,13 @@ public class ObraParaObraDtoTests
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var quantidade = 1;
-        var materiais = _fixture.CreateMany<Material>(3).ToList();
+        var materiais = new List<Material>()
+            { MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture) };
         materiais.ForEach(x => x.MovimentarEstoque(EntradaSaida.Entrada, quantidade));
         var dicionarioMateriais = new Dictionary<Material, int>();
         materiais.ForEach(x => dicionarioMateriais.Add(x, quantidade));
-        var funcionarios = _fixture.CreateMany<Funcionario>(3).ToList();
+        var funcionarios = new List<Funcionario>()
+            { FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture) };
         var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, dicionarioMateriais);
         var obraDto = _fixture.Build<ObraDto>()
             .Without(x => x.Funcionarios)

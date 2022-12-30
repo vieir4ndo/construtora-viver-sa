@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\ConstrutoraViverSA.Application\ConstrutoraViverSA.Application.csproj" />
+      <ProjectReference Include="..\ConstrutoraViverSA.Domain.UnitTests\ConstrutoraViverSA.Domain.UnitTests.csproj" />
     </ItemGroup>
 
 </Project>

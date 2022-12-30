@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
 
@@ -13,11 +14,10 @@ public class ObraMaterialTests
     [Fact]
     public void Construtor_ComDadosValidos_DeveConstruirCorretamente()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var quantidade = 10;
         var quantidadeMaterial = 10;
-        var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var material = MaterialStub.ValidoComQuantidade(_fixture, quantidadeMaterial);
         var operacao = EntradaSaida.Entrada;
 
         var result = new ObraMaterial(obra, material,quantidade, operacao);
@@ -36,12 +36,11 @@ public class ObraMaterialTests
     [Fact]
     public void Construtor_EntradaNaObraComQuantidadeDeMaterialInsuficiente_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var quantidade = 11;
         var quantidadeMaterial = 10;
-        var valorMaterial = 10.95;
         var operacao = EntradaSaida.Entrada;
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var material = MaterialStub.ValidoComQuantidade(_fixture, quantidadeMaterial);
         ObraMaterial? obraMaterial = null;
 
         var result = () =>
@@ -58,8 +57,7 @@ public class ObraMaterialTests
     {
         var quantidade = 11;
         var quantidadeMaterial = 10;
-        var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var material = MaterialStub.ValidoComQuantidade(_fixture,quantidadeMaterial);
         var operacao = _fixture.Create<EntradaSaida>();
         ObraMaterial? obraMaterial = null;
         
@@ -75,7 +73,7 @@ public class ObraMaterialTests
     [Fact]
     public void Construtor_ComMaterialInvalido_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var quantidade = 11;
         var operacao = _fixture.Create<EntradaSaida>();
         ObraMaterial? obraMaterial = null;
@@ -95,10 +93,9 @@ public class ObraMaterialTests
     [InlineData(0)]
     public void Construtor_ComQuantidadeInvalida_DeveLancarExcecao(int? quantidade)
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var quantidadeMaterial = 10;
-        var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var material = MaterialStub.ValidoComQuantidade(_fixture, quantidadeMaterial);
         var operacao = _fixture.Create<EntradaSaida>();
         ObraMaterial? obraMaterial = null;
         
@@ -114,10 +111,9 @@ public class ObraMaterialTests
     [Fact]
     public void Construtor_ComOperacaoInvalida_DeveLancarExcecao()
     {
-        var obra = _fixture.Create<Obra>();
+        var obra = ObraStub.Valido(_fixture);
         var quantidadeMaterial = 10;
-        var valorMaterial = 10.95;
-        var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        var material = MaterialStub.ValidoComQuantidade(_fixture, quantidadeMaterial);
         var quantidade = _fixture.Create<int>();
         ObraMaterial? obraMaterial = null;
         
