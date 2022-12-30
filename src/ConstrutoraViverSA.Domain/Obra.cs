@@ -22,8 +22,8 @@ public sealed class Obra
     public Orcamento Orcamento { get; private set; }
     
     public long OrcamentoId { get; private set; }
-    public ICollection<Funcionario>? Funcionarios { get; } = new Collection<Funcionario>();
-    public ICollection<ObraMaterial>? ObraMateriais { get; } = new Collection<ObraMaterial>();
+    public ICollection<Funcionario>? Funcionarios { get; private set;  } = new Collection<Funcionario>();
+    public ICollection<ObraMaterial>? ObraMateriais { get; private set; } = new Collection<ObraMaterial>();
 
     [ExcludeFromCodeCoverage]
     public Obra()
@@ -145,6 +145,8 @@ public sealed class Obra
 
     public void AlocarFuncionario(Funcionario funcionario)
     {
+        Funcionarios ??= new List<Funcionario>();
+        
         if (Funcionarios.Contains(funcionario))
             throw new OperacaoInvalidaException(
                 $"Funcionário {funcionario.Nome} já está alocado na obra {this.Nome}");
@@ -154,7 +156,7 @@ public sealed class Obra
 
     public void DesalocarFuncionario(Funcionario funcionario)
     {
-        if (!Funcionarios.Contains(funcionario))
+        if (Funcionarios is null || !Funcionarios.Contains(funcionario))
             throw new OperacaoInvalidaException($"Funcionário {funcionario.Nome} não está alocado na obra {this.Nome}");
         
         Funcionarios.Remove(funcionario);
@@ -162,6 +164,8 @@ public sealed class Obra
 
     public void AlocarMaterial(Material material, int? quantidade)
     {
+        ObraMateriais ??= new List<ObraMaterial>();
+        
         if (material.Quantidade < quantidade)
             throw new OperacaoInvalidaException(
                 $"Não há itens suficientes em estoque do material {material.Nome} para alocar na obra {this.Nome}");
@@ -171,6 +175,10 @@ public sealed class Obra
 
     public void DesalocarMaterial(Material material, int? quantidade)
     {
+        if (ObraMateriais is null)
+            throw new OperacaoInvalidaException(
+                $"Material {material.Nome} não está alocado na obra {this.Nome}");
+        
         if (quantidade is null or <= 0)
             throw new OperacaoInvalidaException("Quantidade inválida");
         
