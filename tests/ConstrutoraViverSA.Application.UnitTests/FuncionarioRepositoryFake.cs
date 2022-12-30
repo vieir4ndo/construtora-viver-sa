@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ConstrutoraViverSA.Domain;
-using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.UnitTests;
@@ -23,9 +22,6 @@ public class FuncionarioRepositoryFake : IFuncionarioRepository
     {
         var funcionario = Funcionarios.FirstOrDefault(x => x.Id == buscaId);
         
-        if (funcionario is null)
-            throw new NaoEncontradoException("Funcionário não encontrado.");
-
         return funcionario;
     }
 
@@ -38,9 +34,6 @@ public class FuncionarioRepositoryFake : IFuncionarioRepository
     {
         var funcionario = Funcionarios.FirstOrDefault(x => x.Id == obj.Id);
         
-        if (funcionario is null)
-            throw new NaoEncontradoException("Funcionário não encontrado.");
-
         Funcionarios.Remove(funcionario);
     }
 
@@ -48,9 +41,6 @@ public class FuncionarioRepositoryFake : IFuncionarioRepository
     {
         var funcionario = Funcionarios.FirstOrDefault(x => x.Id == obj.Id);
 
-        if (funcionario is null)
-            throw new NaoEncontradoException("Funcionário não encontrado.");
-        
         funcionario.SetNome(obj.Nome);
         funcionario.SetDataNascimento(obj.DataNascimento);
         funcionario.SetGenero(obj.Genero);

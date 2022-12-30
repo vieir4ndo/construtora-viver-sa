@@ -3,7 +3,6 @@ using AutoFixture;
 using AutoMapper;
 using ConstrutoraViverSA.Application.Services;
 using ConstrutoraViverSA.Domain.Dtos;
-using ConstrutoraViverSA.Domain.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -36,6 +35,7 @@ public class FuncionarioServiceTests
             .With(x => x.Email, EMAIL_VALIDO)
             .Create();
 
+        _service.Adicionar(dto);
         _service.Adicionar(dto);
 
         var funcionario = _repositoryFake.Funcionarios.First();
