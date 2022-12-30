@@ -9,7 +9,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class ObraMaterial
 {
-    public long Id { get; private set; }
+    public long Id { get; set; }
     public long ObraId { get; private set; }
     public Obra Obra { get; private set; }
     public long MaterialId { get; private set; }
@@ -44,7 +44,9 @@ public sealed class ObraMaterial
             throw new ObraMaterialInvalidaException(erros.ToString());
         
         Obra = obra!;
+        ObraId = obra!.Id;
         Material = material!;
+        MaterialId = material!.Id;
         Quantidade = quantidade!.Value;
         Operacao = operacao!.Value;
         DataHora = DateTime.Now;

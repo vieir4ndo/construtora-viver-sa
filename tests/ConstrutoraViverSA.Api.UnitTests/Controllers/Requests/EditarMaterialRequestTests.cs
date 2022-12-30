@@ -17,7 +17,7 @@ public class EditarMaterialRequestTests
     {
         var request = _fixture.Create<EditarMaterialRequest>();
         
-        Action result = () => request.ValidarEdicao();
+        var result = () => request.ValidarEdicao();
 
         result.Should().NotThrow<ErroValidacaoException>();
     }
@@ -39,7 +39,7 @@ public class EditarMaterialRequestTests
         };
 
         
-        Action result = () => request.ValidarEdicao();
+        var result = () => request.ValidarEdicao();
 
         result.Should().Throw<ErroValidacaoException>();
     }

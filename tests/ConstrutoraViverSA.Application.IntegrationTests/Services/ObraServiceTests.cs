@@ -171,7 +171,7 @@ public class ObraServiceTests
 
         var resultado = () => _service.Adicionar(dto);
 
-        resultado.Should().Throw<ObraInvalidaException>();
+        resultado.Should().Throw<NaoEncontradoException>();
     }
     
     [Fact]
@@ -366,7 +366,7 @@ public class ObraServiceTests
             .With(x => x.Operacao, EntradaSaida.Saida)
             .With(x => x.Quantidade, quantidade)
             .Create();
-        var material = _fixture.Create<Material>();
+        var material = _fixture.Build<Material>().With(x => x.Id, materialId).Create();
         material.MovimentarEstoque(EntradaSaida.Entrada, quantidade);
         _materialServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == materialId))).Returns(material);
         var obra = _fixture.Build<Obra>()

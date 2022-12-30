@@ -50,9 +50,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
+        Funcionario? funcionario = null;
 
-        Action result = () => new Funcionario(null, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+        var result = () =>
+        {
+            funcionario = new Funcionario(null, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+        };
 
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -67,9 +72,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
-
-        Action result = () => new Funcionario(nome, null, genero, cpf, numCtps, endereco, email, telefone, cargo);
-
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, null, genero, cpf, numCtps, endereco, email, telefone, cargo);
+        };
+        
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -86,9 +96,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+        };
 
-        Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
-
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -103,9 +118,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, null, cpf, numCtps, endereco, email, telefone, cargo);
+        };
 
-        Action result = () => new Funcionario(nome, dataNascimento, null, cpf, numCtps, endereco, email, telefone, cargo);
-
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -123,9 +143,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
-
-        Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
-
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+        };
+        
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -140,9 +165,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
-
-        Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, null, endereco, email, telefone, cargo);
-
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, null, endereco, email, telefone, cargo);
+        };
+        
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -157,9 +187,14 @@ public class FuncionarioTests
         var numCtps = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
-
-        Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, null, email, telefone, cargo);
-
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, null, email, telefone, cargo);
+        };
+        
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -174,9 +209,14 @@ public class FuncionarioTests
         var telefone = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
-
-        Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, null, telefone, cargo);
-
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, null, telefone, cargo);
+        };
+        
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -191,9 +231,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
+        Funcionario? funcionario = null;
 
-        Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, null, cargo);
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, null, cargo);
+        };
 
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
     
@@ -208,9 +253,14 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var endereco = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
+        Funcionario? funcionario = null;
+        
+        var result = () =>
+        {
+            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, null);
+        };
 
-        Action result = () => new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, null);
-
+        funcionario.Should().BeNull();
         result.Should().Throw<FuncionarioInvalidoException>();
     }
 

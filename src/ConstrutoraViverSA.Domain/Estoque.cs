@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -8,7 +9,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Estoque
 {
-    public long Id { get; private set; }
+    public long Id { get; set; }
     public long MaterialId { get; private set; }
     public Material Material { get; }
     public EntradaSaida Operacao { get; }
@@ -20,7 +21,7 @@ public sealed class Estoque
     {
     }
 
-    public Estoque(Material material, EntradaSaida? operacao, int? quantidade)
+    public Estoque(Material? material, EntradaSaida? operacao, int? quantidade)
     {
         var erros = new StringBuilder();
         
@@ -36,7 +37,7 @@ public sealed class Estoque
         if (erros.Length > 0)
             throw new EstoqueInvalidoException(erros.ToString());
 
-        Material = material;
+        Material = material!;
         Operacao = operacao!.Value;
         Quantidade = quantidade!.Value;
         DataHora = DateTime.Now;

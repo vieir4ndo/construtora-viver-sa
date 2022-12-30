@@ -17,7 +17,7 @@ public class MaterialRequestTests
     {
         var request = _fixture.Create<MaterialRequest>();
         
-        Action result = () => request.ValidarCriacao();
+        var result = () => request.ValidarCriacao();
 
         result.Should().NotThrow<ErroValidacaoException>();
     }
@@ -42,7 +42,7 @@ public class MaterialRequestTests
         };
 
         
-        Action result = () => request.ValidarCriacao();
+        var result = () => request.ValidarCriacao();
 
         result.Should().Throw<ErroValidacaoException>();
     }

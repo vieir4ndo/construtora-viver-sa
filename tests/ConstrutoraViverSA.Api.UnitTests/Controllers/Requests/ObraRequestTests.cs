@@ -23,7 +23,7 @@ public class ObraRequestTests
             .With(x => x.PrazoConclusao, DateTime.Today.AddDays(1))
             .Create();
 
-        Action result = () => request.ValidarCriacao();
+        var result = () => request.ValidarCriacao();
 
         result.Should().NotThrow<ErroValidacaoException>();
     }

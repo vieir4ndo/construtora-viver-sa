@@ -32,9 +32,14 @@ public class EstoqueTests
     {
         var operacao = _fixture.Create<EntradaSaida>();
         var quantidade = _fixture.Create<int>();
+        Estoque? estoque = null;
 
-        Action result = () => new Estoque(null, operacao, quantidade);
+        var result = () =>
+        {
+            estoque = new Estoque(null, operacao, quantidade);
+        };
 
+        estoque.Should().BeNull();
         result.Should().Throw<EstoqueInvalidoException>();
     }
     
@@ -44,9 +49,14 @@ public class EstoqueTests
     {
         var quantidade = _fixture.Create<int>();
         var material = _fixture.Create<Material>();
+        Estoque? estoque = null;
+        
+        var result = () =>
+        {
+            estoque = new Estoque(material, null, quantidade);
+        };
 
-        Action result = () => new Estoque(material, null, quantidade);
-
+        estoque.Should().BeNull();
         result.Should().Throw<EstoqueInvalidoException>();
     }
     
@@ -59,9 +69,14 @@ public class EstoqueTests
     {
         var operacao = _fixture.Create<EntradaSaida>();
         var material = _fixture.Create<Material>();
+        Estoque? estoque = null;
+        
+        var result = () =>
+        {
+            estoque = new Estoque(material, operacao, quantidade);
+        };
 
-        Action result = () => new Estoque(material, operacao, quantidade);
-
+        estoque.Should().BeNull();
         result.Should().Throw<EstoqueInvalidoException>();
     }
 }

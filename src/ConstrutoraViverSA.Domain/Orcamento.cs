@@ -9,7 +9,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Orcamento
 {
-    public long Id { get; private set; }
+    public long Id { get; set; }
     public string Descricao { get; private set; }
     public string Endereco { get; private set; }
     public TipoObra TipoObra { get; private set; }
@@ -23,7 +23,7 @@ public sealed class Orcamento
     {
     }
 
-    public Orcamento(string descricao, string endereco, TipoObra? tipoObra, DateTime? dataEmissao,
+    public Orcamento(string? descricao, string? endereco, TipoObra? tipoObra, DateTime? dataEmissao,
         DateTime? dataValidade, double? valor)
     {
         var erros = new StringBuilder();
@@ -54,15 +54,15 @@ public sealed class Orcamento
         if (erros.Length > 0)
             throw new OrcamentoInvalidoException(erros.ToString());
         
-        Descricao = descricao;
-        Endereco = endereco;
+        Descricao = descricao!;
+        Endereco = endereco!;
         TipoObra = tipoObra!.Value;
         DataEmissao = dataEmissao!.Value;
         DataValidade = dataValidade!.Value;
         Valor = valor!.Value;
     }
 
-    public void SetDescricao(string descricao)
+    public void SetDescricao(string? descricao)
     {
         if (string.IsNullOrWhiteSpace(descricao))
             return;
@@ -70,7 +70,7 @@ public sealed class Orcamento
         Descricao = descricao;
     }
 
-    public void SetEndereco(string endereco)
+    public void SetEndereco(string? endereco)
     {
         if (string.IsNullOrWhiteSpace(endereco))
             return;

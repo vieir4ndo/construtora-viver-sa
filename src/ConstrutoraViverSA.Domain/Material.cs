@@ -1,4 +1,5 @@
-﻿using ConstrutoraViverSA.Domain.Enums;
+﻿#nullable enable
+using ConstrutoraViverSA.Domain.Enums;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
@@ -10,21 +11,21 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Material
 {
-    public long Id { get; private set; }
+    public long Id { get; set; }
     public string Nome { get; private set; }
     public string Descricao { get; private set; }
     public TipoMaterial Tipo { get; private set; }
     public double Valor { get; private set; }
     public int Quantidade { get; private set; }
     public ICollection<Estoque> Estoque { get; } = new Collection<Estoque>();
-    public ICollection<ObraMaterial> ObraMateriais { get; } = new Collection<ObraMaterial>();
+    public ICollection<ObraMaterial>? ObraMateriais { get; } = new Collection<ObraMaterial>();
 
     [ExcludeFromCodeCoverage]
     public Material()
     {
     }
 
-    public Material(string nome, string descricao, TipoMaterial? tipo, double? valor, int? quantidade)
+    public Material(string? nome, string? descricao, TipoMaterial? tipo, double? valor, int? quantidade)
     {
         var erros = new StringBuilder();
 
@@ -52,13 +53,13 @@ public sealed class Material
         }
 
         Quantidade = quantidade!.Value;
-        Nome = nome;
-        Descricao = descricao;
+        Nome = nome!;
+        Descricao = descricao!;
         Tipo = tipo!.Value;
         Valor = valor!.Value;
     }
 
-    public void SetNome(string nome)
+    public void SetNome(string? nome)
     {
         if (string.IsNullOrWhiteSpace(nome))
             return;
@@ -66,7 +67,7 @@ public sealed class Material
         Nome = nome;
     }
 
-    public void SetDescricao(string descricao)
+    public void SetDescricao(string? descricao)
     {
         if (string.IsNullOrWhiteSpace(descricao))
             return;

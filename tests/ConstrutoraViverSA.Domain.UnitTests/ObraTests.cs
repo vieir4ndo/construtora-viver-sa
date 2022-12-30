@@ -105,9 +105,14 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
+        Obra? obra = null;
 
-        Action result = () => new Obra(null, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        var result = () =>
+        {
+            obra = new Obra(null, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        };
 
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -121,9 +126,14 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
+        Obra? obra = null;
 
-        Action result = () => new Obra(nome, null, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        var result = () =>
+        {
+            obra = new Obra(nome, null, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        };
 
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -137,9 +147,14 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
+        Obra? obra = null;
+        
+        var result = () =>
+        {
+            obra = new Obra(nome, endereco, null, descricao, valor, prazoConclusao, orcamento, null, null);
+        };
 
-        Action result = () => new Obra(nome, endereco, null, descricao, valor, prazoConclusao, orcamento, null, null);
-
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -153,9 +168,14 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
+        Obra? obra = null;
+        
+        var result = () =>
+        {
+            obra = new Obra(nome, endereco, tipoObra, null, valor, prazoConclusao, orcamento, null, null);
+        };
 
-        Action result = () => new Obra(nome, endereco, tipoObra, null, valor, prazoConclusao, orcamento, null, null);
-
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -171,9 +191,14 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
+        Obra? obra = null;
+        
+        var result = () =>
+        {
+            obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        };
 
-        Action result = () => new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
-
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -186,9 +211,14 @@ public class ObraTests
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
         var prazoConclusao = DateTime.Today.AddDays(2);
-
-        Action result = () => new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, null, null, null);
-
+        Obra? obra = null;
+        
+        var result = () =>
+        {
+            obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, null, null, null);
+        };
+        
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -202,9 +232,14 @@ public class ObraTests
         var valor = _fixture.Create<double>();
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
+        Obra? obra = null;
+        
+        var result = () =>
+        {
+            obra = new Obra(nome, endereco, tipoObra, descricao, valor, null, orcamento, null, null);
+        };
 
-        Action result = () => new Obra(nome, endereco, tipoObra, descricao, valor, null, orcamento, null, null);
-
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -219,9 +254,14 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(-1);
+        Obra? obra = null;
+        
+        var result = () =>
+        {
+            obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        };
 
-        Action result = () => new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
-
+        obra.Should().BeNull();
         result.Should().Throw<ObraInvalidaException>();
     }
     
@@ -427,7 +467,7 @@ public class ObraTests
         var funcionario = _fixture.Create<Funcionario>();
         obra.AlocarFuncionario(funcionario);
         
-        Action result = () => obra.AlocarFuncionario(funcionario);
+        var result = () => obra.AlocarFuncionario(funcionario);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }
@@ -451,7 +491,7 @@ public class ObraTests
         var obra = _fixture.Create<Obra>();
         var funcionario = _fixture.Create<Funcionario>();
         
-        Action result = () => obra.DesalocarFuncionario(funcionario);
+        var result = () => obra.DesalocarFuncionario(funcionario);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }
@@ -467,7 +507,7 @@ public class ObraTests
         obra.AlocarMaterial(material, quantidade);
 
         obra.ObraMateriais.Should().NotBeNull();
-        obra.ObraMateriais.Count.Should().Be(1);
+        obra.ObraMateriais!.Count.Should().Be(1);
         obra.ObraMateriais.First().Material.Should().BeEquivalentTo(material);
         obra.ObraMateriais.First().Operacao.Should().Be(EntradaSaida.Entrada);
         obra.ObraMateriais.First().Quantidade.Should().Be(quantidade);
@@ -479,7 +519,7 @@ public class ObraTests
         var obra = _fixture.Create<Obra>();
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         
-        Action result = () => obra.AlocarMaterial(material, 10);
+        var result = () => obra.AlocarMaterial(material, 10);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }
@@ -495,7 +535,7 @@ public class ObraTests
         
         obra.DesalocarMaterial(material, quantidade);
 
-        obra.ObraMateriais.Count.Should().Be(2);
+        obra.ObraMateriais!.Count.Should().Be(2);
         obra.ObraMateriais.Last().Material.Should().BeEquivalentTo(material);
         obra.ObraMateriais.Last().Operacao.Should().Be(EntradaSaida.Saida);
         obra.ObraMateriais.Last().Quantidade.Should().Be(quantidade);
@@ -508,7 +548,7 @@ public class ObraTests
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         obra.AlocarMaterial(material, 1);
         
-        Action result = () => obra.DesalocarMaterial(material, null);
+        var result = () => obra.DesalocarMaterial(material, null);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }
@@ -520,7 +560,7 @@ public class ObraTests
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         obra.AlocarMaterial(material, 1);
         
-        Action result = () => obra.DesalocarMaterial(material, 2);
+        var result = () => obra.DesalocarMaterial(material, 2);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }
@@ -531,7 +571,7 @@ public class ObraTests
         var obra = _fixture.Create<Obra>();
         var material = new Material("teste", "teste", TipoMaterial.Cimento, 10.80, 1);
         
-        Action result = () => obra.DesalocarMaterial(material, 1);
+        var result = () => obra.DesalocarMaterial(material, 1);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }

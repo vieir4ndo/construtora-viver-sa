@@ -39,9 +39,14 @@ public class OrcamentoTests
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
+        Orcamento? orcamento = null;
+        
+        var result = () =>
+        {
+            orcamento = new Orcamento(null, endereco, tipoObra, dataEmissao, dataValidade, valor);
+        };
 
-        Action result = () => new Orcamento(null, endereco, tipoObra, dataEmissao, dataValidade, valor);
-
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -53,9 +58,14 @@ public class OrcamentoTests
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
+        Orcamento? orcamento = null;
 
-        Action result = () => new Orcamento(descricao, null, tipoObra, dataEmissao, dataValidade, valor);
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, null, tipoObra, dataEmissao, dataValidade, valor);
+        };
 
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -67,9 +77,14 @@ public class OrcamentoTests
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
+        Orcamento? orcamento = null;
 
-        Action result = () => new Orcamento(descricao, endereco, null, dataEmissao, dataValidade, valor);
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, endereco, null, dataEmissao, dataValidade, valor);
+        };
 
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -81,9 +96,14 @@ public class OrcamentoTests
         var tipoObra = _fixture.Create<TipoObra>();
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
-
-        Action result = () => new Orcamento(descricao, endereco, tipoObra, null, dataValidade, valor);
-
+        Orcamento? orcamento = null;
+        
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, endereco, tipoObra, null, dataValidade, valor);
+        };
+        
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -95,9 +115,14 @@ public class OrcamentoTests
         var tipoObra = _fixture.Create<TipoObra>();
         var dataValidade = DateTime.Today.AddDays(1);
         var valor = _fixture.Create<double>();
-
-        Action result = () => new Orcamento(descricao, endereco, tipoObra, DateTime.MinValue, dataValidade, valor);
-
+        Orcamento? orcamento = null;
+        
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, endereco, tipoObra, DateTime.MinValue, dataValidade, valor);
+        };
+        
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -109,9 +134,14 @@ public class OrcamentoTests
         var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var valor = _fixture.Create<double>();
+        Orcamento? orcamento = null;
+        
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, null, valor);
+        };
 
-        Action result = () => new Orcamento(descricao, endereco, tipoObra, dataEmissao, null, valor);
-
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -123,9 +153,14 @@ public class OrcamentoTests
         var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var valor = _fixture.Create<double>();
+        Orcamento? orcamento = null;
+        
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, DateTime.MinValue, valor);
+        };
 
-        Action result = () => new Orcamento(descricao, endereco, tipoObra, dataEmissao, DateTime.MinValue, valor);
-
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -138,9 +173,14 @@ public class OrcamentoTests
         var dataEmissao = DateTime.Today.AddDays(1);
         var dataValidade = DateTime.Today;
         var valor = _fixture.Create<double>();
-
-        Action result = () => new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, valor);
-
+        Orcamento? orcamento = null;
+        
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, valor);
+        };
+        
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     
@@ -152,9 +192,14 @@ public class OrcamentoTests
         var tipoObra = _fixture.Create<TipoObra>();
         var dataEmissao = DateTime.Today;
         var dataValidade = DateTime.Today.AddDays(1);
+        Orcamento? orcamento = null;
+        
+        var result = () =>
+        {
+            orcamento = new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, null);
+        };
 
-        Action result = () => new Orcamento(descricao, endereco, tipoObra, dataEmissao, dataValidade, null);
-
+        orcamento.Should().BeNull();
         result.Should().Throw<OrcamentoInvalidoException>();
     }
     

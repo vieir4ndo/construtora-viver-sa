@@ -20,7 +20,7 @@ public class EditarObraRequestTests
             .With(x => x.PrazoConclusao, DateTime.Today.AddDays(1))
             .Create();
 
-        Action result = () => request.ValidarEdicao();
+        var result = () => request.ValidarEdicao();
 
         result.Should().NotThrow<ErroValidacaoException>();
     }

@@ -12,7 +12,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Obra
 {
-    public long Id { get; private set; }
+    public long Id { get; set; }
     public string Nome { get; private set; }
     public string Endereco { get; private set; }
     public TipoObra? TipoObra { get; private set; }
@@ -30,7 +30,7 @@ public sealed class Obra
     {
     }
 
-    public Obra(string nome, string endereco, TipoObra? tipoObra, string descricao,
+    public Obra(string? nome, string? endereco, TipoObra? tipoObra, string? descricao,
         double? valor, DateTime? prazoConclusao, Orcamento? orcamento, List<Funcionario>? funcionarios,
         Dictionary<Material, int>? materiais)
     {
@@ -62,10 +62,10 @@ public sealed class Obra
         if (erros.Length > 0)
             throw new ObraInvalidaException(erros.ToString());
 
-        Nome = nome;
-        Endereco = endereco;
+        Nome = nome!;
+        Endereco = endereco!;
         TipoObra = tipoObra;
-        Descricao = descricao;
+        Descricao = descricao!;
         Valor = valor;
         PrazoConclusao = prazoConclusao;
         Orcamento = orcamento!;
@@ -87,7 +87,7 @@ public sealed class Obra
         }
     }
 
-    public void SetNome(string nome)
+    public void SetNome(string? nome)
     {
         if (string.IsNullOrWhiteSpace(nome))
             return;
@@ -95,7 +95,7 @@ public sealed class Obra
         Nome = nome;
     }
 
-    public void SetEndereco(string endereco)
+    public void SetEndereco(string? endereco)
     {
         if (string.IsNullOrWhiteSpace(endereco))
             return;
@@ -111,7 +111,7 @@ public sealed class Obra
         TipoObra = tipoObra.Value;
     }
 
-    public void SetDescricao(string descricao)
+    public void SetDescricao(string? descricao)
     {
         if (string.IsNullOrWhiteSpace(descricao))
             return;

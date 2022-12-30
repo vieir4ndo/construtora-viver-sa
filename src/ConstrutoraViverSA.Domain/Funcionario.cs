@@ -1,4 +1,5 @@
-﻿using ConstrutoraViverSA.Domain.Enums;
+﻿#nullable enable
+using ConstrutoraViverSA.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -10,7 +11,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Funcionario
 {
-    public long Id { get; private set; }
+    public long Id { get; set; }
     public string Nome { get; private set; }
     public DateTime? DataNascimento { get; private set; }
     public Genero? Genero { get; private set; }
@@ -21,15 +22,15 @@ public sealed class Funcionario
     public string Telefone { get; private set; }
     public Cargo? Cargo { get; private set; }
     
-    public ICollection<Obra> Obras { get; private set; }
+    public ICollection<Obra>? Obras { get; private set; }
 
     [ExcludeFromCodeCoverage]
     public Funcionario()
     {
     }
 
-    public Funcionario(string nome, DateTime? dataNascimento, Genero? genero, string cpf, string numCtps,
-        string endereco, string email, string telefone, Cargo? cargo)
+    public Funcionario(string? nome, DateTime? dataNascimento, Genero? genero, string? cpf, string? numCtps,
+        string? endereco, string? email, string? telefone, Cargo? cargo)
     {
         var erros = new StringBuilder();
 
@@ -63,18 +64,18 @@ public sealed class Funcionario
         if (erros.Length > 0)
             throw new FuncionarioInvalidoException(erros.ToString());
 
-        Nome = nome;
+        Nome = nome!;
         DataNascimento = dataNascimento!.Value;
         Genero = genero;
-        Cpf = cpf;
-        NumCtps = numCtps;
-        Endereco = endereco;
-        Email = email;
-        Telefone = telefone;
+        Cpf = cpf!;
+        NumCtps = numCtps!;
+        Endereco = endereco!;
+        Email = email!;
+        Telefone = telefone!;
         Cargo = cargo;
     }
 
-    public void SetNome(string nome)
+    public void SetNome(string? nome)
     {
         if (string.IsNullOrWhiteSpace(nome))
             return;
@@ -98,7 +99,7 @@ public sealed class Funcionario
         Genero = genero.Value;
     }
 
-    public void SetCpf(string cpf)
+    public void SetCpf(string? cpf)
     {
         if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.EhValido(cpf))
             return;
@@ -106,7 +107,7 @@ public sealed class Funcionario
         Cpf = cpf;
     }
 
-    public void SetNumCtps(string numCtps)
+    public void SetNumCtps(string? numCtps)
     {
         if (string.IsNullOrWhiteSpace(numCtps))
             return;
@@ -114,7 +115,7 @@ public sealed class Funcionario
         NumCtps = numCtps;
     }
 
-    public void SetEndereco(string endereco)
+    public void SetEndereco(string? endereco)
     {
         if (string.IsNullOrWhiteSpace(endereco))
             return;
@@ -122,7 +123,7 @@ public sealed class Funcionario
         Endereco = endereco;
     }
 
-    public void SetEmail(string email)
+    public void SetEmail(string? email)
     {
         if (string.IsNullOrWhiteSpace(email))
             return;
@@ -130,7 +131,7 @@ public sealed class Funcionario
         Email = email;
     }
 
-    public void SetTelefone(string telefone)
+    public void SetTelefone(string? telefone)
     {
         if (string.IsNullOrWhiteSpace(telefone))
             return;

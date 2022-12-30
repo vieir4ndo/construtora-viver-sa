@@ -17,7 +17,7 @@ public class EntradaSaidaMaterialRequestTests
     {
         var request = _fixture.Create<EntradaSaidaMaterialRequest>();
         
-        Action result = () => request.Validar();
+        var result = () => request.Validar();
 
         result.Should().NotThrow<ErroValidacaoException>();
     }
@@ -34,7 +34,7 @@ public class EntradaSaidaMaterialRequestTests
             Quantidade = quantidade
         };
         
-        Action result = () => request.Validar();
+        var result = () => request.Validar();
 
         result.Should().Throw<ErroValidacaoException>();
     }

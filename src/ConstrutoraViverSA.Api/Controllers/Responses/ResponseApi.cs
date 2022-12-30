@@ -8,9 +8,9 @@ public class ResponseApi<T> where T : class?
 {
     public bool Sucesso { get; set; }
     public List<T>? Dados { get; set; }
-    public string Mensagens { get; set; }
+    public string? Mensagens { get; set; }
 
-    public ResponseApi(bool? sucesso, List<T>? dados, string mensagens)
+    public ResponseApi(bool? sucesso, List<T>? dados, string? mensagens)
     {
         if (sucesso is null)
             throw new ResponseApiInvalidoException("Sucesso inválido");

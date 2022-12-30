@@ -31,8 +31,14 @@ public class ResponseApiTests
     [Fact]
     public void Construtor_ComDadosInvalidos_DeveRetornarComoEsperado()
     {
-        Action result = () => new ResponseApi<object>(null, null, null);
+        ResponseApi<object>? responseApi = null;
+        
+        var result = () =>
+        {
+            responseApi = new ResponseApi<object>(null, null, null);
+        };
 
+        responseApi.Should().BeNull();
         result.Should().Throw<ResponseApiInvalidoException>();
     }
 }

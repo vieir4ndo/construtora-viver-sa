@@ -61,9 +61,14 @@ public class MaterialTests
         var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
         var quantidade = 0;
+        Material? material = null;
 
-        Action result = () => new Material(null, descricao, tipo, valor, quantidade);
+        var result = () =>
+        {
+            material = new Material(null, descricao, tipo, valor, quantidade);
+        };
 
+        material.Should().BeNull();
         result.Should().Throw<MaterialInvalidoException>();
     }
     
@@ -74,9 +79,14 @@ public class MaterialTests
         var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
         var quantidade = 0;
-
-        Action result = () => new Material(nome, null, tipo, valor, quantidade);
-
+        Material? material = null;
+        
+        var result = () =>
+        {
+            material = new Material(nome, null, tipo, valor, quantidade);
+        };
+        
+        material.Should().BeNull();
         result.Should().Throw<MaterialInvalidoException>();
     }
     
@@ -87,9 +97,14 @@ public class MaterialTests
         var descricao = _fixture.Create<string>();
         var valor = _fixture.Create<double>();
         var quantidade = 0;
+        Material? material = null;
+        
+        var result = () =>
+        {
+            material = new Material(nome, descricao, null, valor, quantidade);
+        };
 
-        Action result = () => new Material(nome, descricao, null, valor, quantidade);
-
+        material.Should().BeNull();
         result.Should().Throw<MaterialInvalidoException>();
     }
     
@@ -100,9 +115,14 @@ public class MaterialTests
         var descricao = _fixture.Create<string>();
         var tipo = _fixture.Create<TipoMaterial>();
         var quantidade = 0;
+        Material? material = null;
 
-        Action result = () => new Material(nome, descricao, tipo, null, quantidade);
+        var result = () =>
+        {
+            material = new Material(nome, descricao, tipo, null, quantidade);
+        };
 
+        material.Should().BeNull();
         result.Should().Throw<MaterialInvalidoException>();
     }
     
@@ -115,9 +135,14 @@ public class MaterialTests
         var descricao = _fixture.Create<string>();
         var tipo = _fixture.Create<TipoMaterial>();
         var valor = _fixture.Create<double>();
-
-        Action result = () => new Material(nome, descricao, tipo, valor, quantidade);
-
+        Material? material = null;
+        
+        var result = () =>
+        {
+            material = new Material(nome, descricao, tipo, valor, quantidade);
+        };
+        
+        material.Should().BeNull();
         result.Should().Throw<MaterialInvalidoException>();
     }
     
@@ -230,7 +255,7 @@ public class MaterialTests
         var quantidade = -10;
         var operacao = EntradaSaida.Entrada;
         
-        Action result = () => material.MovimentarEstoque(operacao, quantidade);
+        var result = () => material.MovimentarEstoque(operacao, quantidade);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }
@@ -242,7 +267,7 @@ public class MaterialTests
         var quantidade = 10;
         var operacao = EntradaSaida.Saida;
         
-        Action result = () => material.MovimentarEstoque(operacao, quantidade);
+        var result = () => material.MovimentarEstoque(operacao, quantidade);
 
         result.Should().Throw<OperacaoInvalidaException>();
     }

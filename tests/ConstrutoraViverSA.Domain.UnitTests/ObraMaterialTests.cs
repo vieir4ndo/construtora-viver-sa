@@ -42,9 +42,14 @@ public class ObraMaterialTests
         var valorMaterial = 10.95;
         var operacao = EntradaSaida.Entrada;
         var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
+        ObraMaterial? obraMaterial = null;
 
-        Action result = () => new ObraMaterial(obra, material,quantidade, operacao);
+        var result = () =>
+        {
+            obraMaterial = new ObraMaterial(obra, material, quantidade, operacao);
+        };
 
+        obraMaterial.Should().BeNull();
         result.Should().Throw<OperacaoInvalidaException>();
     }
     
@@ -56,9 +61,14 @@ public class ObraMaterialTests
         var valorMaterial = 10.95;
         var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
         var operacao = _fixture.Create<EntradaSaida>();
+        ObraMaterial? obraMaterial = null;
+        
+        var result = () =>
+        {
+            obraMaterial = new ObraMaterial(null, material, quantidade, operacao);
+        };
 
-        Action result = () => new ObraMaterial(null, material,quantidade, operacao);
-
+        obraMaterial.Should().BeNull();
         result.Should().Throw<ObraMaterialInvalidaException>();
     }
     
@@ -68,9 +78,14 @@ public class ObraMaterialTests
         var obra = _fixture.Create<Obra>();
         var quantidade = 11;
         var operacao = _fixture.Create<EntradaSaida>();
+        ObraMaterial? obraMaterial = null;
+        
+        var result = () =>
+        {
+            obraMaterial = new ObraMaterial(obra, null, quantidade, operacao);
+        };
 
-        Action result = () => new ObraMaterial(obra, null, quantidade, operacao);
-
+        obraMaterial.Should().BeNull();
         result.Should().Throw<ObraMaterialInvalidaException>();
     }
     
@@ -85,9 +100,14 @@ public class ObraMaterialTests
         var valorMaterial = 10.95;
         var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
         var operacao = _fixture.Create<EntradaSaida>();
+        ObraMaterial? obraMaterial = null;
+        
+        var result = () =>
+        {
+            obraMaterial = new ObraMaterial(obra, material, quantidade, operacao);
+        };
 
-        Action result = () => new ObraMaterial(obra, material, quantidade, operacao);
-
+        obraMaterial.Should().BeNull();
         result.Should().Throw<ObraMaterialInvalidaException>();
     }
     
@@ -99,9 +119,14 @@ public class ObraMaterialTests
         var valorMaterial = 10.95;
         var material = new Material("teste", "teste", TipoMaterial.Cimento, valorMaterial, quantidadeMaterial);
         var quantidade = _fixture.Create<int>();
+        ObraMaterial? obraMaterial = null;
         
-        Action result = () => new ObraMaterial(obra, material, quantidade, null);
+        var result = () =>
+        {
+            obraMaterial = new ObraMaterial(obra, material, quantidade, null);
+        };
 
+        obraMaterial.Should().BeNull();
         result.Should().Throw<ObraMaterialInvalidaException>();
     }
 }
