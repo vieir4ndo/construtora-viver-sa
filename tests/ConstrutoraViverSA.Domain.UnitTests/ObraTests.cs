@@ -380,7 +380,7 @@ public class ObraTests
     public void SetOrcamento_ComDadosValidos_DeveRealizarAlteracao()
     {
         var obra = ObraStub.Valido(_fixture);
-        var orcamentoNovo = _fixture.Create<Orcamento>();
+        var orcamentoNovo = OrcamentoStub.Valido(_fixture);
         
         obra.SetOrcamento(orcamentoNovo);
 

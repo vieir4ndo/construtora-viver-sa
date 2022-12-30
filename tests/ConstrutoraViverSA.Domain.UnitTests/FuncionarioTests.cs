@@ -1,4 +1,5 @@
 using AutoFixture;
+using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Domain.Tests.Stubs;
@@ -25,8 +26,21 @@ public class FuncionarioTests
         var email = _fixture.Create<string>();
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
+        
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
 
-        var result = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+        var result = new Funcionario(dto);
 
         result.Should().NotBeNull();
         result.Nome.Should().Be(nome);
@@ -53,9 +67,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
 
+        var dto = new FuncionarioDto()
+        {
+            Nome = null,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(null, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
 
         funcionario.Should().BeNull();
@@ -75,9 +102,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = null,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, null, genero, cpf, numCtps, endereco, email, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
         
         funcionario.Should().BeNull();
@@ -99,9 +139,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
 
         funcionario.Should().BeNull();
@@ -121,9 +174,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = null,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, null, cpf, numCtps, endereco, email, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
 
         funcionario.Should().BeNull();
@@ -146,9 +212,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
         
         funcionario.Should().BeNull();
@@ -168,9 +247,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = null,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, null, endereco, email, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
         
         funcionario.Should().BeNull();
@@ -190,9 +282,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = null,
+            Email = email,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, null, email, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
         
         funcionario.Should().BeNull();
@@ -212,9 +317,22 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = null,
+            Telefone = telefone,
+            Cargo = cargo
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, null, telefone, cargo);
+            funcionario = new Funcionario(dto);
         };
         
         funcionario.Should().BeNull();
@@ -233,10 +351,23 @@ public class FuncionarioTests
         var endereco = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
+        
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = null,
+            Cargo = cargo
+        };
 
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, null, cargo);
+            funcionario = new Funcionario(dto);
         };
 
         funcionario.Should().BeNull();
@@ -256,9 +387,22 @@ public class FuncionarioTests
         var telefone = _fixture.Create<string>();
         Funcionario? funcionario = null;
         
+        var dto = new FuncionarioDto()
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Genero = genero,
+            Cpf = cpf,
+            NumCtps = numCtps,
+            Endereco = endereco,
+            Email = email,
+            Telefone = telefone,
+            Cargo = null
+        };
+        
         var result = () =>
         {
-            funcionario = new Funcionario(nome, dataNascimento, genero, cpf, numCtps, endereco, email, telefone, null);
+            funcionario = new Funcionario(dto);
         };
 
         funcionario.Should().BeNull();

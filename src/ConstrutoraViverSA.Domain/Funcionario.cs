@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Domain.Extensions;
 
@@ -29,50 +30,49 @@ public class Funcionario
     {
     }
 
-    public Funcionario(string? nome, DateTime? dataNascimento, Genero? genero, string? cpf, string? numCtps,
-        string? endereco, string? email, string? telefone, Cargo? cargo)
+    public Funcionario(FuncionarioDto dto)
     {
         var erros = new StringBuilder();
 
-        if (string.IsNullOrWhiteSpace(nome))
+        if (string.IsNullOrWhiteSpace(dto.Nome))
             erros.Append("Nome inválido.");
 
-        if (dataNascimento is null || dataNascimento == DateTime.MinValue)
+        if (dto.DataNascimento is null || dto.DataNascimento == DateTime.MinValue)
             erros.Append("Data de Nascimento inválida.");
 
-        if (genero is null)
+        if (dto.Genero is null)
             erros.Append("Gênero inválido.");
         
-        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11 || !CpfExtension.EhValido(cpf))
+        if (string.IsNullOrWhiteSpace(dto.Cpf) || dto.Cpf.Length != 11 || !CpfExtension.EhValido(dto.Cpf))
             erros.Append("CPF inválido.");
 
-        if (string.IsNullOrWhiteSpace(numCtps))
+        if (string.IsNullOrWhiteSpace(dto.NumCtps))
             erros.Append("Número CTPS inválido.");
 
-        if (string.IsNullOrWhiteSpace(endereco))
+        if (string.IsNullOrWhiteSpace(dto.Endereco))
             erros.Append("Endereço inválido.");
 
-        if (string.IsNullOrWhiteSpace(email))
+        if (string.IsNullOrWhiteSpace(dto.Email))
             erros.Append("E-mail inválido.");
 
-        if (string.IsNullOrWhiteSpace(telefone))
+        if (string.IsNullOrWhiteSpace(dto.Telefone))
             erros.Append("Telefone inválido.");
 
-        if (cargo is null)
+        if (dto.Cargo is null)
             erros.Append("Cargo inválido.");
 
         if (erros.Length > 0)
             throw new FuncionarioInvalidoException(erros.ToString());
 
-        Nome = nome!;
-        DataNascimento = dataNascimento!.Value;
-        Genero = genero;
-        Cpf = cpf!;
-        NumCtps = numCtps!;
-        Endereco = endereco!;
-        Email = email!;
-        Telefone = telefone!;
-        Cargo = cargo;
+        Nome = dto.Nome!;
+        DataNascimento = dto.DataNascimento!.Value;
+        Genero = dto.Genero;
+        Cpf = dto.Cpf!;
+        NumCtps = dto.NumCtps!;
+        Endereco = dto.Endereco!;
+        Email = dto.Email!;
+        Telefone = dto.Telefone!;
+        Cargo = dto.Cargo;
     }
 
     public void SetNome(string? nome)
