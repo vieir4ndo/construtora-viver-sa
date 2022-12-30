@@ -8,8 +8,8 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Estoque
 {
-    public long Id;
-    public long MaterialId;
+    public long Id { get; private set; }
+    public long MaterialId { get; private set; }
     public Material Material { get; }
     public EntradaSaida Operacao { get; }
     public int Quantidade { get; }

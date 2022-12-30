@@ -9,12 +9,10 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class ObraMaterial
 {
-    public long Id;
-    
-    public long ObraId;
+    public long Id { get; private set; }
+    public long ObraId { get; private set; }
     public Obra Obra { get; }
-    
-    public long MaterialId;
+    public long MaterialId { get; private set; }
     public Material Material { get; }
     public int Quantidade { get; }
     public DateTime DataHora { get; }

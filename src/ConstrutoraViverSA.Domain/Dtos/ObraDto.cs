@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -8,10 +9,10 @@ namespace ConstrutoraViverSA.Domain.Dtos;
 [ExcludeFromCodeCoverage]
 public class ObraDto
 {
-    public string Nome { get; set; }
-    public string Endereco { get; set; }
+    public string? Nome { get; set; }
+    public string? Endereco { get; set; }
     public TipoObra? TipoObra { get; set; }
-    public string Descricao { get; set; }
+    public string? Descricao { get; set; }
     public double? Valor { get; set; }
     public DateTime? PrazoConclusao { get; set; }
     public long? OrcamentoId { get; set; }

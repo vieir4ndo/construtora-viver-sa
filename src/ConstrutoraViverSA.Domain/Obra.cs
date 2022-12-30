@@ -12,7 +12,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Obra
 {
-    public long Id { get; }
+    public long Id { get; private set; }
     public string Nome { get; private set; }
     public string Endereco { get; private set; }
     public TipoObra? TipoObra { get; private set; }

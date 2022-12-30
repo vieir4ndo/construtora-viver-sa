@@ -80,8 +80,7 @@ public class Startup
                 Contact = new OpenApiContact
                 {
                     Name = "Matheus Vieira Santos",
-                    Email = "matheus.eu.mv@gmail.com",
-                    Url = new Uri("https://cc.uffs.edu.br/pessoa/matheus.vieirasantos/"),
+                    Email = "matheus.eu.mv@gmail.com"
                 },
             });
         });
@@ -94,7 +93,7 @@ public class Startup
 
         if (env.IsDevelopment())
         {
-            //app.UseDeveloperExceptionPage();
+            app.UseDeveloperExceptionPage();
         }
 
         app.UseHttpsRedirection();

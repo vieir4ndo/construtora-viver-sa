@@ -10,7 +10,7 @@ namespace ConstrutoraViverSA.Domain;
 
 public sealed class Funcionario
 {
-    public long Id;
+    public long Id { get; private set; }
     public string Nome { get; private set; }
     public DateTime? DataNascimento { get; private set; }
     public Genero? Genero { get; private set; }
