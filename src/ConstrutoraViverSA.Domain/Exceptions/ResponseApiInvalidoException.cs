@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 namespace ConstrutoraViverSA.Domain.Exceptions;
 
 [ExcludeFromCodeCoverage]
+[Serializable]
 public class ResponseApiInvalidoException : Exception
 {
     public ResponseApiInvalidoException(string mensagem) : base(mensagem)

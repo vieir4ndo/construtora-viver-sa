@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 namespace ConstrutoraViverSA.Domain.Exceptions;
 
 [ExcludeFromCodeCoverage]
+[Serializable]
 public class ErroValidacaoException : Exception
 {
     public ErroValidacaoException(string message) : base(message)

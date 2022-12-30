@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 namespace ConstrutoraViverSA.Domain.Exceptions;
 
 [ExcludeFromCodeCoverage]
+[Serializable]
 public class ObraInvalidaException : Exception
 {
     public ObraInvalidaException(string mensagem) : base(mensagem)

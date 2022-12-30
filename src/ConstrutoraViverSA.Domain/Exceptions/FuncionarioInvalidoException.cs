@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 namespace ConstrutoraViverSA.Domain.Exceptions;
 
 [ExcludeFromCodeCoverage]
+[Serializable]
 public class FuncionarioInvalidoException: Exception
 {
     public FuncionarioInvalidoException(string mensagem) : base(mensagem)
