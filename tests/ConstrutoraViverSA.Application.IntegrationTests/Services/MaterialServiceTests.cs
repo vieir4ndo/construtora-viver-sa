@@ -67,7 +67,7 @@ public class MaterialServiceTests
     {
         var materialId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId)))
-            .Returns((Material)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.BuscarEntidadePorId(materialId);
 
@@ -101,7 +101,7 @@ public class MaterialServiceTests
     {
         var materialId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId)))
-            .Returns((Material)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.BuscarPorId(materialId);
 
@@ -192,7 +192,7 @@ public class MaterialServiceTests
     {
         var materialId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId)))
-            .Returns((Material)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.Excluir(materialId);
 
@@ -244,7 +244,7 @@ public class MaterialServiceTests
     {
         var materialId = 1;
         var quantidade = 1;
-        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Returns((Material)null);
+        _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == materialId))).Throws<NaoEncontradoException>();
         _repositoryMock.Setup(x => x.Editar(It.IsAny<Material>()));
 
         var resultado = () => _service.MovimentarEstoque(materialId,

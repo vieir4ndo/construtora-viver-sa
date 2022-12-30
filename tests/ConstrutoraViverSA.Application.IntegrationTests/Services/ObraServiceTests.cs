@@ -76,7 +76,7 @@ public class ObraServiceTests
     {
         var obraId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId)))
-            .Returns((Obra)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.BuscarEntidadePorId(obraId);
 
@@ -110,7 +110,7 @@ public class ObraServiceTests
     {
         var obraId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId)))
-            .Returns((Obra)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.BuscarPorId(obraId);
 
@@ -167,7 +167,7 @@ public class ObraServiceTests
             .Without(x => x.Funcionarios)
             .Without(x => x.Materiais)
             .Create();
-        _orcamentoServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId))).Returns((Orcamento)null);
+        _orcamentoServiceMock.Setup(x => x.BuscarEntidadePorId(It.Is<long>(x => x == orcamentoId))).Throws<NaoEncontradoException>();
 
         var resultado = () => _service.Adicionar(dto);
 
@@ -323,7 +323,7 @@ public class ObraServiceTests
     {
         var obraId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == obraId)))
-            .Returns((Obra)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.Excluir(obraId);
 

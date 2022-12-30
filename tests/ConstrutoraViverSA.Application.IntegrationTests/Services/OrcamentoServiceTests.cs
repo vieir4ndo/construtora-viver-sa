@@ -67,7 +67,7 @@ public class OrcamentoServiceTests
     {
         var orcamentoId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId)))
-            .Returns((Orcamento)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.BuscarEntidadePorId(orcamentoId);
 
@@ -102,7 +102,7 @@ public class OrcamentoServiceTests
     {
         var orcamentoId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId)))
-            .Returns((Orcamento)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.BuscarPorId(orcamentoId);
 
@@ -202,7 +202,7 @@ public class OrcamentoServiceTests
     {
         var orcamentoId = 1;
         _repositoryMock.Setup(x => x.BuscarPorId(It.Is<long>(x => x == orcamentoId)))
-            .Returns((Orcamento)null);
+            .Throws<NaoEncontradoException>();
 
         var resultado = () => _service.Excluir(orcamentoId);
 

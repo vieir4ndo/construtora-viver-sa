@@ -15,4 +15,8 @@ public class NaoEncontradoException : Exception
         serializationInfo, streamingContext)
     {
     }
+
+    public NaoEncontradoException()
+    {
+    }
 }
