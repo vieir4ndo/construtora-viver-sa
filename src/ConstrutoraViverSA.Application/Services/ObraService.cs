@@ -7,7 +7,6 @@ using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace ConstrutoraViverSA.Application.Services;
 

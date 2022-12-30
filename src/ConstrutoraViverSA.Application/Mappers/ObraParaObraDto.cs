@@ -20,7 +20,7 @@ public class ObraParaObraDto : IObraParaObraDto
     {
         var dto = _mapper.Map<ObraDto>(obra);
 
-        if (obra.Funcionarios != null && obra.Funcionarios.Count > 0)
+        if (obra.Funcionarios is { Count: > 0 })
         {
             foreach (var funcionario in obra.Funcionarios!)
             {
@@ -28,22 +28,20 @@ public class ObraParaObraDto : IObraParaObraDto
             } 
         }
 
-        if (obra.ObraMateriais != null && obra.ObraMateriais.Count > 0)
+        if (obra.ObraMateriais is not { Count: > 0 }) return dto;
+        foreach (var materialId in obra.ObraMateriais!.Select(x => x.MaterialId).Distinct())
         {
-            foreach (var materialId in obra.ObraMateriais!.Select(x => x.MaterialId).Distinct())
-            {
-                int entrada = obra.ObraMateriais
-                    .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaida.Entrada)
-                    .Sum(x => x.Quantidade);
+            var entrada = obra.ObraMateriais
+                .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaida.Entrada)
+                .Sum(x => x.Quantidade);
 
-                int saida = obra.ObraMateriais
-                    .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaida.Saida)
-                    .Sum(x => x.Quantidade);
+            var saida = obra.ObraMateriais
+                .Where(x => x.MaterialId == materialId && x.Operacao == EntradaSaida.Saida)
+                .Sum(x => x.Quantidade);
                     
-                var saldoMateriasObra = entrada - saida;
+            var saldoMateriasObra = entrada - saida;
 
-                dto.Materiais!.Add(materialId, saldoMateriasObra);
-            }
+            dto.Materiais!.Add(materialId, saldoMateriasObra);
         }
 
         return dto;
