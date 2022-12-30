@@ -19,7 +19,7 @@ public sealed class ObraMaterial
     public EntradaSaida Operacao { get; }
 
     [ExcludeFromCodeCoverage]
-    public ObraMaterial()
+    protected ObraMaterial()
     {
         
     }

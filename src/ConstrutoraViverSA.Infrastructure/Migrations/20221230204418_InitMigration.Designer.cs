@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ConstrutoraViverSA.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221016212527_InitMigration")]
+    [Migration("20221230204418_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -183,6 +183,9 @@ namespace ConstrutoraViverSA.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<int>("Operacao")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantidade")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

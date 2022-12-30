@@ -17,7 +17,7 @@ public sealed class Estoque
     public DateTime DataHora { get; }
 
     [ExcludeFromCodeCoverage]
-    public Estoque()
+    protected Estoque()
     {
     }
 

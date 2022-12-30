@@ -26,7 +26,7 @@ public sealed class Obra
     public ICollection<ObraMaterial>? ObraMateriais { get; private set; } = new Collection<ObraMaterial>();
 
     [ExcludeFromCodeCoverage]
-    public Obra()
+    protected Obra()
     {
     }
 

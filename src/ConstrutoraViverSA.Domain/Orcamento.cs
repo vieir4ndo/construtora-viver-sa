@@ -19,7 +19,7 @@ public sealed class Orcamento
     public Obra? Obra { get; private set; }
     
     [ExcludeFromCodeCoverage]
-    public Orcamento()
+    protected Orcamento()
     {
     }
 

@@ -25,7 +25,7 @@ public sealed class Funcionario
     public ICollection<Obra>? Obras { get; private set; }
 
     [ExcludeFromCodeCoverage]
-    public Funcionario()
+    protected Funcionario()
     {
     }
 
