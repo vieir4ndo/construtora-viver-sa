@@ -15,8 +15,11 @@ public class ObraModel
     public TipoObra? TipoObra { get; set; }
     public string? Descricao { get; set; }
     public double? Valor { get; set; }
+    
     public DateTime? PrazoConclusao { get; set; }
-    public long? OrcamentoId { get; set; }
+    public Orcamento? Orcamento { get; set; }
+    
     public List<Funcionario>? Funcionarios { get; set; }
-    public List<Material>? Materiais { get; set; } 
+    
+    public Dictionary<Material, int>? Materiais { get; set; } 
 }

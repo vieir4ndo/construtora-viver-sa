@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Models;
 using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
@@ -22,8 +23,21 @@ public class ObraTests
         var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
+        
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
 
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        var obra = new Obra(model);
 
         obra.Should().NotBeNull();
         obra.Nome.Should().Be(nome);
@@ -47,8 +61,21 @@ public class ObraTests
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         var funcionarios = new List<Funcionario>() { FuncionarioStub.Valido(_fixture) };
+        
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = funcionarios,
+            Materiais = null
+        };
 
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, null);
+        var obra = new Obra(model);
 
         obra.Should().NotBeNull();
         obra.Nome.Should().Be(nome);
@@ -83,7 +110,20 @@ public class ObraTests
         var dicionarioMateriais = new Dictionary<Material, int>();
         materiais.ForEach(x => dicionarioMateriais.Add(x, 1));
 
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, dicionarioMateriais);
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = dicionarioMateriais
+        };
+        
+        var obra = new Obra(model);
 
         obra.Should().NotBeNull();
         obra.Nome.Should().Be(nome);
@@ -107,10 +147,23 @@ public class ObraTests
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         Obra? obra = null;
+        
+        var model = new ObraModel()
+        {
+            Nome = null,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
 
         var result = () =>
         {
-            obra = new Obra(null, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+            obra = new Obra(model);
         };
 
         obra.Should().BeNull();
@@ -128,10 +181,23 @@ public class ObraTests
             10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
         Obra? obra = null;
+        
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = null, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
 
         var result = () =>
         {
-            obra = new Obra(nome, null, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+            obra = new Obra(model);
         };
 
         obra.Should().BeNull();
@@ -150,9 +216,22 @@ public class ObraTests
         var prazoConclusao = DateTime.Today.AddDays(2);
         Obra? obra = null;
         
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = null,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
+        
         var result = () =>
         {
-            obra = new Obra(nome, endereco, null, descricao, valor, prazoConclusao, orcamento, null, null);
+            obra = new Obra(model);
         };
 
         obra.Should().BeNull();
@@ -171,9 +250,22 @@ public class ObraTests
         var prazoConclusao = DateTime.Today.AddDays(2);
         Obra? obra = null;
         
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = null,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
+        
         var result = () =>
         {
-            obra = new Obra(nome, endereco, tipoObra, null, valor, prazoConclusao, orcamento, null, null);
+            obra = new Obra(model);
         };
 
         obra.Should().BeNull();
@@ -194,9 +286,22 @@ public class ObraTests
         var prazoConclusao = DateTime.Today.AddDays(2);
         Obra? obra = null;
         
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
+        
         var result = () =>
         {
-            obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+            obra = new Obra(model);
         };
 
         obra.Should().BeNull();
@@ -214,9 +319,22 @@ public class ObraTests
         var prazoConclusao = DateTime.Today.AddDays(2);
         Obra? obra = null;
         
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = null,
+            Funcionarios = null,
+            Materiais = null
+        };
+        
         var result = () =>
         {
-            obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, null, null, null);
+            obra = new Obra(model);
         };
         
         obra.Should().BeNull();
@@ -235,9 +353,22 @@ public class ObraTests
             10.85);
         Obra? obra = null;
         
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = null,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
+        
         var result = () =>
         {
-            obra = new Obra(nome, endereco, tipoObra, descricao, valor, null, orcamento, null, null);
+            obra = new Obra(model);
         };
 
         obra.Should().BeNull();
@@ -257,9 +388,22 @@ public class ObraTests
         var prazoConclusao = DateTime.Today.AddDays(-1);
         Obra? obra = null;
         
+        var model = new ObraModel()
+        {
+            Nome = nome,
+            Endereco = endereco, 
+            TipoObra = tipoObra,
+            Descricao = descricao,
+            Valor = valor,
+            PrazoConclusao = prazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = null,
+            Materiais = null
+        };
+        
         var result = () =>
         {
-            obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+            obra = new Obra(model);
         };
 
         obra.Should().BeNull();
@@ -401,15 +545,9 @@ public class ObraTests
     [Fact]
     public void SetPrazoConclusao_ComDadosValidos_DeveRealizarAlteracao()
     {
-        var nome = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
-        var descricao = _fixture.Create<string>();
-        var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
-            10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+       
+        var obra = ObraStub.ValidoComPrazoDeConclusao(_fixture, prazoConclusao);
 
         var prazoConclusaoNovo = DateTime.Today.AddDays(1);
         
@@ -432,15 +570,8 @@ public class ObraTests
     [Fact]
     public void SetPrazoConclusao_ComDadosInvalidos_NaoDeveRealizarAlteracao()
     {
-        var nome = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
-        var descricao = _fixture.Create<string>();
-        var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
-            10.85);
         var prazoConclusao = DateTime.Today.AddDays(2);
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        var obra = ObraStub.ValidoComPrazoDeConclusao(_fixture, prazoConclusao);
 
         var prazoConclusaoNovo = DateTime.Today.AddDays(-1);
         

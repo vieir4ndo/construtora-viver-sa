@@ -6,6 +6,7 @@ using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Models;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services;
@@ -66,9 +67,21 @@ public class ObraService : IObraService
         var funcionarios = (dto.Funcionarios is not null) ? BuscarListaDeFuncionarios(dto.Funcionarios) : null;
 
         var materiais = (dto.Materiais is not null) ? BuscarDicionarioDeMateriaisEQuantidades(dto.Materiais) : null;
+
+        var model = new ObraModel()
+        {
+            Nome = dto.Nome,
+            Endereco = dto.Endereco, 
+            TipoObra = dto.TipoObra,
+            Descricao = dto.Descricao,
+            Valor = dto.Valor,
+            PrazoConclusao = dto.PrazoConclusao,
+            Orcamento = orcamento,
+            Funcionarios = funcionarios,
+            Materiais = materiais
+        };
         
-        var obra = new Obra(dto.Nome, dto.Endereco, dto.TipoObra, dto.Descricao, dto.Valor, dto.PrazoConclusao,
-            orcamento, funcionarios, materiais);
+        var obra = new Obra(model);
 
         _repository.Adicionar(obra);
     }

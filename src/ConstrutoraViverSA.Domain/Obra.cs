@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Models;
 
 namespace ConstrutoraViverSA.Domain;
 
@@ -30,31 +31,29 @@ public class Obra
     {
     }
 
-    public Obra(string? nome, string? endereco, TipoObra? tipoObra, string? descricao,
-        double? valor, DateTime? prazoConclusao, Orcamento? orcamento, List<Funcionario>? funcionarios,
-        Dictionary<Material, int>? materiais)
+    public Obra(ObraModel model)
     {
         var erros = new StringBuilder();
 
-        if (string.IsNullOrWhiteSpace(nome))
+        if (string.IsNullOrWhiteSpace(model.Nome))
             erros.Append("Nome inválido.");
 
-        if (string.IsNullOrWhiteSpace(endereco))
+        if (string.IsNullOrWhiteSpace(model.Endereco))
             erros.Append("Endereço inválido.");
 
-        if (tipoObra is null)
+        if (model.TipoObra is null)
             erros.Append("Tipo Obra inválido.");
 
-        if (string.IsNullOrWhiteSpace(descricao))
+        if (string.IsNullOrWhiteSpace(model.Descricao))
             erros.Append("Descrição inválida.");
 
-        if (valor is null or <= 0)
+        if (model.Valor is null or <= 0)
             erros.Append("Valor inválido.");
         
-        if (orcamento is null)
+        if (model.Orcamento is null)
             erros.Append("Orcamento inválido.");
 
-        if (orcamento is not null && (prazoConclusao is null || prazoConclusao.Value < orcamento!.DataValidade ))
+        if (model.Orcamento is not null && (model.PrazoConclusao is null || model.PrazoConclusao.Value < model.Orcamento!.DataValidade ))
         {
             erros.Append("Prazo conclusão inválido.");
         }
@@ -62,25 +61,25 @@ public class Obra
         if (erros.Length > 0)
             throw new ObraInvalidaException(erros.ToString());
 
-        Nome = nome!;
-        Endereco = endereco!;
-        TipoObra = tipoObra;
-        Descricao = descricao!;
-        Valor = valor;
-        PrazoConclusao = prazoConclusao;
-        Orcamento = orcamento!;
+        Nome = model.Nome!;
+        Endereco = model.Endereco!;
+        TipoObra = model.TipoObra;
+        Descricao = model.Descricao!;
+        Valor = model.Valor;
+        PrazoConclusao = model.PrazoConclusao;
+        Orcamento = model.Orcamento!;
 
-        if (funcionarios is not null && funcionarios.Count is > 0)
+        if (model.Funcionarios is not null && model.Funcionarios.Count is > 0)
         {
-            foreach (var funcionario in funcionarios)
+            foreach (var funcionario in model.Funcionarios)
             {
                 Funcionarios.Add(funcionario);
             }
         }
 
-        if (materiais is not null && materiais.Count is > 0)
+        if (model.Materiais is not null && model.Materiais.Count is > 0)
         {
-            foreach (var material in materiais)
+            foreach (var material in model.Materiais)
             {
                 ObraMateriais!.Add(new ObraMaterial(this, material.Key, material.Value, EntradaSaida.Entrada));
             }

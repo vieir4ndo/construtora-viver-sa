@@ -26,15 +26,7 @@ public class ObraParaObraDtoTests
     [Fact]
     public void Mapear_ComDadosValidosESemFuncionariosEMateriais_DeveRealizarOperacao()
     {
-        var nome = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
-        var descricao = _fixture.Create<string>();
-        var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
-            10.85);
-        var prazoConclusao = DateTime.Today.AddDays(2);
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, null);
+        var obra = ObraStub.Valido(_fixture);
         var obraDto = _fixture.Build<ObraDto>()
             .Without(x => x.Funcionarios)
             .Without(x => x.Materiais)
@@ -53,17 +45,9 @@ public class ObraParaObraDtoTests
     [Fact]
     public void Mapear_ComDadosValidosEComFuncionariosESemMateriais_DeveRealizarOperacao()
     {
-        var nome = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
-        var descricao = _fixture.Create<string>();
-        var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
-            10.85);
-        var prazoConclusao = DateTime.Today.AddDays(2);
         var funcionarios = new List<Funcionario>()
             { FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture) };
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, null);
+        var obra = ObraStub.ValidoComFuncionarios(_fixture, funcionarios);
         var obraDto = _fixture.Build<ObraDto>()
             .Without(x => x.Funcionarios)
             .Without(x => x.Materiais)
@@ -83,21 +67,13 @@ public class ObraParaObraDtoTests
     [Fact]
     public void Mapear_ComDadosValidosESemFuncionariosEComMateriais_DeveRealizarOperacao()
     {
-        var nome = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
-        var descricao = _fixture.Create<string>();
-        var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
-            10.85);
-        var prazoConclusao = DateTime.Today.AddDays(2);
         var quantidade = 1;
         var materiais = new List<Material>()
             { MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture) };
         materiais.ForEach(x => x.MovimentarEstoque(EntradaSaida.Entrada, quantidade));
         var dicionarioMateriais = new Dictionary<Material, int>();
         materiais.ForEach(x => dicionarioMateriais.Add(x, quantidade));
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, null, dicionarioMateriais);
+        var obra = ObraStub.ValidoComMateriais(_fixture, dicionarioMateriais);
         var obraDto = _fixture.Build<ObraDto>()
             .Without(x => x.Funcionarios)
             .Without(x => x.Materiais)
@@ -116,14 +92,7 @@ public class ObraParaObraDtoTests
     
     [Fact]
     public void Mapear_ComDadosValidosEComFuncionariosEMateriais_DeveRealizarOperacao()
-    { var nome = _fixture.Create<string>();
-        var endereco = _fixture.Create<string>();
-        var tipoObra = _fixture.Create<TipoObra>();
-        var descricao = _fixture.Create<string>();
-        var valor = _fixture.Create<double>();
-        var orcamento = new Orcamento("teste", "teste", TipoObra.Ambas, DateTime.Today, DateTime.Today.AddDays(1),
-            10.85);
-        var prazoConclusao = DateTime.Today.AddDays(2);
+    { 
         var quantidade = 1;
         var materiais = new List<Material>()
             { MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture), MaterialStub.Valido(_fixture) };
@@ -132,7 +101,7 @@ public class ObraParaObraDtoTests
         materiais.ForEach(x => dicionarioMateriais.Add(x, quantidade));
         var funcionarios = new List<Funcionario>()
             { FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture), FuncionarioStub.Valido(_fixture) };
-        var obra = new Obra(nome, endereco, tipoObra, descricao, valor, prazoConclusao, orcamento, funcionarios, dicionarioMateriais);
+        var obra = ObraStub.ValidoComFuncionariosEMateriais(_fixture, funcionarios, dicionarioMateriais);
         var obraDto = _fixture.Build<ObraDto>()
             .Without(x => x.Funcionarios)
             .Without(x => x.Materiais)
