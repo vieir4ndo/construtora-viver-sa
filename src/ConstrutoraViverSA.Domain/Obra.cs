@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Domain.Models;
+using ConstrutoraViverSA.Domain.Validators;
 
 namespace ConstrutoraViverSA.Domain;
 
@@ -21,7 +22,6 @@ public class Obra
     public double? Valor { get; private set; }
     public DateTime? PrazoConclusao { get; private set; }
     public Orcamento Orcamento { get; private set; } = null!;
-
     public long OrcamentoId { get; private set; }
     public ICollection<Funcionario>? Funcionarios { get; private set;  } = new Collection<Funcionario>();
     public ICollection<ObraMaterial>? ObraMateriais { get; private set; } = new Collection<ObraMaterial>();
@@ -33,34 +33,6 @@ public class Obra
 
     public Obra(ObraModel model)
     {
-        var erros = new StringBuilder();
-
-        if (string.IsNullOrWhiteSpace(model.Nome))
-            erros.Append("Nome inválido.");
-
-        if (string.IsNullOrWhiteSpace(model.Endereco))
-            erros.Append("Endereço inválido.");
-
-        if (model.TipoObra is null)
-            erros.Append("Tipo Obra inválido.");
-
-        if (string.IsNullOrWhiteSpace(model.Descricao))
-            erros.Append("Descrição inválida.");
-
-        if (model.Valor is null or <= 0)
-            erros.Append("Valor inválido.");
-        
-        if (model.Orcamento is null)
-            erros.Append("Orcamento inválido.");
-
-        if (model.Orcamento is not null && (model.PrazoConclusao is null || model.PrazoConclusao.Value < model.Orcamento!.DataValidade ))
-        {
-            erros.Append("Prazo conclusão inválido.");
-        }
-
-        if (erros.Length > 0)
-            throw new ObraInvalidaException(erros.ToString());
-
         Nome = model.Nome!;
         Endereco = model.Endereco!;
         TipoObra = model.TipoObra;
@@ -68,6 +40,11 @@ public class Obra
         Valor = model.Valor;
         PrazoConclusao = model.PrazoConclusao;
         Orcamento = model.Orcamento!;
+
+        var resultado = new ObraValidator().Validate(this);
+        
+        if (!resultado.IsValid)
+            throw new ObraInvalidaException(resultado.Errors.ToString());
 
         if (model.Funcionarios is not null && model.Funcionarios.Count is > 0)
         {
