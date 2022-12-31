@@ -49,17 +49,13 @@ public class Obra
 
         if (model.Valor is null or <= 0)
             erros.Append("Valor inválido.");
-
-        if (model.Orcamento is not null)
-        {
-            if (model.PrazoConclusao is null || model.PrazoConclusao.Value < model.Orcamento!.DataValidade )
-            {
-                erros.Append("Prazo conclusão inválido.");
-            }
-        }
-        else
-        {
+        
+        if (model.Orcamento is null)
             erros.Append("Orcamento inválido.");
+
+        if (model.Orcamento is not null && (model.PrazoConclusao is null || model.PrazoConclusao.Value < model.Orcamento!.DataValidade ))
+        {
+            erros.Append("Prazo conclusão inválido.");
         }
 
         if (erros.Length > 0)
@@ -73,7 +69,7 @@ public class Obra
         PrazoConclusao = model.PrazoConclusao;
         Orcamento = model.Orcamento!;
 
-        if (model.Funcionarios is not null)
+        if (model.Funcionarios is not null && model.Funcionarios.Count is > 0)
         {
             foreach (var funcionario in model.Funcionarios)
             {
@@ -81,7 +77,7 @@ public class Obra
             }
         }
 
-        if (model.Materiais is not null)
+        if (model.Materiais is not null && model.Materiais.Count is > 0)
         {
             foreach (var material in model.Materiais)
             {
