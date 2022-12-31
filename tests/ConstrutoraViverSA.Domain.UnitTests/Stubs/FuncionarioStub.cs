@@ -1,6 +1,7 @@
 using AutoFixture;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
+using ConstrutoraViverSA.Domain.Models;
 
 namespace ConstrutoraViverSA.Domain.Tests.Stubs;
 
@@ -20,7 +21,7 @@ public static class FuncionarioStub
         var telefone = fixture.Create<string>();
         var cargo = fixture.Create<Cargo>();
 
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -33,7 +34,7 @@ public static class FuncionarioStub
             Cargo = cargo
         };
 
-        return new Funcionario(dto);
+        return new Funcionario(model);
     }
 
     public static Funcionario ValidoComId(Fixture fixture, long id)

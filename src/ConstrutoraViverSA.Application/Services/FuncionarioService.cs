@@ -4,6 +4,7 @@ using ConstrutoraViverSA.Application.Interfaces;
 using ConstrutoraViverSA.Domain;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Models;
 using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.Services;
@@ -48,7 +49,21 @@ public class FuncionarioService : IFuncionarioService
 
     public void Adicionar(FuncionarioDto dto)
     {
-        var funcionario = new Funcionario(dto);
+        var model = new FuncionarioModel()
+        {
+            Nome = dto.Nome,
+            DataNascimento = dto.DataNascimento,
+            Genero = dto.Genero,
+            Cpf = dto.Cpf,
+            NumCtps = dto.NumCtps,
+            Endereco = dto.Endereco,
+            Email = dto.Email,
+            Telefone = dto.Telefone,
+            Cargo = dto.Cargo
+        };
+        
+        var funcionario = new Funcionario(model);
+        
         _repository.Adicionar(funcionario);
     }
 

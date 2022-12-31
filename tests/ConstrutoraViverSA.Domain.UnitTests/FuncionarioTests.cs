@@ -2,6 +2,7 @@ using AutoFixture;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Enums;
 using ConstrutoraViverSA.Domain.Exceptions;
+using ConstrutoraViverSA.Domain.Models;
 using ConstrutoraViverSA.Domain.Tests.Stubs;
 using FluentAssertions;
 using Xunit;
@@ -27,7 +28,7 @@ public class FuncionarioTests
         var telefone = _fixture.Create<string>();
         var cargo = _fixture.Create<Cargo>();
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -40,7 +41,7 @@ public class FuncionarioTests
             Cargo = cargo
         };
 
-        var result = new Funcionario(dto);
+        var result = new Funcionario(model);
 
         result.Should().NotBeNull();
         result.Nome.Should().Be(nome);
@@ -67,7 +68,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
 
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = null,
             DataNascimento = dataNascimento,
@@ -82,7 +83,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
 
         funcionario.Should().BeNull();
@@ -102,7 +103,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = null,
@@ -117,7 +118,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
         
         funcionario.Should().BeNull();
@@ -139,7 +140,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -154,7 +155,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
 
         funcionario.Should().BeNull();
@@ -174,7 +175,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -189,7 +190,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
 
         funcionario.Should().BeNull();
@@ -212,7 +213,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -227,7 +228,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
         
         funcionario.Should().BeNull();
@@ -247,7 +248,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -262,7 +263,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
         
         funcionario.Should().BeNull();
@@ -282,7 +283,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -297,7 +298,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
         
         funcionario.Should().BeNull();
@@ -317,7 +318,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -332,7 +333,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
         
         funcionario.Should().BeNull();
@@ -352,7 +353,7 @@ public class FuncionarioTests
         var cargo = _fixture.Create<Cargo>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -367,7 +368,7 @@ public class FuncionarioTests
 
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
 
         funcionario.Should().BeNull();
@@ -387,7 +388,7 @@ public class FuncionarioTests
         var telefone = _fixture.Create<string>();
         Funcionario? funcionario = null;
         
-        var dto = new FuncionarioDto()
+        var model = new FuncionarioModel()
         {
             Nome = nome,
             DataNascimento = dataNascimento,
@@ -402,7 +403,7 @@ public class FuncionarioTests
         
         var result = () =>
         {
-            funcionario = new Funcionario(dto);
+            funcionario = new Funcionario(model);
         };
 
         funcionario.Should().BeNull();

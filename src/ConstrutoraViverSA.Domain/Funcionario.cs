@@ -7,6 +7,7 @@ using System.Text;
 using ConstrutoraViverSA.Domain.Dtos;
 using ConstrutoraViverSA.Domain.Exceptions;
 using ConstrutoraViverSA.Domain.Extensions;
+using ConstrutoraViverSA.Domain.Models;
 
 namespace ConstrutoraViverSA.Domain;
 
@@ -30,49 +31,49 @@ public class Funcionario
     {
     }
 
-    public Funcionario(FuncionarioDto dto)
+    public Funcionario(FuncionarioModel model)
     {
         var erros = new StringBuilder();
 
-        if (string.IsNullOrWhiteSpace(dto.Nome))
+        if (string.IsNullOrWhiteSpace(model.Nome))
             erros.Append("Nome inválido.");
 
-        if (dto.DataNascimento is null || dto.DataNascimento == DateTime.MinValue)
+        if (model.DataNascimento is null || model.DataNascimento == DateTime.MinValue)
             erros.Append("Data de Nascimento inválida.");
 
-        if (dto.Genero is null)
+        if (model.Genero is null)
             erros.Append("Gênero inválido.");
         
-        if (string.IsNullOrWhiteSpace(dto.Cpf) || dto.Cpf.Length != 11 || !CpfExtension.EhValido(dto.Cpf))
+        if (string.IsNullOrWhiteSpace(model.Cpf) || model.Cpf.Length != 11 || !CpfExtension.EhValido(model.Cpf))
             erros.Append("CPF inválido.");
 
-        if (string.IsNullOrWhiteSpace(dto.NumCtps))
+        if (string.IsNullOrWhiteSpace(model.NumCtps))
             erros.Append("Número CTPS inválido.");
 
-        if (string.IsNullOrWhiteSpace(dto.Endereco))
+        if (string.IsNullOrWhiteSpace(model.Endereco))
             erros.Append("Endereço inválido.");
 
-        if (string.IsNullOrWhiteSpace(dto.Email))
+        if (string.IsNullOrWhiteSpace(model.Email))
             erros.Append("E-mail inválido.");
 
-        if (string.IsNullOrWhiteSpace(dto.Telefone))
+        if (string.IsNullOrWhiteSpace(model.Telefone))
             erros.Append("Telefone inválido.");
 
-        if (dto.Cargo is null)
+        if (model.Cargo is null)
             erros.Append("Cargo inválido.");
 
         if (erros.Length > 0)
             throw new FuncionarioInvalidoException(erros.ToString());
 
-        Nome = dto.Nome!;
-        DataNascimento = dto.DataNascimento!.Value;
-        Genero = dto.Genero;
-        Cpf = dto.Cpf!;
-        NumCtps = dto.NumCtps!;
-        Endereco = dto.Endereco!;
-        Email = dto.Email!;
-        Telefone = dto.Telefone!;
-        Cargo = dto.Cargo;
+        Nome = model.Nome!;
+        DataNascimento = model.DataNascimento!.Value;
+        Genero = model.Genero;
+        Cpf = model.Cpf!;
+        NumCtps = model.NumCtps!;
+        Endereco = model.Endereco!;
+        Email = model.Email!;
+        Telefone = model.Telefone!;
+        Cargo = model.Cargo;
     }
 
     public void SetNome(string? nome)
