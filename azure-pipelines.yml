@@ -6,12 +6,6 @@
 trigger:
 - main
 
-pool:
-  name: 'windows-desktop'
-  demands:
-    - Agent.OS -equals Windows_NT
-    - Agent.Name -equals windows-desktop
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
