@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: 'windows-latest'
+  name: 'windows-desktop'
   demands:
     - Agent.OS -equals Windows_NT
     - Agent.Name -equals windows-desktop
