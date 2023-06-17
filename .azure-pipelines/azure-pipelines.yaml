@@ -1,0 +1,19 @@
+trigger:
+  - main
+
+resources:
+  - repo: self
+name: 1.1.$(Date:yyMM).$(Date:dd)$(Rev:rr)
+
+stages:
+  - stage: Build
+    displayName: Build
+    jobs:
+      - job: Build
+        workspace:
+          clean: all
+        displayName: Build
+        steps:
+          - template: templates/build-template.yaml
+            parameters:
+              solution_path: 'ConstrutoraViverSA.sln'
