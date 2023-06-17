@@ -37,7 +37,7 @@ steps:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
       **\*test*.dll
-      !**\*Tests.dll
+      !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
     # ------------  Use the version installed by installer -----------
