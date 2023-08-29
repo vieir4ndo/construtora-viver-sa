@@ -5,11 +5,11 @@ using ConstrutoraViverSA.Repository.Interfaces;
 
 namespace ConstrutoraViverSA.Application.UnitTests;
 
-public class FuncionarioRepositoryFake : IFuncionarioRepository
+public class FuncionarioRepositorySpy : IFuncionarioRepository
 {
     public List<Funcionario> Funcionarios { get; private set; }
 
-    public FuncionarioRepositoryFake()
+    public FuncionarioRepositorySpy()
     {
         Funcionarios = new List<Funcionario>();
     }
@@ -27,6 +27,7 @@ public class FuncionarioRepositoryFake : IFuncionarioRepository
 
     public void Adicionar(Funcionario obj)
     {
+        obj.Id = Funcionarios.Count + 1;
         Funcionarios.Add(obj);
     }
 
